@@ -1,0 +1,70 @@
+/* #Typography
+================================================== */
+h1, h2, h3, h4, h5, h6 {
+    color: $color-font-h;
+    @include font-family('Source Sans Pro', semibold);
+    a {
+        font-weight: inherit;
+    }
+    @include breakpoint(max-width $mobile) {
+        @include font-family-mobile(semibold);
+    }
+}
+
+h1 {
+    @include rem-fallback(font-size, 1.7rem);
+    @include rem-fallback(line-height, 3.2rem);
+    @include rem-fallback(margin-bottom, 1.3rem);
+}
+
+h2 {
+    @include rem-fallback(font-size, 1.5rem);
+    @include rem-fallback(line-height, 2.8rem);
+    @include rem-fallback(margin-bottom, .9rem);
+}
+
+h3 {
+    @include rem-fallback(font-size, 1.3rem);
+    @include rem-fallback(line-height, 2.3rem);
+    @include rem-fallback(margin-bottom, .5rem);
+}
+
+h4 {
+    @include rem-fallback(font-size, 1.1rem);
+    @include rem-fallback(line-height, 2rem);
+    @include rem-fallback(margin-bottom, .25rem);
+}
+
+h5 {
+    @include rem-fallback(font-size, .9rem);
+    @include rem-fallback(line-height, 1.5rem);
+}
+
+h6 {
+    @include rem-fallback(font-size, .7rem);
+    @include rem-fallback(line-height, 1.2rem);
+}
+
+p {
+    @include rem-fallback(margin, 0, 0, 1rem);
+    @include rem-fallback(line-height, 1.4rem);
+    text-align: justify;
+    img {
+        margin: 0;
+    }
+}
+
+em { 
+    font-style: italic;
+}
+
+b, strong {
+    @include font-family('Source Sans Pro', semibold);
+    @include breakpoint(max-width $mobile) {
+        @include font-family-mobile(semibold);
+    }
+}
+
+small { 
+    font-size: 80%;
+}

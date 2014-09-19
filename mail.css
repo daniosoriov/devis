@@ -1,0 +1,146 @@
+div {
+  color: #555;
+}
+
+a {
+  color: #002C52;
+  text-decoration: none;
+}
+
+table {
+  border-collapse: separate;
+  border-spacing: 0px;
+  table-layout: fixed;
+}
+
+table#main {
+  width: 100%;
+  background-color: #f1f2f6;
+}
+
+div#main-border-top {
+  min-height: 20px;
+  max-height: 20px;
+  vertical-align: top;
+  overflow: hidden;
+}
+
+td#main-border-top {
+  padding-top: 20px;
+}
+
+table#head {
+  width: 90%;
+  /*min-width: 640px;*/
+  min-width: 260px;
+}
+
+td#head {
+  text-align: center;
+  font-size: 26px;
+  font-family: Helvetica, Arial, sans-serif;
+  padding-bottom: 10px;
+}
+
+table#body {
+  width: 90%;
+  min-width: 640px;
+  padding-left: 20px;
+  padding-right: 20px;
+  border-radius: 8px;
+  background-color: #fff;
+  color: #333;
+}
+
+table#body a {
+  color: #0070D2;
+}
+
+table#body a:hover {
+  color: #00559F;
+}
+
+td#body-border-top {
+  padding-top: 20px;
+}
+
+td#body-border-bottom {
+  padding-bottom: 20px;
+}
+
+td#footer {
+  padding-right: 0;
+  padding-left: 0;
+  vertical-align: top;
+  padding-top: 15px;
+  padding-bottom: 0;
+}
+
+table#footer {
+  width: 90%;
+  min-width: 640px;
+}
+
+td#footer-team {
+  text-align: right;
+  font-size: 12px;
+  font-family: Helvetica, sans-serif;
+  padding-bottom: 10px;
+}
+
+td#footer-border-bottom {
+  padding-bottom: 40px;
+}
+
+@media only screen and (max-width: 620px) {
+  table#head {
+    min-width: 500px;
+  }
+  
+  table#body {
+    min-width: 500px;
+    border-radius: 5px;
+  }
+  
+  table#footer {
+    min-width: 500px;
+  }
+  
+  td#footer-border-bottom {
+    padding-bottom: 25px;
+  }
+}
+
+@media only screen and (max-width: 320px) {
+  table#head {
+    width: 90%;
+    min-width: 260px;
+  }
+  
+  table#body {
+    font-size: 12px;
+    min-width: 260px;
+    border-radius: 5px;
+  }
+  
+  td#body-border-top {
+    padding-top: 15px;
+  }
+
+  td#body-border-bottom {
+    padding-bottom: 15px;
+  }
+  
+  table#footer {
+    min-width: 260px;
+  }
+  
+  td#footer-team {
+    font-size: 11px;
+  }
+  
+  td#footer-border-bottom {
+    padding-bottom: 20px;
+  }
+}
+

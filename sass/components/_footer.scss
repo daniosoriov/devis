@@ -1,0 +1,113 @@
+#page-footer {
+    position: absolute;
+    bottom: 0;
+    height: 220px;
+    
+    @include breakpoint(max-width $tab) {
+        height: 500px;
+    }
+    
+    @include breakpoint($tab $desktop) {
+        height: 270px;
+    }
+}
+
+.l-footer {
+    background: $color-footer-background;
+    @include background-image(linear-gradient($color-footer-background-top, $color-footer-background-bottom));
+    border: 1px solid $color-footer-border;
+    @include single-box-shadow();
+    @include grid-span(12, 1);
+    @include border-top-radius();
+    
+    @include breakpoint(max-width $tab) {
+        width: $mobile;
+    }
+    
+    @include breakpoint($tab $desktop) {
+        width: $tab;
+    }
+    
+    @include breakpoint($desktop) {
+        width: $desktop;
+    }
+    
+    // menu-block-1 has been added on the panels menu on drupal.
+    div[class*=' menu-block'], div[class^='menu-block'] {
+        display: inline-block;
+        vertical-align: top;
+        @include rem-fallback(padding, 0, 1rem);
+        width: 20%;
+        
+        @include breakpoint(max-width $tab) {
+            display: block;
+            width: 100%;
+            text-align: center;
+            ul {
+                text-align: center;
+            }
+        }
+    }
+    
+    div.panels-ipe-portlet-wrapper {
+        display: inline-block;
+        vertical-align: top;
+        @include rem-fallback(padding, 0, 1rem);
+        width: 20%;
+        
+        div[class*=' menu-block'], div[class^='menu-block'] {
+            display: block;
+            width: 100%;
+            padding: 0;
+        }
+    }
+    
+    ul {
+        .leaf {
+            list-style-image: none;
+            list-style-type: none;
+        }
+
+        li {
+            @include rem-fallback(margin, .5rem);
+            @include transition-duration(.08s);
+            
+            &.active-trail {
+                @include rem-fallback(padding-left, .2rem);
+            }
+            &:hover {
+                @include rem-fallback(padding, 0, .2rem);
+            }
+        }
+    }
+    
+    a {
+        color: $color-footer-a;
+        @include font-family('Source Sans Pro', light);
+        &:hover {
+            color: $color-footer-a-hover;
+        }
+        
+        @include breakpoint(max-width $mobile) {
+            @include font-family-mobile(light);
+        }
+    }
+    
+    a.active {
+        color: $color-footer-a-active;
+        @include font-family('Source Sans Pro', regular);
+        &:hover {
+            color: $color-footer-a-hover;
+        }
+        
+        @include breakpoint(max-width $mobile) {
+            @include font-family-mobile();
+        }
+    }
+    
+    h2.pane-title {
+        @include rem-fallback(font-size, 1.25rem);
+        font-weight: 400;
+        color: $color-footer-title;
+    }
+}

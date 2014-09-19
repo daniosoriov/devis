@@ -1,0 +1,383 @@
+@import "breakpoint";
+
+/* #Buttons
+================================================== */
+.button,
+button,
+input[type="submit"],
+input[type="reset"],
+input[type="button"] {
+    @include font-family('Raleway', semibold);
+    background: $color-button-background;
+    @include background-image(linear-gradient($color-button-background-top, $color-button-background-bottom));
+    color: $color-button;
+    border: 1px solid $color-button-border;
+    border-top: 1px solid $color-button-border-side;
+    border-left: 1px solid $color-button-border-side;
+    @include border-radius(.2rem);
+    @include single-transition(all, .1s);
+    @include single-text-shadow($color-button-text-shadow);
+    @include rem-fallback(margin-bottom, 1.2rem);
+    @include rem-fallback(padding, .5rem, .8rem);
+    @include rem-fallback(font-size, .8rem);
+    display: inline-block;
+    text-decoration: none;
+    cursor: pointer;
+    line-height: normal;
+    
+    &:hover {
+        color: $color-button-hover;
+        background: $color-button-hover-background;
+        @include background-image(linear-gradient($color-button-hover-background-top, $color-button-hover-background-bottom));
+        border: 1px solid $color-button-hover-border;
+        border-top: 1px solid $color-button-hover-border-side;
+        border-left: 1px solid $color-button-hover-border-side;
+    }
+    
+    &:active {
+        color: $color-button-active;
+        background: $color-button-active-background;
+        @include background-image(linear-gradient($color-button-active-background-top, $color-button-active-background-bottom));
+        border: 1px solid $color-button-active-border;
+        border-top: 1px solid $color-button-active-border-side;
+        border-left: 1px solid $color-button-active-border-side;
+        @include box-shadow(0px 1px 15px -3px $color-button-active-shadow);
+    }
+    
+    &:focus {
+        outline: none;
+    }
+    
+    &.full-width {
+        width: 100%;
+        padding-left: 0 !important;
+        padding-right: 0 !important;
+        text-align: center;
+    }
+    
+    @include breakpoint(max-width $mobile) {
+        @include font-family-mobile(semibold);
+    }
+}
+
+/* Fix for odd Mozilla border & padding issues */
+button::-moz-focus-inner, 
+input::-moz-focus-inner {
+    border: 0;
+    padding: 0;
+}
+
+/* #Forms
+================================================== */
+form, .form-item {
+    @include rem-fallback(margin-bottom, 1rem);
+}
+
+.form-item .description {
+    @include font-family('Source Sans Pro', light);
+    @include rem-fallback(font-size, .8rem);
+    @include rem-fallback(margin, .25rem, 0rem);
+    
+    @include breakpoint(max-width $mobile) {
+        @include font-family-mobile(light);
+    }
+}
+
+.form-required {
+    color: $color-form-required;
+    font-size: 1.3rem;
+    position: relative;
+    left: -2px;
+    top: 3px;
+}
+
+fieldset {
+    @include rem-fallback(margin-bottom, 1rem);
+    border: 1px solid $color-fieldset-border;
+    background: $color-fieldset-background;
+    @include rem-fallback(padding, .6rem, .8rem);
+    @include border-radius();
+    //@include box-shadow(0px 0px 3px -2px $color-fieldset-shadow);
+    
+    & > fielset {
+        border-left: 0;
+        border-right: 0;
+    }
+    
+    .fieldset-legend, .fieldset-title {
+        @include font-family('Raleway', semibold);
+        color: $color-fieldset-legend;
+        @include rem-fallback(font-size, 0.95rem);
+        @include breakpoint(max-width $mobile) {
+            @include font-family-mobile();
+        }
+    }
+    
+    .fieldset-description {
+        @include font-family('Raleway', light);
+        color: $color-fieldset-description;
+        @include rem-fallback(font-size, 0.9rem);
+        @include rem-fallback(margin-bottom, 1rem);
+        @include rem-fallback(padding-left, 1rem);
+        @include breakpoint(max-width $mobile) {
+            @include font-family-mobile(light);
+        }
+    }
+    
+    @include breakpoint(max-width $tab) {
+        @include rem-fallback(margin-bottom, .1rem);
+        @include rem-fallback(padding, .1rem);
+    }
+    
+    &.group-admin {
+        box-shadow: none;
+        border: 1px solid $color-fieldset-admin-border;
+    }
+    
+    .fieldset-hide {
+        padding: 0;
+        margin: 0;
+        border: 0;
+        
+        legend {
+            display: none;
+        }
+    }
+}
+
+input[type="text"],
+input[type="password"],
+input[type="email"],
+textarea,
+select {
+    @include font-family('Raleway');
+    color: $color-input;
+    background: $color-input-background;
+    border: 1px solid $color-input-border;
+    @include rem-fallback(padding, .4rem, .3rem);
+    @include rem-fallback(font-size, 0.85rem);
+    @include border-radius();
+    outline: none;
+    margin: 0;
+    /* @include rem-fallback(margin-bottom, 1rem); */
+    @include rem-fallback(min-width, 4rem);
+    width: 50%;
+    display: block;
+    
+    &:hover {
+        border: 1px solid $color-input-hover-border;
+        color: $color-input-hover;
+    }
+    
+    &:focus {
+        border: 1px solid $color-input-active-border;
+        color: $color-input-active;
+        @include single-box-shadow($color-input-active-shadow);
+    }
+    
+    &.error {
+        border: 1px solid $color-input-error-border;
+
+        &:hover, &:active, &:focus {
+            border: 1px solid $color-input-error-hover-border;
+        }
+    }
+    
+    &.input-smaller {
+        width: 10%;
+    }
+    
+    &.input-login {
+        width: 40%;
+        @include breakpoint(max-width $tab) {
+            max-width: 100%;
+            width: 100%;
+        }
+    }
+    
+    @include breakpoint(max-width $mobile) {
+        @include font-family-mobile();
+    }
+    
+    @include breakpoint(max-width $tab) {
+        max-width: 100%;
+        width: 100%;
+    }
+
+    @include breakpoint($tab $desktop) {
+        max-width: 80%;
+        width: 80%;
+    }
+}
+
+textarea, .form-textarea-wrapper textarea {
+    @include rem-fallback(min-height, 3rem);
+    @include rem-fallback(height, 3rem);
+    @include rem-fallback(line-height, 1.17rem);
+    resize: vertical;
+    width: 50%;
+    max-width: 50%;
+    
+    @include breakpoint(max-width $tab) {
+        max-width: 100%;
+        width: 100%;
+    }
+
+    @include breakpoint($tab $desktop) {
+        max-width: 80%;
+        width: 80%;
+    }
+}
+
+// jQuery is already removing this, so this is a backup for jQuery.
+.resizable-textarea .grippie {
+    width: 50%;
+    height: 0;
+    background: none;
+    border: 0;
+    cursor: auto;
+}
+
+label,
+legend {
+    color: $color-label;
+    display: block;
+    @include font-family('Raleway', 'semibold');
+    @include rem-fallback(font-size, 0.95rem);
+    @include rem-fallback(margin-bottom, 0.3rem);
+    
+    span {
+        font-weight: normal;
+        @include rem-fallback(font-size, 0.8rem);
+    }
+    
+    @include breakpoint(max-width $mobile) {
+        @include font-family-mobile(semibold);
+    }
+}
+
+input[type="checkbox"], input[type="radio"] {
+    display: inline;
+    vertical-align: middle;
+    @include rem-fallback(margin, .2rem, .2rem, .4rem, 0);
+    
+    + label {
+        @include font-family('Raleway');
+        @include rem-fallback(font-size, 0.9rem);
+        
+        @include breakpoint(max-width $mobile) {
+            @include font-family-mobile();
+        }
+    }
+}
+
+
+.container-wrapper {
+    div.form-wrapper {
+        display: inline-block;
+        
+        &:nth-child(1) {
+            vertical-align: top;
+        }
+        
+        &:nth-child(2) {
+            vertical-align: bottom;
+        }
+        
+        input {
+            max-width: 200px;
+            width: 100%;
+            margin-right: 1rem;
+            
+            @include breakpoint(max-width $tab) {
+                max-width: 100%;
+                width: 100%;
+            }
+
+            @include breakpoint($tab $desktop) {
+                max-width: 250px;
+                width: 100%;
+            }
+        }
+    }
+}
+
+
+/* Fix weird behaviors. */
+div#edit-actions {
+  @include rem-fallback(margin-top, 1rem);
+    input {
+        margin: 0;
+    }
+    
+    a {
+        @include rem-fallback(padding, 0, 1rem);
+    }
+}
+
+form.confirmation {
+  @include rem-fallback(line-height, 1.5rem);
+}
+
+div.form-actions {
+  .button,
+  button,
+  input[type="submit"],
+  input[type="reset"],
+  input[type="button"] {
+    @include rem-fallback(margin-right, 1rem);
+  }
+}
+
+/* Autocomplete. */
+div#autocomplete {
+    color: $color-div-autocomplete;
+    background: $color-div-autocomplete-background;
+    border: 1px solid $color-div-autocomplete-border;
+    @include border-radius(.2rem);
+    @include single-box-shadow();
+    
+    li {
+        @include font-family('Raleway');
+        @include rem-fallback(font-size, .95rem);
+        margin: 0;
+        @include rem-fallback(padding, .5rem);
+        @include background-image(linear-gradient($color-div-autocomplete-li-background-top, $color-div-autocomplete-li-background-bottom));
+        
+        &.selected {
+            color: $color-div-autocomplete-li-selected;
+            @include background-image(linear-gradient($color-div-autocomplete-li-selected-background-top, $color-div-autocomplete-li-selected-background-bottom));
+        }
+        
+        @include breakpoint(max-width $mobile) {
+            @include font-family-mobile();
+        }
+    }
+}
+
+html.js {
+    input.form-autocomplete {
+        /*background-image: url(path-to-your/loader.gif); /* tweak this according to your gif */
+        background-position: 100% 10px;
+        background-repeat: no-repeat;
+    }
+    
+    input.throbbing {
+        background-position: 100% -13px;
+    }
+}
+ 
+/* these apply to all ajax progresses */
+.ajax-progress {
+    /*display: inline-block;
+    *display: inline;
+    *zoom: 1;
+
+    .throbber {
+        background: transparent url(path-to-your/loader.gif) no-repeat 0px 0px;
+        float: left;
+        height: 20px;
+        width: 20px;
+        margin: 2px;
+    }*/
+}

@@ -1,0 +1,97 @@
+// LOGIN THEME HELP URL: https://www.drupal.org/node/1949472
+
+.l-main {
+    padding-top: 65px;
+    padding-bottom: 220px;
+    
+    @include breakpoint(max-width $tab) {
+        padding-top: 0;
+        padding-bottom: 500px;
+    }
+    
+    @include breakpoint($tab $desktop) {
+        padding-bottom: 270px;
+    }
+}
+
+.l-content {
+    background: $color-background-content;
+    border: 1px solid $color-border-content;
+    @include rem-fallback(margin-bottom, 1rem);
+    @include rem-fallback(padding, 1rem, 1.5rem, 1.5rem);
+    @include border-radius();
+    @include single-box-shadow();
+    
+    @include breakpoint(max-width $tab) {
+        @include rem-fallback(padding, .2rem, .5rem);
+    }
+
+    @include breakpoint($tab $desktop) {
+        @include rem-fallback(padding, .35rem, 1rem);
+    }
+    
+    h2.pane-title {
+        @include rem-fallback(margin, 1.5rem, 0, .5rem);
+        color: $color-font-h2;
+    }
+  
+  h3.field-label {
+    @include rem-fallback(font-size, 1.17rem);
+    @include rem-fallback(line-height, 1.9rem);
+    margin-bottom: 0;
+  }
+  
+  div[class*=' field--'], div[class^='field--'], span[class*=' field--'], span[class^='field--'] {
+    @include rem-fallback(margin-bottom, 1rem);
+    display: block;
+  }
+  
+  div.submitted {
+    @include rem-fallback(margin-bottom, 1rem);
+    @include rem-fallback(font-size, .95rem);
+  }
+}
+
+div#tabs {
+    @include rem-fallback(margin, .5rem, 0, 1rem);
+    ul.tabs--primary, ul.tabs--secondary {
+        background: $color-tab-ul-background;
+        border-bottom: 1px solid $color-tab-ul-border;
+        margin: 0;
+        @include border-top-radius(.5rem);
+        
+        li {
+            @include rem-fallback(margin, 0, .15rem);
+        }
+        
+        a {
+            background: $color-tab-a-background;
+            @include rem-fallback(padding, .5rem, 1rem);
+            color: $color-tab-a;
+            text-decoration: none;
+            border: 1px solid $color-tab-a-border;
+            @include border-top-radius(.5rem);
+            display: block;
+            margin: -1px 0 -1px -1px;
+            position: relative;
+            left: 1px;
+            @include single-transition(all, .1s);
+
+            &.active {
+                color: $color-tab-a-active;
+                background: $color-tab-a-active-background;
+            }
+
+            &:hover, &:focus {
+                color: $color-tab-a-hover;
+                background: $color-tab-a-hover-background;
+            }
+        }
+    }
+    
+    ul.tabs--secondary {
+        a {
+            
+        }
+    }
+}

@@ -1,0 +1,57 @@
+table {
+    border-collapse: collapse;
+    border-spacing: 0;
+}
+
+table {
+    width: 100%;
+}
+
+thead {
+    background: $color-thead-background;
+    font-weight: 600;
+    a.active {
+        color: $color-thead-a;
+        font-weight: inherit;
+    }
+    
+    th {
+        @include rem-fallback(padding, .5rem);
+        vertical-align: middle;
+        &.active {
+            background: $color-thead-th-background-active;
+        }
+    }
+}
+
+tbody {
+    tr {
+        &.even {
+            background: $color-tbody-tr-background-even;
+        }
+
+        &.odd {
+            background: $color-tbody-tr-background-odd;
+        }
+
+        &:hover {
+            background: $color-tbody-tr-background-hover;
+        }
+    }
+    
+    td {
+        @include rem-fallback(padding, .5rem);
+        vertical-align: middle;
+        &.active {
+            background: $color-tbody-td-background-active;
+        }
+        
+        input[type="text"],
+        input[type="password"],
+        input[type="email"],
+        textarea,
+        select {
+            margin: 0;
+        }
+    }
+}

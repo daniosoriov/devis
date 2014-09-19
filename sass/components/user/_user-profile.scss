@@ -1,0 +1,38 @@
+fieldset {
+  h2 {
+    @include rem-fallback(margin-bottom, .5rem);
+  }
+}
+
+.field--customer-profile-adresse {
+  @include rem-fallback(margin-bottom, 1rem);
+  br {
+    display: none;
+  }
+  .field--commerce-customer-address {
+    font-style: normal;
+    
+    .addressfield-container-inline.name-block, .street-block, .locality-block {
+      @include rem-fallback(margin-bottom, .8rem);
+    }
+  }
+}
+
+.container-wrapper {
+  div#edit-field-prenom {
+    vertical-align: bottom;
+  }
+  div#edit-field-name {
+    vertical-align: bottom;
+  }
+}
+
+div.addressfield-container-inline.name-block {
+  div.form-item {
+    width: 100%;
+  }
+}
+
+.form-item-field-customer-profile-adresse-und-profiles-0-commerce-customer-address-und-0-country {
+  display: none;
+}

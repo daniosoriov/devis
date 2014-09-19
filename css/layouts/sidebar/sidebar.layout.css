@@ -1,0 +1,55 @@
+/* Defaults */
+/* Header */
+/* Navigation. */
+/* Tabs. */
+/* Buttons. */
+/* Forms. */
+/* Autocomplete. */
+/* Messages. */
+/* Tables. */
+/* Footer */
+/* Content. */
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Applications\/MAMP\/htdocs\/3devis\/sites\/all\/themes\/devis\/sass\/layouts\/sidebar\/sidebar\.layout\.scss}line{font-family:\0000310}}
+.l-page {
+  margin: 0 auto; }
+  @media (min-width: 44em) {
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Applications\/MAMP\/htdocs\/3devis\/sites\/all\/themes\/devis\/sass\/layouts\/sidebar\/sidebar\.layout\.scss}line{font-family:\0000310}}
+    .l-page {
+      width: 44em; } }
+  @media (min-width: 70em) {
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Applications\/MAMP\/htdocs\/3devis\/sites\/all\/themes\/devis\/sass\/layouts\/sidebar\/sidebar\.layout\.scss}line{font-family:\0000310}}
+    .l-page {
+      width: 70em; } }
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Applications\/MAMP\/htdocs\/3devis\/sites\/all\/themes\/devis\/sass\/layouts\/sidebar\/sidebar\.layout\.scss}line{font-family:\0000321}}
+.l-main {
+  /* for IE 6/7 */
+  *zoom: expression(this.runtimeStyle.zoom="1", this.appendChild(document.createElement("br")).style.cssText="clear:both;font:0/0 serif");
+  /* non-JS fallback */
+  *zoom: 1; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/danielosoriov\/\.rvm\/gems\/ruby-1\.9\.3-p547\@omega\.devis\/gems\/singularitygs-1\.1\.2\/stylesheets\/singularitygs\/helpers\/_clearfix\.scss}line{font-family:\0000348}}
+  .l-main:before, .l-main:after {
+    content: ".";
+    display: block;
+    height: 0;
+    overflow: hidden; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/danielosoriov\/\.rvm\/gems\/ruby-1\.9\.3-p547\@omega\.devis\/gems\/singularitygs-1\.1\.2\/stylesheets\/singularitygs\/helpers\/_clearfix\.scss}line{font-family:\0000355}}
+  .l-main:after {
+    clear: both; }
+
+@media (min-width: 44em) {
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Applications\/MAMP\/htdocs\/3devis\/sites\/all\/themes\/devis\/sass\/layouts\/sidebar\/sidebar\.layout\.scss}line{font-family:\0000326}}
+  .l-region--sidebar-first {
+    width: 23.94366%;
+    float: right;
+    margin-left: 0;
+    margin-right: 0;
+    clear: none; }
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Applications\/MAMP\/htdocs\/3devis\/sites\/all\/themes\/devis\/sass\/layouts\/sidebar\/sidebar\.layout\.scss}line{font-family:\0000330}}
+  .l-content {
+    width: 100%;
+    float: right;
+    margin-left: 0;
+    margin-right: 0;
+    clear: none; } }
