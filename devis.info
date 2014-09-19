@@ -1,0 +1,37 @@
+name = devis
+description = Custom theme created for 3devis. Comes with a well organized Sass setup with heavy use of partials.
+base theme = omega
+screenshot = screenshot.png
+engine = phptemplate
+core = 7.x
+
+; Styles
+stylesheets[all][] = css/devis.normalize.css
+stylesheets[all][] = css/devis.hacks.css
+stylesheets[all][] = css/devis.styles.css
+stylesheets[all][] = css/devis.no-query.css
+
+; Layout Styles
+layout[sidebar][stylesheets][all][] = css/layouts/sidebar/level-sidebar.layout.css
+layout[home][stylesheets][all][] = css/layouts/home/level-home.layout.css
+
+; Scripts
+scripts[] = js/devis.behaviors.js
+
+; Regions
+regions[header] = Header
+regions[navigation] = Navigation
+regions[highlighted] = Highlighted
+regions[help] = Help
+regions[content] = Content
+regions[sidebar_first] = First Sidebar
+regions[sidebar_second] = Second Sidebar
+regions[footer] = Footer
+
+; Fonts
+fonts[google_fonts_api][] = "Raleway&subset=latin#300"
+fonts[google_fonts_api][] = "Raleway&subset=latin#600"
+fonts[google_fonts_api][] = "Raleway&subset=latin#regular"
+fonts[google_fonts_api][] = "Source Sans Pro&subset=latin#300"
+fonts[google_fonts_api][] = "Source Sans Pro&subset=latin#600"
+fonts[google_fonts_api][] = "Source Sans Pro&subset=latin#regular"
