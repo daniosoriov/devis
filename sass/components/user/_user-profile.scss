@@ -5,16 +5,13 @@ fieldset {
 }
 
 .field--customer-profile-adresse {
-  @include rem-fallback(margin-bottom, 1rem);
+  font-style: normal;
+  //@include rem-fallback(margin-bottom, 1rem);
   br {
     display: none;
   }
-  .field--commerce-customer-address {
-    font-style: normal;
-    
-    .addressfield-container-inline.name-block, .street-block, .locality-block {
-      @include rem-fallback(margin-bottom, .8rem);
-    }
+  .addressfield-container-inline.name-block, .street-block, .locality-block {
+    @include rem-fallback(margin-bottom, .8rem);
   }
 }
 

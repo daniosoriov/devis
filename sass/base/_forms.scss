@@ -161,7 +161,6 @@ select {
     margin: 0;
     /* @include rem-fallback(margin-bottom, 1rem); */
     @include rem-fallback(min-width, 4rem);
-    width: 50%;
     display: block;
     
     &:hover {
@@ -210,13 +209,31 @@ select {
     }
 }
 
+.demander-devis, .devenir-comptable, .fifty-width {
+  input[type="text"],
+  input[type="password"],
+  input[type="email"],
+  textarea,
+  .form-textarea-wrapper textarea,
+  select {
+    width: 50%;
+    @include breakpoint(max-width $tab) {
+        max-width: 100%;
+        width: 100%;
+    }
+
+    @include breakpoint($tab $desktop) {
+        max-width: 80%;
+        width: 80%;
+    }
+  }
+}
+
 textarea, .form-textarea-wrapper textarea {
     @include rem-fallback(min-height, 3rem);
     @include rem-fallback(height, 3rem);
     @include rem-fallback(line-height, 1.17rem);
     resize: vertical;
-    width: 50%;
-    max-width: 50%;
     
     @include breakpoint(max-width $tab) {
         max-width: 100%;
@@ -231,6 +248,7 @@ textarea, .form-textarea-wrapper textarea {
 
 // jQuery is already removing this, so this is a backup for jQuery.
 .resizable-textarea .grippie {
+  display: none;
     width: 50%;
     height: 0;
     background: none;

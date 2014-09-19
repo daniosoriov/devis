@@ -181,6 +181,20 @@ function devis_form_user_pass_alter(&$form, &$form_state, $form_id) {
  * Implements hook_form_BASE_FORM_ID_alter().
  */
 function devis_form_user_profile_form_alter(&$form, &$form_state, $form_id) {
+  global $user;
+
+  // Check if $user has the manager role.
+  if (in_array('manager', array_values($user->roles))) {
+    $form['account']['name']['#access'] = FALSE;
+    //$form['field_prenom']['#access'] = FALSE;
+    //$form['field_name']['#access'] = FALSE;
+    //$form['field_company_name']['#access'] = FALSE;
+    $form['field_tva']['#access'] = FALSE;
+    $form['field_account_activity_status']['#access'] = FALSE;
+    $form['field_customer_profile_adresse']['#access'] = FALSE;
+    $form['profile_budget_profile']['#access'] = FALSE;
+  }
+  
   // Name and Surname on the same line.
   $form['field_prenom']['#prefix'] = '<div class="container-wrapper">';
   $form['field_prenom']['und'][0]['value']['#title'] = t('Surname');
