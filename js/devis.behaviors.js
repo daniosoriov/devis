@@ -72,6 +72,18 @@
             anchor.appendTo(element.parent());
         }
     };
+  
+  Drupal.theme.prototype.devisSelectCompanyLabel = function(element) {
+    var title = 'Nom de votre ';
+    switch(element) {
+      case 'society':
+        title = title + 'soci&#233;t&#233;';
+        break;
+      default:
+        title = title + element;
+    }
+    return title;
+  }
     
     Drupal.behaviors.devisGeneral = {
         attach: function (context, settings) {
@@ -139,6 +151,18 @@
         if ($(this).attr('checked') && $(this).val() != 'BEL') {
           $("input[value='BEL']").attr('checked', '');
         }
+      });
+    }
+  };
+  
+  /**
+   * Function to change the label of the potential company to specify on the budget request, depending on the value given for the legal status.
+   */
+  Drupal.behaviors.devisChangeCompanyLabel = {
+    attach: function (context, settings) {
+      $("#edit-field-legal-status-und").change(function() {
+        var title = Drupal.theme('devisSelectCompanyLabel', $(this).val());
+        $("label[for='edit-field-company-name-und-0-value']").html(title);
       });
     }
   };

@@ -384,6 +384,22 @@ html.js {
         background-position: 100% -13px;
     }
 }
+
+/* Draggable objects */
+.tabledrag-handle {
+  .handle {
+    margin: 0;
+    padding: 0;
+    background-position: 0px 0px;
+    background-repeat: no-repeat;
+  }
+}
+
+.tabledrag-handle-hover {
+  .handle {
+    background-position: 0px -20px;
+  }
+}
  
 /* these apply to all ajax progresses */
 .ajax-progress {

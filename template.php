@@ -71,6 +71,15 @@ function devis_preprocess_field(&$variables, $hook) {
   }
 }
 
+function devis_preprocess_entity(&$variables, $hook) {
+  // good info: http://stackoverflow.com/questions/2383865/how-do-i-use-theme-preprocessor-functions-for-my-own-templates
+  // Entityform budget.
+  // Change the markup of the submitted information as it is not necessary.
+  if ($variables['entity_type'] == 'entityform' && $variables['elements']['#entity_type'] == 'entityform' && $variables['elements']['#bundle'] == 'comptable') {
+    $variables['content']['info']['user']['#markup'] = ''; //Submitted by Anonyme on jeu, 06/12/2014 - 14:18
+  }
+}
+
 /**
  * Implements hook_form_alter().
  */
@@ -89,6 +98,7 @@ function devis_form_alter(&$form, &$form_state, $form_id) {
 function devis_form_comptable_entityform_edit_form_alter(&$form, &$form_state, $form_id) {
     // Amounts.
     $form['field_estimated_annual_revenue']['und'][0]['value']['#attributes']['placeholder'] = '€';
+    $form['field_estimated_annual_revenue']['und'][0]['value']['#field_prefix'] = '';
     $form['field_estimated_annual_revenue']['und'][0]['value']['#attributes']['class'][] = 'input-smaller';
     $form['field_estimated_annual_invoice']['und'][0]['value']['#attributes']['class'][] = 'input-smaller';
     $form['field_estimated_number_employees']['und'][0]['value']['#attributes']['class'][] = 'input-smaller';
@@ -125,28 +135,36 @@ function devis_form_comptable_entityform_edit_form_alter(&$form, &$form_state, $
  * Implements hook_form_BASE_FORM_ID_alter().
  */
 function devis_form_devenir_entityform_edit_form_alter(&$form, &$form_state, $form_id) {
-    // Name and Surname on the same line.
-    $form['field_prenom']['#prefix'] = '<div class="container-wrapper">';
-    $form['field_prenom']['und'][0]['value']['#title'] = t('Surname');
-    $form['field_prenom']['und'][0]['value']['#attributes']['placeholder'] = t('Name');
-    
-    $form['field_name']['und'][0]['value']['#attributes']['placeholder'] = t('Surname');
-    $form['field_name']['und'][0]['value']['#title_display'] = 'invisible';
-    $form['field_name']['#suffix'] = '</div>';
-    
-    // Extra validation rules.
-    $form['#validate'][] = 'devis_devenir_entityform_edit_form_validate';
-    $form['actions']['submit']['#validate'][] = 'devis_devenir_entityform_edit_form_validate';
+  // Name and Surname on the same line.
+  $form['field_prenom']['#prefix'] = '<div class="container-wrapper">';
+  $form['field_prenom']['und'][0]['value']['#title'] = t('Surname');
+  $form['field_prenom']['und'][0]['value']['#attributes']['placeholder'] = t('Name');
+
+  $form['field_name']['und'][0]['value']['#attributes']['placeholder'] = t('Surname');
+  $form['field_name']['und'][0]['value']['#title_display'] = 'invisible';
+  $form['field_name']['#suffix'] = '</div>';
+
+  // Extra validation rules.
+  $form['#validate'][] = 'devis_devenir_entityform_edit_form_validate';
+  $form['actions']['submit']['#validate'][] = 'devis_devenir_entityform_edit_form_validate';
+  
+  // Extra submission rules.
+  //$form['#submit'][] = 'devis_devenir_entityform_edit_form_submit';
+  //$form['actions']['save']['#submit'][] = 'devis_devenir_entityform_edit_form_submit';
 }
 
 /**
  * Validation for becoming accountant on email.
  */
 function devis_devenir_entityform_edit_form_validate($form, &$form_state) {
-    if (user_load_by_mail($form_state['values']['field_email']['und'][0]['email'])) {
-        $site_name = variable_get('site_name', '3devis.be');
-        form_set_error('field_email][und][0][email', t('The specified email is already registered in !site_name.', array('!site_name' => $site_name)));
-    }
+  // Check if the email has been registered. Only for new forms.
+  if (user_load_by_mail($form_state['values']['field_email']['und'][0]['email']) && isset($form['#entity']->is_new)) {
+    $site_name = variable_get('site_name', '3devis.be');
+    form_set_error('field_email][und][0][email', t('The specified email is already registered in !site_name.', array('!site_name' => $site_name)));
+  }
+}
+
+function devis_devenir_entityform_edit_form_submit($form, &$form_state) {
 }
 
 /**
@@ -182,10 +200,13 @@ function devis_form_user_pass_alter(&$form, &$form_state, $form_id) {
  */
 function devis_form_user_profile_form_alter(&$form, &$form_state, $form_id) {
   global $user;
-
+  dpm($form, 'form');
+  
+  // Deny access to account name.
+  $form['account']['name']['#access'] = FALSE;
+  
   // Check if $user has the manager role.
-  if (in_array('manager', array_values($user->roles))) {
-    $form['account']['name']['#access'] = FALSE;
+  if (in_array('manager', array_values($user->roles)) && $form['#user']->uid == $user->uid) {
     //$form['field_prenom']['#access'] = FALSE;
     //$form['field_name']['#access'] = FALSE;
     //$form['field_company_name']['#access'] = FALSE;
@@ -193,6 +214,10 @@ function devis_form_user_profile_form_alter(&$form, &$form_state, $form_id) {
     $form['field_account_activity_status']['#access'] = FALSE;
     $form['field_customer_profile_adresse']['#access'] = FALSE;
     $form['profile_budget_profile']['#access'] = FALSE;
+    
+    if ($form['#user_category'] == 'budget_profile') {
+      $form['actions']['submit']['#access'] = FALSE;
+    }
   }
   
   // Name and Surname on the same line.
@@ -210,6 +235,37 @@ function devis_form_user_profile_form_alter(&$form, &$form_state, $form_id) {
   $form['field_customer_profile_adresse']['und']['profiles'][0]['commerce_customer_address']['und'][0]['street_block']['premise']['#title_display'] = 'invisible';
   $form['field_customer_profile_adresse']['und']['profiles'][0]['commerce_customer_address']['und'][0]['country']['#attributes']['style'] = 'display: none;';
   $form['field_customer_profile_adresse']['und']['profiles'][0]['commerce_customer_address']['und'][0]['country']['#title_display'] = 'invisible';
+  
+  // Extra validation rules.
+  $form['#validate'][] = 'devis_user_profile_form_validate';
+  $form['actions']['submit']['#validate'][] = 'devis_user_profile_form_validate';
+  
+  // Extra submission rules.
+  $form['#submit'][] = 'devis_user_profile_form_submit';
+  $form['actions']['save']['#submit'][] = 'devis_user_profile_form_submit';
+}
+
+function devis_user_profile_form_validate($form, &$form_state) {
+  // This is a check in case the javascript is disabled for whatever reason.
+  if ($form['#user_category'] == 'budget_profile') {
+    $belgium = FALSE;
+    $count = 0;
+    // Check if Belgium is selected among the choices.
+    foreach ($form_state['values']['profile_budget_profile']['field_active_regions_belgium']['und'] as $k => $val) {
+      $count++;
+      if ($val['value'] == 'BEL') $belgium = TRUE;
+    }
+    // If Belgium is selected, then asign only Belgium as the value.
+    if ($belgium && $count > 1) {
+      $new_value = array('und' => array(0 => array('value' => 'BEL')));
+      $value['#parents'] = array('profile_budget_profile', 'field_active_regions_belgium'); 
+      form_set_value($value, $new_value, $form_state);
+    }
+  }
+}
+
+function devis_user_profile_form_submit($form, &$form_state) {
+  $form_state['redirect'] = 'user/'. $form['#user']->uid;
 }
 
 function devis_profile2_view_alter($build) {
@@ -223,11 +279,9 @@ function devis_profile2_view_alter($build) {
 }
 
 function devis_menu_alter(&$items) {
-  
 }
 
-function devis_mail_alter(&$message) {
-    
+function devis_mail_alter(&$message) {   
 }
 
 ?>

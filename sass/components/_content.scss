@@ -35,15 +35,17 @@
         color: $color-font-h2;
     }
   
+  .user-profile, div.content, .ds-1col {
+    div[class*=' field--'], div[class^='field--'], span[class*=' field--'], span[class^='field--'] {
+      @include rem-fallback(margin-bottom, 1rem);
+      display: block;
+    }
+  }
+  
   h3.field-label {
     @include rem-fallback(font-size, 1.17rem);
     @include rem-fallback(line-height, 1.9rem);
     margin-bottom: 0;
-  }
-  
-  div[class*=' field--'], div[class^='field--'], span[class*=' field--'], span[class^='field--'] {
-    @include rem-fallback(margin-bottom, 1rem);
-    display: block;
   }
   
   div.submitted {

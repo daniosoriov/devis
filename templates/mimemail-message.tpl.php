@@ -48,7 +48,7 @@
                   <tbody>
                     <tr>
                       <td id="head">
-                        <div><a href="http://3devis.be">3devis.be</a></div>
+                        <div><a href="http://3devis.be">3DEVIS.be</a></div>
                       </td>
                     </tr>
                   </tbody>
@@ -84,7 +84,7 @@
                   <tbody>
                     <tr>
                       <td id="footer-team">
-                        <div>&eacute;quipe <a href="http://3devis.be">3devis.be</a></div>
+                        <div>&eacute;quipe <a href="http://3devis.be">3DEVIS.be</a></div>
                       </td>
                     </tr>
                   </tbody>

@@ -4,9 +4,9 @@ fieldset {
   }
 }
 
-.field--customer-profile-adresse {
+.field--customer-profile-adresse, .field--adresse {
   font-style: normal;
-  //@include rem-fallback(margin-bottom, 1rem);
+  @include rem-fallback(margin-bottom, 1rem);
   br {
     display: none;
   }
@@ -32,4 +32,29 @@ div.addressfield-container-inline.name-block {
 
 .form-item-field-customer-profile-adresse-und-profiles-0-commerce-customer-address-und-0-country {
   display: none;
+}
+
+.password-indicator {
+  background-color: $color-password-indicator-background;
+  .indicator {
+    //background-color: $color-password-indicator-background-green;
+  }
+}
+
+div.password-suggestions.description {
+  width: 50%;
+  border: 1px solid $color-fieldset-border;
+  @include border-radius();
+  @include rem-fallback(padding, .5rem);
+  font-weight: 600;
+  
+  ul {
+    font-weight: 300;
+    margin: 0;
+    
+    li {
+      margin: 0;
+      @include rem-fallback(margin-top, .5rem);
+    }
+  }
 }

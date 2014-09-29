@@ -152,6 +152,13 @@ $color-tbody-tr-background-hover: fade-out(lighten($secondary-color, 15), .8);
 
 $color-tbody-td-background-active: fade-out(lighten($secondary-color, 15), .9);
 
+$color-status-approved: fade-out(darken(green, 5), .4);
+$color-status-approved-background: fade-out(darken(green, 5), .95);
+$color-status-denied: fade-out(lighten(darkred, 10), .4);
+$color-status-denied-background: fade-out(lighten(darkred, 10), .95);
+$color-status-pending: lighten(darkgoldenrod, 15);
+$color-status-pending-background: fade-out(lighten(darkgoldenrod, 15), .95);
+
 /* Footer */
 $color-footer-border: darken(white, 15);
 $color-footer-background: lighten($base-color, 10);
@@ -170,6 +177,8 @@ $color-font-a: lighten($default-color-blue, 25);
 $color-font-a-hover: darken($color-font-a, 10);
 $color-font-a-active: $color-font-a-hover;
 
+$color-password-indicator-background: darken(white, 15);
+$color-password-indicator-background-green: fade-out(darken(lightgreen, 20), .4);
 
 
 

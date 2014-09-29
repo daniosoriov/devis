@@ -25,33 +25,49 @@ thead {
 }
 
 tbody {
-    tr {
-        &.even {
-            background: $color-tbody-tr-background-even;
-        }
+  tr {
+    &.even {
+      background: $color-tbody-tr-background-even;
+    }
 
-        &.odd {
-            background: $color-tbody-tr-background-odd;
-        }
+    &.odd {
+      background: $color-tbody-tr-background-odd;
+    }
 
-        &:hover {
-            background: $color-tbody-tr-background-hover;
-        }
+    &:hover {
+      background: $color-tbody-tr-background-hover;
+    }
+  }
+
+  td {
+    @include rem-fallback(padding, .5rem);
+    vertical-align: middle;
+    &.active {
+      background: $color-tbody-td-background-active;
+    }
+
+    input[type="text"],
+    input[type="password"],
+    input[type="email"],
+    textarea,
+    select,
+    div {
+      margin: 0;
     }
     
-    td {
-        @include rem-fallback(padding, .5rem);
-        vertical-align: middle;
-        &.active {
-            background: $color-tbody-td-background-active;
-        }
-        
-        input[type="text"],
-        input[type="password"],
-        input[type="email"],
-        textarea,
-        select {
-            margin: 0;
-        }
+    &.Approved {
+      color: $color-status-approved;
+      //background: $color-status-approved-background;
     }
+    
+    &.Denied {
+      color: $color-status-denied;
+      //background: $color-status-denied-background;
+    }
+    
+    &.Pending {
+      color: $color-status-pending;
+      //background: $color-status-pending-background;
+    }
+  }
 }
