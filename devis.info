@@ -17,6 +17,7 @@ layout[home][stylesheets][all][] = css/layouts/home/level-home.layout.css
 
 ; Scripts
 scripts[] = js/devis.behaviors.js
+; scripts[] = js/easydropdown/jquery.easydropdown.min.js
 
 ; Regions
 regions[header] = Header

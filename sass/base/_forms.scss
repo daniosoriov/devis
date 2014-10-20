@@ -7,57 +7,104 @@ button,
 input[type="submit"],
 input[type="reset"],
 input[type="button"] {
-    @include font-family('Raleway', semibold);
-    background: $color-button-background;
-    @include background-image(linear-gradient($color-button-background-top, $color-button-background-bottom));
-    color: $color-button;
-    border: 1px solid $color-button-border;
-    border-top: 1px solid $color-button-border-side;
-    border-left: 1px solid $color-button-border-side;
-    @include border-radius(.2rem);
-    @include single-transition(all, .1s);
-    @include single-text-shadow($color-button-text-shadow);
-    @include rem-fallback(margin-bottom, 1.2rem);
-    @include rem-fallback(padding, .5rem, .8rem);
-    @include rem-fallback(font-size, .8rem);
-    display: inline-block;
+  @include font-family('Raleway', semibold);
+  background: $color-button-background;
+  @include background-image(linear-gradient($color-button-background-top, $color-button-background-bottom));
+  color: $color-button;
+  border: 1px solid $color-button-border;
+  border-top: 1px solid $color-button-border-side;
+  border-left: 1px solid $color-button-border-side;
+  @include border-radius(.2rem);
+  @include single-transition(all, .1s);
+  @include single-text-shadow($color-button-text-shadow);
+  @include rem-fallback(margin-bottom, 1.2rem);
+  @include rem-fallback(padding, .5rem, .8rem);
+  @include rem-fallback(font-size, .8rem);
+  display: inline-block;
+  text-decoration: none;
+  cursor: pointer;
+  line-height: normal;
+
+  &:hover {
     text-decoration: none;
-    cursor: pointer;
-    line-height: normal;
-    
-    &:hover {
-        color: $color-button-hover;
-        background: $color-button-hover-background;
-        @include background-image(linear-gradient($color-button-hover-background-top, $color-button-hover-background-bottom));
-        border: 1px solid $color-button-hover-border;
-        border-top: 1px solid $color-button-hover-border-side;
-        border-left: 1px solid $color-button-hover-border-side;
-    }
-    
-    &:active {
-        color: $color-button-active;
-        background: $color-button-active-background;
-        @include background-image(linear-gradient($color-button-active-background-top, $color-button-active-background-bottom));
-        border: 1px solid $color-button-active-border;
-        border-top: 1px solid $color-button-active-border-side;
-        border-left: 1px solid $color-button-active-border-side;
-        @include box-shadow(0px 1px 15px -3px $color-button-active-shadow);
-    }
-    
-    &:focus {
-        outline: none;
-    }
-    
-    &.full-width {
-        width: 100%;
-        padding-left: 0 !important;
-        padding-right: 0 !important;
-        text-align: center;
-    }
-    
-    @include breakpoint(max-width $mobile) {
-        @include font-family-mobile(semibold);
-    }
+    color: $color-button-hover;
+    background: $color-button-hover-background;
+    @include background-image(linear-gradient($color-button-hover-background-top, $color-button-hover-background-bottom));
+    border: 1px solid $color-button-hover-border;
+    border-top: 1px solid $color-button-hover-border-side;
+    border-left: 1px solid $color-button-hover-border-side;
+  }
+
+  &:active {
+    text-decoration: none;
+    color: $color-button-active;
+    background: $color-button-active-background;
+    @include background-image(linear-gradient($color-button-active-background-top, $color-button-active-background-bottom));
+    border: 1px solid $color-button-active-border;
+    border-top: 1px solid $color-button-active-border-side;
+    border-left: 1px solid $color-button-active-border-side;
+    @include box-shadow(0px 1px 15px -3px $color-button-active-shadow);
+  }
+
+  &:focus {
+    text-decoration: none;
+    outline: none;
+    color: $color-button-active;
+    background: $color-button-active-background;
+    @include background-image(linear-gradient($color-button-active-background-top, $color-button-active-background-bottom));
+    border: 1px solid $color-input-active-border;
+    @include single-box-shadow($color-input-active-shadow);
+  }
+
+  &.full-width {
+    width: 100%;
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+    text-align: center;
+  }
+
+  @include breakpoint(max-width $mobile) {
+    @include font-family-mobile(semibold);
+  }
+}
+
+input[type="submit"]#edit-cancel,
+input[type="button"]#edit-cancel {
+  @extend button;
+  
+  background: $color-button-cancel-background;
+  @include background-image(linear-gradient($color-button-cancel-background-top, $color-button-cancel-background-bottom));
+  color: $color-button-cancel;
+  border: 1px solid $color-button-cancel-border;
+  border-top: 1px solid $color-button-cancel-border-side;
+  border-left: 1px solid $color-button-cancel-border-side;
+  
+  @include single-text-shadow($color-button-text-shadow);
+
+  &:hover {
+    color: $color-button-cancel-hover;
+    background: $color-button-cancel-hover-background;
+    @include background-image(linear-gradient($color-button-cancel-hover-background-top, $color-button-cancel-hover-background-bottom));
+    border: 1px solid $color-button-cancel-hover-border;
+    border-top: 1px solid $color-button-cancel-hover-border-side;
+    border-left: 1px solid $color-button-cancel-hover-border-side;
+  }
+
+  &:active {
+    color: $color-button-cancel-active;
+    background: $color-button-cancel-active-background;
+    @include background-image(linear-gradient($color-button-cancel-active-background-top, $color-button-cancel-active-background-bottom));
+    border: 1px solid $color-button-cancel-active-border;
+    border-top: 1px solid $color-button-cancel-active-border-side;
+    border-left: 1px solid $color-button-cancel-active-border-side;
+    @include box-shadow(0px 1px 15px -3px $color-button-cancel-active-shadow);
+  }
+  
+  &:focus {
+    color: $color-button-cancel-active;
+    background: $color-button-cancel-active-background;
+    @include background-image(linear-gradient($color-button-cancel-active-background-top, $color-button-cancel-active-background-bottom));
+  }
 }
 
 /* Fix for odd Mozilla border & padding issues */
@@ -319,7 +366,6 @@ input[type="checkbox"], input[type="radio"] {
         }
     }
 }
-
 
 /* Fix weird behaviors. */
 div#edit-actions {

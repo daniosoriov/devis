@@ -84,12 +84,28 @@
     }
     return title;
   }
+  
+  Drupal.theme.prototype.devisReplaceText = function(element, needle, str) {
+    element.each(function() {
+      var text = $(this).text();
+      $(this).text(text.replace(needle, str)); 
+    });
+  }
     
     Drupal.behaviors.devisGeneral = {
-        attach: function (context, settings) {
-            $('.grippie').remove();
-        }
+      attach: function (context, settings) {
+        $('.grippie').remove();
+      }
     };
+  
+  Drupal.behaviors.devisTranslate = {
+    attach: function (context, settings) {
+      // Cards.
+      Drupal.theme('devisReplaceText', $('h2'), 'ending in', 'terminant en');
+      Drupal.theme('devisReplaceText', $('td[class="views-field views-field-label"]'), 'ending in', 'terminant en');
+      Drupal.theme('devisReplaceText', $('em[class="placeholder"]'), 'Your card was declined.', 'Votre carte a été refusée');  
+    }
+  };
     
     Drupal.behaviors.devisBecomeProviderBox = {
         attach: function (context, settings) {
@@ -164,6 +180,12 @@
         var title = Drupal.theme('devisSelectCompanyLabel', $(this).val());
         $("label[for='edit-field-company-name-und-0-value']").html(title);
       });
+    }
+  };
+  
+  Drupal.behaviors.devisDeleteUnnecessaryBr = {
+    attach: function (context, settings) {
+      $(".remove-br").find("br").remove();
     }
   };
 

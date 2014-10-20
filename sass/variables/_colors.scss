@@ -84,6 +84,34 @@ $color-button-active-border-side: darken(white, 30);
 
 $color-button-active-shadow: rgba(0, 0, 0, 0.2);
 
+
+$color-button-cancel: darken(white, 10);
+$color-button-cancel-hover: darken(white, 5);
+$color-button-cancel-active: white;
+
+$color-button-cancel-background: $red;
+$color-button-cancel-hover-background: lighten($red, 10);
+$color-button-cancel-active-background: lighten($red, 10);
+
+$color-button-cancel-background-top: lighten($tertiary-color, 16);
+$color-button-cancel-hover-background-top: lighten($tertiary-color, 22);
+$color-button-cancel-active-background-top: lighten($tertiary-color, 25);
+
+$color-button-cancel-background-bottom: fade-out(lighten($tertiary-color, 5), .3);
+$color-button-cancel-hover-background-bottom: fade-out(lighten($tertiary-color, 8), .3);
+$color-button-cancel-active-background-bottom: lighten($tertiary-color, 5);
+
+$color-button-cancel-border: lighten($tertiary-color, 1);
+$color-button-cancel-hover-border: lighten($tertiary-color, 5);
+$color-button-cancel-active-border: $tertiary-color;
+
+$color-button-cancel-border-side: lighten($tertiary-color, 5);
+$color-button-cancel-hover-border-side: lighten($tertiary-color, 8);
+$color-button-cancel-active-border-side: lighten($tertiary-color, 5);
+
+$color-button-cancel-active-shadow: rgba(0, 0, 0, 0.3);
+
+
 /* Forms. */
 $color-form-required: fade-out(red, .2);
 

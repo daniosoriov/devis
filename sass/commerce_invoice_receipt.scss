@@ -1,0 +1,93 @@
+// Import external libraries.
+@import "compass";
+@import "breakpoint";
+@import "singularitygs";
+@import "toolkit-no-css";
+@import "variables/**/*";
+@import "abstractions/**/*";
+
+.field-name-commerce-order-total .commerce-price-formatted-components {
+  width: 33%;
+  margin-left: auto;
+}
+
+.field-name-commerce-order-total .commerce-price-formatted-components tr.component-type-commerce-price-formatted-amount {
+  font-weight: bold;
+}
+
+.products ul{
+  display:none;
+}
+
+.component-title {
+  font-weight: bold;
+}
+
+table {
+  width: 100%;
+  border-spacing: 0;
+  @include rem-fallback(font-size, .7rem);
+}
+
+thead {
+  color: whitesmoke;
+  background: $default-color-blue;
+  font-weight: 600;
+  @include rem-fallback(font-size, .8rem);
+  
+  th {
+    text-align: left;
+    @include rem-fallback(padding, .5rem);
+    vertical-align: middle;
+    text-transform: uppercase;
+  }
+}
+
+tbody {
+  tr {
+    &.odd {
+      background: $color-tbody-tr-background-odd;
+    }
+    
+    &.even {
+      background: $color-tbody-tr-background-even;
+    }
+  }
+}
+
+.products table td {
+  @include rem-fallback(padding, .35rem);
+}
+
+table.order-total {
+  width: 33%;
+  margin-left: auto;
+
+  tr {
+    font-weight: 600;
+  }
+}
+
+table.details td {
+  padding: 0 5px;
+}
+
+.views-field-commerce-total,
+.component-total {
+  width: 100px!important;
+  text-align: right;
+}
+
+.products table.commerce-price-formatted-components {
+  width: 200px;
+  padding-top: 20px;
+  float: right;
+}
+
+.field--commerce-customer-address {
+  @include rem-fallback(margin-top, .5rem);
+  .addressfield-container-inline, .street-block, .country {
+    font-style: normal;
+    @include rem-fallback(margin-bottom, .3rem);
+  }
+}

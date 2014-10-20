@@ -1,0 +1,45 @@
+.view-commerce-card-on-file-user-cards {
+  @include rem-fallback(margin-bottom, 1rem);
+  tbody {
+    tr.odd:hover {
+      background: $color-tbody-tr-background-odd;
+    }
+
+    tr.even:hover {
+      background: $color-tbody-tr-background-even;
+    }
+    
+    td {
+      ul {
+        margin: 0;
+        
+        li {
+          margin: 0;
+          @include rem-fallback(margin-right, .5rem);
+        }
+      }
+    }
+  }
+}
+
+fieldset#edit-card-info {
+  input.form-text, input.stripe, input.thoroughfare {
+    @include breakpoint(max-width $tab) {
+      max-width: 100%;
+      width: auto;
+    }
+
+    @include breakpoint($tab $desktop) {
+      max-width: 80%;
+      width: auto;
+    }
+  }
+}
+
+input[type="submit"].card_submit {
+  margin: 0;
+}
+
+.cancel_url {
+  @include rem-fallback(padding, 0, 1rem);
+}
