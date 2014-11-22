@@ -92,11 +92,16 @@
     });
   }
     
-    Drupal.behaviors.devisGeneral = {
-      attach: function (context, settings) {
-        $('.grippie').remove();
+  Drupal.behaviors.devisGeneral = {
+    attach: function (context, settings) {
+      $('.grippie').remove();
+      
+      // deactivate easydropdown on mobile devices.
+      if ($(window).width() <= 384) {
+        $('div').easyDropDown('disable');
       }
-    };
+    }
+  };
   
   Drupal.behaviors.devisTranslate = {
     attach: function (context, settings) {
@@ -104,6 +109,9 @@
       Drupal.theme('devisReplaceText', $('h2'), 'ending in', 'terminant en');
       Drupal.theme('devisReplaceText', $('td[class="views-field views-field-label"]'), 'ending in', 'terminant en');
       Drupal.theme('devisReplaceText', $('em[class="placeholder"]'), 'Your card was declined.', 'Votre carte a été refusée');  
+      Drupal.theme('devisReplaceText', $('h2[class="pane-title"]'), 'Order', 'Commande');  
+      Drupal.theme('devisReplaceText', $('h2[class="pane-title"]'), 'Orders', 'Commandes');  
+      Drupal.theme('devisReplaceText', $('h3[class="field-label"]'), 'Courriel', 'E-mail');  
     }
   };
     
@@ -117,38 +125,38 @@
             });
             
             $(window).resize(function() {
-                Drupal.theme('devisSpecialBoxMeasureWidth', $('.navSpecial'), $anchor);
+              Drupal.theme('devisSpecialBoxMeasureWidth', $('.navSpecial'), $anchor);
             });
             Drupal.theme('devisSpecialBoxMeasureWidth', $('.navSpecial'), $anchor);
         }
     };
     
     Drupal.behaviors.devisStickyNav = {
-        attach: function (context, settings) {
-            var  mn = $('.l-region--navigation');
-            mns = 'navSticky';
-            hdr = $('header').height();
+      attach: function (context, settings) {
+        var  mn = $('.l-navigation-content');
+        mns = 'navSticky';
+        hdr = ($('header').height() < 100) ? 155 : $('header').height();
 
-            $(window).scroll(function() {
-                if ($(window).width() > 704) {
-                    if ($(this).scrollTop() > hdr) {
-                        mn.addClass(mns);
-                    }
-                    else {
-                        mn.removeClass(mns);
-                    }
-                }
-                else {
-                    mn.removeClass(mns);
-                }
-            });
-            
-            $(window).resize(function() {
-                if ($(window).width() <= 704) {
-                    mn.removeClass(mns);
-                }
-            });
-        }
+        $(window).scroll(function() {
+          if ($(window).width() > 704) {
+            if ($(this).scrollTop() > hdr) {
+              mn.addClass(mns);
+            }
+            else {
+              mn.removeClass(mns);
+            }
+          }
+          else {
+            mn.removeClass(mns);
+          }
+        });
+
+        $(window).resize(function() {
+          if ($(window).width() <= 704) {
+            mn.removeClass(mns);
+          }
+        });
+      }
     };
   
   /** 
@@ -157,15 +165,15 @@
   Drupal.behaviors.devisProviderProfileCheckbox = {
     attach: function (context, settings) {
       $("input[value='BEL']").click(function() {
-        if ($(this).attr('checked')) {
-          $("input[name*='field_active_regions_belgium']").attr('checked', '');
-          $(this).attr('checked', 'checked');
+        if ($(this).prop('checked')) {
+          $("input[name*='field_active_regions_belgium']").prop('checked', false);
+          $(this).prop('checked', true);
         }
       });
       
       $("input[name*='field_active_regions_belgium']").click(function() {
-        if ($(this).attr('checked') && $(this).val() != 'BEL') {
-          $("input[value='BEL']").attr('checked', '');
+        if ($(this).prop('checked') && $(this).val() != 'BEL') {
+          $("input[value='BEL']").prop('checked', false);
         }
       });
     }

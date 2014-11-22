@@ -84,7 +84,7 @@
                   <tbody>
                     <tr>
                       <td id="footer-team">
-                        <div>&eacute;quipe <a href="http://3devis.be">3DEVIS.be</a></div>
+                        <div>L&#39;&eacute;quipe de <a href="http://3devis.be">3DEVIS.be</a></div>
                       </td>
                     </tr>
                   </tbody>

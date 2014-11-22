@@ -22,6 +22,10 @@
   }
 }
 
+.entity-commerce-cardonfile {
+  @include rem-fallback(margin-bottom, 1rem);
+}
+
 fieldset#edit-card-info {
   input.form-text, input.stripe, input.thoroughfare {
     @include breakpoint(max-width $tab) {

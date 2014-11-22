@@ -3,9 +3,13 @@ source 'https://rubygems.org'
 group :development do
 
   # Sass, Compass and extensions.
-  gem 'sass'                    # Sass.
+  #gem 'sass'                    # Sass.
+  gem 'sass', '3.3.0.alpha.149'
   gem 'sass-globbing', '1.1.0'           # Import Sass files based on globbing pattern.
-  gem 'compass'                 # Framework built on Sass.
+  gem 'compass', '0.12.2'
+  gem 'compass-sourcemaps', "~> 0.12.2.sourcemaps.57a186c"
+  #gem 'compass', '~> 1.0.1'
+  #gem 'compass'                 # Framework built on Sass.
   gem 'compass-validator'       # So you can `compass validate`.
   gem 'compass-normalize'       # Compass version of normalize.css.
   gem 'compass-rgbapng'         # Turns rgba() into .png's for backwards compatibility.

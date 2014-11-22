@@ -19,7 +19,7 @@ time, mark, audio, video {
     padding: 0;    
     border: 0;    
     outline: 0;    
-    font-size: 100%;    
+    font-size: 100%;   
     vertical-align: baseline;    
     background: transparent;
 }
@@ -30,10 +30,14 @@ html, body {
 }
 
 body {    
-    line-height: 1;
-    &.panels-ipe {
-        margin-bottom: 0 !important;
-    }
+  line-height: 1;
+  &.panels-ipe {
+    margin-bottom: 0 !important;
+  }
+  @include rem-fallback(font-size, .85rem);
+  @include breakpoint($mobile) {
+    font-size: 100%;
+  }
 }
 
 article,
@@ -122,68 +126,74 @@ input, select {
 /* #Basic Styles
 ================================================== */
 body {
-    background: $color-background-body;
+  background: $color-background-body;
+  @include font-family-mobile();
+  color: $color-font;
+  -webkit-font-smoothing: antialiased; /* Fix for webkit rendering */
+  -webkit-text-size-adjust: 100%;
+
+  @include breakpoint($mobile) {
     @include font-family('Source Sans Pro');
-    color: $color-font;
-    -webkit-font-smoothing: antialiased; /* Fix for webkit rendering */
-    -webkit-text-size-adjust: 100%;
-    
-    @include breakpoint(max-width $mobile) {
-        @include font-family-mobile();
-    }
+  }
 }
 
 /* #Blockquotes
 ================================================== */
 blockquote, blockquote p {
-    @include rem-fallback(font-size, 1.1rem);
-    @include rem-fallback(line-height, 1.5rem);
-    font-style: italic;
+  @include rem-fallback(font-size, 1.1rem);
+  @include rem-fallback(line-height, 1.5rem);
+  font-style: italic;
 }
 
 blockquote {
-    @include rem-fallback(margin, 0, 0, 1.2rem);
-    @include rem-fallback(padding, .6rem, 1.3rem, 0, 1.2rem);
-    border-left: 1px solid #ddd;
-    cite {
-        display: block;
-        @include rem-fallback(font-size, .8rem);
-        color: #555;
-        
-        &:before {
-            content: "\2014 \0020";
-        }
-        
-        & a, & a:visited {
-            color: #555;
-        }
+  @include rem-fallback(margin, 0, 0, 1.2rem);
+  @include rem-fallback(padding, .6rem, 1.3rem, 0, 1.2rem);
+  border-left: 1px solid #ddd;
+  cite {
+    display: block;
+    @include rem-fallback(font-size, .8rem);
+    color: #555;
+
+    &:before {
+      content: "\2014 \0020";
     }
+
+    & a, & a:visited {
+      color: #555;
+    }
+  }
 }
 
 hr { 
-    border: solid #ddd;
-    border-width: 1px 0 0;
-    clear: both;
-    @include rem-fallback(margin, .6rem, 0, 1.9rem);
-    height: 0;
+  border: solid #ddd;
+  border-width: 1px 0 0;
+  clear: both;
+  @include rem-fallback(margin, .6rem, 0, 1.9rem);
+  height: 0;
 }
 
 /* #Links
 ================================================== */
 a {
+  @include font-family-mobile();
+  @include rem-fallback(font-size, .85rem);
+  color: $color-font-a;
+  text-decoration: none;
+  outline: 0;
+  @include single-transition(color, .1s);
+
+  &:hover, &:focus {
+    color: $color-font-a-hover;
+  }
+
+  @include breakpoint($mobile) {
+    @include rem-fallback(font-size, 1rem);
     @include font-family('Source Sans Pro');
-    color: $color-font-a;
-    text-decoration: none;
-    outline: 0;
-    @include single-transition(color, .1s);
-    
-    &:hover, &:focus {
-        color: $color-font-a-hover;
-    }
-    
-    @include breakpoint(max-width $mobile) {
-        @include font-family-mobile();
-    }
+  }
+  
+  @include breakpoint($tab) {
+    @include rem-fallback(font-size, 1.1rem);
+  }
 }
 
 p a, p a:visited {

@@ -1,99 +1,163 @@
 // LOGIN THEME HELP URL: https://www.drupal.org/node/1949472
 
 .l-main {
-    padding-top: 65px;
-    padding-bottom: 220px;
-    
-    @include breakpoint(max-width $tab) {
-        padding-top: 0;
-        padding-bottom: 500px;
-    }
-    
-    @include breakpoint($tab $desktop) {
-        padding-bottom: 270px;
-    }
+  margin: 0 auto;
+  @include breakpoint($tab) {
+    padding-top: 40px;
+    padding-bottom: 175px;
+  }
+  @include breakpoint($desktop) {
+    max-width: $max-width;
+  }
 }
 
 .l-content {
-    background: $color-background-content;
-    border: 1px solid $color-border-content;
-    @include rem-fallback(margin-bottom, 1rem);
-    @include rem-fallback(padding, 1rem, 1.5rem, 1.5rem);
-    @include border-radius();
-    @include single-box-shadow();
+  //@include background-grid($color: blue);
+  background: $color-background-content;
+  @include rem-fallback(margin-bottom, 1rem);
+  @include grid-span(3, 1);
+  
+  @include breakpoint($mobile) {
+    @include grid-span(6, 1);
+  }
+  
+  @include breakpoint($tab) {
+    @include grid-span(8, 1);
+  }
+  
+  @include breakpoint($desktop) {
+    @include grid-span(12, 1);
+  }
     
-    @include breakpoint(max-width $tab) {
-        @include rem-fallback(padding, .2rem, .5rem);
-    }
-
-    @include breakpoint($tab $desktop) {
-        @include rem-fallback(padding, .35rem, 1rem);
-    }
-    
-    h2.pane-title {
-        @include rem-fallback(margin, 1.5rem, 0, .5rem);
-        color: $color-font-h2;
-    }
+  h2.pane-title {
+    @include rem-fallback(margin-top, 1rem);
+    color: $color-font-h2;
+  }
   
   .user-profile, div.content, .ds-1col {
     div[class*=' field--'], div[class^='field--'], span[class*=' field--'], span[class^='field--'] {
-      @include rem-fallback(margin-bottom, 1rem);
+      @include rem-fallback(line-height, 1.1rem);
+      @include rem-fallback(margin-bottom, .8rem);
       display: block;
     }
   }
   
   h3.field-label {
-    @include rem-fallback(font-size, 1.17rem);
-    @include rem-fallback(line-height, 1.9rem);
-    margin-bottom: 0;
+    @include rem-fallback(font-size, 1rem);
+    @include rem-fallback(line-height, 1.5rem);
+    @include rem-fallback(margin-bottom, .5rem);
+    
+    @include breakpoint($mobile) {
+      @include rem-fallback(font-size, 1.17rem);
+      @include rem-fallback(line-height, 1.9rem);
+      margin-bottom: 0;
+    }
   }
   
   div.submitted {
     @include rem-fallback(margin-bottom, 1rem);
     @include rem-fallback(font-size, .95rem);
   }
+  
+  div.remove-br br {
+    display: none;
+  }
 }
 
-div#tabs {
-    @include rem-fallback(margin, .5rem, 0, 1rem);
-    ul.tabs--primary, ul.tabs--secondary {
-        background: $color-tab-ul-background;
-        border-bottom: 1px solid $color-tab-ul-border;
-        margin: 0;
-        @include border-top-radius(.5rem);
-        
-        li {
-            @include rem-fallback(margin, 0, .15rem);
-        }
-        
-        a {
-            background: $color-tab-a-background;
-            @include rem-fallback(padding, .5rem, 1rem);
-            color: $color-tab-a;
-            text-decoration: none;
-            border: 1px solid $color-tab-a-border;
-            @include border-top-radius(.5rem);
-            display: block;
-            margin: -1px 0 -1px -1px;
-            position: relative;
-            left: 1px;
-            @include single-transition(all, .1s);
+/* Fixing input widths here as in _form.scss is not working */
+input[type="text"],
+input[type="password"],
+input[type="email"],
+select {
+  @include grid-span(3, 1, false, 0); //3 of 3
+  float: none;
+  
+  @include breakpoint($mobile) {
+    @include grid-span(4, 1, false, 0); //4 of 6
+    float: none;
+  }
+  @include breakpoint($tab) {
+    @include grid-span(4, 1, false, 0); //4 of 8
+    float: none;
+  }
+  @include breakpoint($desktop) {
+    @include grid-span(5, 1, false, 0); // 5 of 12
+    float: none;
+  }
+}
 
-            &.active {
-                color: $color-tab-a-active;
-                background: $color-tab-a-active-background;
-            }
+textarea, .form-textarea-wrapper textarea {
+  @include grid-span(3, 1, false, 0);
+  float: none;
+  
+  @include breakpoint($mobile) {
+    @include grid-span(5, 1, false, 0); // 5 of 6
+    float: none;
+  }
+  @include breakpoint($tab) {
+    @include grid-span(5, 1, false, 0); // 5 of 8
+    float: none;
+  }
+  @include breakpoint($desktop) {
+    @include grid-span(6, 1, false, 0); // 6 of 12
+    float: none;
+  }
+}
 
-            &:hover, &:focus {
-                color: $color-tab-a-hover;
-                background: $color-tab-a-hover-background;
-            }
-        }
+.fieldset-wrapper {
+  @include grid-span(3, 1);
+  
+  @include breakpoint($mobile) {
+    @include grid-span(6, 1);
+  }
+  @include breakpoint($tab) {
+    @include grid-span(8, 1);
+  }
+}
+
+div#tabs, div.tabs {
+  @include rem-fallback(margin, .5rem, 0, 1rem);
+  ul.tabs--primary, ul.tabs--secondary {
+    background: $color-tab-ul-background;
+    border-bottom: 1px solid $color-tab-ul-border;
+    margin: 0;
+    @include border-top-radius(.5rem);
+
+    li {
+      @include rem-fallback(margin, 0, .15rem);
     }
-    
-    ul.tabs--secondary {
-        a {
-            
-        }
+
+    a {
+      background: $color-tab-a-background;
+      color: $color-tab-a;
+      text-decoration: none;
+      border: 1px solid $color-tab-a-border;
+      @include border-top-radius(.5rem);
+      display: block;
+      margin: -1px 0 -1px -1px;
+      position: relative;
+      left: 1px;
+      @include single-transition(all, .1s);
+      
+      @include breakpoint($mobile) {
+        @include rem-fallback(padding, .5rem, 1rem);
+      }
+
+      &.active {
+        color: $color-tab-a-active;
+        background: $color-tab-a-active-background;
+      }
+
+      &:hover, &:focus {
+        color: $color-tab-a-hover;
+        background: $color-tab-a-hover-background;
+      }
     }
+  }
+
+  ul.tabs--secondary {
+    a {
+
+    }
+  }
 }

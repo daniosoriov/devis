@@ -7,11 +7,11 @@
 $blue: #2E64FE;
 $orange: #FF8000;
 $yellow: #FBD760;
-$green: #94f286;
+$green: #0BE85A;
 $green-blue: #5EDCDB;
 $purple: #4C3463;
 
-$base-color: #ffb900;
+$base-color: #FFB500; //#ffb900;
 $secondary-color: #0078E0; //#0088ff;
 $tertiary-color: #800022;
 
@@ -25,25 +25,29 @@ $default-color-border: darken(white, 15);
 $default-color-blue: #002C52;
 
 /* Header */
-$color-header-background: #002C52;
+$color-header-background: white;//#002C52;
 $color-header-border: darken(white, 15);
-$color-name-slogan: whitesmoke;
+$color-name-slogan: $default-color-dark;
 
 /* Navigation. */
-$color-navigation-a: $default-color-blue;
+$color-navigation-a: $default-color-dark;
 $color-navigation-hover-a: black;
-$color-navigation-background: lighten($base-color, 10);
-$color-navigation-background-top: fade-out($color-navigation-background, .15);
-$color-navigation-background-bottom: fade-out($color-navigation-background, .05);
+$color-navigation-background: darken(white, 1);//lighten($base-color, 10);
+$color-navigation-background-top: darken(white, 5); //fade-out($color-navigation-background, .15);
+$color-navigation-background-bottom: fade-out(darken(white, 5), .25); //fade-out($color-navigation-background, .05);
 $color-navigation-hover-background: $base-color;
 $color-navigation-border: darken(white, 15);
-$color-navigation-hover-border: darken($base-color, 2);
+$color-navigation-border-bottom: $base-color;
+$color-navigation-hover-border: $base-color; //darken($base-color, 2);
 $color-navigation-sticky-shadow: rgba(0, 0, 0, 0.4);
 
 $color-navigation-special-box: darken(white, 2);
 $color-navigation-special-box-background: fade-out($default-color-blue, .05);
 $color-navigation-special-box-a: $base-color;
 $color-navigation-special-box-a-hover: lighten($base-color, 35);
+
+$color-navigation-border-mobile: darken(white, 7);
+$color-navigation-border-mobile-hover: darken(white, 10);
 
 /* Tabs. */
 $color-tab-ul-background: darken(white, 2);
@@ -118,13 +122,15 @@ $color-form-required: fade-out(red, .2);
 $color-fieldset-legend: $default-color-blue;
 $color-fieldset-border: darken(white, 5);
 $color-fieldset-description: darken(gray, 20);
-$color-fieldset-background: darken(white, 2.5);
+$color-fieldset-background: darken(white, 2);
+$color-fieldset-background-top: darken(white, 2);
+$color-fieldset-background-bottom: white;
 $color-fieldset-shadow: rgba(0, 0, 0, 0.1);
 $color-fieldset-admin-border: fade-out(lighten($secondary-color, 10), .7);
 
 $color-input: darken(gray, 15);
 $color-input-hover: darken(gray, 35);
-$color-input-active: black;
+$color-input-active: $default-color-dark;
 
 $color-input-background: darken(white, 1.2);
 $color-input-hover-background: darken(white, 1);
@@ -157,15 +163,15 @@ $color-messages: lighten(black, 15);
 $color-messages-background: darken(white, 4);
 $color-messages-border: darken(white, 8);
 
-$color-messages-green: darkolivegreen;
+$color-messages-green: darken($green, 10);
 $color-messages-green-background: fade-out($green, 0.92);
 $color-messages-green-border: fade-out($green, 0.88);
 
-$color-messages-yellow: darkgoldenrod;
+$color-messages-yellow: darken($base-color, 2.5);
 $color-messages-yellow-background: fade-out($yellow, 0.92);
 $color-messages-yellow-border: fade-out($yellow, 0.88);
 
-$color-messages-red: darkred;
+$color-messages-red: darken($red, 5);
 $color-messages-red-background: fade-out($red, 0.92);
 $color-messages-red-border: fade-out($red, 0.88);
 
@@ -189,14 +195,15 @@ $color-status-pending-background: fade-out(lighten(darkgoldenrod, 15), .95);
 
 /* Footer */
 $color-footer-border: darken(white, 15);
-$color-footer-background: lighten($base-color, 10);
-$color-footer-background-top: fade-out($color-navigation-background, .15);
-$color-footer-background-bottom: fade-out($color-navigation-background, .05);
+$color-footer-border-top: $base-color;
+$color-footer-background: $color-navigation-background; //lighten($base-color, 10);
+$color-footer-background-top: $color-navigation-background-top;//fade-out($color-navigation-background, .15);
+$color-footer-background-bottom: $color-navigation-background-top;//fade-out($color-navigation-background, .05);
 
-$color-footer-title: black;
-$color-footer-a: $default-color-blue;
-$color-footer-a-hover: black;
-$color-footer-a-active: black;
+$color-footer-title: $default-color-dark;
+$color-footer-a: $default-color-dark;
+$color-footer-a-hover: lighten($default-color-blue, 10);
+$color-footer-a-active: lighten($default-color-blue, 10);
 
 /* Content. */
 $color-title-budget: $default-color-blue;
@@ -211,7 +218,7 @@ $color-password-indicator-background-green: fade-out(darken(lightgreen, 20), .4)
 
 
 // Background
-$color-background-body: darken(white, 5);
+$color-background-body: white;// darken(white, 5);
 $color-background-content: white;
 $color-background-div: white;
 
@@ -219,13 +226,14 @@ $color-background-div: white;
 $color-box-shadow: rgba(0, 0, 0, 0.05);
 
 // Border
-$color-border-content: darken(white, 15);
-
-
-$color-border-div: darken(white, 15);
+$color-border-content: darken(white, 5);
+$color-border-div: darken(white, 5);
 
 // Font
 $color-font: darken(gray, 35);
 $color-font-h: lighten(black, 15);
 $color-font-h2: lighten(black, 15);
 $color-font-content-h3-field: lighten(black, 35);
+
+/* Misc */
+$color-inactive-account: $red;

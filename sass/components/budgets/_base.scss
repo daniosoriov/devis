@@ -16,7 +16,7 @@
 
 .description-budget {
 }
-
+/*
 @include breakpoint($tab $desktop) {
     .title-budget, .subtitle-budget, .description-budget {
         text-align: center;
@@ -57,4 +57,4 @@
         @include rem-fallback(font-size, .8rem);
         @include rem-fallback(line-height, 1.3rem);
     }
-}
+}*/

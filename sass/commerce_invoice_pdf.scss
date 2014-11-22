@@ -1,0 +1,162 @@
+// Import external libraries.
+@import "compass";
+@import "variables/**/*";
+@import "abstractions/**/*";
+
+body {
+  font-family: Helvetica, arial, sans-serif;
+  @include rem-fallback(font-size, 1rem);
+  color: lighten(black, 10);
+}
+
+hr {
+  display: none;
+}
+
+.remove-br {
+  br {
+    //display: none;
+  }
+}
+
+.header {
+  width: 100%;
+  height: 100px;
+  border-bottom: 1px solid $default-color-blue;
+}
+
+.header img {
+  width: 150px;
+  position: absolute;
+}
+
+.text {
+  position: absolute;
+  top: 300px;
+}
+
+.invoice-header {
+  @include rem-fallback(font-size, .9rem);
+  color: darkgray;
+  text-align: right;
+}
+
+.invoice-header-date {
+  border: none;
+  margin-top: 25px;
+  text-align: right;
+}
+
+.customer .field-label,
+.customer .field__label {
+  display: none;
+}
+.customer .field-name-field-customer-lastname,
+.customer .field--name-field-customer-lastname {
+  display: none;
+}
+
+.customer {
+  @include rem-fallback(margin-bottom, 1rem);
+}
+
+.addressfield-container-inline, .street-block, .country {
+  font-style: normal;
+}
+
+.line-items {
+  @include rem-fallback(margin-top, 6rem);
+}
+
+.view-commerce-line-item-table {
+  @include rem-fallback(font-size, .85rem);
+  table {
+    width: 100%;
+    line-height: 1.2em;
+    border-collapse: collapse;
+  }  
+  thead {
+    border-bottom: 2px solid $default-color-blue;
+    tr {
+      background: darken(white, 12.5);
+    }
+    th {
+      text-align: left;
+      font-weight: 600;
+      @include rem-fallback(padding, .5rem);
+    }
+  }
+    
+  tbody {
+    tr {
+      &.odd {
+        background: darken(white, 1);
+      }
+      &.even {
+        background: darken(white, 3.5);
+      }
+    }
+    td {
+      text-align: left;
+      @include rem-fallback(padding, .5rem);
+    }
+  }
+  
+  .views-field-line-item-title {
+    width: 65%;
+  }
+  
+  .views-field-quantity {
+    width: 5%;
+  }
+
+  .views-align-right {
+    text-align: right;
+  }
+}
+
+.order-total {
+  @include rem-fallback(font-size, .9rem);
+  @include rem-fallback(margin-top, 3rem);
+
+  table {
+    border-collapse: collapse;
+    font-weight: 600;
+    width: 50%;
+    margin-left: auto;
+    tr {
+      background: darken(white, 3.5);
+    }
+    td {
+      @include rem-fallback(padding, .5rem);
+      &.component-total {
+        text-align: right;
+      }
+    }
+  }
+}
+
+.contextual-links-wrapper {
+  display: none;
+}
+
+.invoice-canceled .order-total table {
+  //border: 2px solid black;
+  margin-top: 100px;
+}
+
+.invoice-text {
+  @include rem-fallback(font-size, .9rem);
+  @include rem-fallback(margin-top, 7rem);
+}
+
+.invoice-footer {
+  position: absolute;
+  bottom: 0;
+  border-top: 1px solid $default-color-blue;
+  width: 100%;
+  @include rem-fallback(font-size, .9rem);
+  color: darkgray;
+  text-align: center;
+  @include rem-fallback(padding-top, .3rem);
+}

@@ -7,9 +7,9 @@
 @import "../../abstractions/**/*";
 
 .l-main {
-    @include clearfix;
+  @include clearfix;
 }
 
 .l-content {
-    @include grid-span(12, 1);
+  //@include grid-span(12, 1);
 }

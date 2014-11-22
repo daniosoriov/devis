@@ -4,6 +4,7 @@
 
 .field--commerce-line-items {
   table {
+    @include rem-fallback(margin-bottom, 1rem);
     border: 1px solid whitesmoke;
     
     .views-field-commerce-unit-price, .views-field-quantity, .views-field-commerce-total {
@@ -35,8 +36,13 @@
   }
 }
 
-.field--commerce-customer-billing {
+.field--commerce-customer-billing, .entity-commerce-customer-profile {
   @include rem-fallback(margin-bottom, 1rem);
+  
+  .field--commerce-customer-address, .field-date {
+    @include rem-fallback(margin-bottom, 1rem);
+  }
+  
   .addressfield-container-inline, .street-block, .country {
     font-style: normal;
     @include rem-fallback(margin-bottom, .5rem);

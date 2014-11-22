@@ -34,6 +34,25 @@ div.addressfield-container-inline.name-block {
   display: none;
 }
 
+div.password-strength, div.password-confirm {
+  @include rem-fallback(font-size, .8rem);
+  @include rem-fallback(margin, 1rem, 0);
+  float: none;
+  @include breakpoint($mobile) {
+    @include grid-span(4, 1, false, 0);
+    @include font-family('Raleway');
+    float: none;
+  }
+  @include breakpoint($tab) {
+    @include grid-span(3, 6);
+    @include rem-fallback(font-size, .85rem);
+    @include rem-fallback(margin-top, 1.5rem);
+  }
+  @include breakpoint($desktop) {
+    @include rem-fallback(font-size, .9rem);
+  }
+}
+
 .password-indicator {
   background-color: $color-password-indicator-background;
   .indicator {
@@ -42,11 +61,18 @@ div.addressfield-container-inline.name-block {
 }
 
 div.password-suggestions.description {
-  width: 50%;
+  @include grid-span(3, 1);
+  float: none;
   border: 1px solid $color-fieldset-border;
   @include border-radius();
   @include rem-fallback(padding, .5rem);
   font-weight: 600;
+  
+  @include breakpoint($tab) {
+    margin-left: 0;
+    margin-right: 0;
+    width: 50%;
+  }
   
   ul {
     font-weight: 300;
@@ -54,7 +80,14 @@ div.password-suggestions.description {
     
     li {
       margin: 0;
-      @include rem-fallback(margin-top, .5rem);
+      @include rem-fallback(margin-top, .3rem);
+      @include breakpoint($tab) {
+        @include rem-fallback(margin-top, .5rem);
+      }
     }
   }
+}
+
+span.inactive {
+  color: $color-inactive-account;
 }

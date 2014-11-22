@@ -1,20 +1,8 @@
 #page-wrapper {
-    min-height: 100%;
-    position: relative;
+  min-height: 100%;
+  position: relative;
 }
 
 .l-page {
-    margin: 0 auto;
-    
-    @include breakpoint($mobile $tab) {
-        width: $mobile;
-    }
-    
-    @include breakpoint($tab $desktop) {
-        width: $tab;
-    }
-    
-    @include breakpoint($desktop) {
-        width: $desktop;
-    }
+  min-width: 300px;
 }

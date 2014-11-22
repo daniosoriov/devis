@@ -1,60 +1,68 @@
-header {
-    /*height: 173px;
-    
-    @include breakpoint(max-width $mobile) {
-        height: 174px;
-    }*/
+header.l-header {
+  @include breakpoint($tab) {
+    height: 155px;
+  }
 }
 
 .l-region--header {
-    width: 100%;
-    @include single-box-shadow();
-    border: 1px solid $color-header-border;
-    background: $color-header-background;
-    border-bottom: none;
-    
-    @include breakpoint(max-width $tab) {
-        float: none;
-        position: relative;
-        width: auto;
-        z-index: auto;
-        text-align: center;
+  margin: 0 auto;
+  background: $color-header-background;
+  border-bottom: none;
+  @include breakpoint($desktop) {
+    max-width: $max-width;
+  }
+}
+
+div#logo-title {
+  //@include background-grid($color: blue);
+  position: relative;
+  text-align: center;
+  
+  @include breakpoint($tab) {
+    text-align: left;
+    @include rem-fallback(padding-bottom, 1rem);
+  }
+  
+  a#logo {
+    img {
+      @include rem-fallback(margin-top, 1rem);
+      
+      @include breakpoint($tab) {
+        margin-left: gutter-span();
+      }
     }
+  }
 }
 
 div#name-and-slogan {
-    position: absolute;
-    width: 100%;
-    top: 0;
-    text-align: right;
-    color: $color-name-slogan;
+  @include font-family-mobile(light);
+  color: $color-name-slogan;
+  @include rem-fallback(margin, 1rem, 0);
+  @include rem-fallback(font-size, 1rem);
+  
+  @include breakpoint($mobile) {
+    @include rem-fallback(font-size, 1.1rem);
     @include font-family('Source Sans Pro', light);
+  }
+  
+  @include breakpoint($tab) {
+    margin: 0;
+    position: relative;
+    float: right;
+    text-align: right;
+    @include rem-fallback(font-size, 1.3rem);
+    @include rem-fallback(top, 4.5rem);
+    margin-right: gutter-span();
+  }
+  
+  @include breakpoint($desktop) {
+    @include rem-fallback(top, 1.5rem);
     @include rem-fallback(font-size, 1.6rem);
-    font-style: italic;
-    @include rem-fallback(padding, 1.6rem);
-    
-    #site-name {
-        height: inherit;
-        padding: 10px;
-    }
-    
-    a {
-        @include rem-fallback(letter-spacing, .03rem);
-        @include single-text-shadow();
-        font-weight: 600;
-    }
-    
-    @include breakpoint($mobile $tab) {
-        position: inherit;
-        @include rem-fallback(padding, 1.3rem);
-        @include rem-fallback(font-size, 1.3rem);
-        text-align: center;
-    }
-    
-    @include breakpoint(max-width $mobile) {
-        position: inherit;
-        @include rem-fallback(padding, 1rem);
-        @include rem-fallback(font-size, 1.2rem);
-        text-align: center;
-    }
+  }
+  
+  /*@include breakpoint($tab $desktop) {
+    @include grid-span(6, 7);
+    @include rem-fallback(font-size, 1.3rem);
+    @include rem-fallback(top, 4rem);
+  }*/
 }

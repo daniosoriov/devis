@@ -9,26 +9,19 @@
 /* Tables. */
 /* Footer */
 /* Content. */
+/* Misc */
 @media -sass-debug-info{filename{font-family:file\:\/\/\/Applications\/MAMP\/htdocs\/3devis\/sites\/all\/themes\/devis\/sass\/layouts\/home\/home\.layout\.scss}line{font-family:\000039}}
 .l-main {
   /* for IE 6/7 */
   *zoom: expression(this.runtimeStyle.zoom="1", this.appendChild(document.createElement("br")).style.cssText="clear:both;font:0/0 serif");
   /* non-JS fallback */
   *zoom: 1; }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/danielosoriov\/\.rvm\/gems\/ruby-1\.9\.3-p547\@omega\.devis\/gems\/singularitygs-1\.1\.2\/stylesheets\/singularitygs\/helpers\/_clearfix\.scss}line{font-family:\0000348}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/danielosoriov\/\.rvm\/gems\/ruby-1\.9\.3-p547\/gems\/singularitygs-1\.1\.2\/stylesheets\/singularitygs\/helpers\/_clearfix\.scss}line{font-family:\0000347}}
   .l-main:before, .l-main:after {
     content: ".";
     display: block;
     height: 0;
     overflow: hidden; }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/danielosoriov\/\.rvm\/gems\/ruby-1\.9\.3-p547\@omega\.devis\/gems\/singularitygs-1\.1\.2\/stylesheets\/singularitygs\/helpers\/_clearfix\.scss}line{font-family:\0000355}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/danielosoriov\/\.rvm\/gems\/ruby-1\.9\.3-p547\/gems\/singularitygs-1\.1\.2\/stylesheets\/singularitygs\/helpers\/_clearfix\.scss}line{font-family:\0000355}}
   .l-main:after {
     clear: both; }
-
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Applications\/MAMP\/htdocs\/3devis\/sites\/all\/themes\/devis\/sass\/layouts\/home\/home\.layout\.scss}line{font-family:\0000313}}
-.l-content {
-  width: 100%;
-  float: right;
-  margin-left: 0;
-  margin-right: 0;
-  clear: none; }

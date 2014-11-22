@@ -11,16 +11,15 @@
 
 .dropdown .selected::after,
 .dropdown.scrollable div::after{
-	-webkit-pointer-events: none;
-	-moz-pointer-events: none;
-	-ms-pointer-events: none;
-	pointer-events: none;
+  -webkit-pointer-events: none;
+  -moz-pointer-events: none;
+  -ms-pointer-events: none;
+  pointer-events: none;
 }
 
 /* WRAPPER */
 
 .dropdown {
-  @include font-family('Raleway');
   position: relative;
   width: 50%;
   border: 1px solid $color-input-border;
@@ -28,6 +27,7 @@
   background: $color-input-background;
   @include border-radius();
   @include rem-fallback(font-size, 0.85rem);
+  @include rem-fallback(padding, .1rem, 0);
 
   -webkit-user-select: none;
   -moz-user-select: none;
@@ -45,23 +45,37 @@
   &.focus {
     border: 1px solid $color-input-active-border;
     color: $color-input-active;
-    @include single-box-shadow($color-input-active-shadow);
+    @include single-box-shadow(null, null, null, null, $color-input-active-shadow);
   }
   
-  @include breakpoint(max-width $tab) {
-    max-width: 100%;
-    width: 100%;
+  @include grid-span(3, 1);
+  float: none;
+  
+  @include breakpoint($mobile) {
+    @include font-family('Raleway');
+    @include grid-span(4, 1, false, 0);
+    float: none;
   }
-
-  @include breakpoint($tab $desktop) {
-    max-width: 80%;
-    width: 80%;
+  @include breakpoint($tab) {
+    @include grid-span(4, 1, false, 0); // 4 of 8
+    float: none;
+  }
+  @include breakpoint($desktop) {
+    @include grid-span(5, 1, false, 0); // 5 of 12
+    float: none;
   }
 }
 
 .dropdown-regular {
   .dropdown {
     width: 180px;
+  }
+}
+
+.dropdown-honorific {
+  .dropdown {
+    width: 88px;
+    @include rem-fallback(margin-right, 1rem);
   }
 }
 

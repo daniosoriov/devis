@@ -1,155 +1,250 @@
 .l-navigation-content {
-    height: 64px;
-    margin-bottom: -64px;
+  @include background-image(linear-gradient($color-navigation-background-top, $color-navigation-background-bottom));
+  border: none;
+  border-bottom: 1px solid $color-navigation-border-bottom;
+  
+  @include breakpoint($tab) {
+    height: 40px;
+    margin-bottom: -40px;
     z-index: 150;
+  }
 }
 
 .l-region--navigation {
-    //background: $color-navigation-background;
-    @include background-image(linear-gradient($color-navigation-background-top, $color-navigation-background-bottom));
-    
+  margin: 0 auto;
+  max-width: $max-width;
+  h2.pane-title {
     margin: 0;
-    border: 1px solid $color-navigation-border;
-    border-top: none;
-    
-    @include rem-fallback(height, 3rem);
-    @include rem-fallback(margin-bottom, 1rem);
-    @include single-box-shadow();
-    @include single-text-shadow();
-    @include border-bottom-radius();
-    
-    h2 {
-        margin: 0;
+  }
+  
+  ul {
+    text-align: center;
+    li {
+      display: inline;
+      margin: 0;
+      a {
+        @include font-family-mobile(light);
+        @include rem-fallback(font-size, .85rem);
+        color: $color-navigation-a;
+        display: block;
+        float: none;
+        @include rem-fallback(padding, .25rem, 0);
+        border: none;
+        border-bottom: 1px solid $color-navigation-border-mobile;
+        cursor: default;
+        
+        @include breakpoint($mobile) {
+          @include font-family('Source Sans Pro', light);
+          @include rem-fallback(font-size, 1rem);
+          @include rem-fallback(padding, .4rem, 0);
+        }
+
+        &:hover {
+          color: $color-navigation-hover-a;
+          border: none;
+          position: relative;
+          top: 1px;
+          border-bottom: 1px solid $color-navigation-border-mobile-hover;
+        }
+
+        &.active {
+          color: $color-navigation-hover-a;
+          font-weight: 400;
+          border-bottom: 1px solid $color-navigation-border-mobile-hover;
+        }
+      }
     }
-    
+  }
+  
+  @include breakpoint($tab) {
     ul {
-        float: right;
+      float: right;
+      margin: 0;
+      
+      li {
+        position: relative;
+        display: inline-block;
+        
+        a {
+          @include font-family('Source Sans Pro', light);
+          @include rem-fallback(font-size, 1.1rem);
+          @include rem-fallback(padding, .7rem, .7rem, .4rem);
+          cursor: default;
+          @include single-transition(background .3s, color .3s, border-bottom-color .3s);
+          display: block;
+          float: left;
+          border: none;
+          border-bottom: .3rem transparent solid;
+          
+          &:hover, &.active {
+            position: static;
+            top: 0;
+            border-bottom: .3rem $color-navigation-hover-border solid;
+          }
+        }
+        
+        &:hover > ul {
+          display: block;
+        }
+      }
+      
+      ul {
         margin: 0;
-        
+        padding: 0;
+        display: none;
+        position: absolute;
+        top: 100%;
+        text-align: center;
+        box-sizing: border-box;
+
         li {
+          margin: 0;
+          box-sizing: border-box;
+          width: 100%;
+        }
+      }
+
+      ul.navSpecialBox {
+        //right: 0;
+        //text-align: left;
+
+        li {
+          font-weight: 200;
+          color: $color-navigation-special-box;
+          background: $color-navigation-special-box-background;
+          width: 15rem;
+          @include rem-fallback(padding, .8rem);
+          padding-bottom: 0;
+          margin: 0;
+          border: none;
+          text-align: center;
+
+          .navSpecialBoxReg {
+            @include single-transition(color .3s);
+            float: none;
+            color: $base-color;
+            font-size: 1.5rem;
             padding: 0;
-            display: inline-block;
-            border-bottom: .5rem transparent solid;
-            position: relative; 
-            margin: 0 -2px 0 -1px;
-            
-            a {
-                color: $color-navigation-a;
-                @include rem-fallback(font-size, 1.2rem);
-                @include rem-fallback(padding, .95rem, .7rem);
-                cursor: default;
-                @include single-transition(background .3s, color .3s);
-                display: block;
-                float: left;
-                
-                &:hover {
-                    color: $color-navigation-hover-a;
-                    background: $color-navigation-hover-background;
-                    border-bottom: .5rem $color-navigation-hover-border inset;
-                    @include rem-fallback(padding-bottom, .45rem);
-                }
+            border: none;
+            @include rem-fallback(margin-bottom, 1.1rem);
+
+            &:hover {
+              padding: 0;
+              background: none;
+              border: none;
+              color: $color-navigation-special-box-a-hover;
             }
-            
-            &:hover > ul {
-                display: block;
-            }
-            
+          }
         }
-        
-        ul {
-            margin: 0;
-            padding: 0;
-            display: none;
-            position: absolute;
-            top: 100%;
-            text-align: center;
-            box-sizing: border-box;
-            
-            li {
-                margin: 0;
-                box-sizing: border-box;
-                width: 100%;
-            }
-        }
-        
-        ul.navSpecialBox {
-            right: 0;
-            text-align: left;
-            
-            li {
-                color: $color-navigation-special-box;
-                background: $color-navigation-special-box-background;
-                width: 15rem;
-                @include rem-fallback(padding, .8rem);
-                padding-bottom: 0;
-                margin: 0;
-                border: none;
-                text-align: center;
-                
-                .navSpecialBoxReg {
-                    color: $color-navigation-special-box-a;
-                    float: none;
-                    color: $base-color;
-                    font-size: 1.5rem;
-                    padding: 0;
-                    @include rem-fallback(margin-bottom, 1.1rem);
-                    
-                    &:hover {
-                        background: none;
-                        border: 0;
-                        color: $color-navigation-special-box-a-hover;
-                    }
-                }
-            }
-        }
+      }
     }
+  }
+  
+  
+  
+  /*
+  margin: 0 auto;
+  @include breakpoint($desktop) {
+    width: $desktop;
+  }
+  
+  @include breakpoint($tab $desktop) {
+    width: $tab;
+  }
+  
+  h2 {
+    margin: 0;
+  }
+    
+  ul {
+    float: right;
+    margin: 0;
+
+    li {
+      padding: 0;
+      display: inline-block;
+      position: relative;
+      margin: 0;
+
+      a {
+        @include font-family('Source Sans Pro', light);
+        
+        @include rem-fallback(font-size, 1.1rem);
+        @include rem-fallback(padding, .95rem, .7rem, .65rem, .7rem);
+        cursor: default;
+        @include single-transition(background .3s, color .3s, border-bottom-color .3s);
+        display: block;
+        float: left;
+        border: none;
+        border-bottom: .3rem transparent solid;
+
+        &:hover, &.active {
+          border-bottom-color: $color-navigation-hover-border;
+        }
+      }
+
+      &:hover > ul {
+        display: block;
+      }
+
+    }
+        
+    ul {
+      margin: 0;
+      padding: 0;
+      display: none;
+      position: absolute;
+      top: 100%;
+      text-align: center;
+      box-sizing: border-box;
+
+      li {
+          margin: 0;
+          box-sizing: border-box;
+          width: 100%;
+      }
+    }
+        
+    ul.navSpecialBox {
+      right: 0;
+      text-align: left;
+
+      li {
+        font-weight: 200;
+        color: $color-navigation-special-box;
+        background: $color-navigation-special-box-background;
+        width: 15rem;
+        @include rem-fallback(padding, .8rem);
+        padding-bottom: 0;
+        margin: 0;
+        border: none;
+        text-align: center;
+
+        .navSpecialBoxReg {
+          @include single-transition(color .3s);
+          float: none;
+          color: $base-color;
+          font-size: 1.5rem;
+          padding: 0;
+          border: none;
+          @include rem-fallback(margin-bottom, 1.1rem);
+
+          &:hover {
+            padding: 0;
+            background: none;
+            border: none;
+            color: $color-navigation-special-box-a-hover;
+          }
+        }
+      }
+    }
+  }*/
 }
 
 .navSticky {
-    position: fixed;
-    top: 0;
-    width: $desktop;
-    @include box-shadow(0px 1px 15px -3px $color-navigation-sticky-shadow);
-    z-index: 150;
-}
-
-@include breakpoint($tab $desktop) {
-    .navSticky {
-        width: $tab;
-    }
-}
-
-@include breakpoint(max-width $tab) {
-    .l-navigation-content {
-        height: auto;
-        margin-bottom: 0;
-        z-index: auto;
-    }
-    
-    .l-region--navigation {
-        height: auto;
-        
-        ul {
-            text-align: center;
-            display: inherit;
-            float: none;
-            li {
-                display: inline;
-                margin: 0;
-                a {
-                    display: block;
-                    float: none;
-                    font-size: 100%;
-                    @include rem-fallback(padding, .5rem, 0);
-
-                    &:hover {
-                        position: relative;
-                        top: 1px;
-                        border-bottom: 0;
-                        @include rem-fallback(padding, .5rem, 0);
-                    }
-                }
-            }
-        }
-    }
+  position: fixed;
+  top: 0;
+  width: 100%;
+  @include box-shadow(0px 1px 15px -3px $color-navigation-sticky-shadow);
+  z-index: 150;
 }

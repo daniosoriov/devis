@@ -44,7 +44,7 @@
   }
   
   .commerce-month-year-divider {
-    @include rem-fallback(margin, 0, .6rem, 0, 0);
+    @include rem-fallback(margin, 0, .6rem, 0, .25rem);
   }
 }
 
