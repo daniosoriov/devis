@@ -1,3 +1,48 @@
+input#edit-commerce-payment-payment-details-credit-card-code,
+input#edit-credit-card-code {
+  @include rem-fallback(width, 3rem);
+}
+
+input#edit-credit-card-number {
+  @include rem-fallback(width, 12rem);
+}
+
+select.stripe {
+  width: 100%;
+}
+
+
+.commerce-credit-card-expiration {
+  margin-bottom: 0;
+  
+  .form-item {
+    display: inline-block;
+  }
+  
+  .commerce-month-year-divider {
+    @include rem-fallback(margin, 0, .5rem);
+    
+    @include breakpoint($mobile) {
+      position: relative;
+      top: -9px;
+    }
+  }
+}
+
+div.addressfield-container-inline {
+  select.commerce-stripe-country {
+    @include rem-fallback(width, 20rem);
+  }
+  
+  input.commerce-stripe-postal-code {
+    @include rem-fallback(width, 7rem);
+  }
+
+  input.commerce-stripe-locality {
+    @include rem-fallback(width, 16rem);
+  }
+}
+
 .view-commerce-card-on-file-user-cards {
   @include rem-fallback(margin-bottom, 1rem);
   tbody {
@@ -10,6 +55,14 @@
     }
     
     td {
+      .card-expired, .card-expired-description {
+        display: inline-block;
+      }
+      .card-expired-description {
+        @include rem-fallback(margin-left, .3rem);
+        font-size: 85%;
+      }
+      
       ul {
         margin: 0;
         
@@ -24,20 +77,6 @@
 
 .entity-commerce-cardonfile {
   @include rem-fallback(margin-bottom, 1rem);
-}
-
-fieldset#edit-card-info {
-  input.form-text, input.stripe, input.thoroughfare {
-    @include breakpoint(max-width $tab) {
-      max-width: 100%;
-      width: auto;
-    }
-
-    @include breakpoint($tab $desktop) {
-      max-width: 80%;
-      width: auto;
-    }
-  }
 }
 
 input[type="submit"].card_submit {

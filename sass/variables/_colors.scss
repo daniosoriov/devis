@@ -4,12 +4,16 @@
 
 // sass colors: https://github.com/sass/sass/blob/stable/lib/sass/script/value/color.rb#L28-L180
 
+// rgb(111, 134, 142)
+
 $blue: #2E64FE;
 $orange: #FF8000;
 $yellow: #FBD760;
 $green: #0BE85A;
 $green-blue: #5EDCDB;
 $purple: #4C3463;
+
+$green-base: rgb(111, 134, 142);
 
 $base-color: #FFB500; //#ffb900;
 $secondary-color: #0078E0; //#0088ff;
@@ -30,24 +34,24 @@ $color-header-border: darken(white, 15);
 $color-name-slogan: $default-color-dark;
 
 /* Navigation. */
-$color-navigation-a: $default-color-dark;
-$color-navigation-hover-a: black;
-$color-navigation-background: darken(white, 1);//lighten($base-color, 10);
-$color-navigation-background-top: darken(white, 5); //fade-out($color-navigation-background, .15);
-$color-navigation-background-bottom: fade-out(darken(white, 5), .25); //fade-out($color-navigation-background, .05);
+$color-navigation-a: darken(white, 7.5); //$default-color-dark;
+$color-navigation-hover-a: darken(white, 5); //black;
+$color-navigation-background: $green-base;//darken(white, 1);//lighten($base-color, 10);
+$color-navigation-background-top: $green-base; //darken(white, 5); //fade-out($color-navigation-background, .15);
+$color-navigation-background-bottom: fade-out($green-base, .1); //fade-out(darken(white, 5), .25); //fade-out($color-navigation-background, .05);
 $color-navigation-hover-background: $base-color;
-$color-navigation-border: darken(white, 15);
+$color-navigation-border: $base-color;//darken(white, 15);
 $color-navigation-border-bottom: $base-color;
 $color-navigation-hover-border: $base-color; //darken($base-color, 2);
 $color-navigation-sticky-shadow: rgba(0, 0, 0, 0.4);
 
 $color-navigation-special-box: darken(white, 2);
-$color-navigation-special-box-background: fade-out($default-color-blue, .05);
+$color-navigation-special-box-background: fade-out(darken($green-base, 15), .05); //fade-out($default-color-blue, .05);
 $color-navigation-special-box-a: $base-color;
 $color-navigation-special-box-a-hover: lighten($base-color, 35);
 
-$color-navigation-border-mobile: darken(white, 7);
-$color-navigation-border-mobile-hover: darken(white, 10);
+$color-navigation-border-mobile: darken(white, 25);
+$color-navigation-border-mobile-hover: darken($base-color, 7.5);//darken(white, 10);
 
 /* Tabs. */
 $color-tab-ul-background: darken(white, 2);
@@ -61,30 +65,30 @@ $color-tab-a-hover: white; //lighten($base-color, 15);
 $color-tab-a-hover-background: darken(gray, 10);
 
 /* Buttons. */
-$color-button: darken(gray, 15);
-$color-button-hover: darken(gray, 35);
-$color-button-active: black;
-$color-button-text-shadow: rgba(0, 0, 0, 0.1);
+$color-button: white;//lighten(black, 15); //darken(gray, 15);
+$color-button-hover: white;//lighten(black, 5); //darken(gray, 35);
+$color-button-active: white;//lighten(black, 5);
+$color-button-text-shadow: rgba(0, 0, 0, 0);
 
-$color-button-background: darken(white, 3);
-$color-button-hover-background: white;
-$color-button-active-background: white;
+$color-button-background: fade-out($base-color, .5);//darken(white, 3);
+$color-button-hover-background: $base-color;//white;
+$color-button-active-background: $base-color;//white;
 
-$color-button-background-top: darken(white, 3);
-$color-button-hover-background-top: white;
-$color-button-active-background-top: white;
+$color-button-background-top: fade-out($base-color, .4);//darken(white, 3);
+$color-button-hover-background-top: $base-color;//white;
+$color-button-active-background-top: $base-color;//white;
 
-$color-button-background-bottom: fade-out(darken(white, 20), .3);
-$color-button-hover-background-bottom: fade-out(darken(white, 15), .3);
-$color-button-active-background-bottom: darken(white, 17);
+$color-button-background-bottom: fade-out($base-color, .4);//fade-out(darken(white, 20), .3);
+$color-button-hover-background-bottom: $base-color;//white;
+$color-button-active-background-bottom: $base-color;//white;
 
-$color-button-border: darken(white, 30);
-$color-button-hover-border: darken(white, 35);
-$color-button-active-border: darken(white, 45);
+$color-button-border: darken($base-color, 5);
+$color-button-hover-border: darken($base-color, 7.5);
+$color-button-active-border: darken($base-color, 7.5);
 
-$color-button-border-side: darken(white, 15);
-$color-button-hover-border-side: darken(white, 20);
-$color-button-active-border-side: darken(white, 30);
+$color-button-border-side: darken($base-color, 2.5);
+$color-button-hover-border-side: darken($base-color, 5);
+$color-button-active-border-side: darken($base-color, 5);
 
 $color-button-active-shadow: rgba(0, 0, 0, 0.2);
 
@@ -119,7 +123,7 @@ $color-button-cancel-active-shadow: rgba(0, 0, 0, 0.3);
 /* Forms. */
 $color-form-required: fade-out(red, .2);
 
-$color-fieldset-legend: $default-color-blue;
+$color-fieldset-legend: $green-base;//$default-color-blue;
 $color-fieldset-border: darken(white, 5);
 $color-fieldset-description: darken(gray, 20);
 $color-fieldset-background: darken(white, 2);
@@ -201,15 +205,17 @@ $color-footer-background-top: $color-navigation-background-top;//fade-out($color
 $color-footer-background-bottom: $color-navigation-background-top;//fade-out($color-navigation-background, .05);
 
 $color-footer-title: $default-color-dark;
-$color-footer-a: $default-color-dark;
-$color-footer-a-hover: lighten($default-color-blue, 10);
-$color-footer-a-active: lighten($default-color-blue, 10);
+$color-footer-a: darken(white, 10); //$default-color-dark;
+$color-footer-a-hover: darken(white, 5); //lighten($default-color-blue, 10);
+$color-footer-a-active: darken(white, 5); //lighten($default-color-blue, 10);
 
 /* Content. */
 $color-title-budget: $default-color-blue;
 
-$color-font-a: lighten($default-color-blue, 25);
-$color-font-a-hover: darken($color-font-a, 10);
+$color-font-title: $base-color;
+$color-a: $base-color;//lighten($default-color-blue, 25);
+$color-font-a: darken($base-color, 3.5);//darken($color-a, 10);
+$color-font-a-hover: $color-a;
 $color-font-a-active: $color-font-a-hover;
 
 $color-password-indicator-background: darken(white, 15);
@@ -232,7 +238,7 @@ $color-border-div: darken(white, 5);
 // Font
 $color-font: darken(gray, 35);
 $color-font-h: lighten(black, 15);
-$color-font-h2: lighten(black, 15);
+$color-font-h2: $base-color;//lighten(black, 15);
 $color-font-content-h3-field: lighten(black, 35);
 
 /* Misc */

@@ -11,5 +11,102 @@
 }
 
 .l-content {
-  //@include grid-span(12, 1);
+  div.home {
+    h2.pane-title {
+      color: $color-font-title;
+      @include rem-fallback(font-size, 2rem);
+      @include rem-fallback(line-height, 2.8rem);
+      text-align: center;
+      
+      @include breakpoint($mobile) {
+        @include font-family('Raleway');
+        @include rem-fallback(font-size, 2.5rem);
+        @include rem-fallback(margin-top, 1.5rem);
+        @include rem-fallback(margin-bottom, 1.3rem);
+      }
+      @include breakpoint($tab) {
+        @include rem-fallback(line-height, 3.5rem);
+        @include grid-span(6, 2, false, 0);
+        float: none;
+        @include rem-fallback(margin-top, 2.5rem);
+        @include rem-fallback(margin-bottom, 2rem);
+        @include rem-fallback(font-size, 3.2rem);
+      }
+      @include breakpoint($desktop) {
+        @include rem-fallback(font-size, 3.5rem);
+        @include rem-fallback(line-height, 4rem);
+        @include grid-span(10, 2, false, 0);
+        float: none;
+      }
+    }
+    
+    h3.pane-subtitle {
+      @include rem-fallback(font-size, 1.35rem);
+      font-weight: 200;
+      text-align: center;
+
+      @include breakpoint($mobile) {
+        @include rem-fallback(font-size, 1.5rem);
+      }
+      @include breakpoint($tab) {
+        @include rem-fallback(font-size, 1.7rem);
+      }
+      @include breakpoint($desktop) {
+        @include rem-fallback(font-size, 2rem);
+      }
+    }
+    
+    h4.pane-subtitle {
+      @include rem-fallback(font-size, 1.2rem);
+      @include rem-fallback(margin-top, 1rem);
+      font-weight: 400;
+      text-align: center;
+      
+      @include breakpoint($mobile) {
+        @include rem-fallback(margin-top, 1.3rem);
+      }
+      @include breakpoint($tab) {
+        @include rem-fallback(margin-top, 2rem);
+        @include rem-fallback(margin-bottom, 1rem);
+        @include rem-fallback(font-size, 1.5rem);
+      }
+      @include breakpoint($desktop) {
+        @include rem-fallback(margin-top, 3.2rem);
+        @include rem-fallback(margin-bottom, 1.5rem);
+        @include rem-fallback(font-size, 1.8rem);
+      }
+    }
+    
+    p {
+      text-align: center;
+      @include breakpoint($tab) {
+        @include grid-span(6, 2, false, 0);
+      }
+      @include breakpoint($desktop) {
+        @include grid-span(8, 3, false, 0);
+      }
+    }
+    
+    ul.home {
+      list-style: circle;
+      @include rem-fallback(margin-left, .9rem);
+      @include breakpoint($mobile) {
+        @include rem-fallback(margin-left, 1rem);
+      }
+      @include breakpoint($desktop) {
+        @include rem-fallback(margin-left, 1.1rem);
+      }
+
+      li {
+        list-style: circle;
+        @include rem-fallback(margin-left, .1rem);
+        @include breakpoint($mobile) {
+          @include rem-fallback(margin-left, .2rem);
+        }
+        @include breakpoint($tab) {
+          @include rem-fallback(margin-left, .3rem);
+        }
+      }
+    }
+  }
 }

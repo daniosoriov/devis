@@ -1,14 +1,16 @@
+@import "breakpoint";
+
 /* #Lists
 ================================================== */
 ul, ol {
-    @include rem-fallback(margin-bottom, 1.3rem);
+  @include rem-fallback(margin-bottom, 1.3rem);
 }
 
 ul {
-    list-style: none outside;
-    li {
-        list-style: none;
-    }
+  list-style: none outside;
+  li {
+    list-style: none;
+  }
 }
 
 ul.menu {
@@ -28,9 +30,21 @@ ul ul, ul ol,
 ol ol, ol ul { margin: 4px 0 5px 30px; font-size: 90%;  }
 ul ul li, ul ol li,
 ol ol li, ol ul li { margin-bottom: 6px; }
-li { 
-    @include rem-fallback(line-height, 1.1rem);
-    @include rem-fallback(margin-bottom, .8rem);
+li {
+  @include rem-fallback(font-size, .85rem);
+  @include rem-fallback(line-height, 1.2rem);
+  @include rem-fallback(margin-bottom, .6rem);
+  @include breakpoint($mobile) {
+    @include rem-fallback(font-size, 1rem);
+    @include rem-fallback(line-height, 1.3rem);
+  }
+  @include breakpoint($tab) {
+    @include rem-fallback(line-height, 1.4rem);
+    @include rem-fallback(margin-bottom, .45rem);
+  }
+  @include breakpoint($desktop) {
+    @include rem-fallback(font-size, 1.1rem);
+  }
 }
 ul.large li { line-height: 21px; }
 li p { line-height: 21px; }

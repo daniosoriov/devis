@@ -74,15 +74,30 @@
     };
   
   Drupal.theme.prototype.devisSelectCompanyLabel = function(element) {
-    var title = 'Nom de votre ';
-    switch(element) {
-      case 'society':
-        title = title + 'soci&#233;t&#233;';
+    
+    return title;
+  }
+  
+  Drupal.theme.prototype.devisPrepareLabelHTML = function(id, element, default_title, required) {
+    var title = default_title + required;
+    switch (id) {
+      case 'company':
+        if (element == "association") {
+          title = 'Nom de votre association'+ required;
+        }
         break;
-      default:
-        title = title + element;
+        
+      case 'tva':
+        if (element == "association") {
+          title = 'Num&eacute;ro de TVA de votre association'+ required;
+        }
+        break;
     }
     return title;
+  }
+  
+  Drupal.theme.prototype.devisChangeTVALabel = function(element, default_title, required) {
+    
   }
   
   Drupal.theme.prototype.devisReplaceText = function(element, needle, str) {
@@ -99,6 +114,13 @@
       // deactivate easydropdown on mobile devices.
       if ($(window).width() <= 384) {
         $('div').easyDropDown('disable');
+      }
+      else {
+        // easyDropDown to 10 show 10 values.
+        var $selects = $('select');
+        $selects.easyDropDown({
+          cutOff: 10,
+        });
       }
     }
   };
@@ -135,7 +157,7 @@
       attach: function (context, settings) {
         var  mn = $('.l-navigation-content');
         mns = 'navSticky';
-        hdr = ($('header').height() < 100) ? 155 : $('header').height();
+        hdr = ($('header').height() < 100) ? 135 : $('header').height();
 
         $(window).scroll(function() {
           if ($(window).width() > 704) {
@@ -179,15 +201,25 @@
     }
   };
   
-  /**
-   * Function to change the label of the potential company to specify on the budget request, depending on the value given for the legal status.
-   */
-  Drupal.behaviors.devisChangeCompanyLabel = {
+  Drupal.behaviors.devisDemanderDevis = {
     attach: function (context, settings) {
+      // Change the Company label depending on the legal status.
+      // Change the TVA label depending on the legal status.
       $("#edit-field-legal-status-und").change(function() {
-        var title = Drupal.theme('devisSelectCompanyLabel', $(this).val());
+        var val = $(this).val();
+        var title = Drupal.theme('devisPrepareLabelHTML', 'company', val, settings.devenir.companyTitle, settings.devenir.required);
         $("label[for='edit-field-company-name-und-0-value']").html(title);
+        var title = Drupal.theme('devisPrepareLabelHTML', 'tva', val, settings.devenir.tvaTitle, settings.devenir.required);
+        $("label[for='edit-field-tva-und-0-value']").html(title);
       });
+      var $object = $('form#comptable-entityform-edit-form');
+      if ($object.length) {
+        var val = $("#edit-field-legal-status-und").val();
+        var title = Drupal.theme('devisPrepareLabelHTML', 'company', val, settings.devenir.companyTitle, settings.devenir.required);
+        $("label[for='edit-field-company-name-und-0-value']").html(title);
+        var title = Drupal.theme('devisPrepareLabelHTML', 'tva', val, settings.devenir.tvaTitle, settings.devenir.required);
+        $("label[for='edit-field-tva-und-0-value']").html(title);
+      }
     }
   };
   
@@ -196,5 +228,12 @@
       $(".remove-br").find("br").remove();
     }
   };
+  
+  setTimeout(function() {
+    $(document).ready(function() {
+      $('select.error').parent().parent().addClass('dropdown-error');
+    });
+  }, 20);
+
 
 })(jQuery);

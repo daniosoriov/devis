@@ -1,12 +1,13 @@
 .l-navigation-content {
   @include background-image(linear-gradient($color-navigation-background-top, $color-navigation-background-bottom));
   border: none;
-  border-bottom: 1px solid $color-navigation-border-bottom;
+  border-bottom: 3px solid $color-navigation-border-bottom;
   
   @include breakpoint($tab) {
     height: 40px;
     margin-bottom: -40px;
     z-index: 150;
+    border-bottom: 1px solid transparent;
   }
 }
 
@@ -28,7 +29,7 @@
         color: $color-navigation-a;
         display: block;
         float: none;
-        @include rem-fallback(padding, .25rem, 0);
+        @include rem-fallback(padding, .2rem, 0);
         border: none;
         border-bottom: 1px solid $color-navigation-border-mobile;
         cursor: default;
@@ -36,7 +37,7 @@
         @include breakpoint($mobile) {
           @include font-family('Source Sans Pro', light);
           @include rem-fallback(font-size, 1rem);
-          @include rem-fallback(padding, .4rem, 0);
+          @include rem-fallback(padding, .3rem, 0);
         }
 
         &:hover {
@@ -68,7 +69,7 @@
         a {
           @include font-family('Source Sans Pro', light);
           @include rem-fallback(font-size, 1.1rem);
-          @include rem-fallback(padding, .7rem, .7rem, .4rem);
+          @include rem-fallback(padding, .55rem, .7rem, .28rem);
           cursor: default;
           @include single-transition(background .3s, color .3s, border-bottom-color .3s);
           display: block;
@@ -105,14 +106,14 @@
       }
 
       ul.navSpecialBox {
-        //right: 0;
-        //text-align: left;
+        right: 0;
 
         li {
           font-weight: 200;
           color: $color-navigation-special-box;
           background: $color-navigation-special-box-background;
           width: 15rem;
+          @include rem-fallback(font-size, .85rem);
           @include rem-fallback(padding, .8rem);
           padding-bottom: 0;
           margin: 0;

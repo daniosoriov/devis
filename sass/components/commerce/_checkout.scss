@@ -24,27 +24,7 @@
 
 .commerce_payment, .customer_profile_billing {
   .stripe, input[name*="customer_profile_billing"] {
-    @include breakpoint(max-width $tab) {
-      max-width: 100%;
-      width: auto;
-    }
-
-    @include breakpoint($tab $desktop) {
-      max-width: 80%;
-      width: auto;
-    }
-  }
-}
-
-.commerce-credit-card-expiration {
-  margin-bottom: 0;
-  
-  .form-item {
-    display: inline-block;
-  }
-  
-  .commerce-month-year-divider {
-    @include rem-fallback(margin, 0, .6rem, 0, .25rem);
+    
   }
 }
 

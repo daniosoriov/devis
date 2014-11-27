@@ -26,8 +26,8 @@
   cursor: pointer;
   background: $color-input-background;
   @include border-radius();
-  @include rem-fallback(font-size, 0.85rem);
-  @include rem-fallback(padding, .1rem, 0);
+  @include rem-fallback(font-size, 0.9rem);
+  @include rem-fallback(padding, .15rem, 0);
 
   -webkit-user-select: none;
   -moz-user-select: none;
@@ -52,17 +52,25 @@
   float: none;
   
   @include breakpoint($mobile) {
-    @include font-family('Raleway');
+    @include font-family('Source Sans Pro');
     @include grid-span(4, 1, false, 0);
     float: none;
   }
   @include breakpoint($tab) {
+    @include rem-fallback(font-size, 1rem);
     @include grid-span(4, 1, false, 0); // 4 of 8
     float: none;
   }
   @include breakpoint($desktop) {
     @include grid-span(5, 1, false, 0); // 5 of 12
     float: none;
+  }
+}
+
+.dropdown-error {
+  border: 1px solid $color-input-error-border;
+  &:hover, &:active, &:focus {
+    border: 1px solid $color-input-error-hover-border;
   }
 }
 
@@ -74,8 +82,15 @@
 
 .dropdown-honorific {
   .dropdown {
-    width: 88px;
+    width: 80px;
     @include rem-fallback(margin-right, 1rem);
+  }
+}
+
+.dropdown-expiration-date {
+  display: inline-block;
+  .dropdown {
+    width: 70px;
   }
 }
 
@@ -135,9 +150,13 @@
 .dropdown li {
   display: block;
   line-height: 1;
-  @include rem-fallback(padding, .4rem, .5rem);
+  @include rem-fallback(padding, .3rem, .5rem);
   overflow: hidden;
   white-space: nowrap;
+  
+  @include breakpoint($tab) {
+    @include rem-fallback(padding, .4rem, .5rem);
+  }
 }
 
 .dropdown.disabled .selected {
@@ -153,7 +172,7 @@
 	width: 60px;
 	
 	border-radius: 0 2px 2px 0;
-	box-shadow: inset -55px 0 25px -20px #fff;
+	//box-shadow: inset -55px 0 25px -20px #fff;
 }
 
 /* DROP DOWN WRAPPER */
@@ -190,7 +209,7 @@
 	bottom: 0;
 	height: 50px;
 	
-	box-shadow: inset 0 -50px 30px -35px #fff;
+	//box-shadow: inset 0 -50px 30px -35px #fff;
 }
 
 .dropdown.scrollable.bottom div::after{
@@ -200,13 +219,13 @@
 /* DROP DOWN LIST */
 
 .dropdown ul{
-	position: absolute;
-	left: 0;
-	top: 0;
-	height: 100%;
-	width: 100%;
-	list-style: none;
-	overflow: hidden;
+  position: absolute;
+  left: 0;
+  top: 0;
+  height: 100%;
+  width: 100%;
+  list-style: none;
+  overflow: hidden;
 }
 
 .dropdown.scrollable.open ul{
@@ -218,7 +237,13 @@
 .dropdown li {
   margin-bottom: 0;
   list-style: none;
-  @include rem-fallback(padding, .5rem, .8rem);
+  @include rem-fallback(padding, .3rem, .8rem);
+  @include rem-fallback(font-size, .9rem);
+  
+  @include breakpoint($tab) {
+    @include rem-fallback(padding, .4rem, .8rem);
+    @include rem-fallback(font-size, 1rem);
+  }
   
   &.focus {
     background: fade-out(darken($secondary-color, 10), .1);

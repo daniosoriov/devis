@@ -32,6 +32,19 @@
   h2.pane-title {
     @include rem-fallback(margin-top, 1rem);
     color: $color-font-h2;
+    @include rem-fallback(font-size, 1.35rem);
+    font-weight: 400;
+    
+    @include breakpoint($mobile) {
+      @include font-family('Raleway');
+      @include rem-fallback(font-size, 1.6rem);
+    }
+    @include breakpoint($tab) {
+      @include rem-fallback(font-size, 1.8rem);
+    }
+    @include breakpoint($desktop) {
+      @include rem-fallback(font-size, 2rem);
+    }
   }
   
   .user-profile, div.content, .ds-1col {
@@ -104,6 +117,18 @@ textarea, .form-textarea-wrapper textarea {
   }
 }
 
+fieldset {
+  legend {
+    @include rem-fallback(margin-left, .35rem);
+    @include breakpoint($tab) {
+      @include rem-fallback(margin-left, .45rem);
+    }
+    @include breakpoint($desktop) {
+      @include rem-fallback(margin-left, .65rem);
+    }
+  }
+}
+
 .fieldset-wrapper {
   @include grid-span(3, 1);
   
@@ -115,14 +140,17 @@ textarea, .form-textarea-wrapper textarea {
   }
 }
 
-div#tabs, div.tabs {
-  @include rem-fallback(margin, .5rem, 0, 1rem);
+span.regular {
+  font-weight: 400;
+}
+
+div.tabs {
   ul.tabs--primary, ul.tabs--secondary {
+    @include rem-fallback(margin, .5rem, 0, 0);
     background: $color-tab-ul-background;
     border-bottom: 1px solid $color-tab-ul-border;
-    margin: 0;
     @include border-top-radius(.5rem);
-
+    
     li {
       @include rem-fallback(margin, 0, .15rem);
     }
@@ -140,7 +168,7 @@ div#tabs, div.tabs {
       @include single-transition(all, .1s);
       
       @include breakpoint($mobile) {
-        @include rem-fallback(padding, .5rem, 1rem);
+        @include rem-fallback(padding, .35rem, 1rem);
       }
 
       &.active {
@@ -156,6 +184,7 @@ div#tabs, div.tabs {
   }
 
   ul.tabs--secondary {
+    margin: 0;
     a {
 
     }

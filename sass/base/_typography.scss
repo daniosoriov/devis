@@ -90,8 +90,10 @@ p {
   }
   
   @include breakpoint($tab) {
-    @include rem-fallback(font-size, 1.1rem);
     @include rem-fallback(line-height, 1.4rem);
+  }
+  @include breakpoint($desktop) {
+    @include rem-fallback(font-size, 1.1rem);
   }
   text-align: justify;
   img {

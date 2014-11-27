@@ -1,6 +1,6 @@
 header.l-header {
   @include breakpoint($tab) {
-    height: 155px;
+    height: 135px;
   }
 }
 
@@ -28,6 +28,9 @@ div#logo-title {
       @include rem-fallback(margin-top, 1rem);
       
       @include breakpoint($tab) {
+        margin-left: gutter-span();
+      }
+      @include breakpoint($desktop) {
         margin-left: gutter-span();
       }
     }

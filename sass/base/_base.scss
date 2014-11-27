@@ -34,10 +34,6 @@ body {
   &.panels-ipe {
     margin-bottom: 0 !important;
   }
-  @include rem-fallback(font-size, .85rem);
-  @include breakpoint($mobile) {
-    font-size: 100%;
-  }
 }
 
 article,
@@ -132,8 +128,13 @@ body {
   -webkit-font-smoothing: antialiased; /* Fix for webkit rendering */
   -webkit-text-size-adjust: 100%;
 
+  @include rem-fallback(font-size, .85rem);
   @include breakpoint($mobile) {
-    @include font-family('Source Sans Pro');
+    @include rem-fallback(font-size, 1rem);
+    @include font-family('Source Sans Pro', 'light');
+  }
+  @include breakpoint($desktop) {
+    @include rem-fallback(font-size, 1.1rem);
   }
 }
 
@@ -188,10 +189,9 @@ a {
 
   @include breakpoint($mobile) {
     @include rem-fallback(font-size, 1rem);
-    @include font-family('Source Sans Pro');
+    @include font-family('Source Sans Pro', 'light');
   }
-  
-  @include breakpoint($tab) {
+  @include breakpoint($desktop) {
     @include rem-fallback(font-size, 1.1rem);
   }
 }

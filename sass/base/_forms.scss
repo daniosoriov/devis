@@ -19,7 +19,7 @@ input[type="button"] {
   @include single-text-shadow($color-button-text-shadow);
   @include rem-fallback(margin-bottom, 1.2rem);
   @include rem-fallback(padding, .5rem, .8rem);
-  @include rem-fallback(font-size, .8rem);
+  @include rem-fallback(font-size, .9rem);
   display: inline-block;
   text-decoration: none;
   cursor: pointer;
@@ -64,7 +64,11 @@ input[type="button"] {
   }
 
   @include breakpoint($mobile) {
-    @include font-family('Raleway', semibold);
+    @include font-family('Source Sans Pro');
+  }
+  
+  @include breakpoint($tab) {
+    @include rem-fallback(font-size, 1.1rem);
   }
 }
 
@@ -123,10 +127,11 @@ form, .form-item {
 .form-item .description {
   @include font-family-mobile(light);
   @include rem-fallback(font-size, .7rem);
-  @include rem-fallback(margin, .25rem, 0, 0);
+  @include rem-fallback(margin, .35rem, 0, 0);
+  @include rem-fallback(line-height, .9rem);
   
   br {
-    @include rem-fallback(margin-bottom, .25rem);
+    @include rem-fallback(margin-bottom, .35rem);
   }
   
   a {
@@ -136,6 +141,14 @@ form, .form-item {
   @include breakpoint($mobile) {
     @include rem-fallback(font-size, .8rem);
     @include font-family('Source Sans Pro', light);
+  }
+  
+  @include breakpoint($tab) {
+    @include rem-fallback(font-size, .85rem);
+  }
+  
+  .description-title {
+    font-weight: 400;
   }
 }
 
@@ -150,9 +163,15 @@ fieldset {
 
   .fieldset-legend, .fieldset-title {
     color: $color-fieldset-legend;
-    @include rem-fallback(font-size, 0.95rem);
+    @include rem-fallback(font-size, 1.1rem);
     @include breakpoint($mobile) {
-      @include font-family('Raleway', semibold);
+      @include font-family('Source Sans Pro', semibold);
+    }
+    @include breakpoint($tab) {
+      @include rem-fallback(font-size, 1.2rem);
+    }
+    @include breakpoint($desktop) {
+      @include rem-fallback(font-size, 1.3rem);
     }
   }
 
@@ -160,13 +179,13 @@ fieldset {
     text-align: justify;
     @include font-family-mobile(light);
     color: $color-fieldset-description;
-    @include rem-fallback(font-size, 0.75rem);
+    @include rem-fallback(font-size, 0.8rem);
     @include rem-fallback(margin, 0, 0, .5rem);
     padding: 0;
     
     @include breakpoint($mobile) {
-      @include font-family('Raleway', light);
-      @include rem-fallback(font-size, 0.8rem);
+      @include font-family('Source Sans Pro', light);
+      @include rem-fallback(font-size, 0.85rem);
       @include rem-fallback(margin-bottom, 1rem);
       @include rem-fallback(padding, 0, .5rem);
     }
@@ -200,8 +219,8 @@ select {
   color: $color-input;
   background: $color-input-background;
   border: 1px solid $color-input-border;
-  @include rem-fallback(padding, .4rem, .3rem);
-  @include rem-fallback(font-size, 0.85rem);
+  @include rem-fallback(padding, .3rem);
+  @include rem-fallback(font-size, 0.9rem);
   @include border-radius();
   outline: none;
   //margin: 0;
@@ -232,26 +251,24 @@ select {
   }
 
   @include breakpoint($mobile) {
-    @include font-family('Raleway');
+    @include font-family('Source Sans Pro');
     max-width: 100%;
   }
-}
-
-.demander-devis, .devenir-comptable, .fifty-width {
-  input[type="text"],
-  input[type="password"],
-  input[type="email"],
-  textarea,
-  .form-textarea-wrapper textarea,
-  select {
+  
+  @include breakpoint($tab) {
+    @include rem-fallback(font-size, 1rem);
+    @include rem-fallback(padding, .4rem);
   }
 }
 
 textarea, .form-textarea-wrapper textarea {
   @include rem-fallback(min-height, 3rem);
-  @include rem-fallback(height, 3rem);
   @include rem-fallback(line-height, 1.17rem);
+  @include rem-fallback(height, 4rem);
   resize: vertical;
+  @include breakpoint($tab) {
+    @include rem-fallback(height, 5rem);
+  }
 }
 
 // jQuery is already removing this, so this is a backup for jQuery.
@@ -268,17 +285,20 @@ label, .form-item label, .form-actions label, legend {
   color: $color-label;
   display: block;
   @include font-family-mobile();
-  @include rem-fallback(font-size, 0.9rem);
+  @include rem-fallback(font-size, 0.95rem);
   @include rem-fallback(margin-bottom, 0.3rem);
     
   @include breakpoint($mobile) {
-    @include rem-fallback(font-size, 0.95rem);
-    @include font-family('Raleway', 'semibold');
+    @include rem-fallback(font-size, 1rem);
+    @include font-family('Source Sans Pro', 'semibold');
+  }
+  @include breakpoint($tab) {
+    @include rem-fallback(font-size, 1.05rem);
   }
 }
 
 legend {
-  margin: 0;
+  //margin: 0;
 }
 
 .form-required {
@@ -300,14 +320,14 @@ input[type="checkbox"], input[type="radio"] {
   vertical-align: middle;
   @include rem-fallback(margin, .2rem, .2rem, .4rem, 0);
 
-  + label {
+  + label, + label a {
     display: inline;
-    @include font-family-mobile();
-    @include rem-fallback(font-size, 0.85rem);
+    @include font-family-mobile('light');
+    @include rem-fallback(font-size, 0.95rem);
 
     @include breakpoint($mobile) {
-      @include rem-fallback(font-size, 0.9rem);
-      @include font-family('Raleway');
+      @include rem-fallback(font-size, 1rem);
+      @include font-family('Source Sans Pro', 'light');
     }
   }
 }
@@ -317,10 +337,10 @@ input[type="checkbox"], input[type="radio"] {
   div.form-wrapper {
     @include breakpoint($tab) {
       display: inline-block;
-      &:nth-child(1) {
+      &:nth-child(2) {
         vertical-align: top;
       }
-      &:nth-child(2) {
+      &:nth-child(3) {
         vertical-align: bottom;
       }
 
@@ -349,6 +369,11 @@ form.confirmation {
   @include rem-fallback(line-height, 1.5rem);
 }
 
+div[class*='form-item-field-preferred-language'].form-type-checkbox {
+  //display: inline-block;
+  //@include rem-fallback(margin-right, 1rem);
+}
+
 div.form-actions {
   .button,
   button,
@@ -361,6 +386,10 @@ div.form-actions {
 
 div.form-type-link-field {
   margin-bottom: 0;
+}
+
+select[name*='field_approval'], select[name^='field_approval'] {
+  width: 100px;
 }
 
 .counter {
@@ -381,6 +410,9 @@ div.form-type-link-field {
   @include breakpoint($mobile) {
     @include rem-fallback(font-size, .8rem);
   }
+  @include breakpoint($tab) {
+    @include rem-fallback(font-size, .85rem);
+  }
 }
 
 .confirm-parent {
@@ -389,24 +421,24 @@ div.form-type-link-field {
 
 /* Autocomplete. */
 div#autocomplete {
-    color: $color-div-autocomplete;
-    background: $color-div-autocomplete-background;
-    border: 1px solid $color-div-autocomplete-border;
-    @include border-radius(.2rem);
-    @include single-box-shadow();
-    
-    li {
-        @include font-family('Raleway');
-        @include rem-fallback(font-size, .95rem);
-        margin: 0;
-        @include rem-fallback(padding, .5rem);
-        @include background-image(linear-gradient($color-div-autocomplete-li-background-top, $color-div-autocomplete-li-background-bottom));
-        
-        &.selected {
-            color: $color-div-autocomplete-li-selected;
-            @include background-image(linear-gradient($color-div-autocomplete-li-selected-background-top, $color-div-autocomplete-li-selected-background-bottom));
-        }
+  color: $color-div-autocomplete;
+  background: $color-div-autocomplete-background;
+  border: 1px solid $color-div-autocomplete-border;
+  @include border-radius(.2rem);
+  @include single-box-shadow();
+
+  li {
+    @include font-family('Source Sans Pro');
+    @include rem-fallback(font-size, .95rem);
+    margin: 0;
+    @include rem-fallback(padding, .5rem);
+    @include background-image(linear-gradient($color-div-autocomplete-li-background-top, $color-div-autocomplete-li-background-bottom));
+
+    &.selected {
+      color: $color-div-autocomplete-li-selected;
+      @include background-image(linear-gradient($color-div-autocomplete-li-selected-background-top, $color-div-autocomplete-li-selected-background-bottom));
     }
+  }
 }
 
 html.js {

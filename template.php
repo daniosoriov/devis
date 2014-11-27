@@ -1,5 +1,7 @@
 <?php
 
+// https://www.drupal.org/node/2093811 : Let users edit their customer profile outside of checkout
+
 /**
  * @file
  * Template overrides as well as (pre-)process and alter hooks for the
@@ -53,10 +55,6 @@ function devis_preprocess_user_pass(&$vars) {
     $vars['description'] = t('Type in your e-mail address and we will send you an e-mail with instructions.');
 }
 
-/*function devis_preprocess_user_profile(&$vars) {
-  $vars['title'] = t('User Account');
-}*/
-
 function devis_preprocess_field(&$variables, $hook) {
   if (
     isset($variables['element']['#items'][0]) && (
@@ -105,6 +103,55 @@ function devis_preprocess_entity(&$variables, $hook) {
     $variables['content']['commerce_line_items'][0]['#markup'] = str_replace(array('Titre'), array(t('Product')), $markup);
     $markup = $variables['content']['commerce_order_total'][0]['#markup'];
     $variables['content']['commerce_order_total'][0]['#markup'] = str_replace(array('Order total'), array(t('Order total')), $markup);
+  }
+}
+
+function devis_preprocess(&$variables, $hook) {
+  //dpm($variables, 'variables');
+  //dpm($hook, 'hook');
+  if ($hook == 'views_view_table') {
+    //dpm($variables, 'variables');
+  }
+}
+
+/**
+ * Implements theme_preprocess_pane_messages().
+ */
+function devis_preprocess_pane_messages(&$variables) {
+  // If the user is viewing his cards, unset the action links on the pane_messages.
+  $path = current_path();
+  $path_alias = drupal_lookup_path('alias', $path);
+  if ($path == 'user/'. $variables['user']->uid .'/cards') {
+    $variables['action_links'] = array();
+  }
+}
+
+/**
+ * Implements theme_preprocess_views_view_table().
+ */
+function devis_preprocess_views_view_table(&$variables) {
+  switch ($variables['view']->name) {
+    case 'commerce_user_orders':
+      foreach ($variables['rows'] as $i => $row) {
+        switch ($row['status']) {
+          case '':
+            $variables['rows'][$i]['status'] = t('Change me');
+            break;
+        }
+      }
+      break;
+  }
+}
+
+/**
+ * Implements theme_legal_accept_label().
+ */
+function devis_legal_accept_label($variables) {
+  if ($variables['link']) {
+    return t('SE PUEDE CAMBIAR! <strong>Accept</strong> <a href="@terms">Terms & Conditions</a> of Use', array('@terms' => url('legal')));
+  }
+  else {
+    return t('<strong>Accept</strong> Terms & Conditions of Use');
   }
 }
 
@@ -197,12 +244,32 @@ function devis_entity_view_alter(&$build, $type) {
  * Implements hook_form_alter().
  */
 function devis_form_alter(&$form, &$form_state, $form_id) {
-    /*
+  /*
   // Remember to clear the CACHE before playing with forms.
   dpm($form, 'form');
   dpm($form_state, 'form_state');
   dpm($form_id, 'form_id');
   */
+  switch ($form_id) {
+    case 'commerce_cardonfile_card_form':
+      $form['#validate'][] = 'devis_form_alter_validate';
+      //$form['actions']['submit']['#validate'][] = 'devis_form_alter_validate';
+      break;
+  }
+}
+
+function devis_form_alter_validate(&$form_state, $form) {
+  $errors = &$_SESSION['messages']['error'];
+  //dpm($form, 'form');
+  //dpm($form_state, 'form_state');
+  //dpm($errors, 'errors');
+  foreach ($errors as $item => $message) {
+    switch ($message) {
+      case 'You have specified an expired credit card.':
+        $errors[$item] = t('Vous avez spécifié une carte de crédit qui a expiré.');
+        break;
+    }
+  }
 }
 
 /**
@@ -212,7 +279,7 @@ function devis_form_comptable_entityform_edit_form_alter(&$form, &$form_state, $
   global $user;
   
   if (in_array('provider', $user->roles)) {
-    drupal_set_message(t('Notice: You are cannot make a budget request as you are a provider.'), 'warning');
+    drupal_set_message(t('Notice: You cannot make a budget request as you are a provider.'), 'warning');
     $form['actions']['submit']['#access'] = FALSE;
   }
   
@@ -235,7 +302,7 @@ function devis_form_comptable_entityform_edit_form_alter(&$form, &$form_state, $
 
   // Name and Surname on the same line.
   // Honorific, Name and Surname on the same line.
-  $label = '<label for="edit-field-honorific-und">'. t('Last name') .' <span class="form-required" title="Ce champ est requis.">*</span></label>';
+  $label = '<label for="edit-field-honorific-und">'. t('Last name') .' <span class="form-required" title="'. t('Ce champ est requis.') .'">*</span></label>';
   $form['field_honorific']['#prefix'] = '<div class="container-wrapper">'. $label;
   $form['field_honorific']['und']['#options'] = array('_none' => t('Civilité')) + $form['field_honorific']['und']['#options'];
   $form['field_honorific']['und']['#title'] = t('Civilité');
@@ -259,15 +326,21 @@ function devis_form_comptable_entityform_edit_form_alter(&$form, &$form_state, $
   $form['field_name']['und'][0]['value']['#attributes']['placeholder'] = t('Last name');
   $form['field_name']['und'][0]['value']['#title_display'] = 'invisible';
   $form['field_name']['#suffix'] = '</div>';*/
-
+  
   // Email and telephone in the same line.
-  $form['field_email']['#prefix'] = '<div class="container-wrapper">';
-  $form['field_email']['und'][0]['email']['#title'] = t('Contact');
+  $label = '<label for="edit-field-email">'. t('Contact') .' <span class="form-required" title="'. t('Ce champ est requis.') .'">*</span></label>';
+  $form['field_email']['#prefix'] = '<div class="container-wrapper">'. $label;
+  $form['field_email']['und'][0]['email']['#title'] = 'E-mail';
+  $form['field_email']['und'][0]['email']['#title_display'] = 'invisible';
   $form['field_email']['und'][0]['email']['#attributes']['placeholder'] = 'E-mail';
+  $form['field_email']['und'][0]['email']['#attributes']['class'][] = 'email-input-class';
 
   $form['field_phone_belgium']['und'][0]['value']['#title_display'] = 'invisible';
   $form['field_phone_belgium']['und'][0]['value']['#attributes']['placeholder'] = t('Telephone');
   $form['field_phone_belgium']['#suffix'] = '</div>';
+  
+  // Website.
+  $form['#after_build'][] = 'devis_form_comptable_entityform_edit_form_after_build';
 
   // Address fields.
   $form['field_adresse']['und'][0]['#prefix'] = '';
@@ -314,6 +387,67 @@ function devis_comptable_entityform_edit_form_validate($form, &$form_state) {
     $label = $form['field_estimated_number_employees']['und']['#title'];
     form_set_error('field_estimated_number_employees][und][0][value', t('Le champ !label est requis.', array('!label' => $label)));
   }
+  
+  $company = $values['field_company_name']['und'][0]['value'];
+  if (isset($company)) $company = trim($company);
+  $tva = $values['field_tva']['und'][0]['value'];
+  if (isset($tva)) $tva = trim($tva);
+  $legal_status = $values['field_legal_status']['und'][0]['value'];
+  $company_error = $tva_error = FALSE;
+  $company_label = $form['field_company_name']['und']['#title'];
+  $tva_label = $form['field_tva']['und']['#title'];
+  switch ($legal_status) {
+    case 'association':
+      if (!$company) {
+        $company_label = 'Nom de votre association';
+        $company_error = TRUE;
+      }
+      if (!$tva) {
+        $tva_label = 'Numéro de TVA de votre association';
+        $tva_error = TRUE;
+      }
+      break;
+    
+    case 'society':
+      if (!$company) $company_error = TRUE;
+      if (!$tva) $tva_error = TRUE;
+      break;
+    
+    case 'independent':
+      if (!$tva) $tva_error = TRUE;
+      break;
+  }
+  if ($company_error) {
+    form_set_error('field_company_name][und][0][value', t('Le champ !label est requis.', array('!label' => $company_label)));
+  }
+  if ($tva_error) {
+    form_set_error('field_tva][und][0][value', t('Le champ !label est requis.', array('!label' => $tva_label)));
+  }
+  
+  // TO FURTHER REPLACE ERROR MESSAGES, CHECK form_get_errors ON DRUPAL AND SEE THE COMMENTS!!!!!!!
+}
+
+function devis_form_comptable_entityform_edit_form_after_build($form, &$form_state) {
+  $form['field_website']['und'][0]['url']['#attributes']['placeholder'] = 'www.siteweb.com';
+  
+  // JS variables for jQuery.
+  $company = $form['field_company_name']['und'];
+  $tva = $form['field_tva']['und'];
+  $req_span = ' <span class="form-required" title="'. t('Ce champ est requis.') .'">*</span>';
+  $devenir = array(
+    'companyTitle' => $company['#title'],
+    'tvaTitle' => $tva['#title'],
+    'required' => $req_span,
+  );
+  drupal_add_js(array('devenir' => $devenir), 'setting');
+  
+  if ($form['field_legal_status']['und']['#value'] == 'association') {
+    $form['field_company_name']['#title'] = 
+      $form['field_company_name']['und']['#title'] = t('Nom de votre association');
+    $form['field_tva']['#title'] = 
+      $form['field_tva']['und']['#title'] = t('Numéro de TVA de votre association');
+  }
+  return $form;
 }
 
 /**
@@ -331,7 +465,7 @@ function devis_form_devenir_entityform_edit_form_alter(&$form, &$form_state, $fo
   $form['#attached']['js'][] = $theme_path .'/js/easydropdown/jquery.easydropdown.min.js';
 
   // Honorific, Name and Surname on the same line.
-  $label = '<label for="edit-field-honorific-und">'. t('Last name') .' <span class="form-required" title="Ce champ est requis.">*</span></label>';
+  $label = '<label for="edit-field-honorific-und">'. t('Last name') .' <span class="form-required" title="'. t('Ce champ est requis.') .'">*</span></label>';
   $form['field_honorific']['#prefix'] = '<div class="container-wrapper">'. $label;
   $form['field_honorific']['und']['#options'] = array('_none' => t('Civilité')) + $form['field_honorific']['und']['#options'];
   $form['field_honorific']['und']['#title'] = t('Civilité');
@@ -350,6 +484,10 @@ function devis_form_devenir_entityform_edit_form_alter(&$form, &$form_state, $fo
   
   // Website.
   $form['#after_build'][] = 'devis_form_devenir_entityform_edit_form_after_build';
+  
+  $desc = $form['field_info_extra']['und'][0]['value']['#description'];
+  $form['field_info_extra']['und'][0]['value']['#attributes']['placeholder'] = $desc;//t('@description', array('@description' => $desc));
+  $form['field_info_extra']['und'][0]['value']['#description'] = '';
   
   // If the request is being checked by a manager, so it is not new.
   if (in_array('manager', array_values($user->roles)) && !isset($form_state['build_info']['args'][0]->is_new)) {
@@ -392,7 +530,7 @@ function devis_devenir_entityform_edit_form_validate($form, &$form_state) {
 }
 
 function devis_form_devenir_entityform_edit_form_after_build($form, &$form_state) {
-  $form['field_website']['und'][0]['url']['#attributes']['placeholder'] = 'http://www.siteweb.com';
+  $form['field_website']['und'][0]['url']['#attributes']['placeholder'] = 'www.siteweb.com';
   return $form;
 }
 
@@ -410,6 +548,33 @@ function devis_form_commerce_checkout_form_checkout_alter(&$form, &$form_state, 
   $form['account']['username']['#markup'] = $account->field_prenom['und'][0]['safe_value'] .' '. $account->field_name['und'][0]['safe_value'];
   */
   
+  $form['customer_profile_billing']['#title'] = t('Coordonnées de facturation');
+  $form['customer_profile_billing']['commerce_customer_address']['und'][0]['country']['#access'] = FALSE;
+  $form['customer_profile_billing']['commerce_customer_address']['und'][0]['street_block']['thoroughfare']['#title'] = t('Address');
+  $form['customer_profile_billing']['commerce_customer_address']['und'][0]['street_block']['premise']['#attributes']['style'] = 'display: none;';
+  $form['customer_profile_billing']['commerce_customer_address']['und'][0]['street_block']['premise']['#title_display'] = 'invisible';
+  
+  $form['help']['#markup'] = '';
+  
+  $form['commerce_payment']['#title'] = t('Credit card details');//t('Détails de votre carte de crédit');
+  $form['commerce_payment']['payment_method']['#prefix'] = '<div style="display: none;">';
+  $form['commerce_payment']['payment_method']['#suffix'] = '</div>';
+  $form['commerce_payment']['payment_details']['credit_card']['exp_month']['#title'] = t('Expiration date');
+  $form['commerce_payment']['payment_details']['credit_card']['exp_month']['#title_display'] = 'invisible';
+  $form['commerce_payment']['payment_details']['credit_card']['exp_month']['#prefix'] .= '<label for="edit-commerce-payment-payment-details-credit-card-exp-month">'. t('Expiration date') .'</label>';
+  
+  if (isset($form['commerce_payment']['payment_details']['cardonfile']['#options'])) {
+    $cards = $form['commerce_payment']['payment_details']['cardonfile']['#options'];
+    if ($cards) {
+      foreach ($cards as $id => $val) {
+        if (is_numeric($id)) {
+          $val = str_replace(array('ending in', 'Expires'), array(t('ending in'), t('Expires')), $val);
+          $form['commerce_payment']['payment_details']['cardonfile']['#options'][$id] = $val;
+        }
+      }
+    }
+  }
+  
   $form['buttons']['#type'] = 'markup';
   $form['buttons']['#prefix'] = '<div class="checkout-buttons">';
   $form['buttons']['#suffix'] = '</div>';
@@ -426,31 +591,6 @@ function devis_form_commerce_checkout_form_checkout_cancel_submit($form, &$form_
  * Implements hook_form_BASE_FORM_ID_alter().
  */
 function devis_form_commerce_checkout_form_review_alter(&$form, &$form_state, $form_id) {
-  $form['customer_profile_billing']['#title'] = t('Coordonnées de facturation');
-  $form['customer_profile_billing']['commerce_customer_address']['und'][0]['country']['#access'] = FALSE;
-  $form['customer_profile_billing']['commerce_customer_address']['und'][0]['street_block']['thoroughfare']['#title'] = t('Address');
-  $form['customer_profile_billing']['commerce_customer_address']['und'][0]['street_block']['premise']['#attributes']['style'] = 'display: none;';
-  $form['customer_profile_billing']['commerce_customer_address']['und'][0]['street_block']['premise']['#title_display'] = 'invisible';
-  
-  $form['help']['#markup'] = '';
-  
-  $form['commerce_payment']['#title'] = t('Credit card details');//t('Détails de votre carte de crédit');
-  $form['commerce_payment']['payment_method']['#prefix'] = '<div style="display: none;">';
-  $form['commerce_payment']['payment_method']['#suffix'] = '</div>';
-  $form['commerce_payment']['payment_details']['credit_card']['exp_month']['#title'] = t('Expiration date');
-  $form['commerce_payment']['payment_details']['credit_card']['exp_month']['#title_display'] = 'invisible';
-  $form['commerce_payment']['payment_details']['credit_card']['exp_month']['#prefix'] .= '<label for="edit-commerce-payment-payment-details-credit-card-exp-month">'. t('Expiration date') .'</label>';
-  
-  $cards = $form['commerce_payment']['payment_details']['cardonfile']['#options'];
-  if ($cards) {
-    foreach ($cards as $id => $val) {
-      if (is_numeric($id)) {
-        $val = str_replace(array('ending in', 'Expires'), array(t('ending in'), t('Expires')), $val);
-        $form['commerce_payment']['payment_details']['cardonfile']['#options'][$id] = $val;
-      }
-    }
-  }
-  
   $form['buttons']['#type'] = 'markup';
   $form['buttons']['#prefix'] = '<div class="checkout-buttons">';
   $form['buttons']['#suffix'] = '</div>';
@@ -567,6 +707,7 @@ function devis_form_user_profile_form_alter(&$form, &$form_state, $form_id) {
       //$form['field_prenom']['#access'] = FALSE;
       //$form['field_name']['#access'] = FALSE;
       //$form['field_company_name']['#access'] = FALSE;
+      $form['field_preferred_language']['#access'] = FALSE;
       $form['field_tva']['#access'] = FALSE;
       $form['field_website']['#access'] = FALSE;
       $form['field_account_activity_status']['#access'] = FALSE;
@@ -597,7 +738,7 @@ function devis_form_user_profile_form_alter(&$form, &$form_state, $form_id) {
     }
 
     // Honorific, Name and Surname on the same line.
-    $label = '<label for="edit-field-honorific-und">'. t('Last name') .' <span class="form-required" title="Ce champ est requis.">*</span></label>';
+    $label = '<label for="edit-field-honorific-und">'. t('Last name') .' <span class="form-required" title="'. t('Ce champ est requis.') .'">*</span></label>';
     $form['field_honorific']['#prefix'] = '<div class="container-wrapper">'. $label;
     $form['field_honorific']['und']['#options'] = array('_none' => t('Civilité')) + $form['field_honorific']['und']['#options'];
     $form['field_honorific']['und']['#title'] = t('Civilité');
@@ -663,7 +804,7 @@ function devis_user_profile_form_submit($form, &$form_state) {
 }
 
 function devis_form_user_profile_form_after_build($form, &$form_state) {
-  $form['field_website']['und'][0]['url']['#attributes']['placeholder'] = 'http://www.siteweb.com';
+  $form['field_website']['und'][0]['url']['#attributes']['placeholder'] = 'www.siteweb.com';
   return $form;
 }
 
@@ -673,17 +814,33 @@ function devis_form_user_profile_form_after_build($form, &$form_state) {
 function devis_form_commerce_stripe_cardonfile_create_form_alter(&$form, &$form_state, $form_id) {
   global $user;
   
+  $theme_path = drupal_get_path('theme', variable_get('theme_default', NULL));
+  $form['#attached']['js'][] = $theme_path .'/js/easydropdown/jquery.easydropdown.min.js';
+  
   $form['errors']['#weight'] = -10;
   $form['card-info'] = array(
     '#type' => 'fieldset',
     '#title' => t('Information'),
     '#weight' => 0,
   );
+  $form['credit_card']['exp_month']['#title'] = t('Expiration date');
+  $form['credit_card']['exp_month']['#title_display'] = 'invisible';
+  $form['credit_card']['exp_month']['#prefix'] .= '<label for="edit-credit-card-exp-month">'. t('Expiration date') .'</label>';
+  $form['credit_card']['exp_month']['#prefix'] .= '<div class="dropdown-expiration-date">';
+  $form['credit_card']['exp_month']['#suffix'] = '</div>'. $form['credit_card']['exp_month']['#suffix'];
+  $form['credit_card']['exp_month']['#attributes']['class'][] = 'dropdown';
+  
+  $form['credit_card']['exp_year']['#prefix'] = '<div class="dropdown-expiration-date">';
+  $form['credit_card']['exp_year']['#suffix'] = '</div>'. $form['credit_card']['exp_year']['#suffix'];
+  $form['credit_card']['exp_year']['#attributes']['class'][] = 'dropdown';
+  
   $form['submit']['#attributes']['class'] = array('card_submit');
   $form['submit']['#suffix'] = l(t('Cancel'), 'user/'. $user->uid .'/cards', array('attributes' => array('class' => array('cancel_url'))));
   $form['submit']['#weight'] = 10;
   $form['credit_card']['cardonfile_instance_default']['#title'] = t('Set as your default card');
-  $form['address']['country']['#access'] = FALSE;
+  //$form['address']['country']['#access'] = FALSE;
+  //$form['address']['country']['#weight'] = 100;
+  $form['address']['country']['#attributes']['class'][] = 'dropdown';
   $form['address']['street_block']['thoroughfare']['#title'] = t('Address');
   $form['address']['street_block']['premise']['#attributes']['style'] = 'display: none;';
   $form['address']['street_block']['premise']['#title_display'] = 'invisible';
@@ -700,12 +857,28 @@ function devis_form_commerce_stripe_cardonfile_create_form_alter(&$form, &$form_
 function devis_form_commerce_cardonfile_card_form_alter(&$form, &$form_state, $form_id) {
   global $user;
   
+  $theme_path = drupal_get_path('theme', variable_get('theme_default', NULL));
+  $form['#attached']['js'][] = $theme_path .'/js/easydropdown/jquery.easydropdown.min.js';
+  
   $form['errors']['#weight'] = -10;
   $form['card-info'] = array(
     '#type' => 'fieldset',
     '#title' => t('Information'),
     '#weight' => 0,
   );
+  
+  $label = '<label for="edit-credit-card-exp-month">'. t('Expiration date') .' <span class="form-required" title="'. t('Ce champ est requis.') .'">*</span></label>';
+  $form['credit_card']['exp_month']['#title'] = t('Expiration date');
+  $form['credit_card']['exp_month']['#title_display'] = 'invisible';
+  $form['credit_card']['exp_month']['#prefix'] .= $label;
+  $form['credit_card']['exp_month']['#prefix'] .= '<div class="dropdown-expiration-date">';
+  $form['credit_card']['exp_month']['#suffix'] = '</div>'. $form['credit_card']['exp_month']['#suffix'];
+  $form['credit_card']['exp_month']['#attributes']['class'][] = 'dropdown';
+  
+  $form['credit_card']['exp_year']['#prefix'] = '<div class="dropdown-expiration-date">';
+  $form['credit_card']['exp_year']['#suffix'] = '</div>'. $form['credit_card']['exp_year']['#suffix'];
+  $form['credit_card']['exp_year']['#attributes']['class'][] = 'dropdown';
+  
   $form['credit_card']['cardonfile_instance_default']['#title'] = t('Set as your default card');
   $form['submit']['#value'] = t('Update');
   $form['submit']['#weight'] = 10;

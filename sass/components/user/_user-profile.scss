@@ -35,21 +35,19 @@ div.addressfield-container-inline.name-block {
 }
 
 div.password-strength, div.password-confirm {
-  @include rem-fallback(font-size, .8rem);
+  @include rem-fallback(font-size, .85rem);
   @include rem-fallback(margin, 1rem, 0);
   float: none;
   @include breakpoint($mobile) {
+    @include rem-fallback(font-size, .9rem);
     @include grid-span(4, 1, false, 0);
-    @include font-family('Raleway');
+    @include font-family('Source Sans Pro');
     float: none;
   }
   @include breakpoint($tab) {
+    @include rem-fallback(font-size, 1rem);
     @include grid-span(3, 6);
-    @include rem-fallback(font-size, .85rem);
     @include rem-fallback(margin-top, 1.5rem);
-  }
-  @include breakpoint($desktop) {
-    @include rem-fallback(font-size, .9rem);
   }
 }
 
@@ -61,6 +59,8 @@ div.password-strength, div.password-confirm {
 }
 
 div.password-suggestions.description {
+  @include rem-fallback(font-size, .7rem);
+  font-weight: 400;
   @include grid-span(3, 1);
   float: none;
   border: 1px solid $color-fieldset-border;
@@ -68,7 +68,11 @@ div.password-suggestions.description {
   @include rem-fallback(padding, .5rem);
   font-weight: 600;
   
+  @include breakpoint($mobile) {
+    @include rem-fallback(font-size, .8rem);
+  }
   @include breakpoint($tab) {
+    @include rem-fallback(font-size, .85rem);
     margin-left: 0;
     margin-right: 0;
     width: 50%;
@@ -79,10 +83,15 @@ div.password-suggestions.description {
     margin: 0;
     
     li {
+      @include rem-fallback(font-size, .7rem);
       margin: 0;
-      @include rem-fallback(margin-top, .3rem);
+      @include rem-fallback(margin-top, .2rem);
+      @include breakpoint($mobile) {
+        @include rem-fallback(font-size, .8rem);
+      }
       @include breakpoint($tab) {
-        @include rem-fallback(margin-top, .5rem);
+        @include rem-fallback(font-size, .85rem);
+        @include rem-fallback(margin-top, .3rem);
       }
     }
   }
@@ -90,4 +99,11 @@ div.password-suggestions.description {
 
 span.inactive {
   color: $color-inactive-account;
+}
+
+fieldset#edit-legal {
+  div.legal-terms, div.legal-terms-extra {
+    @include rem-fallback(height, 15rem);
+    overflow: scroll;
+  }
 }

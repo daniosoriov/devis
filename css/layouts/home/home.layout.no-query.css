@@ -25,3 +25,39 @@
 @media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/danielosoriov\/\.rvm\/gems\/ruby-1\.9\.3-p547\/gems\/singularitygs-1\.1\.2\/stylesheets\/singularitygs\/helpers\/_clearfix\.scss}line{font-family:\0000355}}
   .l-main:after {
     clear: both; }
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Applications\/MAMP\/htdocs\/3devis\/sites\/all\/themes\/devis\/sass\/layouts\/home\/home\.layout\.scss}line{font-family:\0000315}}
+.l-content div.home h2.pane-title {
+  color: #ffb500;
+  font-size: 32px;
+  font-size: 2rem;
+  line-height: 44.8px;
+  line-height: 2.8rem;
+  text-align: center; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Applications\/MAMP\/htdocs\/3devis\/sites\/all\/themes\/devis\/sass\/layouts\/home\/home\.layout\.scss}line{font-family:\0000343}}
+.l-content div.home h3.pane-subtitle {
+  font-size: 21.6px;
+  font-size: 1.35rem;
+  font-weight: 200;
+  text-align: center; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Applications\/MAMP\/htdocs\/3devis\/sites\/all\/themes\/devis\/sass\/layouts\/home\/home\.layout\.scss}line{font-family:\0000359}}
+.l-content div.home h4.pane-subtitle {
+  font-size: 19.2px;
+  font-size: 1.2rem;
+  margin-top: 16px;
+  margin-top: 1rem;
+  font-weight: 400;
+  text-align: center; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Applications\/MAMP\/htdocs\/3devis\/sites\/all\/themes\/devis\/sass\/layouts\/home\/home\.layout\.scss}line{font-family:\0000380}}
+.l-content div.home p {
+  text-align: center; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Applications\/MAMP\/htdocs\/3devis\/sites\/all\/themes\/devis\/sass\/layouts\/home\/home\.layout\.scss}line{font-family:\0000390}}
+.l-content div.home ul.home {
+  list-style: circle;
+  margin-left: 14.4px;
+  margin-left: 0.9rem; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Applications\/MAMP\/htdocs\/3devis\/sites\/all\/themes\/devis\/sass\/layouts\/home\/home\.layout\.scss}line{font-family:\00003100}}
+  .l-content div.home ul.home li {
+    list-style: circle;
+    margin-left: 1.6px;
+    margin-left: 0.1rem; }

@@ -3,7 +3,7 @@
 .pre-intructions {
     @include rem-fallback(padding-bottom, 1rem);
 }
-
+ 
 .title-budget {
     color: $color-title-budget;
     font-size: 2rem; 
