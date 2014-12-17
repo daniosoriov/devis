@@ -2,6 +2,7 @@
 /* Header */
 /* Navigation. */
 /* Tabs. */
+/* Blocks. */
 /* Buttons. */
 /* Forms. */
 /* Autocomplete. */
@@ -209,7 +210,7 @@ a {
   -o-transition: color 0.1s ease-out;
   transition: color 0.1s ease-out; }
 @media -sass-debug-info{filename{font-family:file\:\/\/\/Applications\/MAMP\/htdocs\/3devis\/sites\/all\/themes\/devis\/sass\/base\/_base\.scss}line{font-family:\00003186}}
-  a:hover, a:focus {
+  a:hover, a:focus, a:active {
     color: #ffb500; }
   @media (min-width: 384px) {
 @media -sass-debug-info{filename{font-family:file\:\/\/\/Applications\/MAMP\/htdocs\/3devis\/sites\/all\/themes\/devis\/sass\/base\/_base\.scss}line{font-family:\00003178}}
@@ -240,18 +241,18 @@ input[type="button"]#edit-cancel,
 input[type="submit"],
 input[type="reset"],
 input[type="button"] {
-  background: rgba(255, 181, 0, 0.5);
+  background: #ffc433;
   font-family: sans-serif;
   font-weight: 400;
-  background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, rgba(255, 181, 0, 0.6)), color-stop(100%, rgba(255, 181, 0, 0.6)));
-  background-image: -webkit-linear-gradient(rgba(255, 181, 0, 0.6), rgba(255, 181, 0, 0.6));
-  background-image: -moz-linear-gradient(rgba(255, 181, 0, 0.6), rgba(255, 181, 0, 0.6));
-  background-image: -o-linear-gradient(rgba(255, 181, 0, 0.6), rgba(255, 181, 0, 0.6));
-  background-image: linear-gradient(rgba(255, 181, 0, 0.6), rgba(255, 181, 0, 0.6));
+  background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #ffc433), color-stop(100%, #ffc73d));
+  background-image: -webkit-linear-gradient(#ffc433, #ffc73d);
+  background-image: -moz-linear-gradient(#ffc433, #ffc73d);
+  background-image: -o-linear-gradient(#ffc433, #ffc73d);
+  background-image: linear-gradient(#ffc433, #ffc73d);
   color: white;
-  border: 1px solid #e6a300;
-  border-top: 1px solid #f2ac00;
-  border-left: 1px solid #f2ac00;
+  border: 1px solid #ffc026;
+  border-top: 1px solid #ffbc1a;
+  border-left: 1px solid #ffbc1a;
   -webkit-border-radius: 0.2rem;
   -moz-border-radius: 0.2rem;
   -ms-border-radius: 0.2rem;
@@ -290,9 +291,9 @@ input[type="button"] {
     background-image: -moz-linear-gradient(#ffb500, #ffb500);
     background-image: -o-linear-gradient(#ffb500, #ffb500);
     background-image: linear-gradient(#ffb500, #ffb500);
-    border: 1px solid #d99a00;
-    border-top: 1px solid #e6a300;
-    border-left: 1px solid #e6a300; }
+    border: 1px solid #e6a300;
+    border-top: 1px solid #f2ac00;
+    border-left: 1px solid #f2ac00; }
 @media -sass-debug-info{filename{font-family:file\:\/\/\/Applications\/MAMP\/htdocs\/3devis\/sites\/all\/themes\/devis\/sass\/base\/_forms\.scss}line{font-family:\0000338}}
   .button:active,
   button:active,
@@ -306,14 +307,14 @@ input[type="button"] {
     text-decoration: none;
     color: white;
     background: #ffb500;
-    background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #ffb500), color-stop(100%, #ffb500));
-    background-image: -webkit-linear-gradient(#ffb500, #ffb500);
-    background-image: -moz-linear-gradient(#ffb500, #ffb500);
-    background-image: -o-linear-gradient(#ffb500, #ffb500);
-    background-image: linear-gradient(#ffb500, #ffb500);
-    border: 1px solid #d99a00;
-    border-top: 1px solid #e6a300;
-    border-left: 1px solid #e6a300;
+    background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #ffb500), color-stop(100%, #fab100));
+    background-image: -webkit-linear-gradient(#ffb500, #fab100);
+    background-image: -moz-linear-gradient(#ffb500, #fab100);
+    background-image: -o-linear-gradient(#ffb500, #fab100);
+    background-image: linear-gradient(#ffb500, #fab100);
+    border: 1px solid #e6a300;
+    border-top: 1px solid #f2ac00;
+    border-left: 1px solid #f2ac00;
     -webkit-box-shadow: 0px 1px 15px -3px rgba(0, 0, 0, 0.2);
     -moz-box-shadow: 0px 1px 15px -3px rgba(0, 0, 0, 0.2);
     box-shadow: 0px 1px 15px -3px rgba(0, 0, 0, 0.2); }
@@ -331,11 +332,11 @@ input[type="button"] {
     outline: none;
     color: white;
     background: #ffb500;
-    background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #ffb500), color-stop(100%, #ffb500));
-    background-image: -webkit-linear-gradient(#ffb500, #ffb500);
-    background-image: -moz-linear-gradient(#ffb500, #ffb500);
-    background-image: -o-linear-gradient(#ffb500, #ffb500);
-    background-image: linear-gradient(#ffb500, #ffb500);
+    background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #ffb500), color-stop(100%, #fab100));
+    background-image: -webkit-linear-gradient(#ffb500, #fab100);
+    background-image: -moz-linear-gradient(#ffb500, #fab100);
+    background-image: -o-linear-gradient(#ffb500, #fab100);
+    background-image: linear-gradient(#ffb500, #fab100);
     border: 1px solid #006ac7;
     -webkit-box-shadow:  rgba(0, 106, 199, 0.5);
     -moz-box-shadow:  rgba(0, 106, 199, 0.5);
@@ -384,43 +385,43 @@ input[type="button"] {
 @media -sass-debug-info{filename{font-family:file\:\/\/\/Applications\/MAMP\/htdocs\/3devis\/sites\/all\/themes\/devis\/sass\/base\/_forms\.scss}line{font-family:\0000375}}
 input[type="submit"]#edit-cancel, .checkout-buttons .checkout-cancel, .checkout-buttons .checkout-back,
 input[type="button"]#edit-cancel {
-  background: #cc0036;
-  background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #d20038), color-stop(100%, rgba(154, 0, 41, 0.7)));
-  background-image: -webkit-linear-gradient(#d20038, rgba(154, 0, 41, 0.7));
-  background-image: -moz-linear-gradient(#d20038, rgba(154, 0, 41, 0.7));
-  background-image: -o-linear-gradient(#d20038, rgba(154, 0, 41, 0.7));
-  background-image: linear-gradient(#d20038, rgba(154, 0, 41, 0.7));
-  color: #e6e6e6;
-  border: 1px solid #850023;
-  border-top: 1px solid #9a0029;
-  border-left: 1px solid #9a0029;
+  background: #d9534f;
+  background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #d9534f), color-stop(100%, #db5b57));
+  background-image: -webkit-linear-gradient(#d9534f, #db5b57);
+  background-image: -moz-linear-gradient(#d9534f, #db5b57);
+  background-image: -o-linear-gradient(#d9534f, #db5b57);
+  background-image: linear-gradient(#d9534f, #db5b57);
+  color: white;
+  border: 1px solid #d43f3a;
+  border-top: 1px solid #d74b47;
+  border-left: 1px solid #d74b47;
   text-shadow: 0px 0px 1px transparent; }
 @media -sass-debug-info{filename{font-family:file\:\/\/\/Applications\/MAMP\/htdocs\/3devis\/sites\/all\/themes\/devis\/sass\/base\/_forms\.scss}line{font-family:\0000388}}
   input[type="submit"]#edit-cancel:hover, .checkout-buttons .checkout-cancel:hover, .checkout-buttons .checkout-back:hover,
   input[type="button"]#edit-cancel:hover {
-    color: #f2f2f2;
-    background: #ff0044;
-    background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #f00040), color-stop(100%, rgba(169, 0, 45, 0.7)));
-    background-image: -webkit-linear-gradient(#f00040, rgba(169, 0, 45, 0.7));
-    background-image: -moz-linear-gradient(#f00040, rgba(169, 0, 45, 0.7));
-    background-image: -o-linear-gradient(#f00040, rgba(169, 0, 45, 0.7));
-    background-image: linear-gradient(#f00040, rgba(169, 0, 45, 0.7));
-    border: 1px solid #9a0029;
-    border-top: 1px solid #a9002d;
-    border-left: 1px solid #a9002d; }
+    color: white;
+    background: #d43f3a;
+    background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #d43f3a), color-stop(100%, #d5433e));
+    background-image: -webkit-linear-gradient(#d43f3a, #d5433e);
+    background-image: -moz-linear-gradient(#d43f3a, #d5433e);
+    background-image: -o-linear-gradient(#d43f3a, #d5433e);
+    background-image: linear-gradient(#d43f3a, #d5433e);
+    border: 1px solid #c9302c;
+    border-top: 1px solid #d33632;
+    border-left: 1px solid #d33632; }
 @media -sass-debug-info{filename{font-family:file\:\/\/\/Applications\/MAMP\/htdocs\/3devis\/sites\/all\/themes\/devis\/sass\/base\/_forms\.scss}line{font-family:\0000397}}
   input[type="submit"]#edit-cancel:active, .checkout-buttons .checkout-cancel:active, .checkout-buttons .checkout-back:active,
   input[type="button"]#edit-cancel:active {
     color: white;
-    background: #ff0044;
-    background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #ff0044), color-stop(100%, #9a0029));
-    background-image: -webkit-linear-gradient(#ff0044, #9a0029);
-    background-image: -moz-linear-gradient(#ff0044, #9a0029);
-    background-image: -o-linear-gradient(#ff0044, #9a0029);
-    background-image: linear-gradient(#ff0044, #9a0029);
-    border: 1px solid #800022;
-    border-top: 1px solid #9a0029;
-    border-left: 1px solid #9a0029;
+    background: #d33632;
+    background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #d33632), color-stop(100%, #d43f3a));
+    background-image: -webkit-linear-gradient(#d33632, #d43f3a);
+    background-image: -moz-linear-gradient(#d33632, #d43f3a);
+    background-image: -o-linear-gradient(#d33632, #d43f3a);
+    background-image: linear-gradient(#d33632, #d43f3a);
+    border: 1px solid #c9302c;
+    border-top: 1px solid #d33632;
+    border-left: 1px solid #d33632;
     -webkit-box-shadow: 0px 1px 15px -3px rgba(0, 0, 0, 0.3);
     -moz-box-shadow: 0px 1px 15px -3px rgba(0, 0, 0, 0.3);
     box-shadow: 0px 1px 15px -3px rgba(0, 0, 0, 0.3); }
@@ -428,12 +429,12 @@ input[type="button"]#edit-cancel {
   input[type="submit"]#edit-cancel:focus, .checkout-buttons .checkout-cancel:focus, .checkout-buttons .checkout-back:focus,
   input[type="button"]#edit-cancel:focus {
     color: white;
-    background: #ff0044;
-    background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #ff0044), color-stop(100%, #9a0029));
-    background-image: -webkit-linear-gradient(#ff0044, #9a0029);
-    background-image: -moz-linear-gradient(#ff0044, #9a0029);
-    background-image: -o-linear-gradient(#ff0044, #9a0029);
-    background-image: linear-gradient(#ff0044, #9a0029); }
+    background: #d33632;
+    background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #d33632), color-stop(100%, #d43f3a));
+    background-image: -webkit-linear-gradient(#d33632, #d43f3a);
+    background-image: -moz-linear-gradient(#d33632, #d43f3a);
+    background-image: -o-linear-gradient(#d33632, #d43f3a);
+    background-image: linear-gradient(#d33632, #d43f3a); }
 
 /* Fix for odd Mozilla border & padding issues */
 @media -sass-debug-info{filename{font-family:file\:\/\/\/Applications\/MAMP\/htdocs\/3devis\/sites\/all\/themes\/devis\/sass\/base\/_forms\.scss}line{font-family:\00003115}}
@@ -490,7 +491,6 @@ fieldset {
   padding: 16px 0px 0px;
   padding: 1rem 0rem 0rem;
   border: none;
-  border-top: 1px solid #f2f2f2;
   background: #fafafa;
   background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #fafafa), color-stop(100%, #ffffff));
   background-image: -webkit-linear-gradient(#fafafa, #ffffff);
@@ -706,7 +706,7 @@ label, .form-item label, .form-actions label, legend {
   font-weight: normal;
   font-size: 12.8px;
   font-size: 0.8rem;
-  color: rgba(255, 0, 0, 0.8);
+  color: inherit;
   position: relative;
   left: -2px;
   top: -1px; }
@@ -1213,113 +1213,8 @@ b, strong {
 small {
   font-size: 80%; }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Applications\/MAMP\/htdocs\/3devis\/sites\/all\/themes\/devis\/sass\/components\/_content\.scss}line{font-family:\000033}}
-.l-main {
-  margin: 0 auto; }
-  @media (min-width: 704px) {
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Applications\/MAMP\/htdocs\/3devis\/sites\/all\/themes\/devis\/sass\/components\/_content\.scss}line{font-family:\000033}}
-    .l-main {
-      padding-top: 40px;
-      padding-bottom: 175px; } }
-  @media (min-width: 1088px) {
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Applications\/MAMP\/htdocs\/3devis\/sites\/all\/themes\/devis\/sass\/components\/_content\.scss}line{font-family:\000033}}
-    .l-main {
-      max-width: 1120px; } }
-
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Applications\/MAMP\/htdocs\/3devis\/sites\/all\/themes\/devis\/sass\/components\/_content\.scss}line{font-family:\0000314}}
-.l-content {
-  background: white;
-  margin-bottom: 16px;
-  margin-bottom: 1rem;
-  width: 94.44444%;
-  float: right;
-  margin-left: 0;
-  margin-right: 2.77778%;
-  clear: none; }
-  @media (min-width: 384px) {
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Applications\/MAMP\/htdocs\/3devis\/sites\/all\/themes\/devis\/sass\/components\/_content\.scss}line{font-family:\0000314}}
-    .l-content {
-      width: 97.22222%;
-      float: right;
-      margin-left: 0;
-      margin-right: 1.38889%;
-      clear: none; } }
-  @media (min-width: 704px) {
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Applications\/MAMP\/htdocs\/3devis\/sites\/all\/themes\/devis\/sass\/components\/_content\.scss}line{font-family:\0000314}}
-    .l-content {
-      width: 97.91667%;
-      float: right;
-      margin-left: 0;
-      margin-right: 1.04167%;
-      clear: none; } }
-  @media (min-width: 1088px) {
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Applications\/MAMP\/htdocs\/3devis\/sites\/all\/themes\/devis\/sass\/components\/_content\.scss}line{font-family:\0000314}}
-    .l-content {
-      width: 98.33333%;
-      float: right;
-      margin-left: 0;
-      margin-right: 0.83333%;
-      clear: none; } }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Applications\/MAMP\/htdocs\/3devis\/sites\/all\/themes\/devis\/sass\/components\/_content\.scss}line{font-family:\0000332}}
-  .l-content h2.pane-title {
-    margin-top: 16px;
-    margin-top: 1rem;
-    color: #ffb500;
-    font-size: 21.6px;
-    font-size: 1.35rem;
-    font-weight: 400; }
-    @media (min-width: 384px) {
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Applications\/MAMP\/htdocs\/3devis\/sites\/all\/themes\/devis\/sass\/components\/_content\.scss}line{font-family:\0000332}}
-      .l-content h2.pane-title {
-        font-family: "Raleway", Helvetica, Arial, sans-serif;
-        font-weight: 400;
-        font-size: 25.6px;
-        font-size: 1.6rem; } }
-    @media (min-width: 704px) {
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Applications\/MAMP\/htdocs\/3devis\/sites\/all\/themes\/devis\/sass\/components\/_content\.scss}line{font-family:\0000332}}
-      .l-content h2.pane-title {
-        font-size: 28.8px;
-        font-size: 1.8rem; } }
-    @media (min-width: 1088px) {
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Applications\/MAMP\/htdocs\/3devis\/sites\/all\/themes\/devis\/sass\/components\/_content\.scss}line{font-family:\0000332}}
-      .l-content h2.pane-title {
-        font-size: 32px;
-        font-size: 2rem; } }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Applications\/MAMP\/htdocs\/3devis\/sites\/all\/themes\/devis\/sass\/components\/_content\.scss}line{font-family:\0000351}}
-  .l-content .user-profile div[class*=' field--'], .l-content .user-profile div[class^='field--'], .l-content .user-profile span[class*=' field--'], .l-content .user-profile span[class^='field--'], .l-content div.content div[class*=' field--'], .l-content div.content div[class^='field--'], .l-content div.content span[class*=' field--'], .l-content div.content span[class^='field--'], .l-content .ds-1col div[class*=' field--'], .l-content .ds-1col div[class^='field--'], .l-content .ds-1col span[class*=' field--'], .l-content .ds-1col span[class^='field--'] {
-    line-height: 17.6px;
-    line-height: 1.1rem;
-    margin-bottom: 12.8px;
-    margin-bottom: 0.8rem;
-    display: block; }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Applications\/MAMP\/htdocs\/3devis\/sites\/all\/themes\/devis\/sass\/components\/_content\.scss}line{font-family:\0000358}}
-  .l-content h3.field-label {
-    font-size: 16px;
-    font-size: 1rem;
-    line-height: 24px;
-    line-height: 1.5rem;
-    margin-bottom: 8px;
-    margin-bottom: 0.5rem; }
-    @media (min-width: 384px) {
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Applications\/MAMP\/htdocs\/3devis\/sites\/all\/themes\/devis\/sass\/components\/_content\.scss}line{font-family:\0000358}}
-      .l-content h3.field-label {
-        font-size: 18.72px;
-        font-size: 1.17rem;
-        line-height: 30.4px;
-        line-height: 1.9rem;
-        margin-bottom: 0; } }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Applications\/MAMP\/htdocs\/3devis\/sites\/all\/themes\/devis\/sass\/components\/_content\.scss}line{font-family:\0000370}}
-  .l-content div.submitted {
-    margin-bottom: 16px;
-    margin-bottom: 1rem;
-    font-size: 15.2px;
-    font-size: 0.95rem; }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Applications\/MAMP\/htdocs\/3devis\/sites\/all\/themes\/devis\/sass\/components\/_content\.scss}line{font-family:\0000375}}
-  .l-content div.remove-br br {
-    display: none; }
-
 /* Fixing input widths here as in _form.scss is not working */
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Applications\/MAMP\/htdocs\/3devis\/sites\/all\/themes\/devis\/sass\/components\/_content\.scss}line{font-family:\0000381}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Applications\/MAMP\/htdocs\/3devis\/sites\/all\/themes\/devis\/sass\/components\/_content\.scss}line{font-family:\000034}}
 input[type="text"],
 input[type="password"],
 input[type="email"],
@@ -1331,7 +1226,7 @@ select {
   clear: none;
   float: none; }
   @media (min-width: 384px) {
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Applications\/MAMP\/htdocs\/3devis\/sites\/all\/themes\/devis\/sass\/components\/_content\.scss}line{font-family:\0000381}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Applications\/MAMP\/htdocs\/3devis\/sites\/all\/themes\/devis\/sass\/components\/_content\.scss}line{font-family:\000034}}
     input[type="text"],
     input[type="password"],
     input[type="email"],
@@ -1343,7 +1238,7 @@ select {
       clear: none;
       float: none; } }
   @media (min-width: 704px) {
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Applications\/MAMP\/htdocs\/3devis\/sites\/all\/themes\/devis\/sass\/components\/_content\.scss}line{font-family:\0000381}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Applications\/MAMP\/htdocs\/3devis\/sites\/all\/themes\/devis\/sass\/components\/_content\.scss}line{font-family:\000034}}
     input[type="text"],
     input[type="password"],
     input[type="email"],
@@ -1355,7 +1250,7 @@ select {
       clear: none;
       float: none; } }
   @media (min-width: 1088px) {
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Applications\/MAMP\/htdocs\/3devis\/sites\/all\/themes\/devis\/sass\/components\/_content\.scss}line{font-family:\0000381}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Applications\/MAMP\/htdocs\/3devis\/sites\/all\/themes\/devis\/sass\/components\/_content\.scss}line{font-family:\000034}}
     input[type="text"],
     input[type="password"],
     input[type="email"],
@@ -1367,7 +1262,7 @@ select {
       clear: none;
       float: none; } }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Applications\/MAMP\/htdocs\/3devis\/sites\/all\/themes\/devis\/sass\/components\/_content\.scss}line{font-family:\00003102}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Applications\/MAMP\/htdocs\/3devis\/sites\/all\/themes\/devis\/sass\/components\/_content\.scss}line{font-family:\0000325}}
 textarea, .form-textarea-wrapper textarea {
   width: 100%;
   float: right;
@@ -1376,7 +1271,7 @@ textarea, .form-textarea-wrapper textarea {
   clear: none;
   float: none; }
   @media (min-width: 384px) {
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Applications\/MAMP\/htdocs\/3devis\/sites\/all\/themes\/devis\/sass\/components\/_content\.scss}line{font-family:\00003102}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Applications\/MAMP\/htdocs\/3devis\/sites\/all\/themes\/devis\/sass\/components\/_content\.scss}line{font-family:\0000325}}
     textarea, .form-textarea-wrapper textarea {
       width: 83.33333%;
       float: left;
@@ -1385,7 +1280,7 @@ textarea, .form-textarea-wrapper textarea {
       clear: none;
       float: none; } }
   @media (min-width: 704px) {
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Applications\/MAMP\/htdocs\/3devis\/sites\/all\/themes\/devis\/sass\/components\/_content\.scss}line{font-family:\00003102}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Applications\/MAMP\/htdocs\/3devis\/sites\/all\/themes\/devis\/sass\/components\/_content\.scss}line{font-family:\0000325}}
     textarea, .form-textarea-wrapper textarea {
       width: 62.5%;
       float: left;
@@ -1394,7 +1289,7 @@ textarea, .form-textarea-wrapper textarea {
       clear: none;
       float: none; } }
   @media (min-width: 1088px) {
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Applications\/MAMP\/htdocs\/3devis\/sites\/all\/themes\/devis\/sass\/components\/_content\.scss}line{font-family:\00003102}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Applications\/MAMP\/htdocs\/3devis\/sites\/all\/themes\/devis\/sass\/components\/_content\.scss}line{font-family:\0000325}}
     textarea, .form-textarea-wrapper textarea {
       width: 50%;
       float: left;
@@ -1403,22 +1298,22 @@ textarea, .form-textarea-wrapper textarea {
       clear: none;
       float: none; } }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Applications\/MAMP\/htdocs\/3devis\/sites\/all\/themes\/devis\/sass\/components\/_content\.scss}line{font-family:\00003121}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Applications\/MAMP\/htdocs\/3devis\/sites\/all\/themes\/devis\/sass\/components\/_content\.scss}line{font-family:\0000344}}
 fieldset legend {
   margin-left: 5.6px;
   margin-left: 0.35rem; }
   @media (min-width: 704px) {
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Applications\/MAMP\/htdocs\/3devis\/sites\/all\/themes\/devis\/sass\/components\/_content\.scss}line{font-family:\00003121}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Applications\/MAMP\/htdocs\/3devis\/sites\/all\/themes\/devis\/sass\/components\/_content\.scss}line{font-family:\0000344}}
     fieldset legend {
       margin-left: 7.2px;
       margin-left: 0.45rem; } }
   @media (min-width: 1088px) {
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Applications\/MAMP\/htdocs\/3devis\/sites\/all\/themes\/devis\/sass\/components\/_content\.scss}line{font-family:\00003121}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Applications\/MAMP\/htdocs\/3devis\/sites\/all\/themes\/devis\/sass\/components\/_content\.scss}line{font-family:\0000344}}
     fieldset legend {
       margin-left: 10.4px;
       margin-left: 0.65rem; } }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Applications\/MAMP\/htdocs\/3devis\/sites\/all\/themes\/devis\/sass\/components\/_content\.scss}line{font-family:\00003132}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Applications\/MAMP\/htdocs\/3devis\/sites\/all\/themes\/devis\/sass\/components\/_content\.scss}line{font-family:\0000355}}
 .fieldset-wrapper {
   width: 94.44444%;
   float: right;
@@ -1426,7 +1321,7 @@ fieldset legend {
   margin-right: 2.77778%;
   clear: none; }
   @media (min-width: 384px) {
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Applications\/MAMP\/htdocs\/3devis\/sites\/all\/themes\/devis\/sass\/components\/_content\.scss}line{font-family:\00003132}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Applications\/MAMP\/htdocs\/3devis\/sites\/all\/themes\/devis\/sass\/components\/_content\.scss}line{font-family:\0000355}}
     .fieldset-wrapper {
       width: 97.22222%;
       float: right;
@@ -1434,7 +1329,7 @@ fieldset legend {
       margin-right: 1.38889%;
       clear: none; } }
   @media (min-width: 704px) {
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Applications\/MAMP\/htdocs\/3devis\/sites\/all\/themes\/devis\/sass\/components\/_content\.scss}line{font-family:\00003132}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Applications\/MAMP\/htdocs\/3devis\/sites\/all\/themes\/devis\/sass\/components\/_content\.scss}line{font-family:\0000355}}
     .fieldset-wrapper {
       width: 97.91667%;
       float: right;
@@ -1442,62 +1337,9 @@ fieldset legend {
       margin-right: 1.04167%;
       clear: none; } }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Applications\/MAMP\/htdocs\/3devis\/sites\/all\/themes\/devis\/sass\/components\/_content\.scss}line{font-family:\00003143}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Applications\/MAMP\/htdocs\/3devis\/sites\/all\/themes\/devis\/sass\/components\/_content\.scss}line{font-family:\0000366}}
 span.regular {
   font-weight: 400; }
-
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Applications\/MAMP\/htdocs\/3devis\/sites\/all\/themes\/devis\/sass\/components\/_content\.scss}line{font-family:\00003148}}
-div.tabs ul.tabs--primary, div.tabs ul.tabs--secondary {
-  margin: 8px 0px 0px;
-  margin: 0.5rem 0rem 0rem;
-  background: #fafafa;
-  border-bottom: 1px solid #d9d9d9;
-  -moz-border-radius-topleft: 0.5rem;
-  -webkit-border-top-left-radius: 0.5rem;
-  border-top-left-radius: 0.5rem;
-  -moz-border-radius-topright: 0.5rem;
-  -webkit-border-top-right-radius: 0.5rem;
-  border-top-right-radius: 0.5rem; }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Applications\/MAMP\/htdocs\/3devis\/sites\/all\/themes\/devis\/sass\/components\/_content\.scss}line{font-family:\00003154}}
-  div.tabs ul.tabs--primary li, div.tabs ul.tabs--secondary li {
-    margin: 0px 2.4px;
-    margin: 0rem 0.15rem; }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Applications\/MAMP\/htdocs\/3devis\/sites\/all\/themes\/devis\/sass\/components\/_content\.scss}line{font-family:\00003158}}
-  div.tabs ul.tabs--primary a, div.tabs ul.tabs--secondary a {
-    background: #f7f7f7;
-    color: #9a9a9a;
-    text-decoration: none;
-    border: 1px solid #d9d9d9;
-    -moz-border-radius-topleft: 0.5rem;
-    -webkit-border-top-left-radius: 0.5rem;
-    border-top-left-radius: 0.5rem;
-    -moz-border-radius-topright: 0.5rem;
-    -webkit-border-top-right-radius: 0.5rem;
-    border-top-right-radius: 0.5rem;
-    display: block;
-    margin: -1px 0 -1px -1px;
-    position: relative;
-    left: 1px;
-    -webkit-transition: all 0.1s ease-out;
-    -moz-transition: all 0.1s ease-out;
-    -o-transition: all 0.1s ease-out;
-    transition: all 0.1s ease-out; }
-    @media (min-width: 384px) {
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Applications\/MAMP\/htdocs\/3devis\/sites\/all\/themes\/devis\/sass\/components\/_content\.scss}line{font-family:\00003158}}
-      div.tabs ul.tabs--primary a, div.tabs ul.tabs--secondary a {
-        padding: 5.6px 16px;
-        padding: 0.35rem 1rem; } }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Applications\/MAMP\/htdocs\/3devis\/sites\/all\/themes\/devis\/sass\/components\/_content\.scss}line{font-family:\00003174}}
-    div.tabs ul.tabs--primary a.active, div.tabs ul.tabs--secondary a.active {
-      color: black;
-      background: white; }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Applications\/MAMP\/htdocs\/3devis\/sites\/all\/themes\/devis\/sass\/components\/_content\.scss}line{font-family:\00003179}}
-    div.tabs ul.tabs--primary a:hover, div.tabs ul.tabs--primary a:focus, div.tabs ul.tabs--secondary a:hover, div.tabs ul.tabs--secondary a:focus {
-      color: white;
-      background: #676767; }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Applications\/MAMP\/htdocs\/3devis\/sites\/all\/themes\/devis\/sass\/components\/_content\.scss}line{font-family:\00003186}}
-div.tabs ul.tabs--secondary {
-  margin: 0; }
 
 /* --- EASYDROPDOWN DEFAULT THEME --- */
 /* PREFIXED CSS */
@@ -1604,7 +1446,7 @@ div.tabs ul.tabs--secondary {
 
 @media -sass-debug-info{filename{font-family:file\:\/\/\/Applications\/MAMP\/htdocs\/3devis\/sites\/all\/themes\/devis\/sass\/components\/_easydropdown\.scss}line{font-family:\0000384}}
 .dropdown-honorific .dropdown {
-  width: 80px;
+  width: 95px;
   margin-right: 16px;
   margin-right: 1rem; }
 
@@ -1784,9 +1626,13 @@ div.tabs ul.tabs--secondary {
   #page-footer {
     position: absolute;
     bottom: 0;
-    height: 175px; } }
+    height: 245px; } }
+@media (min-width: 1088px) {
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Applications\/MAMP\/htdocs\/3devis\/sites\/all\/themes\/devis\/sass\/components\/_footer\.scss}line{font-family:\000031}}
+  #page-footer {
+    height: 200px; } }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Applications\/MAMP\/htdocs\/3devis\/sites\/all\/themes\/devis\/sass\/components\/_footer\.scss}line{font-family:\000039}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Applications\/MAMP\/htdocs\/3devis\/sites\/all\/themes\/devis\/sass\/components\/_footer\.scss}line{font-family:\0000313}}
 .l-footer {
   width: 100%;
   background: #6f868e;
@@ -1796,113 +1642,106 @@ div.tabs ul.tabs--secondary {
   background-image: -o-linear-gradient(#6f868e, #6f868e);
   background-image: linear-gradient(#6f868e, #6f868e);
   border: none;
-  border-top: 3px solid #ffb500;
-  /*div.panels-ipe-portlet-wrapper {
-    display: inline-block;
-    vertical-align: top;
-    @include rem-fallback(padding, 0, 1rem);
-    width: 23%;
-
-    div[class*=' menu-block'], div[class^='menu-block'] {
-      //display: block;
-      //width: 100%;
-      //padding: 0;
-    }
-  }*/ }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Applications\/MAMP\/htdocs\/3devis\/sites\/all\/themes\/devis\/sass\/components\/_footer\.scss}line{font-family:\0000317}}
+  border-top: 3px solid #ffb500; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Applications\/MAMP\/htdocs\/3devis\/sites\/all\/themes\/devis\/sass\/components\/_footer\.scss}line{font-family:\0000321}}
   .l-footer .l-region--footer {
     margin: 0 auto; }
     @media (min-width: 1088px) {
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Applications\/MAMP\/htdocs\/3devis\/sites\/all\/themes\/devis\/sass\/components\/_footer\.scss}line{font-family:\0000317}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Applications\/MAMP\/htdocs\/3devis\/sites\/all\/themes\/devis\/sass\/components\/_footer\.scss}line{font-family:\0000321}}
       .l-footer .l-region--footer {
-        width: 1120px; } }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Applications\/MAMP\/htdocs\/3devis\/sites\/all\/themes\/devis\/sass\/components\/_footer\.scss}line{font-family:\0000325}}
+        max-width: 1120px; } }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Applications\/MAMP\/htdocs\/3devis\/sites\/all\/themes\/devis\/sass\/components\/_footer\.scss}line{font-family:\0000329}}
   .l-footer div[class*=' menu-block'], .l-footer div[class^='menu-block'], .l-footer div.panels-ipe-portlet-wrapper {
     text-align: center;
-    margin-top: 8px;
-    margin-top: 0.5rem;
+    margin-top: 16px;
+    margin-top: 1rem;
     padding-bottom: 4px;
     padding-bottom: 0.25rem; }
     @media (min-width: 704px) {
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Applications\/MAMP\/htdocs\/3devis\/sites\/all\/themes\/devis\/sass\/components\/_footer\.scss}line{font-family:\0000325}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Applications\/MAMP\/htdocs\/3devis\/sites\/all\/themes\/devis\/sass\/components\/_footer\.scss}line{font-family:\0000329}}
       .l-footer div[class*=' menu-block'], .l-footer div[class^='menu-block'], .l-footer div.panels-ipe-portlet-wrapper {
-        margin-top: 16px;
-        margin-top: 1rem;
+        margin-top: 32px;
+        margin-top: 2rem;
         padding: 0;
-        text-align: left;
-        display: inline-block; } }
+        text-align: left; } }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Applications\/MAMP\/htdocs\/3devis\/sites\/all\/themes\/devis\/sass\/components\/_footer\.scss}line{font-family:\0000342}}
+  .l-footer div.menu-block-3 {
+    margin-left: 5.55556%;
+    margin-right: 5.55556%; }
   @media (min-width: 704px) {
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Applications\/MAMP\/htdocs\/3devis\/sites\/all\/themes\/devis\/sass\/components\/_footer\.scss}line{font-family:\0000339}}
-    .l-footer div.menu-block-1 {
-      width: 22.91667%;
-      float: left;
-      margin-right: -100%;
-      margin-left: 1.04167%;
-      clear: none;
-      margin-left: 2.08333%; }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Applications\/MAMP\/htdocs\/3devis\/sites\/all\/themes\/devis\/sass\/components\/_footer\.scss}line{font-family:\0000343}}
-    .l-footer div.menu-block-2 {
-      width: 22.91667%;
-      float: left;
-      margin-right: -100%;
-      margin-left: 26.04167%;
-      clear: none; }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Applications\/MAMP\/htdocs\/3devis\/sites\/all\/themes\/devis\/sass\/components\/_footer\.scss}line{font-family:\0000346}}
-    .l-footer div.menu-block-3 {
-      width: 22.91667%;
-      float: left;
-      margin-right: -100%;
-      margin-left: 51.04167%;
-      clear: none; }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Applications\/MAMP\/htdocs\/3devis\/sites\/all\/themes\/devis\/sass\/components\/_footer\.scss}line{font-family:\0000349}}
-    .l-footer div.menu-block-4 {
-      width: 22.91667%;
-      float: right;
-      margin-left: 0;
-      margin-right: 1.04167%;
-      clear: none; } }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Applications\/MAMP\/htdocs\/3devis\/sites\/all\/themes\/devis\/sass\/components\/_footer\.scss}line{font-family:\0000313}}
+    .l-footer {
+      /*div.menu-block-4 {
+        @include grid-span(2, 7);
+      }*/ }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Applications\/MAMP\/htdocs\/3devis\/sites\/all\/themes\/devis\/sass\/components\/_footer\.scss}line{font-family:\0000348}}
+      .l-footer div.menu-block-1 {
+        width: 22.91667%;
+        float: left;
+        margin-right: -100%;
+        margin-left: 1.04167%;
+        clear: none;
+        margin-left: 2.08333%; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Applications\/MAMP\/htdocs\/3devis\/sites\/all\/themes\/devis\/sass\/components\/_footer\.scss}line{font-family:\0000352}}
+      .l-footer div.menu-block-2 {
+        width: 22.91667%;
+        float: left;
+        margin-right: -100%;
+        margin-left: 26.04167%;
+        clear: none; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Applications\/MAMP\/htdocs\/3devis\/sites\/all\/themes\/devis\/sass\/components\/_footer\.scss}line{font-family:\0000355}}
+      .l-footer div.menu-block-3 {
+        width: 47.91667%;
+        float: right;
+        margin-left: 0;
+        margin-right: 1.04167%;
+        clear: none;
+        margin-left: 2.08333%;
+        margin-right: 2.08333%; } }
   @media (min-width: 1088px) {
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Applications\/MAMP\/htdocs\/3devis\/sites\/all\/themes\/devis\/sass\/components\/_footer\.scss}line{font-family:\0000354}}
-    .l-footer div.menu-block-1 {
-      width: 23.33333%;
-      float: left;
-      margin-right: -100%;
-      margin-left: 0.83333%;
-      clear: none;
-      margin-left: 1.66667%; }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Applications\/MAMP\/htdocs\/3devis\/sites\/all\/themes\/devis\/sass\/components\/_footer\.scss}line{font-family:\0000358}}
-    .l-footer div.menu-block-2 {
-      width: 23.33333%;
-      float: left;
-      margin-right: -100%;
-      margin-left: 25.83333%;
-      clear: none; }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Applications\/MAMP\/htdocs\/3devis\/sites\/all\/themes\/devis\/sass\/components\/_footer\.scss}line{font-family:\0000361}}
-    .l-footer div.menu-block-3 {
-      width: 23.33333%;
-      float: left;
-      margin-right: -100%;
-      margin-left: 50.83333%;
-      clear: none; }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Applications\/MAMP\/htdocs\/3devis\/sites\/all\/themes\/devis\/sass\/components\/_footer\.scss}line{font-family:\0000364}}
-    .l-footer div.menu-block-4 {
-      width: 23.33333%;
-      float: right;
-      margin-left: 0;
-      margin-right: 0.83333%;
-      clear: none; } }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Applications\/MAMP\/htdocs\/3devis\/sites\/all\/themes\/devis\/sass\/components\/_footer\.scss}line{font-family:\0000313}}
+    .l-footer {
+      /*div.menu-block-4 {
+        @include grid-span(3, 10);
+      }*/ }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Applications\/MAMP\/htdocs\/3devis\/sites\/all\/themes\/devis\/sass\/components\/_footer\.scss}line{font-family:\0000365}}
+      .l-footer div.menu-block-1 {
+        width: 23.33333%;
+        float: left;
+        margin-right: -100%;
+        margin-left: 0.83333%;
+        clear: none;
+        margin-left: 1.66667%; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Applications\/MAMP\/htdocs\/3devis\/sites\/all\/themes\/devis\/sass\/components\/_footer\.scss}line{font-family:\0000369}}
+      .l-footer div.menu-block-2 {
+        width: 23.33333%;
+        float: left;
+        margin-right: -100%;
+        margin-left: 25.83333%;
+        clear: none; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Applications\/MAMP\/htdocs\/3devis\/sites\/all\/themes\/devis\/sass\/components\/_footer\.scss}line{font-family:\0000372}}
+      .l-footer div.menu-block-3 {
+        width: 48.33333%;
+        float: right;
+        margin-left: 0;
+        margin-right: 0.83333%;
+        clear: none;
+        margin-left: 1.66667%;
+        margin-right: 1.66667%; } }
 @media -sass-debug-info{filename{font-family:file\:\/\/\/Applications\/MAMP\/htdocs\/3devis\/sites\/all\/themes\/devis\/sass\/components\/_footer\.scss}line{font-family:\0000382}}
   .l-footer ul {
+    margin-top: 4.8px;
+    margin-top: 0.3rem;
     text-align: center; }
     @media (min-width: 704px) {
 @media -sass-debug-info{filename{font-family:file\:\/\/\/Applications\/MAMP\/htdocs\/3devis\/sites\/all\/themes\/devis\/sass\/components\/_footer\.scss}line{font-family:\0000382}}
       .l-footer ul {
         text-align: left; } }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Applications\/MAMP\/htdocs\/3devis\/sites\/all\/themes\/devis\/sass\/components\/_footer\.scss}line{font-family:\0000389}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Applications\/MAMP\/htdocs\/3devis\/sites\/all\/themes\/devis\/sass\/components\/_footer\.scss}line{font-family:\0000390}}
     .l-footer ul .leaf {
       list-style-image: none;
       list-style-type: none; }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Applications\/MAMP\/htdocs\/3devis\/sites\/all\/themes\/devis\/sass\/components\/_footer\.scss}line{font-family:\0000394}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Applications\/MAMP\/htdocs\/3devis\/sites\/all\/themes\/devis\/sass\/components\/_footer\.scss}line{font-family:\0000395}}
     .l-footer ul li {
       margin: 0px 0px 5.6px;
       margin: 0rem 0rem 0.35rem;
@@ -1910,11 +1749,34 @@ div.tabs ul.tabs--secondary {
       -moz-transition-duration: 0.08s;
       -o-transition-duration: 0.08s;
       transition-duration: 0.08s; }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Applications\/MAMP\/htdocs\/3devis\/sites\/all\/themes\/devis\/sass\/components\/_footer\.scss}line{font-family:\00003101}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Applications\/MAMP\/htdocs\/3devis\/sites\/all\/themes\/devis\/sass\/components\/_footer\.scss}line{font-family:\00003102}}
       .l-footer ul li:hover {
         padding-left: 3.2px;
         padding-left: 0.2rem; }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Applications\/MAMP\/htdocs\/3devis\/sites\/all\/themes\/devis\/sass\/components\/_footer\.scss}line{font-family:\00003107}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Applications\/MAMP\/htdocs\/3devis\/sites\/all\/themes\/devis\/sass\/components\/_footer\.scss}line{font-family:\00003108}}
+  .l-footer p {
+    margin-top: 4.8px;
+    margin-top: 0.3rem;
+    font-size: 12.8px;
+    font-size: 0.8rem;
+    color: #e6e6e6;
+    font-family: sans-serif;
+    font-weight: 300;
+    text-align: center; }
+    @media (min-width: 384px) {
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Applications\/MAMP\/htdocs\/3devis\/sites\/all\/themes\/devis\/sass\/components\/_footer\.scss}line{font-family:\00003108}}
+      .l-footer p {
+        font-size: 13.6px;
+        font-size: 0.85rem;
+        font-family: "Source Sans Pro", Helvetica, Arial, sans-serif;
+        font-weight: 300; } }
+    @media (min-width: 704px) {
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Applications\/MAMP\/htdocs\/3devis\/sites\/all\/themes\/devis\/sass\/components\/_footer\.scss}line{font-family:\00003108}}
+      .l-footer p {
+        text-align: inherit;
+        font-size: 15.2px;
+        font-size: 0.95rem; } }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Applications\/MAMP\/htdocs\/3devis\/sites\/all\/themes\/devis\/sass\/components\/_footer\.scss}line{font-family:\00003126}}
   .l-footer a {
     font-size: 12.8px;
     font-size: 0.8rem;
@@ -1922,21 +1784,21 @@ div.tabs ul.tabs--secondary {
     font-family: sans-serif;
     font-weight: 300; }
     @media (min-width: 384px) {
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Applications\/MAMP\/htdocs\/3devis\/sites\/all\/themes\/devis\/sass\/components\/_footer\.scss}line{font-family:\00003107}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Applications\/MAMP\/htdocs\/3devis\/sites\/all\/themes\/devis\/sass\/components\/_footer\.scss}line{font-family:\00003126}}
       .l-footer a {
         font-size: 13.6px;
         font-size: 0.85rem;
         font-family: "Source Sans Pro", Helvetica, Arial, sans-serif;
         font-weight: 300; } }
     @media (min-width: 704px) {
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Applications\/MAMP\/htdocs\/3devis\/sites\/all\/themes\/devis\/sass\/components\/_footer\.scss}line{font-family:\00003107}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Applications\/MAMP\/htdocs\/3devis\/sites\/all\/themes\/devis\/sass\/components\/_footer\.scss}line{font-family:\00003126}}
       .l-footer a {
         font-size: 15.2px;
         font-size: 0.95rem; } }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Applications\/MAMP\/htdocs\/3devis\/sites\/all\/themes\/devis\/sass\/components\/_footer\.scss}line{font-family:\00003121}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Applications\/MAMP\/htdocs\/3devis\/sites\/all\/themes\/devis\/sass\/components\/_footer\.scss}line{font-family:\00003140}}
     .l-footer a:hover {
       color: #f2f2f2; }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Applications\/MAMP\/htdocs\/3devis\/sites\/all\/themes\/devis\/sass\/components\/_footer\.scss}line{font-family:\00003126}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Applications\/MAMP\/htdocs\/3devis\/sites\/all\/themes\/devis\/sass\/components\/_footer\.scss}line{font-family:\00003145}}
   .l-footer a.active {
     font-size: 12.8px;
     font-size: 0.8rem;
@@ -1944,22 +1806,22 @@ div.tabs ul.tabs--secondary {
     font-family: sans-serif;
     font-weight: 400; }
     @media (min-width: 384px) {
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Applications\/MAMP\/htdocs\/3devis\/sites\/all\/themes\/devis\/sass\/components\/_footer\.scss}line{font-family:\00003126}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Applications\/MAMP\/htdocs\/3devis\/sites\/all\/themes\/devis\/sass\/components\/_footer\.scss}line{font-family:\00003145}}
       .l-footer a.active {
         font-size: 13.6px;
         font-size: 0.85rem;
         font-family: "Source Sans Pro", Helvetica, Arial, sans-serif;
         font-weight: 400; } }
     @media (min-width: 704px) {
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Applications\/MAMP\/htdocs\/3devis\/sites\/all\/themes\/devis\/sass\/components\/_footer\.scss}line{font-family:\00003126}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Applications\/MAMP\/htdocs\/3devis\/sites\/all\/themes\/devis\/sass\/components\/_footer\.scss}line{font-family:\00003145}}
       .l-footer a.active {
         font-size: 15.2px;
         font-size: 0.95rem; } }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Applications\/MAMP\/htdocs\/3devis\/sites\/all\/themes\/devis\/sass\/components\/_footer\.scss}line{font-family:\00003140}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Applications\/MAMP\/htdocs\/3devis\/sites\/all\/themes\/devis\/sass\/components\/_footer\.scss}line{font-family:\00003159}}
     .l-footer a.active:hover {
       color: #f2f2f2; }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Applications\/MAMP\/htdocs\/3devis\/sites\/all\/themes\/devis\/sass\/components\/_footer\.scss}line{font-family:\00003145}}
-  .l-footer h2.pane-title {
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Applications\/MAMP\/htdocs\/3devis\/sites\/all\/themes\/devis\/sass\/components\/_footer\.scss}line{font-family:\00003164}}
+  .l-footer h2.pane-title, .l-footer h2.node__title {
     display: none;
     /*@include rem-fallback(font-size, .95rem);
     font-weight: 400;
@@ -1968,99 +1830,14 @@ div.tabs ul.tabs--secondary {
     
     @include breakpoint($mobile) {
       @include rem-fallback(font-size, 1.25rem);
-      @include rem-fallback(margin-bottom, .2rem);
     }
 
     @include breakpoint($tab) {
-      @include rem-fallback(margin-bottom, .3rem);
     }*/ }
 
-@media (min-width: 704px) {
 @media -sass-debug-info{filename{font-family:file\:\/\/\/Applications\/MAMP\/htdocs\/3devis\/sites\/all\/themes\/devis\/sass\/components\/_header\.scss}line{font-family:\000031}}
-  header.l-header {
-    height: 135px; } }
-
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Applications\/MAMP\/htdocs\/3devis\/sites\/all\/themes\/devis\/sass\/components\/_header\.scss}line{font-family:\000037}}
-.l-region--header {
-  margin: 0 auto;
-  background: white;
-  border-bottom: none; }
-  @media (min-width: 1088px) {
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Applications\/MAMP\/htdocs\/3devis\/sites\/all\/themes\/devis\/sass\/components\/_header\.scss}line{font-family:\000037}}
-    .l-region--header {
-      max-width: 1120px; } }
-
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Applications\/MAMP\/htdocs\/3devis\/sites\/all\/themes\/devis\/sass\/components\/_header\.scss}line{font-family:\0000316}}
-div#logo-title {
-  position: relative;
-  text-align: center; }
-  @media (min-width: 704px) {
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Applications\/MAMP\/htdocs\/3devis\/sites\/all\/themes\/devis\/sass\/components\/_header\.scss}line{font-family:\0000316}}
-    div#logo-title {
-      text-align: left;
-      padding-bottom: 16px;
-      padding-bottom: 1rem; } }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Applications\/MAMP\/htdocs\/3devis\/sites\/all\/themes\/devis\/sass\/components\/_header\.scss}line{font-family:\0000327}}
-  div#logo-title a#logo img {
-    margin-top: 16px;
-    margin-top: 1rem; }
-    @media (min-width: 704px) {
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Applications\/MAMP\/htdocs\/3devis\/sites\/all\/themes\/devis\/sass\/components\/_header\.scss}line{font-family:\0000327}}
-      div#logo-title a#logo img {
-        margin-left: 2.08333%; } }
-    @media (min-width: 1088px) {
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Applications\/MAMP\/htdocs\/3devis\/sites\/all\/themes\/devis\/sass\/components\/_header\.scss}line{font-family:\0000327}}
-      div#logo-title a#logo img {
-        margin-left: 1.66667%; } }
-
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Applications\/MAMP\/htdocs\/3devis\/sites\/all\/themes\/devis\/sass\/components\/_header\.scss}line{font-family:\0000340}}
-div#name-and-slogan {
-  font-family: sans-serif;
-  font-weight: 300;
-  color: #333333;
-  margin: 16px 0px;
-  margin: 1rem 0rem;
-  font-size: 16px;
-  font-size: 1rem;
-  /*@include breakpoint($tab $desktop) {
-    @include grid-span(6, 7);
-    @include rem-fallback(font-size, 1.3rem);
-    @include rem-fallback(top, 4rem);
-  }*/ }
-  @media (min-width: 384px) {
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Applications\/MAMP\/htdocs\/3devis\/sites\/all\/themes\/devis\/sass\/components\/_header\.scss}line{font-family:\0000340}}
-    div#name-and-slogan {
-      font-size: 17.6px;
-      font-size: 1.1rem;
-      font-family: "Source Sans Pro", Helvetica, Arial, sans-serif;
-      font-weight: 300; } }
-  @media (min-width: 704px) {
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Applications\/MAMP\/htdocs\/3devis\/sites\/all\/themes\/devis\/sass\/components\/_header\.scss}line{font-family:\0000340}}
-    div#name-and-slogan {
-      margin: 0;
-      position: relative;
-      float: right;
-      text-align: right;
-      font-size: 20.8px;
-      font-size: 1.3rem;
-      top: 72px;
-      top: 4.5rem;
-      margin-right: 2.08333%; } }
-  @media (min-width: 1088px) {
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Applications\/MAMP\/htdocs\/3devis\/sites\/all\/themes\/devis\/sass\/components\/_header\.scss}line{font-family:\0000340}}
-    div#name-and-slogan {
-      top: 24px;
-      top: 1.5rem;
-      font-size: 25.6px;
-      font-size: 1.6rem; } }
-
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Applications\/MAMP\/htdocs\/3devis\/sites\/all\/themes\/devis\/sass\/components\/_login\.scss}line{font-family:\000031}}
-.user-login-links {
-  margin-bottom: 16px;
-  margin-bottom: 1rem; }
-
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Applications\/MAMP\/htdocs\/3devis\/sites\/all\/themes\/devis\/sass\/components\/_navigation\.scss}line{font-family:\000031}}
-.l-navigation-content {
+header.l-header-content {
+  text-align: center;
   background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #6f868e), color-stop(100%, rgba(111, 134, 142, 0.9)));
   background-image: -webkit-linear-gradient(#6f868e, rgba(111, 134, 142, 0.9));
   background-image: -moz-linear-gradient(#6f868e, rgba(111, 134, 142, 0.9));
@@ -2069,253 +1846,187 @@ div#name-and-slogan {
   border: none;
   border-bottom: 3px solid #ffb500; }
   @media (min-width: 704px) {
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Applications\/MAMP\/htdocs\/3devis\/sites\/all\/themes\/devis\/sass\/components\/_navigation\.scss}line{font-family:\000031}}
-    .l-navigation-content {
-      height: 40px;
-      margin-bottom: -40px;
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Applications\/MAMP\/htdocs\/3devis\/sites\/all\/themes\/devis\/sass\/components\/_header\.scss}line{font-family:\000031}}
+    header.l-header-content {
+      text-align: inherit;
+      position: fixed;
+      width: 100%;
+      top: 0;
+      height: auto;
       z-index: 150;
-      border-bottom: 1px solid transparent; } }
+      border-bottom: 1px solid transparent;
+      -webkit-box-shadow: 0px 1px 15px -3px rgba(0, 0, 0, 0.4);
+      -moz-box-shadow: 0px 1px 15px -3px rgba(0, 0, 0, 0.4);
+      box-shadow: 0px 1px 15px -3px rgba(0, 0, 0, 0.4); } }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Applications\/MAMP\/htdocs\/3devis\/sites\/all\/themes\/devis\/sass\/components\/_navigation\.scss}line{font-family:\0000314}}
-.l-region--navigation {
-  margin: 0 auto;
-  max-width: 1120px;
-  /*
-  margin: 0 auto;
-  @include breakpoint($desktop) {
-    width: $desktop;
-  }
-  
-  @include breakpoint($tab $desktop) {
-    width: $tab;
-  }
-  
-  h2 {
-    margin: 0;
-  }
-    
-  ul {
+@media (min-width: 704px) {
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Applications\/MAMP\/htdocs\/3devis\/sites\/all\/themes\/devis\/sass\/components\/_header\.scss}line{font-family:\0000320}}
+  .header-container {
+    margin: 0 auto;
+    padding: 0px 8px;
+    padding: 0rem 0.5rem; } }
+@media (min-width: 1088px) {
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Applications\/MAMP\/htdocs\/3devis\/sites\/all\/themes\/devis\/sass\/components\/_header\.scss}line{font-family:\0000320}}
+  .header-container {
+    padding: 0px 16px;
+    padding: 0rem 1rem;
+    max-width: 1120px; } }
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Applications\/MAMP\/htdocs\/3devis\/sites\/all\/themes\/devis\/sass\/components\/_header\.scss}line{font-family:\0000331}}
+.l-region--header {
+  display: inline-block; }
+
+/*.navSticky {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  @include box-shadow(0px 1px 15px -3px $color-navigation-sticky-shadow);
+  z-index: 150;
+}*/
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Applications\/MAMP\/htdocs\/3devis\/sites\/all\/themes\/devis\/sass\/components\/_login\.scss}line{font-family:\000031}}
+.user-login-links {
+  margin-bottom: 16px;
+  margin-bottom: 1rem; }
+
+@media (min-width: 704px) {
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Applications\/MAMP\/htdocs\/3devis\/sites\/all\/themes\/devis\/sass\/components\/_navigation\.scss}line{font-family:\000031}}
+  nav.l-navigation-content {
+    display: inline-block;
     float: right;
-    margin: 0;
+    position: relative;
+    top: 1.35rem; } }
 
-    li {
-      padding: 0;
-      display: inline-block;
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Applications\/MAMP\/htdocs\/3devis\/sites\/all\/themes\/devis\/sass\/components\/_navigation\.scss}line{font-family:\0000311}}
+.l-region--navigation h2.pane-title {
+  margin: 0; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Applications\/MAMP\/htdocs\/3devis\/sites\/all\/themes\/devis\/sass\/components\/_navigation\.scss}line{font-family:\0000315}}
+.l-region--navigation ul {
+  text-align: center; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Applications\/MAMP\/htdocs\/3devis\/sites\/all\/themes\/devis\/sass\/components\/_navigation\.scss}line{font-family:\0000317}}
+  .l-region--navigation ul li {
+    display: inline;
+    margin: 0; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Applications\/MAMP\/htdocs\/3devis\/sites\/all\/themes\/devis\/sass\/components\/_navigation\.scss}line{font-family:\0000320}}
+    .l-region--navigation ul li a {
+      font-family: sans-serif;
+      font-weight: 300;
+      font-size: 13.6px;
+      font-size: 0.85rem;
+      color: #ececec;
+      display: block;
+      float: none;
+      padding: 3.2px 0px;
+      padding: 0.2rem 0rem;
+      border: none;
+      border-bottom: 1px solid #bfbfbf;
+      cursor: default; }
+      @media (min-width: 384px) {
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Applications\/MAMP\/htdocs\/3devis\/sites\/all\/themes\/devis\/sass\/components\/_navigation\.scss}line{font-family:\0000320}}
+        .l-region--navigation ul li a {
+          font-family: "Source Sans Pro", Helvetica, Arial, sans-serif;
+          font-weight: 300;
+          font-size: 16px;
+          font-size: 1rem;
+          padding: 4.8px 0px;
+          padding: 0.3rem 0rem; } }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Applications\/MAMP\/htdocs\/3devis\/sites\/all\/themes\/devis\/sass\/components\/_navigation\.scss}line{font-family:\0000337}}
+      .l-region--navigation ul li a:hover {
+        color: #f2f2f2;
+        border: none;
+        position: relative;
+        top: 1px;
+        border-bottom: 1px solid #d99a00; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Applications\/MAMP\/htdocs\/3devis\/sites\/all\/themes\/devis\/sass\/components\/_navigation\.scss}line{font-family:\0000345}}
+      .l-region--navigation ul li a.active {
+        color: #f2f2f2;
+        font-weight: 400;
+        border-bottom: 1px solid #d99a00; }
+@media (min-width: 704px) {
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Applications\/MAMP\/htdocs\/3devis\/sites\/all\/themes\/devis\/sass\/components\/_navigation\.scss}line{font-family:\0000355}}
+  .l-region--navigation ul {
+    float: right;
+    margin: 0; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Applications\/MAMP\/htdocs\/3devis\/sites\/all\/themes\/devis\/sass\/components\/_navigation\.scss}line{font-family:\0000359}}
+    .l-region--navigation ul li {
       position: relative;
-      margin: 0;
-
-      a {
-        @include font-family('Source Sans Pro', light);
-        
-        @include rem-fallback(font-size, 1.1rem);
-        @include rem-fallback(padding, .95rem, .7rem, .65rem, .7rem);
+      display: inline-block; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Applications\/MAMP\/htdocs\/3devis\/sites\/all\/themes\/devis\/sass\/components\/_navigation\.scss}line{font-family:\0000363}}
+      .l-region--navigation ul li a {
+        font-family: "Source Sans Pro", Helvetica, Arial, sans-serif;
+        font-weight: 300;
+        font-size: 17.6px;
+        font-size: 1.1rem;
+        padding: 8.8px 1.6px 4.48px;
+        padding: 0.55rem 0.1rem 0.28rem;
+        margin: 0px 9.6px;
+        margin: 0rem 0.6rem;
         cursor: default;
-        @include single-transition(background .3s, color .3s, border-bottom-color .3s);
+        -webkit-transition: background 0.3s, color 0.3s, border-bottom-color 0.3s;
+        -moz-transition: background 0.3s, color 0.3s, border-bottom-color 0.3s;
+        -o-transition: background 0.3s, color 0.3s, border-bottom-color 0.3s;
+        transition: background 0.3s, color 0.3s, border-bottom-color 0.3s;
         display: block;
         float: left;
         border: none;
-        border-bottom: .3rem transparent solid;
-
-        &:hover, &.active {
-          border-bottom-color: $color-navigation-hover-border;
-        }
-      }
-
-      &:hover > ul {
-        display: block;
-      }
-
-    }
-        
-    ul {
+        border-bottom: .2rem transparent solid; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Applications\/MAMP\/htdocs\/3devis\/sites\/all\/themes\/devis\/sass\/components\/_navigation\.scss}line{font-family:\0000375}}
+        .l-region--navigation ul li a:hover, .l-region--navigation ul li a.active {
+          position: static;
+          top: 0;
+          border-bottom: 0.2rem #ffb500 solid; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Applications\/MAMP\/htdocs\/3devis\/sites\/all\/themes\/devis\/sass\/components\/_navigation\.scss}line{font-family:\0000382}}
+      .l-region--navigation ul li:hover > ul {
+        display: block; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Applications\/MAMP\/htdocs\/3devis\/sites\/all\/themes\/devis\/sass\/components\/_navigation\.scss}line{font-family:\0000387}}
+    .l-region--navigation ul ul {
       margin: 0;
       padding: 0;
       display: none;
       position: absolute;
       top: 100%;
       text-align: center;
-      box-sizing: border-box;
-
-      li {
-          margin: 0;
-          box-sizing: border-box;
-          width: 100%;
-      }
-    }
-        
-    ul.navSpecialBox {
-      right: 0;
-      text-align: left;
-
-      li {
+      box-sizing: border-box; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Applications\/MAMP\/htdocs\/3devis\/sites\/all\/themes\/devis\/sass\/components\/_navigation\.scss}line{font-family:\0000396}}
+      .l-region--navigation ul ul li {
+        margin: 0;
+        box-sizing: border-box;
+        width: 100%; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Applications\/MAMP\/htdocs\/3devis\/sites\/all\/themes\/devis\/sass\/components\/_navigation\.scss}line{font-family:\00003103}}
+    .l-region--navigation ul ul.navSpecialBox {
+      right: 0; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Applications\/MAMP\/htdocs\/3devis\/sites\/all\/themes\/devis\/sass\/components\/_navigation\.scss}line{font-family:\00003106}}
+      .l-region--navigation ul ul.navSpecialBox li {
         font-weight: 200;
-        color: $color-navigation-special-box;
-        background: $color-navigation-special-box-background;
+        color: #fafafa;
+        background: rgba(77, 93, 99, 0.95);
         width: 15rem;
-        @include rem-fallback(padding, .8rem);
+        font-size: 13.6px;
+        font-size: 0.85rem;
+        padding: 12.8px;
+        padding: 0.8rem;
         padding-bottom: 0;
         margin: 0;
         border: none;
-        text-align: center;
-
-        .navSpecialBoxReg {
-          @include single-transition(color .3s);
+        text-align: center; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Applications\/MAMP\/htdocs\/3devis\/sites\/all\/themes\/devis\/sass\/components\/_navigation\.scss}line{font-family:\00003118}}
+        .l-region--navigation ul ul.navSpecialBox li .navSpecialBoxReg {
+          -webkit-transition: color 0.3s, 0.3s, ease-out;
+          -moz-transition: color 0.3s, 0.3s, ease-out;
+          -o-transition: color 0.3s, 0.3s, ease-out;
+          transition: color 0.3s, 0.3s, ease-out;
           float: none;
-          color: $base-color;
+          color: #ffb500;
           font-size: 1.5rem;
           padding: 0;
           border: none;
-          @include rem-fallback(margin-bottom, 1.1rem);
-
-          &:hover {
+          margin-bottom: 17.6px;
+          margin-bottom: 1.1rem; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Applications\/MAMP\/htdocs\/3devis\/sites\/all\/themes\/devis\/sass\/components\/_navigation\.scss}line{font-family:\00003127}}
+          .l-region--navigation ul ul.navSpecialBox li .navSpecialBoxReg:hover {
             padding: 0;
             background: none;
             border: none;
-            color: $color-navigation-special-box-a-hover;
-          }
-        }
-      }
-    }
-  }*/ }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Applications\/MAMP\/htdocs\/3devis\/sites\/all\/themes\/devis\/sass\/components\/_navigation\.scss}line{font-family:\0000317}}
-  .l-region--navigation h2.pane-title {
-    margin: 0; }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Applications\/MAMP\/htdocs\/3devis\/sites\/all\/themes\/devis\/sass\/components\/_navigation\.scss}line{font-family:\0000321}}
-  .l-region--navigation ul {
-    text-align: center; }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Applications\/MAMP\/htdocs\/3devis\/sites\/all\/themes\/devis\/sass\/components\/_navigation\.scss}line{font-family:\0000323}}
-    .l-region--navigation ul li {
-      display: inline;
-      margin: 0; }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Applications\/MAMP\/htdocs\/3devis\/sites\/all\/themes\/devis\/sass\/components\/_navigation\.scss}line{font-family:\0000326}}
-      .l-region--navigation ul li a {
-        font-family: sans-serif;
-        font-weight: 300;
-        font-size: 13.6px;
-        font-size: 0.85rem;
-        color: #ececec;
-        display: block;
-        float: none;
-        padding: 3.2px 0px;
-        padding: 0.2rem 0rem;
-        border: none;
-        border-bottom: 1px solid #bfbfbf;
-        cursor: default; }
-        @media (min-width: 384px) {
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Applications\/MAMP\/htdocs\/3devis\/sites\/all\/themes\/devis\/sass\/components\/_navigation\.scss}line{font-family:\0000326}}
-          .l-region--navigation ul li a {
-            font-family: "Source Sans Pro", Helvetica, Arial, sans-serif;
-            font-weight: 300;
-            font-size: 16px;
-            font-size: 1rem;
-            padding: 4.8px 0px;
-            padding: 0.3rem 0rem; } }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Applications\/MAMP\/htdocs\/3devis\/sites\/all\/themes\/devis\/sass\/components\/_navigation\.scss}line{font-family:\0000343}}
-        .l-region--navigation ul li a:hover {
-          color: #f2f2f2;
-          border: none;
-          position: relative;
-          top: 1px;
-          border-bottom: 1px solid #d99a00; }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Applications\/MAMP\/htdocs\/3devis\/sites\/all\/themes\/devis\/sass\/components\/_navigation\.scss}line{font-family:\0000351}}
-        .l-region--navigation ul li a.active {
-          color: #f2f2f2;
-          font-weight: 400;
-          border-bottom: 1px solid #d99a00; }
-  @media (min-width: 704px) {
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Applications\/MAMP\/htdocs\/3devis\/sites\/all\/themes\/devis\/sass\/components\/_navigation\.scss}line{font-family:\0000361}}
-    .l-region--navigation ul {
-      float: right;
-      margin: 0; }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Applications\/MAMP\/htdocs\/3devis\/sites\/all\/themes\/devis\/sass\/components\/_navigation\.scss}line{font-family:\0000365}}
-      .l-region--navigation ul li {
-        position: relative;
-        display: inline-block; }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Applications\/MAMP\/htdocs\/3devis\/sites\/all\/themes\/devis\/sass\/components\/_navigation\.scss}line{font-family:\0000369}}
-        .l-region--navigation ul li a {
-          font-family: "Source Sans Pro", Helvetica, Arial, sans-serif;
-          font-weight: 300;
-          font-size: 17.6px;
-          font-size: 1.1rem;
-          padding: 8.8px 11.2px 4.48px;
-          padding: 0.55rem 0.7rem 0.28rem;
-          cursor: default;
-          -webkit-transition: background 0.3s, color 0.3s, border-bottom-color 0.3s;
-          -moz-transition: background 0.3s, color 0.3s, border-bottom-color 0.3s;
-          -o-transition: background 0.3s, color 0.3s, border-bottom-color 0.3s;
-          transition: background 0.3s, color 0.3s, border-bottom-color 0.3s;
-          display: block;
-          float: left;
-          border: none;
-          border-bottom: .3rem transparent solid; }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Applications\/MAMP\/htdocs\/3devis\/sites\/all\/themes\/devis\/sass\/components\/_navigation\.scss}line{font-family:\0000380}}
-          .l-region--navigation ul li a:hover, .l-region--navigation ul li a.active {
-            position: static;
-            top: 0;
-            border-bottom: 0.3rem #ffb500 solid; }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Applications\/MAMP\/htdocs\/3devis\/sites\/all\/themes\/devis\/sass\/components\/_navigation\.scss}line{font-family:\0000387}}
-        .l-region--navigation ul li:hover > ul {
-          display: block; }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Applications\/MAMP\/htdocs\/3devis\/sites\/all\/themes\/devis\/sass\/components\/_navigation\.scss}line{font-family:\0000392}}
-      .l-region--navigation ul ul {
-        margin: 0;
-        padding: 0;
-        display: none;
-        position: absolute;
-        top: 100%;
-        text-align: center;
-        box-sizing: border-box; }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Applications\/MAMP\/htdocs\/3devis\/sites\/all\/themes\/devis\/sass\/components\/_navigation\.scss}line{font-family:\00003101}}
-        .l-region--navigation ul ul li {
-          margin: 0;
-          box-sizing: border-box;
-          width: 100%; }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Applications\/MAMP\/htdocs\/3devis\/sites\/all\/themes\/devis\/sass\/components\/_navigation\.scss}line{font-family:\00003108}}
-      .l-region--navigation ul ul.navSpecialBox {
-        right: 0; }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Applications\/MAMP\/htdocs\/3devis\/sites\/all\/themes\/devis\/sass\/components\/_navigation\.scss}line{font-family:\00003111}}
-        .l-region--navigation ul ul.navSpecialBox li {
-          font-weight: 200;
-          color: #fafafa;
-          background: rgba(77, 93, 99, 0.95);
-          width: 15rem;
-          font-size: 13.6px;
-          font-size: 0.85rem;
-          padding: 12.8px;
-          padding: 0.8rem;
-          padding-bottom: 0;
-          margin: 0;
-          border: none;
-          text-align: center; }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Applications\/MAMP\/htdocs\/3devis\/sites\/all\/themes\/devis\/sass\/components\/_navigation\.scss}line{font-family:\00003123}}
-          .l-region--navigation ul ul.navSpecialBox li .navSpecialBoxReg {
-            -webkit-transition: color 0.3s, 0.3s, ease-out;
-            -moz-transition: color 0.3s, 0.3s, ease-out;
-            -o-transition: color 0.3s, 0.3s, ease-out;
-            transition: color 0.3s, 0.3s, ease-out;
-            float: none;
-            color: #ffb500;
-            font-size: 1.5rem;
-            padding: 0;
-            border: none;
-            margin-bottom: 17.6px;
-            margin-bottom: 1.1rem; }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Applications\/MAMP\/htdocs\/3devis\/sites\/all\/themes\/devis\/sass\/components\/_navigation\.scss}line{font-family:\00003132}}
-            .l-region--navigation ul ul.navSpecialBox li .navSpecialBoxReg:hover {
-              padding: 0;
-              background: none;
-              border: none;
-              color: #ffe9b3; } }
-
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Applications\/MAMP\/htdocs\/3devis\/sites\/all\/themes\/devis\/sass\/components\/_navigation\.scss}line{font-family:\00003245}}
-.navSticky {
-  position: fixed;
-  top: 0;
-  width: 100%;
-  -webkit-box-shadow: 0px 1px 15px -3px rgba(0, 0, 0, 0.4);
-  -moz-box-shadow: 0px 1px 15px -3px rgba(0, 0, 0, 0.4);
-  box-shadow: 0px 1px 15px -3px rgba(0, 0, 0, 0.4);
-  z-index: 150; }
+            color: #ffe9b3; } }
 
 @media -sass-debug-info{filename{font-family:file\:\/\/\/Applications\/MAMP\/htdocs\/3devis\/sites\/all\/themes\/devis\/sass\/components\/_page\.scss}line{font-family:\000031}}
 #page-wrapper {
@@ -2384,48 +2095,6 @@ div#name-and-slogan {
 .subtitle-budget {
   margin-bottom: 0; }
 
-/*
-@include breakpoint($tab $desktop) {
-    .title-budget, .subtitle-budget, .description-budget {
-        text-align: center;
-    }
-    
-    .title-budget {
-        @include rem-fallback(font-size, 1.8rem);
-        @include rem-fallback(line-height, 2.5rem);
-    }
-    
-    .subtitle-budget {
-        @include rem-fallback(font-size, 1.23rem);
-    }
-    
-    .description-budget {
-        @include rem-fallback(font-size, .83rem);
-        @include rem-fallback(line-height, 1.5rem);
-    }
-}
-
-@include breakpoint(max-width $tab) {
-    .title-budget, .subtitle-budget, .description-budget {
-        text-align: center;
-    }
-    
-    .title-budget {
-        @include rem-fallback(font-size, 1.5rem);
-        @include rem-fallback(line-height, 2.1rem);
-    }
-    
-    .subtitle-budget {
-        @include rem-fallback(font-size, 1.1rem);
-        @include rem-fallback(line-height, 1.6rem);
-    }
-    
-    .description-budget {
-        @include font-family('Source Sans Pro', light);
-        @include rem-fallback(font-size, .8rem);
-        @include rem-fallback(line-height, 1.3rem);
-    }
-}*/
 @media -sass-debug-info{filename{font-family:file\:\/\/\/Applications\/MAMP\/htdocs\/3devis\/sites\/all\/themes\/devis\/sass\/components\/commerce\/_cards\.scss}line{font-family:\000031}}
 input#edit-commerce-payment-payment-details-credit-card-code,
 input#edit-credit-card-code {
@@ -2717,46 +2386,14 @@ fieldset#edit-legal div.legal-terms, fieldset#edit-legal div.legal-terms-extra {
   height: 15rem;
   overflow: scroll; }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Applications\/MAMP\/htdocs\/3devis\/sites\/all\/themes\/devis\/sass\/devis\.styles\.scss}line{font-family:\0000327}}
-.panel-pane.pane-page-content {
-  width: 94.44444%;
-  float: right;
-  margin-left: 0;
-  margin-right: 2.77778%;
-  clear: none; }
-  @media (min-width: 384px) {
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Applications\/MAMP\/htdocs\/3devis\/sites\/all\/themes\/devis\/sass\/devis\.styles\.scss}line{font-family:\0000327}}
-    .panel-pane.pane-page-content {
-      width: 97.22222%;
-      float: right;
-      margin-left: 0;
-      margin-right: 1.38889%;
-      clear: none; } }
-  @media (min-width: 704px) {
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Applications\/MAMP\/htdocs\/3devis\/sites\/all\/themes\/devis\/sass\/devis\.styles\.scss}line{font-family:\0000327}}
-    .panel-pane.pane-page-content {
-      width: 97.91667%;
-      float: right;
-      margin-left: 0;
-      margin-right: 1.04167%;
-      clear: none; } }
-  @media (min-width: 1088px) {
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Applications\/MAMP\/htdocs\/3devis\/sites\/all\/themes\/devis\/sass\/devis\.styles\.scss}line{font-family:\0000327}}
-    .panel-pane.pane-page-content {
-      width: 98.33333%;
-      float: right;
-      margin-left: 0;
-      margin-right: 0.83333%;
-      clear: none; } }
-
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Applications\/MAMP\/htdocs\/3devis\/sites\/all\/themes\/devis\/sass\/devis\.styles\.scss}line{font-family:\0000341}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Applications\/MAMP\/htdocs\/3devis\/sites\/all\/themes\/devis\/sass\/devis\.styles\.scss}line{font-family:\0000326}}
 s, strike, del {
   color: #eda800; }
 
 /* Messages */
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Applications\/MAMP\/htdocs\/3devis\/sites\/all\/themes\/devis\/sass\/devis\.styles\.scss}line{font-family:\0000347}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Applications\/MAMP\/htdocs\/3devis\/sites\/all\/themes\/devis\/sass\/devis\.styles\.scss}line{font-family:\0000332}}
 div.messages {
-  color: #262626;
+  color: #737373;
   border: none;
   padding: 4.8px;
   padding: 0.3rem;
@@ -2769,47 +2406,55 @@ div.messages {
   -moz-border-radius: 0.2rem;
   -ms-border-radius: 0.2rem;
   -o-border-radius: 0.2rem;
-  border-radius: 0.2rem;
-  -webkit-box-shadow: 0px 1px 5px rgba(0, 0, 0, 0.05);
-  -moz-box-shadow: 0px 1px 5px rgba(0, 0, 0, 0.05);
-  box-shadow: 0px 1px 5px rgba(0, 0, 0, 0.05);
-  text-align: justify; }
+  border-radius: 0.2rem; }
   @media (min-width: 384px) {
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Applications\/MAMP\/htdocs\/3devis\/sites\/all\/themes\/devis\/sass\/devis\.styles\.scss}line{font-family:\0000347}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Applications\/MAMP\/htdocs\/3devis\/sites\/all\/themes\/devis\/sass\/devis\.styles\.scss}line{font-family:\0000332}}
     div.messages {
       font-size: 16px;
       font-size: 1rem; } }
   @media (min-width: 704px) {
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Applications\/MAMP\/htdocs\/3devis\/sites\/all\/themes\/devis\/sass\/devis\.styles\.scss}line{font-family:\0000347}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Applications\/MAMP\/htdocs\/3devis\/sites\/all\/themes\/devis\/sass\/devis\.styles\.scss}line{font-family:\0000332}}
     div.messages {
       padding: 6.4px;
       padding: 0.4rem;
       font-size: 17.6px;
       font-size: 1.1rem; } }
   @media (min-width: 1088px) {
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Applications\/MAMP\/htdocs\/3devis\/sites\/all\/themes\/devis\/sass\/devis\.styles\.scss}line{font-family:\0000347}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Applications\/MAMP\/htdocs\/3devis\/sites\/all\/themes\/devis\/sass\/devis\.styles\.scss}line{font-family:\0000332}}
     div.messages {
       padding: 8px;
       padding: 0.5rem; } }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Applications\/MAMP\/htdocs\/3devis\/sites\/all\/themes\/devis\/sass\/devis\.styles\.scss}line{font-family:\0000371}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Applications\/MAMP\/htdocs\/3devis\/sites\/all\/themes\/devis\/sass\/devis\.styles\.scss}line{font-family:\0000356}}
+  div.messages a {
+    color: #006ac7; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Applications\/MAMP\/htdocs\/3devis\/sites\/all\/themes\/devis\/sass\/devis\.styles\.scss}line{font-family:\0000358}}
+    div.messages a:hover {
+      color: #0078e0; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Applications\/MAMP\/htdocs\/3devis\/sites\/all\/themes\/devis\/sass\/devis\.styles\.scss}line{font-family:\0000363}}
   div.messages ul {
     margin: 0; }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Applications\/MAMP\/htdocs\/3devis\/sites\/all\/themes\/devis\/sass\/devis\.styles\.scss}line{font-family:\0000373}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Applications\/MAMP\/htdocs\/3devis\/sites\/all\/themes\/devis\/sass\/devis\.styles\.scss}line{font-family:\0000365}}
     div.messages ul li {
       padding: 5.6px;
       padding: 0.35rem;
       margin: 0; }
       @media (min-width: 384px) {
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Applications\/MAMP\/htdocs\/3devis\/sites\/all\/themes\/devis\/sass\/devis\.styles\.scss}line{font-family:\0000373}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Applications\/MAMP\/htdocs\/3devis\/sites\/all\/themes\/devis\/sass\/devis\.styles\.scss}line{font-family:\0000365}}
         div.messages ul li {
           padding: 8px;
           padding: 0.5rem; } }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Applications\/MAMP\/htdocs\/3devis\/sites\/all\/themes\/devis\/sass\/devis\.styles\.scss}line{font-family:\0000384}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Applications\/MAMP\/htdocs\/3devis\/sites\/all\/themes\/devis\/sass\/devis\.styles\.scss}line{font-family:\0000376}}
 div.status, div.messages--status {
-  color: #09b747; }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Applications\/MAMP\/htdocs\/3devis\/sites\/all\/themes\/devis\/sass\/devis\.styles\.scss}line{font-family:\0000390}}
+  color: #737373;
+  background: #f1fcf1;
+  border-left: 5px solid #89e489; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Applications\/MAMP\/htdocs\/3devis\/sites\/all\/themes\/devis\/sass\/devis\.styles\.scss}line{font-family:\0000382}}
 div.warning, div.messages--warning {
-  color: #f2ac00; }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Applications\/MAMP\/htdocs\/3devis\/sites\/all\/themes\/devis\/sass\/devis\.styles\.scss}line{font-family:\0000396}}
+  color: #737373;
+  background: #fff8e5;
+  border-left: 5px solid #ffc433; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Applications\/MAMP\/htdocs\/3devis\/sites\/all\/themes\/devis\/sass\/devis\.styles\.scss}line{font-family:\0000388}}
 div.error, div.messages--error {
-  color: #b30030; }
+  color: #737373;
+  background: #fff5f8;
+  border-left: 5px solid #f30040; }

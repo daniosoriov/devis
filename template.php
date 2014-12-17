@@ -25,14 +25,14 @@ function devis_theme() {
       'yourtheme_preprocess_user_register_form'
     ),
   );*/
-  $items['user_pass'] = array(
+  /*$items['user_pass'] = array(
     'render element' => 'form',
     'path' => drupal_get_path('theme', 'devis') . '/templates',
     'template' => 'user-pass',
     'preprocess functions' => array(
       'devis_preprocess_user_pass'
     ),
-  );
+  );*/
   /*$items['user_profile'] = array(
     'render element' => 'form',
     'path' => drupal_get_path('theme', 'devis') . '/templates/user',
@@ -44,15 +44,31 @@ function devis_theme() {
   return $items;
 }
 
-function devis_preprocess_user_login(&$vars) {
-    $vars['title'] = t('User login');
-    $vars['password_label'] = t('Forgot password?');
-    $vars['register_label'] = t('Become provider');
+function devis_preprocess_user_login(&$variables) {
+  $variables['title'] = t('User login');
+  $variables['password_url'] = url('user/password');
+  $variables['password_label'] = t('Forgot password?');
+  $variables['register_url'] = url('eform/submit/devenir');
+  $variables['register_label'] = t('Become provider');
 }
 
-function devis_preprocess_user_pass(&$vars) {
-    $vars['title'] = t('Forgot password?');
-    $vars['description'] = t('Type in your e-mail address and we will send you an e-mail with instructions.');
+function devis_preprocess_user_pass(&$variables) {
+  //$variables['title'] = t('Forgot password?');
+  //$variables['description'] = t('Type in your e-mail address and we will send you an e-mail with instructions.');
+}
+
+function devis_preprocess_user_profile(&$variables) {
+  $variables['user_profile']['field_prenom']['#access'] = FALSE;
+  if (isset($variables['user_profile']['field_name'])) {
+    $variables['user_profile']['field_name'][0]['#markup'] = 
+      $variables['user_profile']['field_prenom'][0]['#markup'] .' '. $variables['user_profile']['field_name'][0]['#markup'];
+  }
+
+  if (isset($variables['user_profile']['field_account_activity_status'])) {
+    if (!$variables['user_profile']['field_account_activity_status']['#items'][0]['value']) {
+      $variables['user_profile']['field_account_activity_status'][0]['#markup'] = '<span class="inactive">'. $variables['user_profile']['field_account_activity_status'][0]['#markup'] .'</span>';
+    }
+  }
 }
 
 function devis_preprocess_field(&$variables, $hook) {
@@ -72,12 +88,26 @@ function devis_preprocess_field(&$variables, $hook) {
 function devis_preprocess_entity(&$variables, $hook) {
   $entity_type = $variables['entity_type'];
   $view_mode = $variables['view_mode'];
-  //dpm($variables, 'variables');
-  // good info: http://stackoverflow.com/questions/2383865/how-do-i-use-theme-preprocessor-functions-for-my-own-templates
-  // Entityform budget.
-  // Change the markup of the submitted information as it is not necessary.
+  
   if ($entity_type == 'entityform' && $variables['elements']['#entity_type'] == 'entityform' && $variables['elements']['#bundle'] == 'comptable') {
-    $variables['content']['info']['user']['#markup'] = ''; //Submitted by Anonyme on jeu, 06/12/2014 - 14:18
+    $entityform = $variables['entityform'];
+    $info_list = trois_devis_entity_get_hash_list($entityform->entityform_id);
+    
+    if (isset($variables['content']['field_provider_contacted']) && $variables['content']['field_provider_contacted']['#access']) {
+      foreach ($variables['content']['field_provider_contacted']['#items'] as $key => $arr) {
+        if (!$arr['access']) continue;
+        $info = $info_list[$arr['target_id']];
+        $variables['content']['field_provider_contacted'][$key]['#markup'] .= ' -- '. 
+          l('User URL', 'devis_info/'. $info->url_info, array('attributes' => array('target' => '_blank', 'title' => 'This is the secure URL for the user to see the budget...', 'onclick' => 'return false'))) .' - '.
+          (($info->date) ? 'viewed on '. format_date($info->date, 'medium', '', NULL, 'en') : '<em>not yet viewed</em>') .'';
+      }
+    }
+    
+    $variables['content']['field_tva']['#access'] = $variables['elements']['field_tva']['#access'] = TRUE;
+    if ($variables['content']['field_legal_status']['#items'][0]['value'] == 'association') {
+      $variables['content']['field_company_name']['#title'] = t('Nom de votre association');
+      $variables['content']['field_tva']['#title'] = t('Numéro de TVA de votre association');
+    }
   }
   
   // Commerce Order view.
@@ -104,13 +134,174 @@ function devis_preprocess_entity(&$variables, $hook) {
     $markup = $variables['content']['commerce_order_total'][0]['#markup'];
     $variables['content']['commerce_order_total'][0]['#markup'] = str_replace(array('Order total'), array(t('Order total')), $markup);
   }
+  
+  if ($entity_type == 'profile2' && $variables['elements']['#entity_type'] == 'profile2') {
+    $count = $variables['content']['field_contacted_this_month']['#items'][0]['value'];
+    $variables['content']['field_contacted_this_month'][0]['#markup'] = format_plural($count, '1 time', '@count times');
+    $count = $variables['content']['field_contacted_total']['#items'][0]['value'];
+    $variables['content']['field_contacted_total'][0]['#markup'] = format_plural($count, '1 time', '@count times');
+    
+    // Change the list of budgets layout for the viewed user.
+    if (isset($variables['content']['field_entity_devis_ref']['#items'])) {
+      $info_list = trois_devis_user_get_hash_list($variables['elements']['#entity']->uid);
+      foreach ($variables['content']['field_entity_devis_ref']['#items'] as $key => $arr) {
+        if (!$arr['access']) continue;
+        $entity = $arr['entity'];
+        $info = $info_list[$entity->entityform_id];
+        
+        $temp = array_keys($entity->field_prenom);
+        $lang_prenom = array_shift($temp);
+        $temp = array_keys($entity->field_name);
+        $lang_name = array_shift($temp);
+        $temp = array_keys($entity->field_company_name);
+        $lang_company = array_shift($temp);
+        
+        $markup = l($entity->entityform_id, 'entityform/'. $entity->entityform_id) .' - '. 
+          $entity->field_prenom[$lang_prenom][0]['safe_value'] .' '.
+          $entity->field_name[$lang_name][0]['safe_value'] .' - '.
+          $entity->field_company_name[$lang_company][0]['safe_value'] .' - '.
+          format_date($entity->created, 'medium', '', NULL, 'en') .' -- '.
+          l('User URL', 'devis_info/'. $info->url_info, array('attributes' => array('target' => '_blank', 'title' => 'This is the secure URL for the user to see the budget...', 'onclick' => 'return false'))) .' - '.
+          (($info->date) ? 'viewed on '. format_date($info->date, 'medium', '', NULL, 'en') : '<em>not yet viewed</em>');
+
+        $variables['content']['field_entity_devis_ref'][$key]['#markup'] = $markup;
+      }
+    }
+  }
 }
 
 function devis_preprocess(&$variables, $hook) {
   //dpm($variables, 'variables');
   //dpm($hook, 'hook');
-  if ($hook == 'views_view_table') {
+  //dpm(array_keys($variables), 'variables KEYS');
+  //dpm($variables['title'], 'title');
+  if ($hook == 'panels_pane') {
     //dpm($variables, 'variables');
+  }
+  
+  // Remove the ugly title added by default on the user page for the profile.
+  if ($hook == 'user_profile_category') {
+    if (isset($variables['element']['#title'])) {// && $variables['element']['#title'] == 'Profil de devis souhaité') {
+      $variables['title'] = '';
+    }
+  }
+  
+  // Add a global variable to jQuery.
+  $devenir = array('url' => url('eform/submit/devenir'));
+  drupal_add_js(array('devenir' => $devenir), 'setting');
+}
+
+/**
+ * Implements theme_preprocess_fieldset().
+ */
+function devis_preprocess_fieldset(&$variables) {
+  /*if (isset($variables['element']['#id']) && $variables['element']['#id'] == 'edit-legal') {
+    $variables['element']['#title'] = t('Termes et conditions');
+  }*/
+}
+
+/**
+ * Implements theme_preprocess_panels_pane().
+ */
+function devis_preprocess_panels_pane(&$variables) {
+  // Beautify ask for a password.
+  if (isset($variables['content']['system_main']['#id']) && $variables['content']['system_main']['#id'] == 'user-pass') {
+    $variables['content']['system_main']['name']['#access'] = FALSE;
+    $variables['title'] = t('Forgot password?');
+    $variables['description'] = t('Type in your e-mail address and we will send you an e-mail with instructions.');
+  }
+  
+  // Terms and conditions.
+  if (isset($variables['content']['system_main']['legal']) && strcmp($variables['title'], 'Terms and Conditions') === 0) {
+    $variables['title'] = $variables['content']['system_main']['legal']['#title'] = t('Termes et conditions');
+  }
+  
+  // Changes for the entityforms.
+  if (isset($variables['content']['system_main']['entityform'])) {
+    $array = array_values($variables['content']['system_main']['entityform']);
+    $element = array_shift($array);
+    $entityform_id = $element['#entity']->entityform_id;
+    if ($element['#bundle'] == 'comptable') {
+      $variables['title'] = t('Budget request @id', array('@id' => $entityform_id));
+    }
+    elseif ($element['#bundle'] == 'devenir') {
+      $variables['title'] = t('Provider request @id', array('@id' => $entityform_id));
+    }
+    $variables['content']['system_main']['entityform'][$entityform_id]['info']['user']['#markup'] = 'Submitted on '. format_date($element['#entity']->created, 'medium', '', NULL, 'en');
+  }
+  
+  // Modify user name on title.
+  if (isset($variables['content']['system_main']['profile_budget_profile']) && $variables['content']['system_main']['#theme'] != 'user_profile') {
+    $company_name = '';
+    $user = $variables['content']['system_main']['#user'];
+    if (!empty($user->field_company_name)) {
+      $temp = array_keys($user->field_company_name);
+      $lang = array_shift($temp);
+      $company_name = $user->field_company_name[$lang][0]['safe_value'];
+    }
+    if ($company_name) {
+      $variables['title'] = $company_name .' - '. $variables['title'];
+    }
+  }
+  
+  if (isset($variables['content']['system_main']['#entity_type'])) {
+    $entity_type = $variables['content']['system_main']['#entity_type'];
+    switch ($entity_type) {
+      // Change display of user name on their profile.
+      // Change some descriptions.
+      case 'user':
+        $company_name = '';
+        // User profile.
+        if (isset($variables['content']['system_main']['#theme']) && $variables['content']['system_main']['#theme'] == 'user_profile') {
+          if (isset($variables['content']['system_main']['field_company_name'])) {
+            $company_name = $variables['content']['system_main']['field_company_name'][0]['#markup'];
+          }
+        }
+        // User profile edit.
+        if (isset($variables['content']['system_main']['#id']) && $variables['content']['system_main']['#id'] == 'user-profile-form') {
+          $variables['content']['system_main']['account']['mail']['#description'] = '';
+          $desc = $variables['content']['system_main']['account']['current_pass']['#description'];
+          $desc = strip_tags(str_replace('<a', '<br /><a', $desc), '<br><a>');
+          $variables['content']['system_main']['account']['current_pass']['#description'] = $desc;
+          
+          $lang = $variables['content']['system_main']['field_company_name']['#language'];
+          $company_name = $variables['content']['system_main']['field_company_name'][$lang][0]['value']['#default_value'];
+        }
+        if ($company_name) {
+          $variables['title'] = $company_name .' - '. $variables['title'];
+        }
+      break;
+      
+      // Changes for the entityforms edit/submission.
+      case 'entityform':
+        $entityform = $variables['content']['system_main']['#entity'];
+        $entityform_id = $entityform->entityform_id;
+        if ($entityform_id) {
+          if ($variables['content']['system_main']['#bundle'] == 'comptable') {
+            $variables['title'] = t('Budget request @id', array('@id' => $entityform_id));
+          }
+          elseif ($variables['content']['system_main']['#bundle'] == 'devenir') {
+            $variables['title'] = t('Provider request @id', array('@id' => $entityform_id));
+          }
+          $variables['content']['system_main']['user_info']['#markup'] = 'Submitted on '. format_date($entityform->created, 'medium', '', NULL, 'en');
+
+          $variables['content']['system_main']['intro']['#markup'] = '';
+        }
+        else {
+          $messages = theme_status_messages(array('display' => ''));
+          $variables['content']['system_main']['intro']['#markup'] .= '<div id="messages-box">'. $messages .'</div>';
+        }
+      break;
+    }
+  }
+  
+  // Change title and remove submitted information on devis_info for providers.
+  if (isset($variables['content']['system_main']['main']) && $variables['title'] == 'Information de votre devis') {
+    $markup = $variables['content']['system_main']['main']['#markup'];
+    $temp = str_replace('class="submitted"', 'class="submitted" style="display:none;"', $markup);
+    $variables['content']['system_main']['main']['#markup'] = $temp;
+    
+    $variables['title'] = t('Information de votre devis');
   }
 }
 
@@ -143,43 +334,12 @@ function devis_preprocess_views_view_table(&$variables) {
   }
 }
 
-/**
- * Implements theme_legal_accept_label().
- */
-function devis_legal_accept_label($variables) {
-  if ($variables['link']) {
-    return t('SE PUEDE CAMBIAR! <strong>Accept</strong> <a href="@terms">Terms & Conditions</a> of Use', array('@terms' => url('legal')));
-  }
-  else {
-    return t('<strong>Accept</strong> Terms & Conditions of Use');
-  }
-}
-
 function devis_entity_view_alter(&$build, $type) {
   // good info: http://drupal.stackexchange.com/questions/40307/how-to-customize-commerce-order-layout
   //dpm($build, 'build');
   //dpm($type, 'type');
   switch ($type) {
     case 'user':
-      global $user;
-    
-      $build['field_honorific']['#access'] = FALSE;
-      $build['field_prenom']['#access'] = FALSE;
-      $string = $build['field_honorific'][0]['#markup'] .' '. $build['field_prenom'][0]['#markup'];
-      $build['field_name'][0]['#markup'] = $string .' '. $build['field_name'][0]['#markup'];
-    
-      if (in_array('provider', array_values($user->roles))) {
-        if (!$build['field_account_activity_status']['#items'][0]['value']) {
-          $build['field_account_activity_status'][0]['#markup'] = '<span class="inactive">'. $build['field_account_activity_status'][0]['#markup'] .'</span>';
-        }
-      }
-      break;
-    
-    case 'profile2':
-      $count = $build['field_contacted_this_month']['#items'][0]['value'];
-      $build['field_contacted_this_month'][0]['#markup'] = format_plural($count, '1 time', '@count times');
-      $count = $build['field_contacted_total']['#items'][0]['value'];
-      $build['field_contacted_total'][0]['#markup'] = format_plural($count, '1 time', '@count times');
       break;
     
     case 'commerce_order':
@@ -244,12 +404,12 @@ function devis_entity_view_alter(&$build, $type) {
  * Implements hook_form_alter().
  */
 function devis_form_alter(&$form, &$form_state, $form_id) {
-  /*
+  
   // Remember to clear the CACHE before playing with forms.
-  dpm($form, 'form');
-  dpm($form_state, 'form_state');
-  dpm($form_id, 'form_id');
-  */
+  //dpm($form, 'form');
+  //dpm($form_state, 'form_state');
+  //dpm($form_id, 'form_id');
+  
   switch ($form_id) {
     case 'commerce_cardonfile_card_form':
       $form['#validate'][] = 'devis_form_alter_validate';
@@ -259,15 +419,23 @@ function devis_form_alter(&$form, &$form_state, $form_id) {
 }
 
 function devis_form_alter_validate(&$form_state, $form) {
-  $errors = &$_SESSION['messages']['error'];
-  //dpm($form, 'form');
+  //dpm($form, 'form VALIDATE');
   //dpm($form_state, 'form_state');
-  //dpm($errors, 'errors');
-  foreach ($errors as $item => $message) {
-    switch ($message) {
-      case 'You have specified an expired credit card.':
-        $errors[$item] = t('Vous avez spécifié une carte de crédit qui a expiré.');
-        break;
+  //dpm($_SESSION['messages']['error'], 'errors');
+  if (isset($_SESSION['messages']['error']) && count($_SESSION['messages']['error']) > 0) {
+    $errors = &$_SESSION['messages']['error'];
+    //dpm($errors, 'errors inside');
+    foreach ($errors as $item => $message) {
+      switch ($message) {
+        case 'You have specified an expired credit card.':
+          $errors[$item] = t('Vous avez spécifié une carte de crédit qui a expiré.');
+          break;
+      }
+    }
+    if ($form['build_info']['form_id'] == 'legal_login') {
+      if (isset($errors[0]) && $errors[0] != '' && count($errors) == 1) {
+        $errors[0] = t('Vous devez accepter nos termes et conditions pour continuer.');
+      }
     }
   }
 }
@@ -286,70 +454,69 @@ function devis_form_comptable_entityform_edit_form_alter(&$form, &$form_state, $
   $theme_path = drupal_get_path('theme', variable_get('theme_default', NULL));
   $form['#attached']['js'][] = $theme_path .'/js/easydropdown/jquery.easydropdown.min.js';
   
-  $form['field_legal_status']['und']['#attributes']['class'][] = 'dropdown';
-  $form['field_desired_benefits']['und']['#attributes']['class'][] = 'dropdown';
-  $form['field_annual_revenue']['und']['#attributes']['class'][] = 'dropdown';
-  $form['field_annual_invoice']['und']['#attributes']['class'][] = 'dropdown';
-  $form['field_number_employees']['und']['#attributes']['class'][] = 'dropdown';
-  $form['field_acc_most_important']['und']['#attributes']['class'][] = 'dropdown';
+  $form['field_legal_status'][$form['field_legal_status']['#language']]['#attributes']['class'][] = 'dropdown';
+  $form['field_desired_benefits'][$form['field_desired_benefits']['#language']]['#attributes']['class'][] = 'dropdown';
+  $form['field_annual_revenue'][$form['field_annual_revenue']['#language']]['#attributes']['class'][] = 'dropdown';
+  $form['field_annual_invoice'][$form['field_annual_invoice']['#language']]['#attributes']['class'][] = 'dropdown';
+  $form['field_number_employees'][$form['field_number_employees']['#language']]['#attributes']['class'][] = 'dropdown';
   
   // Amounts.
-  $form['field_estimated_annual_revenue']['und'][0]['value']['#attributes']['placeholder'] = '€';
-  $form['field_estimated_annual_revenue']['und'][0]['value']['#field_prefix'] = '';
-  $form['field_estimated_annual_revenue']['und'][0]['value']['#attributes']['class'][] = 'input-smaller';
-  $form['field_estimated_annual_invoice']['und'][0]['value']['#attributes']['class'][] = 'input-smaller';
-  $form['field_estimated_number_employees']['und'][0]['value']['#attributes']['class'][] = 'input-smaller';
+  $lang = $form['field_estimated_annual_revenue']['#language'];
+  $form['field_estimated_annual_revenue'][$lang][0]['value']['#attributes']['placeholder'] = '€';
+  $form['field_estimated_annual_revenue'][$lang][0]['value']['#field_prefix'] = '';
+  $form['field_estimated_annual_revenue'][$lang][0]['value']['#attributes']['class'][] = 'input-smaller';
+  $form['field_estimated_annual_invoice'][$lang][0]['value']['#attributes']['class'][] = 'input-smaller';
+  $lang = $form['field_estimated_number_employees']['#language'];
+  $form['field_estimated_number_employees'][$lang][0]['value']['#attributes']['class'][] = 'input-smaller';
 
   // Name and Surname on the same line.
   // Honorific, Name and Surname on the same line.
-  $label = '<label for="edit-field-honorific-und">'. t('Last name') .' <span class="form-required" title="'. t('Ce champ est requis.') .'">*</span></label>';
+  $lang = $form['field_honorific']['#language'];
+  $label = '<label for="edit-field-honorific-'. $lang .'">'. t('Last name') .' <span class="form-required" title="'. t('Ce champ est requis.') .'">*</span></label>';
   $form['field_honorific']['#prefix'] = '<div class="container-wrapper">'. $label;
-  $form['field_honorific']['und']['#options'] = array('_none' => t('Civilité')) + $form['field_honorific']['und']['#options'];
-  $form['field_honorific']['und']['#title'] = t('Civilité');
-  $form['field_honorific']['und']['#title_display'] = 'invisible';
-  $form['field_honorific']['und']['#attributes']['class'][] = 'dropdown';
+  $form['field_honorific'][$lang]['#options'] = array('_none' => t('Civilité')) + $form['field_honorific'][$lang]['#options'];
+  $form['field_honorific'][$lang]['#title'] = t('Civilité');
+  $form['field_honorific'][$lang]['#title_display'] = 'invisible';
+  $form['field_honorific'][$lang]['#attributes']['class'][] = 'dropdown';
   $form['field_honorific']['#attributes']['class'][] = 'dropdown-honorific';
   
-  $form['field_prenom']['und'][0]['value']['#attributes']['placeholder'] = 
-  $form['field_prenom']['und'][0]['value']['#title'] = t('First name');
-  $form['field_prenom']['und'][0]['value']['#title_display'] = 'invisible';
+  $lang = $form['field_prenom']['#language'];
+  $form['field_prenom'][$lang][0]['value']['#attributes']['placeholder'] = 
+  $form['field_prenom'][$lang][0]['value']['#title'] = t('First name');
+  $form['field_prenom'][$lang][0]['value']['#title_display'] = 'invisible';
 
-  $form['field_name']['und'][0]['value']['#attributes']['placeholder'] = 
-  $form['field_name']['und'][0]['value']['#title'] = t('Last name');
-  $form['field_name']['und'][0]['value']['#title_display'] = 'invisible';
+  $lang = $form['field_name']['#language'];
+  $form['field_name'][$lang][0]['value']['#attributes']['placeholder'] = 
+  $form['field_name'][$lang][0]['value']['#title'] = t('Last name');
+  $form['field_name'][$lang][0]['value']['#title_display'] = 'invisible';
   $form['field_name']['#suffix'] = '</div>';
   
-  /*$form['field_prenom']['#prefix'] = '<div class="container-wrapper">';
-  $form['field_prenom']['und'][0]['value']['#title'] = t('Last name');
-  $form['field_prenom']['und'][0]['value']['#attributes']['placeholder'] = t('First name');
-
-  $form['field_name']['und'][0]['value']['#attributes']['placeholder'] = t('Last name');
-  $form['field_name']['und'][0]['value']['#title_display'] = 'invisible';
-  $form['field_name']['#suffix'] = '</div>';*/
-  
   // Email and telephone in the same line.
-  $label = '<label for="edit-field-email">'. t('Contact') .' <span class="form-required" title="'. t('Ce champ est requis.') .'">*</span></label>';
+  $lang = $form['field_email']['#language'];
+  $label = '<label for="edit-field-email-'. $lang .'">'. t('Contact') .' <span class="form-required" title="'. t('Ce champ est requis.') .'">*</span></label>';
   $form['field_email']['#prefix'] = '<div class="container-wrapper">'. $label;
-  $form['field_email']['und'][0]['email']['#title'] = 'E-mail';
-  $form['field_email']['und'][0]['email']['#title_display'] = 'invisible';
-  $form['field_email']['und'][0]['email']['#attributes']['placeholder'] = 'E-mail';
-  $form['field_email']['und'][0]['email']['#attributes']['class'][] = 'email-input-class';
+  $form['field_email'][$lang][0]['email']['#title'] = 'E-mail';
+  $form['field_email'][$lang][0]['email']['#title_display'] = 'invisible';
+  $form['field_email'][$lang][0]['email']['#attributes']['placeholder'] = 'E-mail';
+  $form['field_email'][$lang][0]['email']['#attributes']['class'][] = 'email-input-class';
 
-  $form['field_phone_belgium']['und'][0]['value']['#title_display'] = 'invisible';
-  $form['field_phone_belgium']['und'][0]['value']['#attributes']['placeholder'] = t('Telephone');
+  $lang = $form['field_phone_belgium']['#language'];
+  $form['field_phone_belgium'][$lang][0]['value']['#title_display'] = 'invisible';
+  $form['field_phone_belgium'][$lang][0]['value']['#attributes']['placeholder'] = t('Telephone');
   $form['field_phone_belgium']['#suffix'] = '</div>';
   
   // Website.
   $form['#after_build'][] = 'devis_form_comptable_entityform_edit_form_after_build';
 
   // Address fields.
-  $form['field_adresse']['und'][0]['#prefix'] = '';
-  $form['field_adresse']['und'][0]['#suffix'] = '';
-  $form['field_adresse']['und'][0]['#title'] = '';
-  $form['field_adresse']['und'][0]['#attributes']['class'][] = 'fieldset-hide';
-  $form['field_adresse']['und'][0]['street_block']['thoroughfare']['#title'] = t('Address');
-  $form['field_adresse']['und'][0]['street_block']['premise']['#attributes']['style'] = 'display: none;';
-  $form['field_adresse']['und'][0]['street_block']['premise']['#title_display'] = 'invisible';
+  $lang = $form['field_adresse']['#language'];
+  $form['field_adresse'][$lang][0]['#prefix'] = '';
+  $form['field_adresse'][$lang][0]['#suffix'] = '';
+  $form['field_adresse'][$lang][0]['#title'] = '';
+  $form['field_adresse'][$lang][0]['#attributes']['class'][] = 'fieldset-hide';
+  $form['field_adresse'][$lang][0]['street_block']['thoroughfare']['#title'] = t('Address');
+  $form['field_adresse'][$lang][0]['street_block']['premise']['#attributes']['style'] = 'display: none;';
+  $form['field_adresse'][$lang][0]['street_block']['premise']['#title_display'] = 'invisible';
   
   // Extra validation rules.
   $form['#validate'][] = 'devis_comptable_entityform_edit_form_validate';
@@ -358,44 +525,60 @@ function devis_form_comptable_entityform_edit_form_alter(&$form, &$form_state, $
 
 function devis_comptable_entityform_edit_form_validate($form, &$form_state) {
   $values = $form_state['values'];
+  $legal_status = $values['field_legal_status'][$form['field_legal_status']['#language']][0]['value'];
+  
+  // Do not go forward if there are no providers to contact and is being accepted.
+  $lang = $form['field_approval']['#language'];
+  if ($values['field_approval'][$lang][0]['value'] == 'approved') {
+    $result = views_get_view_result('provider', 'accountants_to_contact', $legal_status);
+    if (empty($result)) {
+      form_set_error('field_approval]['. $lang .'][0][value', t('This budget request cannot be approved yet. There are no providers to contact which match the specified parameters.'));
+    }
+  }
+  
   // Postal code validation.
   if (module_exists('postal_code_validation')) {
-    $address = $values['field_adresse']['und'][0];
+    $lang = $form['field_adresse']['#language'];
+    $address = $values['field_adresse'][$lang][0];
     $postal_code = $address['postal_code'];
     $country = $address['country'];
     $result = postal_code_validation_validate($postal_code, $country);
     if ($result['error']) {
-      form_set_error('field_adresse][und][0][postal_code', $result['error']);
+      form_set_error('field_adresse]['. $lang .'][0][postal_code', $result['error']);
     }
   }
   
-  $value = $values['field_estimated_annual_revenue']['und'][0]['value'];
+  $lang = $form['field_estimated_annual_revenue']['#language'];
+  $value = $values['field_estimated_annual_revenue'][$lang][0]['value'];
   if (isset($value)) $value = trim($value);
-  if ($values['field_annual_revenue']['und'][0]['value'] == 'nonexistent' && !$value) {
-    $label = $form['field_estimated_annual_revenue']['und']['#title'];
-    form_set_error('field_estimated_annual_revenue][und][0][value', t('Le champ !label est requis.', array('!label' => $label)));
+  if ($values['field_annual_revenue'][$form['field_annual_revenue']['#language']][0]['value'] == 'nonexistent' && !$value) {
+    $label = $form['field_estimated_annual_revenue'][$lang]['#title'];
+    form_set_error('field_estimated_annual_revenue]['. $lang .'][0][value', t('Le champ !label est requis.', array('!label' => $label)));
   }
-  $value = $values['field_estimated_annual_invoice']['und'][0]['value'];
+  $lang = $form['field_estimated_annual_invoice']['#language'];
+  $value = $values['field_estimated_annual_invoice'][$lang][0]['value'];
   if (isset($value)) $value = trim($value);
-  if ($values['field_annual_invoice']['und'][0]['value'] == 'nonexistent' && !$value) {
-    $label = $form['field_estimated_annual_invoice']['und']['#title'];
-    form_set_error('field_estimated_annual_invoice][und][0][value', t('Le champ !label est requis.', array('!label' => $label)));
+  if ($values['field_annual_invoice'][$form['field_annual_invoice']['#language']][0]['value'] == 'nonexistent' && !$value) {
+    $label = $form['field_estimated_annual_invoice'][$lang]['#title'];
+    form_set_error('field_estimated_annual_invoice]['. $lang .'][0][value', t('Le champ !label est requis.', array('!label' => $label)));
   }
-  $value = $values['field_estimated_number_employees']['und'][0]['value'];
+  $lang = $form['field_estimated_number_employees']['#language'];
+  $value = $values['field_estimated_number_employees'][$lang][0]['value'];
   if (isset($value)) $value = trim($value);
-  if ($values['field_number_employees']['und'][0]['value'] == 'nonexistent' && !$value) {
-    $label = $form['field_estimated_number_employees']['und']['#title'];
-    form_set_error('field_estimated_number_employees][und][0][value', t('Le champ !label est requis.', array('!label' => $label)));
+  if ($values['field_number_employees'][$form['field_number_employees']['#language']][0]['value'] == 'nonexistent' && !$value) {
+    $label = $form['field_estimated_number_employees'][$lang]['#title'];
+    form_set_error('field_estimated_number_employees]['. $lang .'][0][value', t('Le champ !label est requis.', array('!label' => $label)));
   }
   
-  $company = $values['field_company_name']['und'][0]['value'];
+  $lang = $form['field_company_name']['#language'];
+  $lang_tva = $form['field_tva']['#language'];
+  $company = $values['field_company_name'][$lang][0]['value'];
   if (isset($company)) $company = trim($company);
-  $tva = $values['field_tva']['und'][0]['value'];
+  $tva = $values['field_tva'][$lang_tva][0]['value'];
   if (isset($tva)) $tva = trim($tva);
-  $legal_status = $values['field_legal_status']['und'][0]['value'];
   $company_error = $tva_error = FALSE;
-  $company_label = $form['field_company_name']['und']['#title'];
-  $tva_label = $form['field_tva']['und']['#title'];
+  $company_label = $form['field_company_name'][$lang]['#title'];
+  $tva_label = $form['field_tva'][$lang_tva]['#title'];
   switch ($legal_status) {
     case 'association':
       if (!$company) {
@@ -418,21 +601,21 @@ function devis_comptable_entityform_edit_form_validate($form, &$form_state) {
       break;
   }
   if ($company_error) {
-    form_set_error('field_company_name][und][0][value', t('Le champ !label est requis.', array('!label' => $company_label)));
+    form_set_error('field_company_name]['. $lang .'][0][value', t('Le champ !label est requis.', array('!label' => $company_label)));
   }
   if ($tva_error) {
-    form_set_error('field_tva][und][0][value', t('Le champ !label est requis.', array('!label' => $tva_label)));
+    form_set_error('field_tva]['. $lang_tva .'][0][value', t('Le champ !label est requis.', array('!label' => $tva_label)));
   }
-  
-  // TO FURTHER REPLACE ERROR MESSAGES, CHECK form_get_errors ON DRUPAL AND SEE THE COMMENTS!!!!!!!
 }
 
 function devis_form_comptable_entityform_edit_form_after_build($form, &$form_state) {
-  $form['field_website']['und'][0]['url']['#attributes']['placeholder'] = 'www.siteweb.com';
+  //$form['field_website'][$form['field_website']['#language']][0]['url']['#attributes']['placeholder'] = 'www.siteweb.com';
   
   // JS variables for jQuery.
-  $company = $form['field_company_name']['und'];
-  $tva = $form['field_tva']['und'];
+  $lang = $form['field_company_name']['#language'];
+  $lang_tva = $form['field_tva']['#language'];
+  $company = $form['field_company_name'][$lang];
+  $tva = $form['field_tva'][$lang_tva];
   $req_span = ' <span class="form-required" title="'. t('Ce champ est requis.') .'">*</span>';
   $devenir = array(
     'companyTitle' => $company['#title'],
@@ -441,11 +624,11 @@ function devis_form_comptable_entityform_edit_form_after_build($form, &$form_sta
   );
   drupal_add_js(array('devenir' => $devenir), 'setting');
   
-  if ($form['field_legal_status']['und']['#value'] == 'association') {
+  if ($form['field_legal_status'][$form['field_legal_status']['#language']]['#value'] == 'association') {
     $form['field_company_name']['#title'] = 
-      $form['field_company_name']['und']['#title'] = t('Nom de votre association');
+      $form['field_company_name'][$lang]['#title'] = t('Nom de votre association');
     $form['field_tva']['#title'] = 
-      $form['field_tva']['und']['#title'] = t('Numéro de TVA de votre association');
+      $form['field_tva'][$lang_tva]['#title'] = t('Numéro de TVA de votre association');
   }
   return $form;
 }
@@ -465,35 +648,39 @@ function devis_form_devenir_entityform_edit_form_alter(&$form, &$form_state, $fo
   $form['#attached']['js'][] = $theme_path .'/js/easydropdown/jquery.easydropdown.min.js';
 
   // Honorific, Name and Surname on the same line.
-  $label = '<label for="edit-field-honorific-und">'. t('Last name') .' <span class="form-required" title="'. t('Ce champ est requis.') .'">*</span></label>';
+  $lang = $form['field_honorific']['#language'];
+  $label = '<label for="edit-field-honorific-'. $lang .'">'. t('Last name') .' <span class="form-required" title="'. t('Ce champ est requis.') .'">*</span></label>';
   $form['field_honorific']['#prefix'] = '<div class="container-wrapper">'. $label;
-  $form['field_honorific']['und']['#options'] = array('_none' => t('Civilité')) + $form['field_honorific']['und']['#options'];
-  $form['field_honorific']['und']['#title'] = t('Civilité');
-  $form['field_honorific']['und']['#title_display'] = 'invisible';
-  $form['field_honorific']['und']['#attributes']['class'][] = 'dropdown';
+  $form['field_honorific'][$lang]['#options'] = array('_none' => t('Civilité')) + $form['field_honorific'][$lang]['#options'];
+  $form['field_honorific'][$lang]['#title'] = t('Civilité');
+  $form['field_honorific'][$lang]['#title_display'] = 'invisible';
+  $form['field_honorific'][$lang]['#attributes']['class'][] = 'dropdown';
   $form['field_honorific']['#attributes']['class'][] = 'dropdown-honorific';
   
-  $form['field_prenom']['und'][0]['value']['#attributes']['placeholder'] = 
-  $form['field_prenom']['und'][0]['value']['#title'] = t('First name');
-  $form['field_prenom']['und'][0]['value']['#title_display'] = 'invisible';
+  $lang = $form['field_prenom']['#language'];
+  $form['field_prenom'][$lang][0]['value']['#attributes']['placeholder'] = 
+  $form['field_prenom'][$lang][0]['value']['#title'] = t('First name');
+  $form['field_prenom'][$lang][0]['value']['#title_display'] = 'invisible';
 
-  $form['field_name']['und'][0]['value']['#attributes']['placeholder'] = 
-  $form['field_name']['und'][0]['value']['#title'] = t('Last name');
-  $form['field_name']['und'][0]['value']['#title_display'] = 'invisible';
+  $lang = $form['field_name']['#language'];
+  $form['field_name'][$lang][0]['value']['#attributes']['placeholder'] = 
+  $form['field_name'][$lang][0]['value']['#title'] = t('Last name');
+  $form['field_name'][$lang][0]['value']['#title_display'] = 'invisible';
   $form['field_name']['#suffix'] = '</div>';
   
   // Website.
   $form['#after_build'][] = 'devis_form_devenir_entityform_edit_form_after_build';
   
-  $desc = $form['field_info_extra']['und'][0]['value']['#description'];
-  $form['field_info_extra']['und'][0]['value']['#attributes']['placeholder'] = $desc;//t('@description', array('@description' => $desc));
-  $form['field_info_extra']['und'][0]['value']['#description'] = '';
+  $lang = $form['field_info_extra']['#language'];
+  $desc = $form['field_info_extra'][$lang][0]['value']['#description'];
+  $form['field_info_extra'][$lang][0]['value']['#attributes']['placeholder'] = $desc;//t('@description', array('@description' => $desc));
+  $form['field_info_extra'][$lang][0]['value']['#description'] = '';
   
   // If the request is being checked by a manager, so it is not new.
   if (in_array('manager', array_values($user->roles)) && !isset($form_state['build_info']['args'][0]->is_new)) {
     $entity = $form_state['build_info']['args'][0];
-    $mail = $entity->field_email['und'][0]['email'];
-    $approval = $entity->field_approval['und'][0]['value'];
+    $mail = $entity->field_email[$form['field_email']['#language']][0]['email'];
+    $approval = $entity->field_approval[LANGUAGE_NONE][0]['value'];
     // If the mail of the request is already registered.
     if ($approval == 'pending') {
       $account = user_load_by_mail($mail);
@@ -523,14 +710,15 @@ function devis_form_devenir_entityform_edit_form_alter(&$form, &$form_state, $fo
  */
 function devis_devenir_entityform_edit_form_validate($form, &$form_state) {
   // Check if the email has been registered. Only for new forms.
-  if (user_load_by_mail($form_state['values']['field_email']['und'][0]['email']) && isset($form['#entity']->is_new)) {
+  $lang = $form['field_email']['#language'];
+  if (user_load_by_mail($form_state['values']['field_email'][$lang][0]['email']) && isset($form['#entity']->is_new)) {
     $site_name = variable_get('site_name', '3devis.be');
-    form_set_error('field_email][und][0][email', t('The specified email is already registered in !site_name.', array('!site_name' => $site_name)));
+    form_set_error('field_email]['. $lang .'][0][email', t('The specified email is already registered in !site_name.', array('!site_name' => $site_name)));
   }
 }
 
 function devis_form_devenir_entityform_edit_form_after_build($form, &$form_state) {
-  $form['field_website']['und'][0]['url']['#attributes']['placeholder'] = 'www.siteweb.com';
+  $form['field_website'][$form['field_website']['#language']][0]['url']['#attributes']['placeholder'] = 'www.siteweb.com';
   return $form;
 }
 
@@ -693,6 +881,14 @@ function devis_form_user_pass_alter(&$form, &$form_state, $form_id) {
 function devis_form_user_profile_form_alter(&$form, &$form_state, $form_id) {
   global $user;
   
+  $form['account']['#type'] = 'fieldset';
+  $form['account']['#title'] = t('Settings');
+  $form['legal']['#access'] = FALSE;
+  $form['account']['legal_info'] = array(
+    '#markup' => '<p>'. t('<a href="@terms">Termes et conditions</a>', array('@terms' => url('legal'))) .'</p>',
+    '#weight' => 9999,
+  );
+  
   // Nicer select field.
   $theme_path = drupal_get_path('theme', variable_get('theme_default', NULL));
   $form['#attached']['js'][] = $theme_path .'/js/easydropdown/jquery.easydropdown.min.js';
@@ -712,12 +908,13 @@ function devis_form_user_profile_form_alter(&$form, &$form_state, $form_id) {
       $form['field_website']['#access'] = FALSE;
       $form['field_account_activity_status']['#access'] = FALSE;
       $form['field_customer_profile_adresse']['#access'] = FALSE;
+      $form['profile_budget_profile']['#access'] = FALSE;
     }
     
-    if ($form['#user_category'] == 'budget_profile') {
+    /*if ($form['#user_category'] == 'budget_profile') {
       $form['profile_budget_profile']['#access'] = FALSE;
       $form['actions']['submit']['#access'] = FALSE;
-    }
+    }*/
   }
   
   if ($form['#user_category'] == 'account') {
@@ -738,37 +935,35 @@ function devis_form_user_profile_form_alter(&$form, &$form_state, $form_id) {
     }
 
     // Honorific, Name and Surname on the same line.
-    $label = '<label for="edit-field-honorific-und">'. t('Last name') .' <span class="form-required" title="'. t('Ce champ est requis.') .'">*</span></label>';
+    $lang = $form['field_honorific']['#language'];
+    $label = '<label for="edit-field-honorific-'. $lang .'">'. t('Last name') .' <span class="form-required" title="'. t('Ce champ est requis.') .'">*</span></label>';
     $form['field_honorific']['#prefix'] = '<div class="container-wrapper">'. $label;
-    $form['field_honorific']['und']['#options'] = array('_none' => t('Civilité')) + $form['field_honorific']['und']['#options'];
-    $form['field_honorific']['und']['#title'] = t('Civilité');
-    $form['field_honorific']['und']['#title_display'] = 'invisible';
-    $form['field_honorific']['und']['#attributes']['class'][] = 'dropdown';
+    $form['field_honorific'][$lang]['#options'] = array('_none' => t('Civilité')) + $form['field_honorific'][$lang]['#options'];
+    $form['field_honorific'][$lang]['#title'] = t('Civilité');
+    $form['field_honorific'][$lang]['#title_display'] = 'invisible';
+    $form['field_honorific'][$lang]['#attributes']['class'][] = 'dropdown';
     $form['field_honorific']['#attributes']['class'][] = 'dropdown-honorific';
 
-    $form['field_prenom']['und'][0]['value']['#attributes']['placeholder'] = 
-    $form['field_prenom']['und'][0]['value']['#title'] = t('First name');
-    $form['field_prenom']['und'][0]['value']['#title_display'] = 'invisible';
+    $lang = $form['field_prenom']['#language'];
+    $form['field_prenom'][$lang][0]['value']['#attributes']['placeholder'] = 
+    $form['field_prenom'][$lang][0]['value']['#title'] = t('First name');
+    $form['field_prenom'][$lang][0]['value']['#title_display'] = 'invisible';
 
-    $form['field_name']['und'][0]['value']['#attributes']['placeholder'] = 
-    $form['field_name']['und'][0]['value']['#title'] = t('Last name');
-    $form['field_name']['und'][0]['value']['#title_display'] = 'invisible';
+    $lang = $form['field_name']['#language'];
+    $form['field_name'][$lang][0]['value']['#attributes']['placeholder'] = 
+    $form['field_name'][$lang][0]['value']['#title'] = t('Last name');
+    $form['field_name'][$lang][0]['value']['#title_display'] = 'invisible';
     $form['field_name']['#suffix'] = '</div>';
+    
+    // Desired budgets.
+    if (isset($form['profile_budget_profile']['field_number_budgets'])) {
+      $lang = $form['profile_budget_profile']['field_number_budgets']['#language'];
+      $form['profile_budget_profile']['field_number_budgets'][$lang]['#attributes']['class'][] = 'dropdown';
+      $form['profile_budget_profile']['field_number_budgets']['#attributes']['class'][] = 'dropdown-regular';
+    }
 
     // Website.
     $form['#after_build'][] = 'devis_form_user_profile_form_after_build';
-  }
-  
-  // Address fields.
-  /*$form['field_customer_profile_adresse']['und']['profiles'][0]['commerce_customer_address']['und'][0]['street_block']['thoroughfare']['#title'] = t('Address');
-  $form['field_customer_profile_adresse']['und']['profiles'][0]['commerce_customer_address']['und'][0]['street_block']['premise']['#attributes']['style'] = 'display: none;';
-  $form['field_customer_profile_adresse']['und']['profiles'][0]['commerce_customer_address']['und'][0]['street_block']['premise']['#title_display'] = 'invisible';
-  $form['field_customer_profile_adresse']['und']['profiles'][0]['commerce_customer_address']['und'][0]['country']['#attributes']['style'] = 'display: none;';
-  $form['field_customer_profile_adresse']['und']['profiles'][0]['commerce_customer_address']['und'][0]['country']['#title_display'] = 'invisible';*/
-  
-  if ($form['#user_category'] == 'budget_profile') {
-    $form['profile_budget_profile']['field_number_budgets']['und']['#attributes']['class'][] = 'dropdown';
-    $form['profile_budget_profile']['field_number_budgets']['#attributes']['class'][] = 'dropdown-regular';
   }
   
   // Extra validation rules.
@@ -782,17 +977,18 @@ function devis_form_user_profile_form_alter(&$form, &$form_state, $form_id) {
 
 function devis_user_profile_form_validate($form, &$form_state) {
   // This is a check in case the javascript is disabled for whatever reason.
-  if ($form['#user_category'] == 'budget_profile') {
+  if (isset($form['profile_budget_profile']['field_active_regions_belgium'])) {
     $belgium = FALSE;
     $count = 0;
     // Check if Belgium is selected among the choices.
-    foreach ($form_state['values']['profile_budget_profile']['field_active_regions_belgium']['und'] as $k => $val) {
+    $lang = $form['profile_budget_profile']['field_active_regions_belgium']['#language'];
+    foreach ($form_state['values']['profile_budget_profile']['field_active_regions_belgium'][$lang] as $k => $val) {
       $count++;
       if ($val['value'] == 'BEL') $belgium = TRUE;
     }
     // If Belgium is selected, then asign only Belgium as the value.
     if ($belgium && $count > 1) {
-      $new_value = array('und' => array(0 => array('value' => 'BEL')));
+      $new_value = array($lang => array(0 => array('value' => 'BEL')));
       $value['#parents'] = array('profile_budget_profile', 'field_active_regions_belgium'); 
       form_set_value($value, $new_value, $form_state);
     }
@@ -804,7 +1000,7 @@ function devis_user_profile_form_submit($form, &$form_state) {
 }
 
 function devis_form_user_profile_form_after_build($form, &$form_state) {
-  $form['field_website']['und'][0]['url']['#attributes']['placeholder'] = 'www.siteweb.com';
+  $form['field_website'][$form['field_website']['#language']][0]['url']['#attributes']['placeholder'] = 'www.siteweb.com';
   return $form;
 }
 
@@ -907,6 +1103,30 @@ function devis_form_contact_site_form_alter(&$form, &$form_state, $form_id) {
   }
 }
 
+function devis_form_legal_login_alter(&$form, &$form_state, $form_id) {
+  // Get the node with the terms.
+  $nid = variable_get('trois_devis_terms_nid', 4);
+  $query = new EntityFieldQuery();
+  $entities = $query->entityCondition('entity_type', 'node')
+  ->propertyCondition('nid', $nid)
+  ->propertyCondition('status', 1)
+  ->execute();
+  if (!empty($entities['node'])) {
+    $node = node_load($nid);
+    $terms = $node->body[LANGUAGE_NONE][0]['value'];
+    $form['legal']['info'] = array(
+      '#markup' => $terms,
+      '#weight' => -10,
+    );
+  }
+  
+  //$theme_path = drupal_get_path('theme', variable_get('theme_default', NULL));
+  //$form['#attached']['css'][] = $theme_path .'/css/dialog.css';
+  //$form['#attached']['js'][] = $theme_path .'/js/jquery-ui/jquery-ui.js';
+  $form['#validate'][] = 'devis_form_alter_validate';
+  $form_state['redirect'] = 'user';
+}
+
 function devis_profile2_view_alter($build) {
   /*if ($build['#view_mode'] == 'full' && isset($build['an_additional_field'])) {
     // Change its weight.
@@ -915,6 +1135,64 @@ function devis_profile2_view_alter($build) {
     // Add a #post_render callback to act on the rendered HTML of the entity.
     $build['#post_render'][] = 'my_module_post_render';
   }*/
+}
+
+
+//--------------- THEMES FROM MODULES ----------------//
+
+/**
+ * Implements theme_legal_accept_label().
+ */
+function devis_legal_accept_label($variables) {
+  if ($variables['link']) {
+    //$url = l(t('termes et conditions'), 'legal', array('attributes' => array('id' => 'opener', 'onclick' => 'return false')));
+    //return t('<strong>Vous acceptez</strong> nos ') . $url;
+    return t('<strong>Vous acceptez</strong> nos <a href="@terms" target="_blank">termes et conditions</a>', array('@terms' => url('legal')));
+  }
+  else {
+    return t('<strong>Vous acceptez</strong> nos termes et conditions');
+  }
+}
+
+/**
+ * Implements theme_legal_login().
+ */
+function devis_legal_login($variables) {
+  $form = $variables['form'];
+  $form['legal']['#title'] = t('Termes et conditions');
+  $form = theme('legal_display', array('form' => $form));
+
+  $output = '<p>' . t('Pour continuer à utiliser ce site s\'il vous plaît lire les Terms et conditions ci-dessous et confirmer votre acceptation.') . '</p>';
+
+  if (isset($form['changes'])) {
+    $form['changes']['#title'] = t('Changements');
+    $form['changes']['#description'] = t('Les modifications apportées aux terms et conditions');
+    $form['changes']['#collapsed'] = FALSE;
+    $form['changes']['#collapsible'] = FALSE;
+  }
+  
+  if (isset($form['changes']['#value'])) {
+    foreach (element_children($form['changes']) as $key) {
+      $form['changes'][$key]['#prefix'] .= '<li>';
+      $form['changes'][$key]['#suffix'] .= '</li>';
+    }
+
+    $form['changes']['start_list'] = array('#value' => '<ul>', '#weight' => 0);
+    $form['changes']['end_list']   = array('#value' => '</ul>', '#weight' => 3);
+    $output .= drupal_render($form['changes']);
+  }
+
+  $save = drupal_render($form['save']);
+  $output .= drupal_render_children($form);
+  
+  /*global $language;
+  $conditions = legal_get_conditions($language->language);
+  $conditions = $conditions['conditions'];
+  $output .= '<div id="dialog" title="'. t('Termes et conditions') .'">'. $conditions .'</div>';*/
+  
+  $output .= $save;
+
+  return $output;
 }
 
 function devis_menu_alter(&$items) {

@@ -6,10 +6,7 @@
 @import "../../variables/**/*";
 @import "../../abstractions/**/*";
 
-.l-main {
-  @include clearfix;
+.l-main-home {
+  //@include clearfix;
 }
 
-.l-content {
-  //@include grid-span(12, 1);
-}

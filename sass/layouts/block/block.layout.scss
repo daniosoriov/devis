@@ -1,0 +1,287 @@
+@import "compass";
+@import "breakpoint";
+@import "singularitygs";
+
+// Globbing from within sub-folders only only works with relative paths.
+@import "../../variables/**/*";
+@import "../../abstractions/**/*";
+
+.l-main-block {
+  margin: 0 auto;
+  @include breakpoint($tab) {
+    padding-bottom: 245px;
+  }
+  @include breakpoint($desktop) {
+    padding-bottom: 200px;
+  }
+  @include clearfix;
+}
+
+.l-content-block {
+  h2.pane-title {
+    display: none;
+  }
+  
+  section.first {
+    margin: 0 auto;
+    width: 100%;
+    @include rem-fallback(min-height, 17rem);
+    @include breakpoint($mobile) {
+      @include rem-fallback(min-height, 20rem);
+    }
+    @include breakpoint($tab) {
+      @include rem-fallback(min-height, 29rem);
+    }
+    @include breakpoint($desktop) {
+      @include rem-fallback(min-height, 34rem);
+    }
+  }
+  
+  section.second, section.third {
+    margin: 0 auto;
+    width: 100%;
+    @include rem-fallback(min-height, 17rem);
+    @include breakpoint($mobile) {
+      @include rem-fallback(min-height, 20rem);
+    }
+    @include breakpoint($desktop) {
+      @include rem-fallback(min-height, 25rem);
+    }
+  }
+  
+  h3.title {
+    margin: 0 auto;
+    @include rem-fallback(font-size, 1.25rem);
+    @include rem-fallback(margin-bottom, .3rem);
+    font-weight: 200;
+    text-transform: uppercase;
+
+    @include breakpoint($mobile) {
+      @include rem-fallback(font-size, 1.55rem);
+    }
+    @include breakpoint($tab) {
+      @include rem-fallback(margin-bottom, 1rem);
+      @include rem-fallback(font-size, 1.75rem);
+    }
+    @include breakpoint($desktop) {
+      @include rem-fallback(margin-bottom, 1.2rem);
+      @include rem-fallback(font-size, 2.1rem);
+    }
+  }
+  
+  h4.subtitle {
+    width: 290px;
+    margin: 0 auto;
+    @include rem-fallback(font-size, 1rem);
+    font-weight: 200;
+    @include rem-fallback(margin-bottom, .15rem);
+    @include rem-fallback(line-height, 1.7rem);
+
+    @include breakpoint($mobile) {
+      width: auto;
+      line-height: inherit;
+      @include rem-fallback(font-size, 1.15rem);
+      @include rem-fallback(margin-bottom, 1rem);
+    }
+    @include breakpoint($tab) {
+      @include rem-fallback(font-size, 1.25rem);
+    }
+    @include breakpoint($desktop) {
+      @include rem-fallback(margin-bottom, .75rem);
+      @include rem-fallback(font-size, 1.35rem);
+    }
+    
+    a {
+      font-size: inherit;
+    }
+  }
+  
+  section.first {
+    opacity: 1;
+    visibility: inherit;
+    background-image: url(http://cdn.lollum.com/nantes/corporate/wp-content/uploads/2014/10/slide_corporate.jpg);
+    background-color: rgba(0, 0, 0, 0);
+    background-size: cover;
+    background-position: 50% 0%;
+    background-repeat: no-repeat;
+    
+    article.text-box {
+      margin: 0 auto;
+      @include rem-fallback(padding, 3rem, 0);
+      width: 295px;
+      @include breakpoint($mobile) {
+        width: $mobile - 10;
+        @include rem-fallback(padding, 8rem, 0);
+      }
+      @include breakpoint($tab) {
+        width: $tab - 10;
+        @include rem-fallback(padding-top, 11rem);
+      }
+      @include breakpoint($desktop) {
+        width: $desktop - 10;
+      }
+      text-align: center;
+    }
+    
+    h1.title {
+      color: $color-font-title;
+      @include rem-fallback(font-size, 1.75rem);
+      font-weight: 400;
+      
+      @include breakpoint($mobile) {
+        @include font-family('Raleway');
+        @include rem-fallback(font-size, 2rem);
+        @include rem-fallback(margin-bottom, 1.5rem);
+      }
+      @include breakpoint($tab) {
+        @include rem-fallback(line-height, 3.5rem);
+        @include rem-fallback(font-size, 2.52rem);
+      }
+      @include breakpoint($desktop) {
+        @include rem-fallback(font-size, 3.07rem);
+        @include rem-fallback(line-height, 4.5rem);
+      }
+    }
+    
+    h4.subtitle {
+      color: $color-block-font-gray;
+    }
+    
+  }
+  
+  article.text-box {
+    @include rem-fallback(padding-top, 3rem);
+    text-align: center;
+
+    @include breakpoint($mobile) {
+      @include rem-fallback(padding-top, 5rem);
+    }
+    @include breakpoint($desktop) {
+      @include rem-fallback(padding-top, 6rem);
+    }
+  }
+  
+  .inner-1, .inner-2, .inner-3 {
+    text-align: center;
+    @include rem-fallback(padding-bottom, 2rem);
+  }
+  
+  .boxes {
+    margin: 0 auto;
+    @include breakpoint($mobile) {
+      width: $mobile - 10;
+    }
+    @include breakpoint($tab) {
+      width: 600px;
+    }
+    @include breakpoint($desktop) {
+      @include grid-span(12, 1, false, 0); // 12 of 12
+      margin: 0 auto;
+      float: none;
+      max-width: $max-width;
+    }
+  }
+  
+  @include breakpoint($desktop) {
+    .inner-1 {
+      @include grid-span(4, 1);
+    }
+    .inner-2 {
+      @include grid-span(4, 5);
+    }
+    .inner-3 {
+      @include grid-span(4, 9);
+    }
+  }
+  
+  section.second {
+    &.devenir {
+      @include breakpoint($desktop) {
+        @include rem-fallback(min-height, 31rem);
+      }
+    }
+    article.text-box {
+      @include rem-fallback(padding-bottom, 1.5rem);
+      h3.title {
+        color: $color-font-title;
+        font-weight: 400;
+      }
+    }
+    
+    @include breakpoint($mobile) {
+      @include rem-fallback(padding-bottom, 3.5rem);
+    }
+  }
+  
+  section.third {
+    background: $color-block-background-gray;
+  }
+  
+  section.small {
+    @include rem-fallback(min-height, 10rem);
+    @include breakpoint($tab) {
+      @include rem-fallback(min-height, 12rem);
+    }
+    
+    article.text-box {
+      @include breakpoint($tab) {
+        @include rem-fallback(padding-top, 3.4rem);
+      }
+    }
+  }
+  
+  .about-small {
+    text-align: center;
+    margin: 0 gutter-span();
+    @include rem-fallback(padding, 2.25rem, 0, 1.5rem);
+    @include breakpoint($mobile) {
+      margin: 0 gutter-span();
+    }
+    @include breakpoint($tab) {
+      margin: 0 gutter-span();
+    }
+    p {
+      text-align: center;
+      @include rem-fallback(font-size, .75rem);
+      @include rem-fallback(margin-bottom, .5rem);
+      
+      @include breakpoint($tab) {
+        @include rem-fallback(margin-bottom, .3rem);
+      }
+    }
+  }
+  
+  
+  /* Fixing the forms for devenir and comptable */
+  /*fieldset.devenir-comptable, fieldset.demander-devis, div#edit-field-adresse, div#edit-actions, div#messages-box {
+    margin-left: auto;
+    margin-right: auto;
+    max-width: $max-width;
+  }
+  
+  div#edit-actions {
+    @include rem-fallback(padding-left, .5rem);
+    @include breakpoint($tab) {
+      @include rem-fallback(padding-left, .65rem);
+    }
+  }*/
+  
+  fieldset.devenir-comptable, fieldset.demander-devis, div#edit-field-adresse, div#edit-actions, div#messages-box {
+    @include grid-span(3, 1);
+  
+    @include breakpoint($mobile) {
+      @include grid-span(6, 1);
+    }
+    @include breakpoint($tab) {
+      @include grid-span(8, 1);
+    }
+    @include breakpoint($desktop) {
+      max-width: $max-width;
+      @include grid-span(12, 1);
+      float: none;
+      margin-left: auto;
+      margin-right: auto;
+    }
+  }
+  
+}

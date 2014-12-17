@@ -183,7 +183,7 @@ a {
   outline: 0;
   @include single-transition(color, .1s);
 
-  &:hover, &:focus {
+  &:hover, &:focus, &:active {
     color: $color-font-a-hover;
   }
 

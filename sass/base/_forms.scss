@@ -156,7 +156,7 @@ fieldset {
   @include rem-fallback(margin, .5rem, 0, .5rem);
   @include rem-fallback(padding, 1rem, 0, 0);
   border: none;
-  border-top: 1px solid $color-fieldset-border;
+  //border-top: 1px solid $color-fieldset-border;
   background: $color-fieldset-background;
   @include background-image(linear-gradient($color-fieldset-background-top, $color-fieldset-background-bottom));
   @include border-radius();

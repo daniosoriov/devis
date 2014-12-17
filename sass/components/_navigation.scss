@@ -1,19 +1,13 @@
-.l-navigation-content {
-  @include background-image(linear-gradient($color-navigation-background-top, $color-navigation-background-bottom));
-  border: none;
-  border-bottom: 3px solid $color-navigation-border-bottom;
-  
+nav.l-navigation-content {
   @include breakpoint($tab) {
-    height: 40px;
-    margin-bottom: -40px;
-    z-index: 150;
-    border-bottom: 1px solid transparent;
+    display: inline-block;
+    float: right;
+    position: relative;
+    top: 1.35rem;
   }
 }
 
 .l-region--navigation {
-  margin: 0 auto;
-  max-width: $max-width;
   h2.pane-title {
     margin: 0;
   }
@@ -69,18 +63,19 @@
         a {
           @include font-family('Source Sans Pro', light);
           @include rem-fallback(font-size, 1.1rem);
-          @include rem-fallback(padding, .55rem, .7rem, .28rem);
+          @include rem-fallback(padding, .55rem, .1rem, .28rem);
+          @include rem-fallback(margin, 0, .6rem);
           cursor: default;
           @include single-transition(background .3s, color .3s, border-bottom-color .3s);
           display: block;
           float: left;
           border: none;
-          border-bottom: .3rem transparent solid;
+          border-bottom: .2rem transparent solid;
           
           &:hover, &.active {
             position: static;
             top: 0;
-            border-bottom: .3rem $color-navigation-hover-border solid;
+            border-bottom: .2rem $color-navigation-hover-border solid;
           }
         }
         
@@ -140,112 +135,4 @@
       }
     }
   }
-  
-  
-  
-  /*
-  margin: 0 auto;
-  @include breakpoint($desktop) {
-    width: $desktop;
-  }
-  
-  @include breakpoint($tab $desktop) {
-    width: $tab;
-  }
-  
-  h2 {
-    margin: 0;
-  }
-    
-  ul {
-    float: right;
-    margin: 0;
-
-    li {
-      padding: 0;
-      display: inline-block;
-      position: relative;
-      margin: 0;
-
-      a {
-        @include font-family('Source Sans Pro', light);
-        
-        @include rem-fallback(font-size, 1.1rem);
-        @include rem-fallback(padding, .95rem, .7rem, .65rem, .7rem);
-        cursor: default;
-        @include single-transition(background .3s, color .3s, border-bottom-color .3s);
-        display: block;
-        float: left;
-        border: none;
-        border-bottom: .3rem transparent solid;
-
-        &:hover, &.active {
-          border-bottom-color: $color-navigation-hover-border;
-        }
-      }
-
-      &:hover > ul {
-        display: block;
-      }
-
-    }
-        
-    ul {
-      margin: 0;
-      padding: 0;
-      display: none;
-      position: absolute;
-      top: 100%;
-      text-align: center;
-      box-sizing: border-box;
-
-      li {
-          margin: 0;
-          box-sizing: border-box;
-          width: 100%;
-      }
-    }
-        
-    ul.navSpecialBox {
-      right: 0;
-      text-align: left;
-
-      li {
-        font-weight: 200;
-        color: $color-navigation-special-box;
-        background: $color-navigation-special-box-background;
-        width: 15rem;
-        @include rem-fallback(padding, .8rem);
-        padding-bottom: 0;
-        margin: 0;
-        border: none;
-        text-align: center;
-
-        .navSpecialBoxReg {
-          @include single-transition(color .3s);
-          float: none;
-          color: $base-color;
-          font-size: 1.5rem;
-          padding: 0;
-          border: none;
-          @include rem-fallback(margin-bottom, 1.1rem);
-
-          &:hover {
-            padding: 0;
-            background: none;
-            border: none;
-            color: $color-navigation-special-box-a-hover;
-          }
-        }
-      }
-    }
-  }*/
-}
-
-.navSticky {
-  position: fixed;
-  top: 0;
-  width: 100%;
-  @include box-shadow(0px 1px 15px -3px $color-navigation-sticky-shadow);
-  z-index: 150;
 }

@@ -1,71 +1,41 @@
-header.l-header {
+header.l-header-content {
+  text-align: center;
+  @include background-image(linear-gradient($color-navigation-background-top, $color-navigation-background-bottom));
+  border: none;
+  border-bottom: 3px solid $color-navigation-border-bottom;
+  
   @include breakpoint($tab) {
-    height: 135px;
+    text-align: inherit;
+    position: fixed;
+    width: 100%;
+    top: 0;
+    height: auto;
+    //margin-bottom: -80px;
+    z-index: 150;
+    border-bottom: 1px solid transparent;
+    @include box-shadow(0px 1px 15px -3px $color-navigation-sticky-shadow);
   }
 }
 
-.l-region--header {
-  margin: 0 auto;
-  background: $color-header-background;
-  border-bottom: none;
+.header-container {
+  @include breakpoint($tab) {
+    margin: 0 auto;
+    @include rem-fallback(padding, 0, .5rem);
+  }
   @include breakpoint($desktop) {
+    @include rem-fallback(padding, 0, 1rem);
     max-width: $max-width;
   }
 }
 
-div#logo-title {
-  //@include background-grid($color: blue);
-  position: relative;
-  text-align: center;
-  
-  @include breakpoint($tab) {
-    text-align: left;
-    @include rem-fallback(padding-bottom, 1rem);
-  }
-  
-  a#logo {
-    img {
-      @include rem-fallback(margin-top, 1rem);
-      
-      @include breakpoint($tab) {
-        margin-left: gutter-span();
-      }
-      @include breakpoint($desktop) {
-        margin-left: gutter-span();
-      }
-    }
-  }
+.l-region--header {
+  display: inline-block;
 }
 
-div#name-and-slogan {
-  @include font-family-mobile(light);
-  color: $color-name-slogan;
-  @include rem-fallback(margin, 1rem, 0);
-  @include rem-fallback(font-size, 1rem);
-  
-  @include breakpoint($mobile) {
-    @include rem-fallback(font-size, 1.1rem);
-    @include font-family('Source Sans Pro', light);
-  }
-  
-  @include breakpoint($tab) {
-    margin: 0;
-    position: relative;
-    float: right;
-    text-align: right;
-    @include rem-fallback(font-size, 1.3rem);
-    @include rem-fallback(top, 4.5rem);
-    margin-right: gutter-span();
-  }
-  
-  @include breakpoint($desktop) {
-    @include rem-fallback(top, 1.5rem);
-    @include rem-fallback(font-size, 1.6rem);
-  }
-  
-  /*@include breakpoint($tab $desktop) {
-    @include grid-span(6, 7);
-    @include rem-fallback(font-size, 1.3rem);
-    @include rem-fallback(top, 4rem);
-  }*/
-}
+/*.navSticky {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  @include box-shadow(0px 1px 15px -3px $color-navigation-sticky-shadow);
+  z-index: 150;
+}*/

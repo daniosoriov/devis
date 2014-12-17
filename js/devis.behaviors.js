@@ -58,10 +58,10 @@
     }
   };
     
-    Drupal.theme.prototype.devisSpecialBoxContent = function() {
-        var li1 = '<li>Vous &#234;tes comptable-fiscaliste ou expert-comptable?</li>';
-        var li2 = '<li><a class="navSpecialBoxReg" href="/devenir-comptable">Inscrivez-vous!</a></li>';
-        return $('<ul class="navSpecialBox">'+ li1 + li2 +'</ul>');
+    Drupal.theme.prototype.devisSpecialBoxContent = function(url) {
+      var li1 = '<li>Vous &#234;tes comptable-fiscaliste ou expert-comptable?</li>';
+      var li2 = '<li><a class="navSpecialBoxReg" href="'+ url +'">Inscrivez-vous!</a></li>';
+      return $('<ul class="navSpecialBox">'+ li1 + li2 +'</ul>');
     };
     
     Drupal.theme.prototype.devisSpecialBoxMeasureWidth = function(element, anchor) {
@@ -111,17 +111,34 @@
     attach: function (context, settings) {
       $('.grippie').remove();
       
-      // deactivate easydropdown on mobile devices.
-      if ($(window).width() <= 384) {
-        $('div').easyDropDown('disable');
-      }
-      else {
+      if (typeof easyDropDown != 'undefined' && $.isFunction(easyDropDown)) {
+        // deactivate easydropdown on mobile devices.
+        if ($(window).width() <= 384) {
+          $('div').easyDropDown('disable');
+        }
         // easyDropDown to 10 show 10 values.
-        var $selects = $('select');
-        $selects.easyDropDown({
-          cutOff: 10,
-        });
+        else {
+          $('select').easyDropDown({ cutOff: 10 });
+        }
       }
+      
+      
+      
+
+      var $window = $(window);
+      $('section[data-type="background"]').each(function() {
+        var $bgobj = $(this); // assigning the object
+        $(window).scroll(function() {
+          var yPos = -($window.scrollTop() / $bgobj.data('speed'));
+          // Put together our final background position
+          var coords = '50% '+ yPos + 'px';
+          // Move the background
+          $bgobj.css({ backgroundPosition: coords });
+        });
+      });
+      
+      
+      
     }
   };
   
@@ -138,24 +155,23 @@
   };
     
     Drupal.behaviors.devisBecomeProviderBox = {
-        attach: function (context, settings) {
-            var $anchor = Drupal.theme('devisSpecialBoxContent');
-            $('.navSpecial', context).once('foo', function() {
-                //alert(JSON.stringify(settings));
-                
-                $anchor.appendTo($(this).parent());
-            });
-            
-            $(window).resize(function() {
-              Drupal.theme('devisSpecialBoxMeasureWidth', $('.navSpecial'), $anchor);
-            });
-            Drupal.theme('devisSpecialBoxMeasureWidth', $('.navSpecial'), $anchor);
-        }
+      attach: function (context, settings) {
+        //console.log(settings);
+        var $anchor = Drupal.theme('devisSpecialBoxContent', settings.devenir.url);
+        $('.navSpecial', context).once('foo', function() {
+          $anchor.appendTo($(this).parent());
+        });
+
+        $(window).resize(function() {
+          Drupal.theme('devisSpecialBoxMeasureWidth', $('.navSpecial'), $anchor);
+        });
+        Drupal.theme('devisSpecialBoxMeasureWidth', $('.navSpecial'), $anchor);
+      }
     };
     
-    Drupal.behaviors.devisStickyNav = {
+    /*Drupal.behaviors.devisStickyNav = {
       attach: function (context, settings) {
-        var  mn = $('.l-navigation-content');
+        var  mn = $('header.l-header-content');
         mns = 'navSticky';
         hdr = ($('header').height() < 100) ? 135 : $('header').height();
 
@@ -179,7 +195,35 @@
           }
         });
       }
-    };
+    };*/
+  
+  /** 
+   * Function to control the select boxes of the regions in the user profile.
+   */
+  /*Drupal.behaviors.devisLegalDialogBox = {
+    attach: function (context, settings) {
+      $( "#dialog" ).dialog({
+        autoOpen: false,
+        dialogClass: 'dialog-box',
+        width: 900,
+        height: 400,
+        modal: true,
+        draggable: false,
+        resizable: false,
+        show: 'fade', 
+        hide: 'fade',
+        //minWidth: 500,
+        //maxHeight: 600,
+        //maxWidth: 800,
+        //modal: true,
+      });
+      $( "#opener" ).click(function() {
+        $( "#dialog" ).dialog( "open" );
+        return false;
+      });
+    }
+  };*/
+  
   
   /** 
    * Function to control the select boxes of the regions in the user profile.

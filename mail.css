@@ -15,7 +15,7 @@ table {
 
 table#main {
   width: 100%;
-  background-color: #f1f2f6;
+  background-color: #f5f5f5; /*#f1f2f6;*/
 }
 
 div#main-border-top {
@@ -30,9 +30,7 @@ td#main-border-top {
 }
 
 table#head {
-  width: 90%;
-  /*min-width: 640px;*/
-  min-width: 260px;
+  max-width: 500px;
 }
 
 td#head {
@@ -43,29 +41,31 @@ td#head {
 }
 
 table#body {
-  width: 90%;
-  min-width: 640px;
-  padding-left: 20px;
-  padding-right: 20px;
+  width: 500px;
+  padding-left: 35px;
+  padding-right: 35px;
   border-radius: 8px;
+  border: 1px solid #E0E0E0;
   background-color: #fff;
-  color: #333;
+  color: #777;
+  font-family: Helvetica, Arial, sans-serif;
+  font-size: 14px;
 }
 
 table#body a {
-  color: #0062B8;
-}
-
-table#body a:hover {
   color: #00559F;
 }
 
+table#body a:hover {
+  color: #0062B8;
+}
+
 td#body-border-top {
-  padding-top: 20px;
+  padding-top: 30px;
 }
 
 td#body-border-bottom {
-  padding-bottom: 20px;
+  padding-bottom: 30px;
 }
 
 td#footer {
@@ -77,8 +77,7 @@ td#footer {
 }
 
 table#footer {
-  width: 90%;
-  min-width: 640px;
+  width: 500px;
 }
 
 td#footer-team {
@@ -86,6 +85,11 @@ td#footer-team {
   font-size: 12px;
   font-family: Helvetica, sans-serif;
   padding-bottom: 10px;
+  color: #777;
+}
+
+td#footer-team a {
+  color: #777;
 }
 
 td#footer-border-bottom {
@@ -95,15 +99,19 @@ td#footer-border-bottom {
 @media only screen and (max-width: 620px) {
   table#head {
     min-width: 500px;
+    width: 90%;
   }
   
   table#body {
     min-width: 500px;
+    width: 90%;
+    font-size: 13px;
     border-radius: 5px;
   }
   
   table#footer {
     min-width: 500px;
+    width: 90%;
   }
   
   td#footer-border-bottom {
@@ -113,26 +121,28 @@ td#footer-border-bottom {
 
 @media only screen and (max-width: 320px) {
   table#head {
-    width: 90%;
     min-width: 260px;
+    width: 90%;
   }
   
   table#body {
-    font-size: 12px;
     min-width: 260px;
+    width: 90%;
+    font-size: 12px;
     border-radius: 5px;
   }
   
   td#body-border-top {
-    padding-top: 15px;
+    padding-top: 30px;
   }
 
   td#body-border-bottom {
-    padding-bottom: 15px;
+    padding-bottom: 30px;
   }
   
   table#footer {
     min-width: 260px;
+    width: 90%;
   }
   
   td#footer-team {

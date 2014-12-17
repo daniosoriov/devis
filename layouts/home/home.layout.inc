@@ -5,8 +5,7 @@ template = home-layout
 ; Regions
 regions[header] = Header
 regions[navigation] = Navigation
-regions[highlighted] = Highlighted
-regions[help] = Help
+;regions[highlighted] = Highlighted
 regions[content] = Content
 regions[footer] = Footer
 

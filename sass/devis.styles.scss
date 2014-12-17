@@ -23,21 +23,6 @@
 @import "components/**/*";
 
 // use SPRITE COW for the sprites.
-
-.panel-pane.pane-page-content {
-  @include grid-span(3, 1);
-  
-  @include breakpoint($mobile) {
-    @include grid-span(6, 1);
-  }
-  @include breakpoint($tab) {
-    @include grid-span(8, 1);
-  }
-  @include breakpoint($desktop) {
-    @include grid-span(12, 1);
-  }
-}
-
 s, strike, del {
     color: $color-font-a;
 }
@@ -54,8 +39,8 @@ div {
     //border-bottom: 1px solid $color-messages-border;
     //background: $color-messages-background;
     @include border-radius();
-    @include single-box-shadow();
-    text-align: justify;
+    //@include single-box-shadow();
+    //text-align: justify;
     
     @include breakpoint ($mobile) {
       @include rem-fallback(font-size, 1rem);
@@ -66,6 +51,13 @@ div {
     }
     @include breakpoint($desktop) {
       @include rem-fallback(padding, .5rem);
+    }
+    
+    a {
+      color: $color-messages-a;
+      &:hover {
+        color: $color-messages-a-hover;
+      }
     }
 
     ul {
@@ -83,19 +75,19 @@ div {
 
   &.status, &.messages--status {
     color: $color-messages-green;
-    //background: $color-messages-green-background;
-    //border-bottom: 1px solid $color-messages-green-border;
+    background: $color-messages-green-background;
+    border-left: 5px solid $color-messages-green-border;
   }
 
   &.warning, &.messages--warning {
     color: $color-messages-yellow;
-    //background: $color-messages-yellow-background;
-    //border-bottom: 1px solid $color-messages-yellow-border;
+    background: $color-messages-yellow-background;
+    border-left: 5px solid $color-messages-yellow-border;
   }
 
   &.error, &.messages--error {
     color: $color-messages-red;
-    //background: $color-messages-red-background;
-    //border-bottom: 1px solid $color-messages-red-border;
+    background: $color-messages-red-background;
+    border-left: 5px solid $color-messages-red-border;
   }
 }

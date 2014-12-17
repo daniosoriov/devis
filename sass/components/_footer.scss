@@ -2,7 +2,11 @@
   @include breakpoint($tab) {
     position: absolute;
     bottom: 0;
-    height: 175px;
+    height: 245px;
+  }
+  
+  @include breakpoint($desktop) {
+    height: 200px;
   }
 }
 
@@ -17,22 +21,27 @@
   .l-region--footer {
     margin: 0 auto;
     @include breakpoint($desktop) {
-      width: $max-width;
+      max-width: $max-width;
     }
   }
     
   // menu-block-1 has been added on the panels menu on drupal.
   div[class*=' menu-block'], div[class^='menu-block'], div.panels-ipe-portlet-wrapper {
     text-align: center;
-    @include rem-fallback(margin-top, .5rem);
+    @include rem-fallback(margin-top, 1rem);
     @include rem-fallback(padding-bottom, .25rem);
     
     @include breakpoint($tab) {
-      @include rem-fallback(margin-top, 1rem);
+      @include rem-fallback(margin-top, 2rem);
       padding: 0;
       text-align: left;
-      display: inline-block;
+      //display: inline-block;
     }
+  }
+  
+  div.menu-block-3 {
+    margin-left: gutter-span();
+    margin-right: gutter-span();
   }
   
   @include breakpoint($tab) {
@@ -44,11 +53,13 @@
       @include grid-span(2, 3);
     }
     div.menu-block-3 {
-      @include grid-span(2, 5);
+      @include grid-span(4, 5);
+      margin-left: gutter-span();
+      margin-right: gutter-span();
     }
-    div.menu-block-4 {
+    /*div.menu-block-4 {
       @include grid-span(2, 7);
-    }
+    }*/
   }
   @include breakpoint($desktop) {
     div.menu-block-1 {
@@ -59,27 +70,17 @@
       @include grid-span(3, 4);
     }
     div.menu-block-3 {
-      @include grid-span(3, 7);
+      @include grid-span(6, 7);
+      margin-left: gutter-span();
+      margin-right: gutter-span();
     }
-    div.menu-block-4 {
+    /*div.menu-block-4 {
       @include grid-span(3, 10);
-    }
+    }*/
   }
     
-  /*div.panels-ipe-portlet-wrapper {
-    display: inline-block;
-    vertical-align: top;
-    @include rem-fallback(padding, 0, 1rem);
-    width: 23%;
-
-    div[class*=' menu-block'], div[class^='menu-block'] {
-      //display: block;
-      //width: 100%;
-      //padding: 0;
-    }
-  }*/
-    
   ul {
+    @include rem-fallback(margin-top, .3rem);
     text-align: center;
     
     @include breakpoint($tab) {
@@ -101,6 +102,24 @@
       &:hover {
         @include rem-fallback(padding-left, .2rem);
       }
+    }
+  }
+  
+  p {
+    @include rem-fallback(margin-top, .3rem);
+    @include rem-fallback(font-size, .8rem);
+    color: $color-footer-a;
+    @include font-family-mobile('light');
+    text-align: center;
+
+    @include breakpoint($mobile) {
+      @include rem-fallback(font-size, .85rem);
+      @include font-family('Source Sans Pro', 'light');
+    }
+    
+    @include breakpoint($tab) {
+      text-align: inherit;
+      @include rem-fallback(font-size, .95rem);
     }
   }
 
@@ -142,7 +161,7 @@
     }
   }
 
-  h2.pane-title {
+  h2.pane-title, h2.node__title {
     display: none;
     /*@include rem-fallback(font-size, .95rem);
     font-weight: 400;
@@ -151,11 +170,9 @@
     
     @include breakpoint($mobile) {
       @include rem-fallback(font-size, 1.25rem);
-      @include rem-fallback(margin-bottom, .2rem);
     }
 
     @include breakpoint($tab) {
-      @include rem-fallback(margin-bottom, .3rem);
     }*/
   }
 }

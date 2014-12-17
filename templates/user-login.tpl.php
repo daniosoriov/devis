@@ -4,9 +4,9 @@
 print drupal_render($form['info']);
 ?>
 <div class="user-login-links">
-    <a href="/user/password"><?php print render($password_label) ?></a>
+    <a href="<?= $password_url ?>"><?php print render($password_label) ?></a>
     &nbsp;|&nbsp;
-    <a href="/devenir-comptable"><?php print render($register_label) ?></a>
+    <a href="<?= $register_url ?>"><?php print render($register_label) ?></a>
 </div>
 <?php
 print drupal_render($form['form_build_id']);

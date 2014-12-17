@@ -2,6 +2,7 @@
 /* Header */
 /* Navigation. */
 /* Tabs. */
+/* Blocks. */
 /* Buttons. */
 /* Forms. */
 /* Autocomplete. */
@@ -209,7 +210,7 @@ a {
   -o-transition: color 0.1s ease-out;
   transition: color 0.1s ease-out; }
 @media -sass-debug-info{filename{font-family:file\:\/\/\/Applications\/MAMP\/htdocs\/3devis\/sites\/all\/themes\/devis\/sass\/base\/_base\.scss}line{font-family:\00003186}}
-  a:hover, a:focus {
+  a:hover, a:focus, a:active {
     color: #ffb500; }
   @media (min-width: 384px) {
 @media -sass-debug-info{filename{font-family:file\:\/\/\/Applications\/MAMP\/htdocs\/3devis\/sites\/all\/themes\/devis\/sass\/base\/_base\.scss}line{font-family:\00003178}}
@@ -238,18 +239,18 @@ input[type="button"]#edit-cancel,
 input[type="submit"],
 input[type="reset"],
 input[type="button"] {
-  background: rgba(255, 181, 0, 0.5);
+  background: #ffc433;
   font-family: sans-serif;
   font-weight: 400;
-  background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, rgba(255, 181, 0, 0.6)), color-stop(100%, rgba(255, 181, 0, 0.6)));
-  background-image: -webkit-linear-gradient(rgba(255, 181, 0, 0.6), rgba(255, 181, 0, 0.6));
-  background-image: -moz-linear-gradient(rgba(255, 181, 0, 0.6), rgba(255, 181, 0, 0.6));
-  background-image: -o-linear-gradient(rgba(255, 181, 0, 0.6), rgba(255, 181, 0, 0.6));
-  background-image: linear-gradient(rgba(255, 181, 0, 0.6), rgba(255, 181, 0, 0.6));
+  background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #ffc433), color-stop(100%, #ffc73d));
+  background-image: -webkit-linear-gradient(#ffc433, #ffc73d);
+  background-image: -moz-linear-gradient(#ffc433, #ffc73d);
+  background-image: -o-linear-gradient(#ffc433, #ffc73d);
+  background-image: linear-gradient(#ffc433, #ffc73d);
   color: white;
-  border: 1px solid #e6a300;
-  border-top: 1px solid #f2ac00;
-  border-left: 1px solid #f2ac00;
+  border: 1px solid #ffc026;
+  border-top: 1px solid #ffbc1a;
+  border-left: 1px solid #ffbc1a;
   -webkit-border-radius: 0.2rem;
   -moz-border-radius: 0.2rem;
   -ms-border-radius: 0.2rem;
@@ -286,9 +287,9 @@ input[type="button"] {
     background-image: -moz-linear-gradient(#ffb500, #ffb500);
     background-image: -o-linear-gradient(#ffb500, #ffb500);
     background-image: linear-gradient(#ffb500, #ffb500);
-    border: 1px solid #d99a00;
-    border-top: 1px solid #e6a300;
-    border-left: 1px solid #e6a300; }
+    border: 1px solid #e6a300;
+    border-top: 1px solid #f2ac00;
+    border-left: 1px solid #f2ac00; }
 @media -sass-debug-info{filename{font-family:file\:\/\/\/Applications\/MAMP\/htdocs\/3devis\/sites\/all\/themes\/devis\/sass\/base\/_forms\.scss}line{font-family:\0000338}}
   .button:active,
   button:active,
@@ -300,14 +301,14 @@ input[type="button"] {
     text-decoration: none;
     color: white;
     background: #ffb500;
-    background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #ffb500), color-stop(100%, #ffb500));
-    background-image: -webkit-linear-gradient(#ffb500, #ffb500);
-    background-image: -moz-linear-gradient(#ffb500, #ffb500);
-    background-image: -o-linear-gradient(#ffb500, #ffb500);
-    background-image: linear-gradient(#ffb500, #ffb500);
-    border: 1px solid #d99a00;
-    border-top: 1px solid #e6a300;
-    border-left: 1px solid #e6a300;
+    background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #ffb500), color-stop(100%, #fab100));
+    background-image: -webkit-linear-gradient(#ffb500, #fab100);
+    background-image: -moz-linear-gradient(#ffb500, #fab100);
+    background-image: -o-linear-gradient(#ffb500, #fab100);
+    background-image: linear-gradient(#ffb500, #fab100);
+    border: 1px solid #e6a300;
+    border-top: 1px solid #f2ac00;
+    border-left: 1px solid #f2ac00;
     -webkit-box-shadow: 0px 1px 15px -3px rgba(0, 0, 0, 0.2);
     -moz-box-shadow: 0px 1px 15px -3px rgba(0, 0, 0, 0.2);
     box-shadow: 0px 1px 15px -3px rgba(0, 0, 0, 0.2); }
@@ -323,11 +324,11 @@ input[type="button"] {
     outline: none;
     color: white;
     background: #ffb500;
-    background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #ffb500), color-stop(100%, #ffb500));
-    background-image: -webkit-linear-gradient(#ffb500, #ffb500);
-    background-image: -moz-linear-gradient(#ffb500, #ffb500);
-    background-image: -o-linear-gradient(#ffb500, #ffb500);
-    background-image: linear-gradient(#ffb500, #ffb500);
+    background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #ffb500), color-stop(100%, #fab100));
+    background-image: -webkit-linear-gradient(#ffb500, #fab100);
+    background-image: -moz-linear-gradient(#ffb500, #fab100);
+    background-image: -o-linear-gradient(#ffb500, #fab100);
+    background-image: linear-gradient(#ffb500, #fab100);
     border: 1px solid #006ac7;
     -webkit-box-shadow:  rgba(0, 106, 199, 0.5);
     -moz-box-shadow:  rgba(0, 106, 199, 0.5);
@@ -370,43 +371,43 @@ input[type="button"] {
 @media -sass-debug-info{filename{font-family:file\:\/\/\/Applications\/MAMP\/htdocs\/3devis\/sites\/all\/themes\/devis\/sass\/base\/_forms\.scss}line{font-family:\0000375}}
 input[type="submit"]#edit-cancel,
 input[type="button"]#edit-cancel {
-  background: #cc0036;
-  background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #d20038), color-stop(100%, rgba(154, 0, 41, 0.7)));
-  background-image: -webkit-linear-gradient(#d20038, rgba(154, 0, 41, 0.7));
-  background-image: -moz-linear-gradient(#d20038, rgba(154, 0, 41, 0.7));
-  background-image: -o-linear-gradient(#d20038, rgba(154, 0, 41, 0.7));
-  background-image: linear-gradient(#d20038, rgba(154, 0, 41, 0.7));
-  color: #e6e6e6;
-  border: 1px solid #850023;
-  border-top: 1px solid #9a0029;
-  border-left: 1px solid #9a0029;
+  background: #d9534f;
+  background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #d9534f), color-stop(100%, #db5b57));
+  background-image: -webkit-linear-gradient(#d9534f, #db5b57);
+  background-image: -moz-linear-gradient(#d9534f, #db5b57);
+  background-image: -o-linear-gradient(#d9534f, #db5b57);
+  background-image: linear-gradient(#d9534f, #db5b57);
+  color: white;
+  border: 1px solid #d43f3a;
+  border-top: 1px solid #d74b47;
+  border-left: 1px solid #d74b47;
   text-shadow: 0px 0px 1px transparent; }
 @media -sass-debug-info{filename{font-family:file\:\/\/\/Applications\/MAMP\/htdocs\/3devis\/sites\/all\/themes\/devis\/sass\/base\/_forms\.scss}line{font-family:\0000388}}
   input[type="submit"]#edit-cancel:hover,
   input[type="button"]#edit-cancel:hover {
-    color: #f2f2f2;
-    background: #ff0044;
-    background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #f00040), color-stop(100%, rgba(169, 0, 45, 0.7)));
-    background-image: -webkit-linear-gradient(#f00040, rgba(169, 0, 45, 0.7));
-    background-image: -moz-linear-gradient(#f00040, rgba(169, 0, 45, 0.7));
-    background-image: -o-linear-gradient(#f00040, rgba(169, 0, 45, 0.7));
-    background-image: linear-gradient(#f00040, rgba(169, 0, 45, 0.7));
-    border: 1px solid #9a0029;
-    border-top: 1px solid #a9002d;
-    border-left: 1px solid #a9002d; }
+    color: white;
+    background: #d43f3a;
+    background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #d43f3a), color-stop(100%, #d5433e));
+    background-image: -webkit-linear-gradient(#d43f3a, #d5433e);
+    background-image: -moz-linear-gradient(#d43f3a, #d5433e);
+    background-image: -o-linear-gradient(#d43f3a, #d5433e);
+    background-image: linear-gradient(#d43f3a, #d5433e);
+    border: 1px solid #c9302c;
+    border-top: 1px solid #d33632;
+    border-left: 1px solid #d33632; }
 @media -sass-debug-info{filename{font-family:file\:\/\/\/Applications\/MAMP\/htdocs\/3devis\/sites\/all\/themes\/devis\/sass\/base\/_forms\.scss}line{font-family:\0000397}}
   input[type="submit"]#edit-cancel:active,
   input[type="button"]#edit-cancel:active {
     color: white;
-    background: #ff0044;
-    background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #ff0044), color-stop(100%, #9a0029));
-    background-image: -webkit-linear-gradient(#ff0044, #9a0029);
-    background-image: -moz-linear-gradient(#ff0044, #9a0029);
-    background-image: -o-linear-gradient(#ff0044, #9a0029);
-    background-image: linear-gradient(#ff0044, #9a0029);
-    border: 1px solid #800022;
-    border-top: 1px solid #9a0029;
-    border-left: 1px solid #9a0029;
+    background: #d33632;
+    background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #d33632), color-stop(100%, #d43f3a));
+    background-image: -webkit-linear-gradient(#d33632, #d43f3a);
+    background-image: -moz-linear-gradient(#d33632, #d43f3a);
+    background-image: -o-linear-gradient(#d33632, #d43f3a);
+    background-image: linear-gradient(#d33632, #d43f3a);
+    border: 1px solid #c9302c;
+    border-top: 1px solid #d33632;
+    border-left: 1px solid #d33632;
     -webkit-box-shadow: 0px 1px 15px -3px rgba(0, 0, 0, 0.3);
     -moz-box-shadow: 0px 1px 15px -3px rgba(0, 0, 0, 0.3);
     box-shadow: 0px 1px 15px -3px rgba(0, 0, 0, 0.3); }
@@ -414,12 +415,12 @@ input[type="button"]#edit-cancel {
   input[type="submit"]#edit-cancel:focus,
   input[type="button"]#edit-cancel:focus {
     color: white;
-    background: #ff0044;
-    background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #ff0044), color-stop(100%, #9a0029));
-    background-image: -webkit-linear-gradient(#ff0044, #9a0029);
-    background-image: -moz-linear-gradient(#ff0044, #9a0029);
-    background-image: -o-linear-gradient(#ff0044, #9a0029);
-    background-image: linear-gradient(#ff0044, #9a0029); }
+    background: #d33632;
+    background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #d33632), color-stop(100%, #d43f3a));
+    background-image: -webkit-linear-gradient(#d33632, #d43f3a);
+    background-image: -moz-linear-gradient(#d33632, #d43f3a);
+    background-image: -o-linear-gradient(#d33632, #d43f3a);
+    background-image: linear-gradient(#d33632, #d43f3a); }
 
 /* Fix for odd Mozilla border & padding issues */
 @media -sass-debug-info{filename{font-family:file\:\/\/\/Applications\/MAMP\/htdocs\/3devis\/sites\/all\/themes\/devis\/sass\/base\/_forms\.scss}line{font-family:\00003115}}
@@ -476,7 +477,6 @@ fieldset {
   padding: 16px 0px 0px;
   padding: 1rem 0rem 0rem;
   border: none;
-  border-top: 1px solid #f2f2f2;
   background: #fafafa;
   background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #fafafa), color-stop(100%, #ffffff));
   background-image: -webkit-linear-gradient(#fafafa, #ffffff);
@@ -692,7 +692,7 @@ label, .form-item label, .form-actions label, legend {
   font-weight: normal;
   font-size: 12.8px;
   font-size: 0.8rem;
-  color: rgba(255, 0, 0, 0.8);
+  color: inherit;
   position: relative;
   left: -2px;
   top: -1px; }
