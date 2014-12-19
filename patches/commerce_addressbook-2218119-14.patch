@@ -1,0 +1,22 @@
+diff --git a/commerce_addressbook.module b/commerce_addressbook.module
+index 50bc4cd..d561ccb 100644
+--- a/commerce_addressbook.module
++++ b/commerce_addressbook.module
+@@ -602,3 +602,17 @@ function commerce_addressbook_retrieve_view($view_id, $display_id, $arguments, $
+   // Return the view.
+   return $view;
+ }
++
++/**
++ * Implements hook_commerce_entity_access_condition_ENTITY_TYPE_alter().
++ *
++ * @see commerce_entity_access_query_alter().
++ */
++function commerce_addressbook_commerce_entity_access_condition_commerce_customer_profile_alter(&$conditions, $context) {
++
++  // Needed for the view 'commerce_addressbook' with the LEFT JOIN to cancel
++  // access for empty uid.
++  if ($context['base_table'] === 'commerce_customer_profile_commerce_addressbook_defaults') {
++    $conditions->isNull('commerce_customer_profile_commerce_addressbook_defaults.uid');
++  }
++}

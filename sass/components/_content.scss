@@ -40,6 +40,42 @@ textarea, .form-textarea-wrapper textarea {
   }
 }
 
+address {
+  font-style: normal;
+  @include rem-fallback(margin-bottom, .5rem);
+}
+
+div#commerce-addressbook-billing-default, div#commerce-addressbook-billing-list {
+  @include rem-fallback(margin-bottom, 1rem);
+  h3.title {
+    margin-bottom: 0;
+  }
+  div.addressbook {
+    border-bottom: 1px solid $color-addressbook-border;
+    @include border-radius();
+    @include rem-fallback(padding, 1rem);
+    
+    @include breakpoint($tab) {
+      @include grid-span(5, 1, false, 0); // 5 of 8
+      float: none;
+    }
+    @include breakpoint($desktop) {
+      @include grid-span(6, 1, false, 0); // 6 of 12
+      float: none;
+    }
+  }
+}
+
+div#commerce-addressbook-billing-default {
+  div.addressbook {
+    border-bottom: none;
+  }
+}
+
+.pager {
+  @include rem-fallback(margin-top, 1rem);
+}
+
 fieldset {
   legend {
     @include rem-fallback(margin-left, .35rem);

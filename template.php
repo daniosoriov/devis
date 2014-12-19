@@ -175,6 +175,9 @@ function devis_preprocess(&$variables, $hook) {
   //dpm($hook, 'hook');
   //dpm(array_keys($variables), 'variables KEYS');
   //dpm($variables['title'], 'title');
+  if ($hook == 'views_view') {
+    //dpm($variables, 'variables');
+  }
   if ($hook == 'panels_pane') {
     //dpm($variables, 'variables');
   }
@@ -295,6 +298,17 @@ function devis_preprocess_panels_pane(&$variables) {
     }
   }
   
+  // Address Book.
+  $path = current_path();
+  $path_alias = drupal_lookup_path('alias', $path);
+  if (isset($variables['content']['system_main']['main']['#markup']) && $path == 'user/'. $variables['user']->uid .'/addressbook/billing') {
+    $variables['title'] = t('Address book');
+  }
+  // Credit cards.
+  if (isset($variables['content']['system_main']['main']['#markup']) && $path == 'user/'. $variables['user']->uid .'/cards') {
+    $variables['title'] = t('Credit cards');
+  }
+  
   // Change title and remove submitted information on devis_info for providers.
   if (isset($variables['content']['system_main']['main']) && $variables['title'] == 'Information de votre devis') {
     $markup = $variables['content']['system_main']['main']['#markup'];
@@ -315,6 +329,10 @@ function devis_preprocess_pane_messages(&$variables) {
   if ($path == 'user/'. $variables['user']->uid .'/cards') {
     $variables['action_links'] = array();
   }
+  // If the user is viewing his addresses, unset the action links on the pane_messages.
+  if ($path == 'user/'. $variables['user']->uid .'/addressbook/billing') {
+    $variables['action_links'] = array();
+  }
 }
 
 /**
@@ -330,6 +348,21 @@ function devis_preprocess_views_view_table(&$variables) {
             break;
         }
       }
+      break;
+  }
+}
+
+/**
+ * Implements theme_preprocess_views_view().
+ */
+function devis_preprocess_views_view(&$variables) {
+  switch ($variables['name']) {
+    case 'commerce_addressbook_defaults':
+      $variables['title'] = '<h3 class="title">'. t('Default address') .'</h3>';
+      break;
+    
+    case 'commerce_addressbook':
+      $variables['title'] = '<h3 class="title">'. t('Other addresses') .'</h3>';
       break;
   }
 }
@@ -453,6 +486,7 @@ function devis_form_comptable_entityform_edit_form_alter(&$form, &$form_state, $
   
   $theme_path = drupal_get_path('theme', variable_get('theme_default', NULL));
   $form['#attached']['js'][] = $theme_path .'/js/easydropdown/jquery.easydropdown.min.js';
+  $form['#attached']['css'][] = $theme_path .'/css/easydropdown.css';
   
   $form['field_legal_status'][$form['field_legal_status']['#language']]['#attributes']['class'][] = 'dropdown';
   $form['field_desired_benefits'][$form['field_desired_benefits']['#language']]['#attributes']['class'][] = 'dropdown';
@@ -646,6 +680,7 @@ function devis_form_devenir_entityform_edit_form_alter(&$form, &$form_state, $fo
   
   $theme_path = drupal_get_path('theme', variable_get('theme_default', NULL));
   $form['#attached']['js'][] = $theme_path .'/js/easydropdown/jquery.easydropdown.min.js';
+  $form['#attached']['css'][] = $theme_path .'/css/easydropdown.css';
 
   // Honorific, Name and Surname on the same line.
   $lang = $form['field_honorific']['#language'];
@@ -892,6 +927,7 @@ function devis_form_user_profile_form_alter(&$form, &$form_state, $form_id) {
   // Nicer select field.
   $theme_path = drupal_get_path('theme', variable_get('theme_default', NULL));
   $form['#attached']['js'][] = $theme_path .'/js/easydropdown/jquery.easydropdown.min.js';
+  $form['#attached']['css'][] = $theme_path .'/css/easydropdown.css';
   
   // Deny access to account name.
   $form['account']['name']['#access'] = FALSE;
@@ -1010,8 +1046,10 @@ function devis_form_user_profile_form_after_build($form, &$form_state) {
 function devis_form_commerce_stripe_cardonfile_create_form_alter(&$form, &$form_state, $form_id) {
   global $user;
   
+  drupal_set_title(t('Add credit card'));
   $theme_path = drupal_get_path('theme', variable_get('theme_default', NULL));
   $form['#attached']['js'][] = $theme_path .'/js/easydropdown/jquery.easydropdown.min.js';
+  $form['#attached']['css'][] = $theme_path .'/css/easydropdown.css';
   
   $form['errors']['#weight'] = -10;
   $form['card-info'] = array(
@@ -1019,6 +1057,10 @@ function devis_form_commerce_stripe_cardonfile_create_form_alter(&$form, &$form_
     '#title' => t('Information'),
     '#weight' => 0,
   );
+  // Change labels.
+  $form['credit_card']['owner']['#title'] = t('Credit card owner');
+  $form['credit_card']['number']['#title'] = t('Credit card number');
+    
   $form['credit_card']['exp_month']['#title'] = t('Expiration date');
   $form['credit_card']['exp_month']['#title_display'] = 'invisible';
   $form['credit_card']['exp_month']['#prefix'] .= '<label for="edit-credit-card-exp-month">'. t('Expiration date') .'</label>';
@@ -1030,10 +1072,11 @@ function devis_form_commerce_stripe_cardonfile_create_form_alter(&$form, &$form_
   $form['credit_card']['exp_year']['#suffix'] = '</div>'. $form['credit_card']['exp_year']['#suffix'];
   $form['credit_card']['exp_year']['#attributes']['class'][] = 'dropdown';
   
+  $form['submit']['#value'] = t('Validate');
   $form['submit']['#attributes']['class'] = array('card_submit');
   $form['submit']['#suffix'] = l(t('Cancel'), 'user/'. $user->uid .'/cards', array('attributes' => array('class' => array('cancel_url'))));
   $form['submit']['#weight'] = 10;
-  $form['credit_card']['cardonfile_instance_default']['#title'] = t('Set as your default card');
+  $form['credit_card']['cardonfile_instance_default']['#title'] = t('Set as your default credit card');
   //$form['address']['country']['#access'] = FALSE;
   //$form['address']['country']['#weight'] = 100;
   $form['address']['country']['#attributes']['class'][] = 'dropdown';
@@ -1055,6 +1098,7 @@ function devis_form_commerce_cardonfile_card_form_alter(&$form, &$form_state, $f
   
   $theme_path = drupal_get_path('theme', variable_get('theme_default', NULL));
   $form['#attached']['js'][] = $theme_path .'/js/easydropdown/jquery.easydropdown.min.js';
+  $form['#attached']['css'][] = $theme_path .'/css/easydropdown.css';
   
   $form['errors']['#weight'] = -10;
   $form['card-info'] = array(
@@ -1062,6 +1106,7 @@ function devis_form_commerce_cardonfile_card_form_alter(&$form, &$form_state, $f
     '#title' => t('Information'),
     '#weight' => 0,
   );
+  $form['credit_card']['owner']['#title'] = t('Credit card owner');
   
   $label = '<label for="edit-credit-card-exp-month">'. t('Expiration date') .' <span class="form-required" title="'. t('Ce champ est requis.') .'">*</span></label>';
   $form['credit_card']['exp_month']['#title'] = t('Expiration date');
@@ -1103,6 +1148,9 @@ function devis_form_contact_site_form_alter(&$form, &$form_state, $form_id) {
   }
 }
 
+/**
+ * Implements hook_form_BASE_FORM_ID_alter().
+ */
 function devis_form_legal_login_alter(&$form, &$form_state, $form_id) {
   // Get the node with the terms.
   $nid = variable_get('trois_devis_terms_nid', 4);
@@ -1124,7 +1172,43 @@ function devis_form_legal_login_alter(&$form, &$form_state, $form_id) {
   //$form['#attached']['css'][] = $theme_path .'/css/dialog.css';
   //$form['#attached']['js'][] = $theme_path .'/js/jquery-ui/jquery-ui.js';
   $form['#validate'][] = 'devis_form_alter_validate';
+  $form['#submit'][] = 'devis_form_legal_login_submit';
+}
+
+function devis_form_legal_login_submit($form, &$form_state) {
   $form_state['redirect'] = 'user';
+}
+
+/**
+ * Implements hook_form_BASE_FORM_ID_alter().
+ */
+function devis_form_commerce_addressbook_customer_profile_form_alter(&$form, &$form_state, $form_id) {
+  $temp = array_keys($form_state['customer_profile']->commerce_customer_address);
+  $lang = array_shift($temp);
+  $postal_code = $form_state['customer_profile']->commerce_customer_address[$lang][0]['postal_code'];
+  $profiles = commerce_customer_profile_load_multiple(array(), array('uid' => $form['#entity']->uid));
+  if (count($profiles) == 1 && !isset($customer_profile->is_new) && !$postal_code) {
+    $form_state['first_time'] = TRUE;
+  }
+  
+  $customer_profile = $form_state['customer_profile'];
+  //$title = (isset($customer_profile->is_new)) ? 'Add address' : "Modifier l'adresse";
+  $title = 'Billing address';
+  drupal_set_title(t($title));
+  
+  $lang = $form['commerce_customer_address']['#language'];
+  $form['commerce_customer_address'][$lang][0]['street_block']['thoroughfare']['#title'] = t('Address');
+  $form['commerce_customer_address'][$lang][0]['street_block']['premise']['#attributes']['style'] = 'display: none;';
+  $form['commerce_customer_address'][$lang][0]['street_block']['premise']['#title_display'] = 'invisible';
+  
+  $form['actions']['submit']['#value'] = t('Save');
+  $form['#submit'][] = 'devis_form_commerce_addressbook_customer_profile_form_submit';
+}
+
+function devis_form_commerce_addressbook_customer_profile_form_submit($form, &$form_state) {
+  if ($form_state['first_time']) {
+    $form_state['redirect'] = 'user';
+  }
 }
 
 function devis_profile2_view_alter($build) {
@@ -1136,7 +1220,6 @@ function devis_profile2_view_alter($build) {
     $build['#post_render'][] = 'my_module_post_render';
   }*/
 }
-
 
 //--------------- THEMES FROM MODULES ----------------//
 
