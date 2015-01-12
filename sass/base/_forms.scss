@@ -134,8 +134,11 @@ form, .form-item {
     @include rem-fallback(margin-bottom, .35rem);
   }
   
-  a {
+  a, p {
     font-size: inherit;
+  }
+  p {
+    @include rem-fallback(margin-bottom, .15rem);
   }
 
   @include breakpoint($mobile) {
@@ -219,7 +222,7 @@ select {
   color: $color-input;
   background: $color-input-background;
   border: 1px solid $color-input-border;
-  @include rem-fallback(padding, .3rem);
+  @include rem-fallback(padding, .4rem);
   @include rem-fallback(font-size, 0.9rem);
   @include border-radius();
   outline: none;
@@ -257,7 +260,7 @@ select {
   
   @include breakpoint($tab) {
     @include rem-fallback(font-size, 1rem);
-    @include rem-fallback(padding, .4rem);
+    //@include rem-fallback(padding, .4rem);
   }
 }
 
@@ -350,10 +353,27 @@ input[type="checkbox"], input[type="radio"] {
         margin-right: 1rem;
       }
     }
+    @include breakpoint($desktop) {
+      input {
+        max-width: 210px;
+        width: 210px;
+      }
+    }
   }
 }
 
 /* Fix weird behaviors. Especial cases. */
+
+fieldset.group-address-top {
+  margin-bottom: 0;
+}
+
+fieldset.group-address-extra {
+  background: none;
+  margin-top: 0;
+  padding: 0;
+}
+
 div#edit-actions {
   //@include rem-fallback(margin-top, 1rem);
   input {

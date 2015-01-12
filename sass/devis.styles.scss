@@ -59,6 +59,14 @@ div {
         color: $color-messages-a-hover;
       }
     }
+    
+    p {
+      margin: 0;
+      @include rem-fallback(padding, .35rem);
+      @include breakpoint ($mobile) {
+        @include rem-fallback(padding, .5rem);
+      }
+    }
 
     ul {
       margin: 0;
@@ -89,5 +97,11 @@ div {
     color: $color-messages-red;
     background: $color-messages-red-background;
     border-left: 5px solid $color-messages-red-border;
+  }
+  
+  &.admin, &.messages--admin {
+    color: $color-messages-admin;
+    background: $color-messages-admin-background;
+    border-left: 5px solid $color-messages-admin-border;
   }
 }

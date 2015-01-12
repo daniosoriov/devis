@@ -31,8 +31,8 @@
 @media -sass-debug-info{filename{font-family:file\:\/\/\/Applications\/MAMP\/htdocs\/3devis\/sites\/all\/themes\/devis\/sass\/layouts\/regular\/regular\.layout\.scss}line{font-family:\0000322}}
 .l-content {
   background: white;
-  margin-bottom: 16px;
-  margin-bottom: 1rem;
+  padding-bottom: 16px;
+  padding-bottom: 1rem;
   width: 94.44444%;
   float: right;
   margin-left: 0;
@@ -42,7 +42,7 @@
   .l-content h2.pane-title {
     margin-top: 16px;
     margin-top: 1rem;
-    color: #ffb500;
+    color: #eda800;
     font-size: 21.6px;
     font-size: 1.35rem;
     font-weight: 400; }
@@ -50,8 +50,8 @@
   .l-content .user-profile div[class*=' field--'], .l-content .user-profile div[class^='field--'], .l-content .user-profile span[class*=' field--'], .l-content .user-profile span[class^='field--'], .l-content div.content div[class*=' field--'], .l-content div.content div[class^='field--'], .l-content div.content span[class*=' field--'], .l-content div.content span[class^='field--'], .l-content .ds-1col div[class*=' field--'], .l-content .ds-1col div[class^='field--'], .l-content .ds-1col span[class*=' field--'], .l-content .ds-1col span[class^='field--'] {
     line-height: 17.6px;
     line-height: 1.1rem;
-    margin-bottom: 12.8px;
-    margin-bottom: 0.8rem;
+    padding-bottom: 12.8px;
+    padding-bottom: 0.8rem;
     display: block; }
 @media -sass-debug-info{filename{font-family:file\:\/\/\/Applications\/MAMP\/htdocs\/3devis\/sites\/all\/themes\/devis\/sass\/layouts\/regular\/regular\.layout\.scss}line{font-family:\0000366}}
   .l-content h3.field-label {
@@ -59,12 +59,12 @@
     font-size: 1rem;
     line-height: 24px;
     line-height: 1.5rem;
-    margin-bottom: 8px;
-    margin-bottom: 0.5rem; }
+    padding-bottom: 8px;
+    padding-bottom: 0.5rem; }
 @media -sass-debug-info{filename{font-family:file\:\/\/\/Applications\/MAMP\/htdocs\/3devis\/sites\/all\/themes\/devis\/sass\/layouts\/regular\/regular\.layout\.scss}line{font-family:\0000378}}
   .l-content div.submitted {
-    margin-bottom: 16px;
-    margin-bottom: 1rem;
+    padding-bottom: 16px;
+    padding-bottom: 1rem;
     font-size: 15.2px;
     font-size: 0.95rem; }
 @media -sass-debug-info{filename{font-family:file\:\/\/\/Applications\/MAMP\/htdocs\/3devis\/sites\/all\/themes\/devis\/sass\/layouts\/regular\/regular\.layout\.scss}line{font-family:\0000383}}
@@ -79,28 +79,29 @@
   margin-right: 2.77778%;
   clear: none; }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Applications\/MAMP\/htdocs\/3devis\/sites\/all\/themes\/devis\/sass\/layouts\/regular\/regular\.layout\.scss}line{font-family:\00003103}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Applications\/MAMP\/htdocs\/3devis\/sites\/all\/themes\/devis\/sass\/layouts\/regular\/regular\.layout\.scss}line{font-family:\00003111}}
 div.tabs ul.tabs--primary, div.tabs ul.tabs--secondary {
   margin: 8px 0px 0px;
   margin: 0.5rem 0rem 0rem;
   background: #fafafa;
-  border-bottom: 1px solid #d9d9d9;
+  border-bottom: 1px solid #a6a6a6;
   -moz-border-radius-topleft: 0.5rem;
   -webkit-border-top-left-radius: 0.5rem;
   border-top-left-radius: 0.5rem;
   -moz-border-radius-topright: 0.5rem;
   -webkit-border-top-right-radius: 0.5rem;
   border-top-right-radius: 0.5rem; }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Applications\/MAMP\/htdocs\/3devis\/sites\/all\/themes\/devis\/sass\/layouts\/regular\/regular\.layout\.scss}line{font-family:\00003109}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Applications\/MAMP\/htdocs\/3devis\/sites\/all\/themes\/devis\/sass\/layouts\/regular\/regular\.layout\.scss}line{font-family:\00003117}}
   div.tabs ul.tabs--primary li, div.tabs ul.tabs--secondary li {
     margin: 0px 2.4px;
     margin: 0rem 0.15rem; }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Applications\/MAMP\/htdocs\/3devis\/sites\/all\/themes\/devis\/sass\/layouts\/regular\/regular\.layout\.scss}line{font-family:\00003113}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Applications\/MAMP\/htdocs\/3devis\/sites\/all\/themes\/devis\/sass\/layouts\/regular\/regular\.layout\.scss}line{font-family:\00003121}}
   div.tabs ul.tabs--primary a, div.tabs ul.tabs--secondary a {
     background: #f7f7f7;
     color: #9a9a9a;
     text-decoration: none;
     border: 1px solid #d9d9d9;
+    border-bottom: 1px solid #a6a6a6;
     -moz-border-radius-topleft: 0.5rem;
     -webkit-border-top-left-radius: 0.5rem;
     border-top-left-radius: 0.5rem;
@@ -115,14 +116,20 @@ div.tabs ul.tabs--primary, div.tabs ul.tabs--secondary {
     -moz-transition: all 0.1s ease-out;
     -o-transition: all 0.1s ease-out;
     transition: all 0.1s ease-out; }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Applications\/MAMP\/htdocs\/3devis\/sites\/all\/themes\/devis\/sass\/layouts\/regular\/regular\.layout\.scss}line{font-family:\00003129}}
-    div.tabs ul.tabs--primary a.active, div.tabs ul.tabs--secondary a.active {
-      color: black;
-      background: white; }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Applications\/MAMP\/htdocs\/3devis\/sites\/all\/themes\/devis\/sass\/layouts\/regular\/regular\.layout\.scss}line{font-family:\00003134}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Applications\/MAMP\/htdocs\/3devis\/sites\/all\/themes\/devis\/sass\/layouts\/regular\/regular\.layout\.scss}line{font-family:\00003138}}
     div.tabs ul.tabs--primary a:hover, div.tabs ul.tabs--primary a:focus, div.tabs ul.tabs--secondary a:hover, div.tabs ul.tabs--secondary a:focus {
       color: white;
       background: #676767; }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Applications\/MAMP\/htdocs\/3devis\/sites\/all\/themes\/devis\/sass\/layouts\/regular\/regular\.layout\.scss}line{font-family:\00003141}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Applications\/MAMP\/htdocs\/3devis\/sites\/all\/themes\/devis\/sass\/layouts\/regular\/regular\.layout\.scss}line{font-family:\00003143}}
+    div.tabs ul.tabs--primary a.active, div.tabs ul.tabs--secondary a.active {
+      color: black;
+      background: white;
+      border: 1px solid #a6a6a6;
+      border-bottom: 1px solid transparent; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Applications\/MAMP\/htdocs\/3devis\/sites\/all\/themes\/devis\/sass\/layouts\/regular\/regular\.layout\.scss}line{font-family:\00003149}}
+      div.tabs ul.tabs--primary a.active:hover, div.tabs ul.tabs--secondary a.active:hover {
+        color: black;
+        background: white; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Applications\/MAMP\/htdocs\/3devis\/sites\/all\/themes\/devis\/sass\/layouts\/regular\/regular\.layout\.scss}line{font-family:\00003157}}
 div.tabs ul.tabs--secondary {
   margin: 0; }

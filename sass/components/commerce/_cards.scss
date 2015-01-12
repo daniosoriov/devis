@@ -29,20 +29,6 @@ select.stripe {
   }
 }
 
-div.addressfield-container-inline {
-  select.commerce-stripe-country {
-    @include rem-fallback(width, 20rem);
-  }
-  
-  input.commerce-stripe-postal-code {
-    @include rem-fallback(width, 7rem);
-  }
-
-  input.commerce-stripe-locality {
-    @include rem-fallback(width, 16rem);
-  }
-}
-
 .view-commerce-card-on-file-user-cards {
   @include rem-fallback(margin-bottom, 1rem);
   tbody {

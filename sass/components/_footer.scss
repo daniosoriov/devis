@@ -24,6 +24,12 @@
       max-width: $max-width;
     }
   }
+  
+  &.maintenance {
+    position: absolute;
+    bottom: 0;
+    height: 100px;
+  }
     
   // menu-block-1 has been added on the panels menu on drupal.
   div[class*=' menu-block'], div[class^='menu-block'], div.panels-ipe-portlet-wrapper {

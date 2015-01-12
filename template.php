@@ -44,6 +44,30 @@ function devis_theme() {
   return $items;
 }
 
+function devis_preprocess(&$variables, $hook) {
+  //dpm($variables, 'variables');
+  //dpm($hook, 'hook');
+  //dpm(array_keys($variables), 'variables KEYS');
+  //dpm($variables['title'], 'title');
+  if ($hook == 'entity') {
+    //dpm($variables, 'variables');
+  }
+  if ($hook == 'panels_pane') {
+    //dpm($variables, 'variables');
+  }
+  
+  // Remove the ugly title added by default on the user page for the profile.
+  if ($hook == 'user_profile_category') {
+    if (isset($variables['element']['#title'])) {// && $variables['element']['#title'] == 'Profil de devis souhaité') {
+      $variables['title'] = '';
+    }
+  }
+  
+  // Add a global variable to jQuery.
+  $devenir = array('url' => url('eform/submit/devenir'));
+  drupal_add_js(array('devenir' => $devenir), 'setting');
+}
+
 function devis_preprocess_user_login(&$variables) {
   $variables['title'] = t('User login');
   $variables['password_url'] = url('user/password');
@@ -58,6 +82,10 @@ function devis_preprocess_user_pass(&$variables) {
 }
 
 function devis_preprocess_user_profile(&$variables) {
+  //$account = user_load(347);
+  //dpm($account, 'account');
+  //dpm(user_pass_reset_url($account) .'/login');
+  
   $variables['user_profile']['field_prenom']['#access'] = FALSE;
   if (isset($variables['user_profile']['field_name'])) {
     $variables['user_profile']['field_name'][0]['#markup'] = 
@@ -89,6 +117,7 @@ function devis_preprocess_entity(&$variables, $hook) {
   $entity_type = $variables['entity_type'];
   $view_mode = $variables['view_mode'];
   
+  // Entityform demander devis.
   if ($entity_type == 'entityform' && $variables['elements']['#entity_type'] == 'entityform' && $variables['elements']['#bundle'] == 'comptable') {
     $entityform = $variables['entityform'];
     $info_list = trois_devis_entity_get_hash_list($entityform->entityform_id);
@@ -103,21 +132,26 @@ function devis_preprocess_entity(&$variables, $hook) {
       }
     }
     
+    if (isset($variables['content']['field_company_name'])) {
+      $variables['content']['field_company_name']['#title'] = t('Société');
+    }
     $variables['content']['field_tva']['#access'] = $variables['elements']['field_tva']['#access'] = TRUE;
     if ($variables['content']['field_legal_status']['#items'][0]['value'] == 'association') {
-      $variables['content']['field_company_name']['#title'] = t('Nom de votre association');
-      $variables['content']['field_tva']['#title'] = t('Numéro de TVA de votre association');
+      $variables['content']['field_company_name']['#title'] = t('Association');
+      //$variables['content']['field_tva']['#title'] = t('Numéro de TVA de votre association');
     }
   }
   
   // Commerce Order view.
   if ($entity_type == 'commerce_order' && $variables['elements']['#entity_type'] == 'commerce_order') {
+    $variables['content']['commerce_order_total']['#title'] = t('Total');
+    $variables['elements']['commerce_order_total']['#title'] = t('Total');
     // If it's not admin, do not show billing cycle.
     if (!$variables['is_admin']) {
       $variables['content']['cl_billing_cycle']['#access'] = FALSE;
     }
     $user_path = 'user/'. $variables['user']->uid;
-    $variables['orders_url'] = l(t('Orders'), $user_path .'/orders');
+    $variables['orders_url'] = l(t('Invoices'), $user_path .'/orders');
     $variables['account_url'] = l(t('My account'), $user_path);
   }
   
@@ -137,9 +171,9 @@ function devis_preprocess_entity(&$variables, $hook) {
   
   if ($entity_type == 'profile2' && $variables['elements']['#entity_type'] == 'profile2') {
     $count = $variables['content']['field_contacted_this_month']['#items'][0]['value'];
-    $variables['content']['field_contacted_this_month'][0]['#markup'] = format_plural($count, '1 time', '@count times');
+    $variables['content']['field_contacted_this_month'][0]['#markup'] = ($count) ? format_plural($count, '1 time', '@count times') : t('0 times');
     $count = $variables['content']['field_contacted_total']['#items'][0]['value'];
-    $variables['content']['field_contacted_total'][0]['#markup'] = format_plural($count, '1 time', '@count times');
+    $variables['content']['field_contacted_total'][0]['#markup'] = ($count) ? format_plural($count, '1 time', '@count times') : t('0 times');
     
     // Change the list of budgets layout for the viewed user.
     if (isset($variables['content']['field_entity_devis_ref']['#items'])) {
@@ -170,30 +204,6 @@ function devis_preprocess_entity(&$variables, $hook) {
   }
 }
 
-function devis_preprocess(&$variables, $hook) {
-  //dpm($variables, 'variables');
-  //dpm($hook, 'hook');
-  //dpm(array_keys($variables), 'variables KEYS');
-  //dpm($variables['title'], 'title');
-  if ($hook == 'views_view') {
-    //dpm($variables, 'variables');
-  }
-  if ($hook == 'panels_pane') {
-    //dpm($variables, 'variables');
-  }
-  
-  // Remove the ugly title added by default on the user page for the profile.
-  if ($hook == 'user_profile_category') {
-    if (isset($variables['element']['#title'])) {// && $variables['element']['#title'] == 'Profil de devis souhaité') {
-      $variables['title'] = '';
-    }
-  }
-  
-  // Add a global variable to jQuery.
-  $devenir = array('url' => url('eform/submit/devenir'));
-  drupal_add_js(array('devenir' => $devenir), 'setting');
-}
-
 /**
  * Implements theme_preprocess_fieldset().
  */
@@ -216,7 +226,7 @@ function devis_preprocess_panels_pane(&$variables) {
   
   // Terms and conditions.
   if (isset($variables['content']['system_main']['legal']) && strcmp($variables['title'], 'Terms and Conditions') === 0) {
-    $variables['title'] = $variables['content']['system_main']['legal']['#title'] = t('Termes et conditions');
+    $variables['title'] = $variables['content']['system_main']['legal']['#title'] = t('Comment ça marche - Combien ça coûte');//t('Termes et conditions');
   }
   
   // Changes for the entityforms.
@@ -247,6 +257,16 @@ function devis_preprocess_panels_pane(&$variables) {
     }
   }
   
+  // Commerce Order.
+  if (isset($variables['content']['system_main']['commerce_order'])) {
+    // Fix some titles.
+    $title = $variables['content']['metatags']['global']['title']['#attached']['metatag_set_preprocess_variable'][0][2];
+    $title = str_replace('Order', t('Invoice'), $title);
+    $variables['content']['metatags']['global']['title']['#attached']['metatag_set_preprocess_variable'][0][2] =
+    $variables['content']['metatags']['global']['title']['#attached']['metatag_set_preprocess_variable'][1][2]['title'] = $title;
+    $variables['title'] = str_replace('Order', t('Invoice'), $variables['title']);
+  }
+  
   if (isset($variables['content']['system_main']['#entity_type'])) {
     $entity_type = $variables['content']['system_main']['#entity_type'];
     switch ($entity_type) {
@@ -262,16 +282,34 @@ function devis_preprocess_panels_pane(&$variables) {
         }
         // User profile edit.
         if (isset($variables['content']['system_main']['#id']) && $variables['content']['system_main']['#id'] == 'user-profile-form') {
-          $variables['content']['system_main']['account']['mail']['#description'] = '';
-          $desc = $variables['content']['system_main']['account']['current_pass']['#description'];
-          $desc = strip_tags(str_replace('<a', '<br /><a', $desc), '<br><a>');
-          $variables['content']['system_main']['account']['current_pass']['#description'] = $desc;
+          $variables['content']['system_main']['account']['mail']['#description'] = 
+            $variables['content']['system_main']['account']['mail']['mail']['#description'] = '';
+          if (isset($variables['content']['system_main']['account']['current_pass'])) {
+            $desc = $variables['content']['system_main']['account']['current_pass']['#description'];
+            $desc = strip_tags(str_replace('<a', '<br /><a', $desc), '<br><a>');
+            $variables['content']['system_main']['account']['current_pass']['#description'] = $desc;
+          }
           
           $lang = $variables['content']['system_main']['field_company_name']['#language'];
           $company_name = $variables['content']['system_main']['field_company_name'][$lang][0]['value']['#default_value'];
         }
-        if ($company_name) {
+        if ($company_name && strpos($variables['title'], $company_name) === false) {
           $variables['title'] = $company_name .' - '. $variables['title'];
+        }
+        // If the admin is viewing his own profile, hide the desired profile.
+        if (isset($variables['content']['system_main']['#account'])) {
+          $account = $variables['content']['system_main']['#account'];
+          $user = $variables['user'];
+          if ($account->uid == $user->uid && in_array('manager', $user->roles)) {
+            $variables['content']['system_main']['profile_budget_profile']['#access'] = FALSE;
+          }
+        }
+      break;
+      
+      case 'commerce_customer_profile':
+        // Add a class to fix the TVA value being in another fieldset.
+        if (isset($variables['content']['system_main']['commerce_customer_address'])) {
+          $variables['content']['system_main']['commerce_customer_address'][LANGUAGE_NONE][0]['#attributes']['class'][] = 'group-address-top';
         }
       break;
       
@@ -298,24 +336,25 @@ function devis_preprocess_panels_pane(&$variables) {
     }
   }
   
-  // Address Book.
-  $path = current_path();
-  $path_alias = drupal_lookup_path('alias', $path);
-  if (isset($variables['content']['system_main']['main']['#markup']) && $path == 'user/'. $variables['user']->uid .'/addressbook/billing') {
-    $variables['title'] = t('Address book');
-  }
-  // Credit cards.
-  if (isset($variables['content']['system_main']['main']['#markup']) && $path == 'user/'. $variables['user']->uid .'/cards') {
-    $variables['title'] = t('Credit cards');
-  }
-  
-  // Change title and remove submitted information on devis_info for providers.
-  if (isset($variables['content']['system_main']['main']) && $variables['title'] == 'Information de votre devis') {
-    $markup = $variables['content']['system_main']['main']['#markup'];
-    $temp = str_replace('class="submitted"', 'class="submitted" style="display:none;"', $markup);
-    $variables['content']['system_main']['main']['#markup'] = $temp;
-    
-    $variables['title'] = t('Information de votre devis');
+  if (isset($variables['user']) && is_object($variables['user']) && isset($variables['content']['system_main']['main'])) {
+    $path = current_path();
+    // Address Book.
+    $uid = $variables['user']->uid;
+    if ($path == 'user/'. $uid .'/addressbook/billing') {
+      $variables['title'] = t('Coordonnées de facturation');
+      $variables['content']['system_main']['main']['#markup'] = str_replace('>edit<', '>'. t('edit') .'<', $variables['content']['system_main']['main']['#markup']);
+      if (isset($variables['content']['system_main']['main']['#markup']) && strpos($variables['content']['system_main']['main']['#markup'], 'addressbook-nodata') !== false) {
+        $variables['content']['system_main']['main']['#markup'] = '<div class="addressbook-nodata">' . t('Votre coordonnées de facturation est actuellement vide.') . '</div>';
+      }
+    }
+    // Credit cards.
+    if ($path == 'user/'. $uid .'/cards') {
+      $variables['title'] = t('Credit cards');
+    }
+    // Orders.
+    if ($path == 'user/'. $uid .'/orders') {
+      $variables['title'] = t('Invoices');
+    }
   }
 }
 
@@ -341,12 +380,19 @@ function devis_preprocess_pane_messages(&$variables) {
 function devis_preprocess_views_view_table(&$variables) {
   switch ($variables['view']->name) {
     case 'commerce_user_orders':
-      foreach ($variables['rows'] as $i => $row) {
-        switch ($row['status']) {
-          case '':
-            $variables['rows'][$i]['status'] = t('Change me');
-            break;
+      // Update header names.
+      foreach ($variables['header'] as $key => $val) {
+        $variables['header'][$key] = t($val);
+      }
+      break;
+    
+    case 'commerce_line_item_table':
+      // Update header names.
+      foreach ($variables['header'] as $key => $val) {
+        if ($val == 'Titre') {
+          $val = 'Product';
         }
+        $variables['header'][$key] = t($val);
       }
       break;
   }
@@ -357,12 +403,16 @@ function devis_preprocess_views_view_table(&$variables) {
  */
 function devis_preprocess_views_view(&$variables) {
   switch ($variables['name']) {
+    case 'commerce_user_orders':
+      $variables['empty'] = t('You have not placed any orders with us yet.');
+      break;
+    
     case 'commerce_addressbook_defaults':
-      $variables['title'] = '<h3 class="title">'. t('Default address') .'</h3>';
+      //$variables['title'] = '<h3 class="title">'. t('Default address') .'</h3>';
       break;
     
     case 'commerce_addressbook':
-      $variables['title'] = '<h3 class="title">'. t('Other addresses') .'</h3>';
+      //$variables['title'] = '<h3 class="title">'. t('Other addresses') .'</h3>';
       break;
   }
 }
@@ -392,7 +442,7 @@ function devis_entity_view_alter(&$build, $type) {
           $children = $build['commerce_line_items'][0]['#markup'];
           $children .= '<div class="space"></div>';
           $children .= $build['commerce_order_total'][0]['#markup'];
-          $children = str_replace(array('Titre', 'Order total'), array(t('Product'), t('Order total')), $children);
+          $children = str_replace('Order total', t('Total'), $children);
           $var = array('element' => array('#children' => $children, '#title' => t('Products')));
           $build['commerce_line_items'][0]['#markup'] = theme_fieldset($var);
           $build['commerce_order_total'][0]['#markup'] = '';
@@ -480,8 +530,22 @@ function devis_form_comptable_entityform_edit_form_alter(&$form, &$form_state, $
   global $user;
   
   if (in_array('provider', $user->roles)) {
-    drupal_set_message(t('Notice: You cannot make a budget request as you are a provider.'), 'warning');
+    drupal_set_message(t('AVIS: Vous êtes fournisseur. Vous ne pouvez pas faire une demande de devis.'), 'warning');
     $form['actions']['submit']['#access'] = FALSE;
+  }
+  
+  if (in_array('manager', $user->roles) && !isset($form_state['build_info']['args'][0]->is_new)) {
+    $entity = $form_state['build_info']['args'][0];
+    $mail = $entity->field_email[$form['field_email']['#language']][0]['email'];
+    $temp = array_keys($entity->field_approval);
+    $lang = array_shift($temp);
+    $approval = $entity->field_approval[$lang][0]['value'];
+    // If the request has been already approved or denied.
+    if ($approval != 'pending') {
+      drupal_set_message(t('Notice: This request can no longer be modified.'), 'warning');
+      $form['actions']['#access'] = FALSE;
+    }
+    $form_state['set_redirect'] = TRUE;
   }
   
   $theme_path = drupal_get_path('theme', variable_get('theme_default', NULL));
@@ -555,6 +619,9 @@ function devis_form_comptable_entityform_edit_form_alter(&$form, &$form_state, $
   // Extra validation rules.
   $form['#validate'][] = 'devis_comptable_entityform_edit_form_validate';
   $form['actions']['submit']['#validate'][] = 'devis_comptable_entityform_edit_form_validate';
+  // Extra submission rules
+  $form['#submit'][] = 'devis_comptable_entityform_edit_form_submit';
+  $form['actions']['save']['#submit'][] = 'devis_comptable_entityform_edit_form_submit';
 }
 
 function devis_comptable_entityform_edit_form_validate($form, &$form_state) {
@@ -642,6 +709,12 @@ function devis_comptable_entityform_edit_form_validate($form, &$form_state) {
   }
 }
 
+function devis_comptable_entityform_edit_form_submit($form, &$form_state) {
+  if (isset($form_state['set_redirect'])) {
+    $form_state['redirect'] = 'adminpage/request/budget';
+  }
+}
+
 function devis_form_comptable_entityform_edit_form_after_build($form, &$form_state) {
   //$form['field_website'][$form['field_website']['#language']][0]['url']['#attributes']['placeholder'] = 'www.siteweb.com';
   
@@ -674,7 +747,7 @@ function devis_form_devenir_entityform_edit_form_alter(&$form, &$form_state, $fo
   global $user;
   
   if (in_array('provider', $user->roles)) {
-    drupal_set_message(t('Notice: You are already a provider.'), 'warning');
+    drupal_set_message(t('AVIS: Vous êtes déjà fournisseur.'), 'warning');
     $form['actions']['submit']['#access'] = FALSE;
   }
   
@@ -715,7 +788,9 @@ function devis_form_devenir_entityform_edit_form_alter(&$form, &$form_state, $fo
   if (in_array('manager', array_values($user->roles)) && !isset($form_state['build_info']['args'][0]->is_new)) {
     $entity = $form_state['build_info']['args'][0];
     $mail = $entity->field_email[$form['field_email']['#language']][0]['email'];
-    $approval = $entity->field_approval[LANGUAGE_NONE][0]['value'];
+    $temp = array_keys($entity->field_approval);
+    $lang = array_shift($temp);
+    $approval = $entity->field_approval[$lang][0]['value'];
     // If the mail of the request is already registered.
     if ($approval == 'pending') {
       $account = user_load_by_mail($mail);
@@ -729,6 +804,7 @@ function devis_form_devenir_entityform_edit_form_alter(&$form, &$form_state, $fo
       drupal_set_message(t('Notice: This request can no longer be modified.'), 'warning');
       $form['actions']['#access'] = FALSE;
     }
+    $form_state['set_redirect'] = TRUE;
   }
 
   // Extra validation rules.
@@ -736,8 +812,8 @@ function devis_form_devenir_entityform_edit_form_alter(&$form, &$form_state, $fo
   $form['actions']['submit']['#validate'][] = 'devis_devenir_entityform_edit_form_validate';
   
   // Extra submission rules.
-  //$form['#submit'][] = 'devis_devenir_entityform_edit_form_submit';
-  //$form['actions']['save']['#submit'][] = 'devis_devenir_entityform_edit_form_submit';
+  $form['#submit'][] = 'devis_devenir_entityform_edit_form_submit';
+  $form['actions']['save']['#submit'][] = 'devis_devenir_entityform_edit_form_submit';
 }
 
 /**
@@ -749,6 +825,12 @@ function devis_devenir_entityform_edit_form_validate($form, &$form_state) {
   if (user_load_by_mail($form_state['values']['field_email'][$lang][0]['email']) && isset($form['#entity']->is_new)) {
     $site_name = variable_get('site_name', '3devis.be');
     form_set_error('field_email]['. $lang .'][0][email', t('The specified email is already registered in !site_name.', array('!site_name' => $site_name)));
+  }
+}
+
+function devis_devenir_entityform_edit_form_submit($form, &$form_state) {
+  if (isset($form_state['set_redirect'])) {
+    $form_state['redirect'] = 'adminpage/request/provider';
   }
 }
 
@@ -916,13 +998,22 @@ function devis_form_user_pass_alter(&$form, &$form_state, $form_id) {
 function devis_form_user_profile_form_alter(&$form, &$form_state, $form_id) {
   global $user;
   
+  // If coming to set the password for the first time or to reset it,
+  // then change some fields in the layout.
+  $path = current_path();
+  if (strpos($_SERVER['QUERY_STRING'], 'pass-reset-token') !== false && $path == 'user/'. $user->uid .'/edit') {
+    $form['account']['current_pass']['#access'] = FALSE;
+    $form['account']['pass']['#description'] = t('Saisissez le nouveau mot de passe dans les deux champs de texte.');
+    
+    // If using the first login, remove the delete account button.
+    if (!profile2_load_by_user($user)) {
+      $form['actions']['cancel']['#access'] = FALSE;
+    }
+  }
+  
   $form['account']['#type'] = 'fieldset';
   $form['account']['#title'] = t('Settings');
   $form['legal']['#access'] = FALSE;
-  $form['account']['legal_info'] = array(
-    '#markup' => '<p>'. t('<a href="@terms">Termes et conditions</a>', array('@terms' => url('legal'))) .'</p>',
-    '#weight' => 9999,
-  );
   
   // Nicer select field.
   $theme_path = drupal_get_path('theme', variable_get('theme_default', NULL));
@@ -1032,7 +1123,21 @@ function devis_user_profile_form_validate($form, &$form_state) {
 }
 
 function devis_user_profile_form_submit($form, &$form_state) {
-  $form_state['redirect'] = 'user/'. $form_state['user']->uid;
+  $user = $form_state['user'];
+  $form_state['redirect'] = 'user/'. $user->uid;
+  
+  // Send the user to the first step.
+  $profile = profile2_load_by_user($user);
+  if (!$profile) {
+    $form_state['redirect'] = 'user/'. $user->uid .'/edit-profile';
+  }
+  
+  // Send the user to the second step.
+  $billing_set = trois_devis_user_has_address_set($user->uid, 'billing');
+  if ($profile && !$billing_set) {
+    $billing_id = commerce_addressbook_get_default_profile_id($user->uid, 'billing');
+    $form_state['redirect'] = 'user/'. $user->uid .'/addressbook/billing/edit/'. $billing_id;
+  }
 }
 
 function devis_form_user_profile_form_after_build($form, &$form_state) {
@@ -1045,6 +1150,16 @@ function devis_form_user_profile_form_after_build($form, &$form_state) {
  */
 function devis_form_commerce_stripe_cardonfile_create_form_alter(&$form, &$form_state, $form_id) {
   global $user;
+  
+  $orders = commerce_order_load_multiple(array(), array('uid' => $user->uid, 'status' => 'checkout_checkout'));
+  $stored_cards = commerce_cardonfile_load_multiple_by_uid($user->uid);
+  if ($orders || !$stored_cards) {
+    $form['credit_card']['cardonfile_instance_default']['#default_value'] = 1;
+    $form['credit_card']['cardonfile_instance_default']['#access'] = FALSE;
+  }
+  if ($orders) {
+    drupal_set_message(t(variable_get('trois_devis_third_step_message')), 'warning');
+  }
   
   drupal_set_title(t('Add credit card'));
   $theme_path = drupal_get_path('theme', variable_get('theme_default', NULL));
@@ -1161,7 +1276,9 @@ function devis_form_legal_login_alter(&$form, &$form_state, $form_id) {
   ->execute();
   if (!empty($entities['node'])) {
     $node = node_load($nid);
-    $terms = $node->body[LANGUAGE_NONE][0]['value'];
+    $temp = array_keys($node->body);
+    $lang = array_shift($temp);
+    $terms = $node->body[$lang][0]['value'];
     $form['legal']['info'] = array(
       '#markup' => $terms,
       '#weight' => -10,
@@ -1183,31 +1300,125 @@ function devis_form_legal_login_submit($form, &$form_state) {
  * Implements hook_form_BASE_FORM_ID_alter().
  */
 function devis_form_commerce_addressbook_customer_profile_form_alter(&$form, &$form_state, $form_id) {
-  $temp = array_keys($form_state['customer_profile']->commerce_customer_address);
-  $lang = array_shift($temp);
-  $postal_code = $form_state['customer_profile']->commerce_customer_address[$lang][0]['postal_code'];
-  $profiles = commerce_customer_profile_load_multiple(array(), array('uid' => $form['#entity']->uid));
-  if (count($profiles) == 1 && !isset($customer_profile->is_new) && !$postal_code) {
+  global $user;
+  
+  $billing_set = trois_devis_user_has_address_set($user->uid, 'billing');
+  if (!$billing_set) {
+    drupal_set_message(t(variable_get('trois_devis_second_step_message')), 'warning');
     $form_state['first_time'] = TRUE;
+    $form_state['user'] = $user;
   }
   
-  $customer_profile = $form_state['customer_profile'];
-  //$title = (isset($customer_profile->is_new)) ? 'Add address' : "Modifier l'adresse";
-  $title = 'Billing address';
-  drupal_set_title(t($title));
-  
+  drupal_set_title(t('Coordonnées de facturation'));
   $lang = $form['commerce_customer_address']['#language'];
   $form['commerce_customer_address'][$lang][0]['street_block']['thoroughfare']['#title'] = t('Address');
   $form['commerce_customer_address'][$lang][0]['street_block']['premise']['#attributes']['style'] = 'display: none;';
   $form['commerce_customer_address'][$lang][0]['street_block']['premise']['#title_display'] = 'invisible';
+  
+  //$form['field_tva']['#weight'] = 999;
+  //$form['commerce_customer_address']['#type'] = 'fieldset';
+  //$form['commerce_customer_address'][$lang][0]['field_tva'] = $form['field_tva'];
+  //$form['field_tva']['#access'] = FALSE;
+  
+  // If the country is only one, then show the label of it.
+  $country = $form['commerce_customer_address'][$lang][0]['country'];
+  if (!$country['#access'] && count($country['#options']) === 1) {
+    $temp = array_keys($country['#options']);
+    $option = array_shift($temp);
+    $form['commerce_customer_address'][$lang][0]['country_info'] = array(
+      '#type' => 'item',
+      '#title' => $country['#title'],
+      '#markup' => $country['#options'][$option],
+      '#weight' => 999,
+    );
+  }
+  else {
+    $theme_path = drupal_get_path('theme', variable_get('theme_default', NULL));
+    $form['#attached']['js'][] = $theme_path .'/js/easydropdown/jquery.easydropdown.min.js';
+    $form['#attached']['css'][] = $theme_path .'/css/easydropdown.css';
+    $form['commerce_customer_address'][$lang][0]['country']['#weight'] = 999;
+    $form['commerce_customer_address'][$lang][0]['country']['#attributes']['class'][] = 'dropdown';
+  }
   
   $form['actions']['submit']['#value'] = t('Save');
   $form['#submit'][] = 'devis_form_commerce_addressbook_customer_profile_form_submit';
 }
 
 function devis_form_commerce_addressbook_customer_profile_form_submit($form, &$form_state) {
-  if ($form_state['first_time']) {
-    $form_state['redirect'] = 'user';
+  if (isset($form_state['first_time'])) {
+    $form_state['redirect'] = 'user/'. $form_state['user']->uid .'/cards/add';
+  }
+}
+
+function devis_menu_local_tasks_alter(&$data, $router_item, $root_path) {
+  global $user;
+  
+  $remove_tabs = FALSE;
+  if (in_array('provider', $user->roles)) {
+    // If coming to set the password for the first time,
+    // then change some fields in the layout.
+    $path = current_path();
+    $profile = profile2_load_by_user($user);
+    if (strpos($_SERVER['QUERY_STRING'], 'pass-reset-token') !== false && $path == 'user/'. $user->uid .'/edit' && !$profile) {
+      $remove_tabs = TRUE;
+    }
+    // Second step, remove tabs.
+    if (!$profile && $path == 'user/'. $user->uid .'/edit-profile') {
+      $remove_tabs = TRUE;
+    }
+  }
+  
+  // Changing Address Book title.
+  if (isset($data['tabs'][0]['output'])) {
+    foreach ($data['tabs'][0]['output'] as $key => $info) {
+      if ($info['#link']['title'] == 'Address Book') {
+        $data['tabs'][0]['output'][$key]['#link']['title'] = t('Coordonnées de facturation');
+      }
+    }
+  }
+  if ($remove_tabs) {
+    $data['tabs'][0]['count'] = 0;
+  }
+}
+
+function devis_page_alter(&$page) {
+  global $user;
+  $path = current_path();
+  $args = arg();
+  // If admin viewing user pages, set a message to make him understand.
+  if (in_array('manager', $user->roles) && isset($args[0]) && $args[0] == 'user' && isset($args[1]) && $args[1] != $user->uid) {
+    drupal_set_message(t('Viewing as admin'), 'admin');
+  }
+  if (in_array('provider', $user->roles)) {
+    $billing_id = commerce_addressbook_get_default_profile_id($user->uid, 'billing');
+    $link = 'user/'. $user->uid .'/addressbook/billing/delete/'. $billing_id;
+    if (isset($args[5]) && $args[5] == $billing_id && $path == $link) {
+      watchdog('devis', t('Malicious user trying to delete address. User has been redirected.'), array(), WATCHDOG_ALERT, $link);
+      drupal_goto('user/'. $user->uid .'/addressbook/billing/edit/'. $billing_id);
+    }
+  }
+  
+  // Delete message after setting password which gives the user the same message again.
+  // Set the first step message on the account edit.
+  if (strpos($_SERVER['QUERY_STRING'], 'pass-reset-token') === false) {
+    // First stage message.
+    if (in_array('provider', $user->roles)) {
+      if ($path == 'user/'. $user->uid .'/edit-profile' || $path == 'user/'. $user->uid) {
+        $messages = drupal_get_messages('status');
+        if (isset($messages['status'])) {
+          foreach ($messages['status'] as $msg) {
+            if (strpos($msg, "Vous venez d'utiliser votre lien de connexion unique.") === false) {
+              drupal_set_message($msg, 'status');
+            }
+          }
+        }
+      }
+      
+      $profile = profile2_load_by_user($user);
+      if (!$profile && $path == 'user/'. $user->uid .'/edit-profile') {
+        drupal_set_message(t(variable_get('trois_devis_first_step_message')), 'warning');
+      }
+    }
   }
 }
 
@@ -1241,8 +1452,14 @@ function devis_legal_accept_label($variables) {
  * Implements theme_legal_login().
  */
 function devis_legal_login($variables) {
+  $user = user_load($variables['form']['uid']['#value']);
+  $temp = array_keys($user->field_honorific);
+  $lang = array_shift($temp);
+  $honorific = $user->field_honorific[$lang][0]['value'];
+  $welcome = ($honorific == 'female') ? 'Bienvenue' : 'Bienvenu'; // Bienvenu/e
+  
   $form = $variables['form'];
-  $form['legal']['#title'] = t('Termes et conditions');
+  $form['legal']['#title'] = t('@welcome à 3devis.be', array('@welcome' => $welcome)); //t('Termes et conditions');
   $form = theme('legal_display', array('form' => $form));
 
   $output = '<p>' . t('Pour continuer à utiliser ce site s\'il vous plaît lire les Terms et conditions ci-dessous et confirmer votre acceptation.') . '</p>';

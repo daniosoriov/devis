@@ -80,12 +80,17 @@ table#footer {
   width: 500px;
 }
 
+td#footer-logo {
+  text-align: left;
+}
+
 td#footer-team {
   text-align: right;
   font-size: 12px;
   font-family: Helvetica, sans-serif;
   padding-bottom: 10px;
   color: #777;
+  vertical-align: top;
 }
 
 td#footer-team a {

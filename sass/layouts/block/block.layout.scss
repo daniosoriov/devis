@@ -30,10 +30,10 @@
       @include rem-fallback(min-height, 20rem);
     }
     @include breakpoint($tab) {
-      @include rem-fallback(min-height, 29rem);
+      @include rem-fallback(min-height, 32rem);
     }
     @include breakpoint($desktop) {
-      @include rem-fallback(min-height, 34rem);
+      @include rem-fallback(min-height, 37rem);
     }
   }
   
@@ -45,14 +45,14 @@
       @include rem-fallback(min-height, 20rem);
     }
     @include breakpoint($desktop) {
-      @include rem-fallback(min-height, 25rem);
+      @include rem-fallback(min-height, 27rem);
     }
   }
   
   h3.title {
     margin: 0 auto;
     @include rem-fallback(font-size, 1.25rem);
-    @include rem-fallback(margin-bottom, .3rem);
+    @include rem-fallback(padding-bottom, .3rem);
     font-weight: 200;
     text-transform: uppercase;
 
@@ -60,11 +60,11 @@
       @include rem-fallback(font-size, 1.55rem);
     }
     @include breakpoint($tab) {
-      @include rem-fallback(margin-bottom, 1rem);
+      @include rem-fallback(padding-bottom, 1rem);
       @include rem-fallback(font-size, 1.75rem);
     }
     @include breakpoint($desktop) {
-      @include rem-fallback(margin-bottom, 1.2rem);
+      @include rem-fallback(padding-bottom, 1.2rem);
       @include rem-fallback(font-size, 2.1rem);
     }
   }
@@ -74,21 +74,22 @@
     margin: 0 auto;
     @include rem-fallback(font-size, 1rem);
     font-weight: 200;
-    @include rem-fallback(margin-bottom, .15rem);
+    @include rem-fallback(padding-bottom, .15rem);
     @include rem-fallback(line-height, 1.7rem);
 
     @include breakpoint($mobile) {
       width: auto;
-      line-height: inherit;
-      @include rem-fallback(font-size, 1.15rem);
-      @include rem-fallback(margin-bottom, 1rem);
+      @include rem-fallback(line-height, 1.65rem);
+      @include rem-fallback(font-size, 1.05rem);
+      @include rem-fallback(padding-bottom, 1rem);
     }
     @include breakpoint($tab) {
-      @include rem-fallback(font-size, 1.25rem);
+      @include rem-fallback(font-size, 1.15rem);
     }
     @include breakpoint($desktop) {
-      @include rem-fallback(margin-bottom, .75rem);
-      @include rem-fallback(font-size, 1.35rem);
+      @include rem-fallback(line-height, 1.9rem);
+      @include rem-fallback(padding-bottom, .75rem);
+      @include rem-fallback(font-size, 1.25rem);
     }
     
     a {
@@ -118,9 +119,10 @@
         @include rem-fallback(padding-top, 11rem);
       }
       @include breakpoint($desktop) {
-        width: $desktop - 10;
+        width: $desktop - 5;
       }
       text-align: center;
+      
     }
     
     h1.title {
@@ -131,7 +133,7 @@
       @include breakpoint($mobile) {
         @include font-family('Raleway');
         @include rem-fallback(font-size, 2rem);
-        @include rem-fallback(margin-bottom, 1.5rem);
+        @include rem-fallback(padding-bottom, 1.5rem);
       }
       @include breakpoint($tab) {
         @include rem-fallback(line-height, 3.5rem);
@@ -163,7 +165,7 @@
   
   .inner-1, .inner-2, .inner-3 {
     text-align: center;
-    @include rem-fallback(padding-bottom, 2rem);
+    @include rem-fallback(padding-bottom, 3rem);
   }
   
   .boxes {
@@ -179,25 +181,29 @@
       margin: 0 auto;
       float: none;
       max-width: $max-width;
+      
+      h4.subtitle {
+        //text-align: justify;
+      }
     }
   }
   
   @include breakpoint($desktop) {
     .inner-1 {
-      @include grid-span(4, 1);
+      @include grid-span(4, 1, false, 2.5rem);
     }
     .inner-2 {
-      @include grid-span(4, 5);
+      @include grid-span(4, 5, false, 2.5rem);
     }
     .inner-3 {
-      @include grid-span(4, 9);
+      @include grid-span(4, 9, false, 2.5rem);
     }
   }
   
   section.second {
     &.devenir {
       @include breakpoint($desktop) {
-        @include rem-fallback(min-height, 31rem);
+        @include rem-fallback(min-height, 34rem);
       }
     }
     article.text-box {
@@ -233,7 +239,7 @@
   .about-small {
     text-align: center;
     margin: 0 gutter-span();
-    @include rem-fallback(padding, 2.25rem, 0, 1.5rem);
+    @include rem-fallback(padding, 1.25rem, 0, 1.5rem);
     @include breakpoint($mobile) {
       margin: 0 gutter-span();
     }
@@ -242,31 +248,26 @@
     }
     p {
       text-align: center;
-      @include rem-fallback(font-size, .75rem);
+      @include rem-fallback(font-size, .8rem);
       @include rem-fallback(margin-bottom, .5rem);
       
       @include breakpoint($tab) {
+        @include rem-fallback(font-size, 1rem);
         @include rem-fallback(margin-bottom, .3rem);
       }
     }
   }
   
-  
-  /* Fixing the forms for devenir and comptable */
-  /*fieldset.devenir-comptable, fieldset.demander-devis, div#edit-field-adresse, div#edit-actions, div#messages-box {
-    margin-left: auto;
-    margin-right: auto;
-    max-width: $max-width;
+  .general-small {
+    @extend .about-small;
+    padding-top: 0;
+    @include breakpoint($mobile) {
+      @include rem-fallback(padding-bottom, 2.5rem);
+    }
   }
   
-  div#edit-actions {
-    @include rem-fallback(padding-left, .5rem);
-    @include breakpoint($tab) {
-      @include rem-fallback(padding-left, .65rem);
-    }
-  }*/
-  
-  fieldset.devenir-comptable, fieldset.demander-devis, div#edit-field-adresse, div#edit-actions, div#messages-box {
+  fieldset.devenir-comptable, fieldset.demander-devis, fieldset.group-admin, 
+  div#edit-field-adresse, div#edit-actions, div#messages-box {
     @include grid-span(3, 1);
   
     @include breakpoint($mobile) {

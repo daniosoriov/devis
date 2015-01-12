@@ -1,12 +1,43 @@
 // LOGIN THEME HELP URL: https://www.drupal.org/node/1949472
 
+// This is for the maintenance page.
+.l-main-block.maintenance {
+  @include rem-fallback(padding, 7rem, 0, 3.5rem);
+  @include breakpoint($tab) {
+    @include rem-fallback(padding, 12rem, 0, 6rem);
+  }
+  .l-content-block {
+    text-align: center;
+  }
+  
+  h1.title {
+    color: $color-font-title;
+    @include rem-fallback(font-size, 1.75rem);
+    font-weight: 400;
+
+    @include breakpoint($mobile) {
+      @include font-family('Raleway');
+      @include rem-fallback(font-size, 2rem);
+    }
+    @include breakpoint($tab) {
+      @include rem-fallback(line-height, 3.5rem);
+      @include rem-fallback(font-size, 2.52rem);
+    }
+    @include breakpoint($desktop) {
+      @include rem-fallback(font-size, 3.07rem);
+      @include rem-fallback(line-height, 4.5rem);
+    }
+  }
+}
+
 /* Fixing input widths here as in _form.scss is not working */
 input[type="text"],
 input[type="password"],
 input[type="email"],
 select {
-  @include grid-span(3, 1, false, 0); //3 of 3
-  float: none;
+  //@include grid-span(3, 1, false, 0); //3 of 3
+  //float: none;
+  width: 100%;
   
   @include breakpoint($mobile) {
     @include grid-span(4, 1, false, 0); //4 of 6
@@ -17,14 +48,55 @@ select {
     float: none;
   }
   @include breakpoint($desktop) {
-    @include grid-span(5, 1, false, 0); // 5 of 12
+    @include grid-span(6, 1, false, 0); // 6 of 12
     float: none;
   }
 }
 
+.views-exposed-form {
+  .views-exposed-widget {
+    input, select {
+      width: auto;
+      margin-left: 0;
+      margin-right: 0;
+      float: none;
+    }
+    .form-submit {
+      @include rem-fallback(margin-top, .5rem);
+    }
+  }
+}
+
+div.addressfield-container-inline {
+  select.commerce-stripe-country {
+    @include rem-fallback(width, 20rem);
+  }
+  
+  input.commerce-stripe-postal-code {
+    width: 100%;
+    margin-left: 0;
+    margin-right: 0;
+    @include breakpoint($desktop) {
+      @include rem-fallback(width, 7rem);
+    }
+  }
+
+  input.commerce-stripe-locality {
+    width: 100%;
+    margin-left: 0;
+    margin-right: 0;
+    
+    @include breakpoint($desktop) {
+      @include rem-fallback(width, 16rem);
+    }
+  }
+}
+
+
 textarea, .form-textarea-wrapper textarea {
-  @include grid-span(3, 1, false, 0);
-  float: none;
+  //@include grid-span(3, 1, false, 0);
+  //float: none;
+  width: 100%;
   
   @include breakpoint($mobile) {
     @include grid-span(5, 1, false, 0); // 5 of 6
@@ -43,6 +115,14 @@ textarea, .form-textarea-wrapper textarea {
 address {
   font-style: normal;
   @include rem-fallback(margin-bottom, .5rem);
+  .addressfield-container-inline, .street-block, .country {
+    font-style: normal;
+    @include rem-fallback(margin-bottom, .5rem);
+  }
+}
+
+.addressbook-nodata {
+  @include rem-fallback(margin-bottom, 1rem);
 }
 
 div#commerce-addressbook-billing-default, div#commerce-addressbook-billing-list {
@@ -63,6 +143,10 @@ div#commerce-addressbook-billing-default, div#commerce-addressbook-billing-list 
       @include grid-span(6, 1, false, 0); // 6 of 12
       float: none;
     }
+  }
+  .views-field {
+    font-style: normal;
+    @include rem-fallback(margin-bottom, .5rem);
   }
 }
 

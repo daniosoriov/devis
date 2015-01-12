@@ -26,10 +26,22 @@ header.l-header-content {
     @include rem-fallback(padding, 0, 1rem);
     max-width: $max-width;
   }
+  
+  &.maintenance {
+    height: 67px;
+    img {
+      position: relative;
+      top: 16px;
+    }
+  }
 }
 
 .l-region--header {
   display: inline-block;
+  @include rem-fallback(margin, 1.5rem, 0);
+  @include breakpoint($tab) {
+    @include rem-fallback(margin, .9rem);
+  }
 }
 
 /*.navSticky {

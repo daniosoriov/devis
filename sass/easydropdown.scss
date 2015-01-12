@@ -45,7 +45,6 @@
 
 .dropdown {
   position: relative;
-  width: 50%;
   border: 1px solid $color-input-border;
   cursor: pointer;
   background: $color-input-background;
@@ -72,8 +71,7 @@
     @include single-box-shadow(null, null, null, null, $color-input-active-shadow);
   }
   
-  @include grid-span(3, 1);
-  float: none;
+  width: 100%;
   
   @include breakpoint($mobile) {
     @include font-family('Source Sans Pro');
@@ -86,7 +84,7 @@
     float: none;
   }
   @include breakpoint($desktop) {
-    @include grid-span(5, 1, false, 0); // 5 of 12
+    @include grid-span(6, 1, false, 0); // 5 of 12
     float: none;
   }
 }

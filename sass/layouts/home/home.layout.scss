@@ -31,10 +31,10 @@
       @include rem-fallback(min-height, 20rem);
     }
     @include breakpoint($tab) {
-      @include rem-fallback(min-height, 29rem);
+      @include rem-fallback(min-height, 32rem);
     }
     @include breakpoint($desktop) {
-      @include rem-fallback(min-height, 34rem);
+      @include rem-fallback(min-height, 37rem);
     }
   }
   
@@ -46,7 +46,7 @@
       @include rem-fallback(min-height, 20rem);
     }
     @include breakpoint($desktop) {
-      @include rem-fallback(min-height, 25rem);
+      @include rem-fallback(min-height, 27rem);
     }
   }
   
@@ -113,7 +113,7 @@
   h3.title {
     margin: 0 auto;
     @include rem-fallback(font-size, 1.25rem);
-    @include rem-fallback(margin-bottom, .3rem);
+    @include rem-fallback(padding-bottom, .3rem);
     font-weight: 200;
     text-transform: uppercase;
 
@@ -121,11 +121,11 @@
       @include rem-fallback(font-size, 1.55rem);
     }
     @include breakpoint($tab) {
-      @include rem-fallback(margin-bottom, 1rem);
+      @include rem-fallback(padding-bottom, 1rem);
       @include rem-fallback(font-size, 1.75rem);
     }
     @include breakpoint($desktop) {
-      @include rem-fallback(margin-bottom, 1.2rem);
+      @include rem-fallback(padding-bottom, 1.2rem);
       @include rem-fallback(font-size, 2.1rem);
     }
   }
@@ -135,25 +135,27 @@
     margin: 0 auto;
     @include rem-fallback(font-size, 1rem);
     font-weight: 200;
-    @include rem-fallback(margin-bottom, .15rem);
+    @include rem-fallback(padding-bottom, .15rem);
     @include rem-fallback(line-height, 1.7rem);
 
     @include breakpoint($mobile) {
-      line-height: inherit;
+      @include rem-fallback(line-height, 1.65rem);
       width: 360px;
-      @include rem-fallback(font-size, 1.15rem);
+      @include rem-fallback(font-size, 1.05rem);
     }
     @include breakpoint($tab) {
       width: auto;
-      @include rem-fallback(margin-bottom, .5rem);
-      @include rem-fallback(font-size, 1.25rem);
+      @include rem-fallback(padding-bottom, .5rem);
+      @include rem-fallback(font-size, 1.15rem);
     }
     @include breakpoint($desktop) {
-      @include rem-fallback(margin-bottom, .75rem);
-      @include rem-fallback(font-size, 1.35rem);
+      @include rem-fallback(line-height, 1.9rem);
+      @include rem-fallback(padding-bottom, .75rem);
+      @include rem-fallback(font-size, 1.25rem);
     }
     
     a {
+      color: $color-font-a-home;
       font-size: inherit;
     }
   }

@@ -141,33 +141,21 @@
       
     }
   };
-  
-  Drupal.behaviors.devisTranslate = {
+    
+  Drupal.behaviors.devisBecomeProviderBox = {
     attach: function (context, settings) {
-      // Cards.
-      Drupal.theme('devisReplaceText', $('h2'), 'ending in', 'terminant en');
-      Drupal.theme('devisReplaceText', $('td[class="views-field views-field-label"]'), 'ending in', 'terminant en');
-      Drupal.theme('devisReplaceText', $('em[class="placeholder"]'), 'Your card was declined.', 'Votre carte a été refusée');  
-      Drupal.theme('devisReplaceText', $('h2[class="pane-title"]'), 'Order', 'Commande');  
-      Drupal.theme('devisReplaceText', $('h2[class="pane-title"]'), 'Orders', 'Commandes');  
-      Drupal.theme('devisReplaceText', $('h3[class="field-label"]'), 'Courriel', 'E-mail');  
+      //console.log(settings);
+      var $anchor = Drupal.theme('devisSpecialBoxContent', settings.devenir.url);
+      $('.navSpecial', context).once('foo', function() {
+        $anchor.appendTo($(this).parent());
+      });
+
+      $(window).resize(function() {
+        Drupal.theme('devisSpecialBoxMeasureWidth', $('.navSpecial'), $anchor);
+      });
+      Drupal.theme('devisSpecialBoxMeasureWidth', $('.navSpecial'), $anchor);
     }
   };
-    
-    Drupal.behaviors.devisBecomeProviderBox = {
-      attach: function (context, settings) {
-        //console.log(settings);
-        var $anchor = Drupal.theme('devisSpecialBoxContent', settings.devenir.url);
-        $('.navSpecial', context).once('foo', function() {
-          $anchor.appendTo($(this).parent());
-        });
-
-        $(window).resize(function() {
-          Drupal.theme('devisSpecialBoxMeasureWidth', $('.navSpecial'), $anchor);
-        });
-        Drupal.theme('devisSpecialBoxMeasureWidth', $('.navSpecial'), $anchor);
-      }
-    };
     
     /*Drupal.behaviors.devisStickyNav = {
       attach: function (context, settings) {

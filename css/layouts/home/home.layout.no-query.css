@@ -61,7 +61,7 @@
     padding-top: 5rem; }
 @media -sass-debug-info{filename{font-family:file\:\/\/\/Applications\/MAMP\/htdocs\/3devis\/sites\/all\/themes\/devis\/sass\/layouts\/home\/home\.layout\.scss}line{font-family:\0000381}}
   .l-content-home section.first h1.pane-title {
-    color: #ffb500;
+    color: #eda800;
     font-size: 28px;
     font-size: 1.75rem;
     font-weight: 400; }
@@ -75,8 +75,8 @@
   margin: 0 auto;
   font-size: 20px;
   font-size: 1.25rem;
-  margin-bottom: 4.8px;
-  margin-bottom: 0.3rem;
+  padding-bottom: 4.8px;
+  padding-bottom: 0.3rem;
   font-weight: 200;
   text-transform: uppercase; }
 @media -sass-debug-info{filename{font-family:file\:\/\/\/Applications\/MAMP\/htdocs\/3devis\/sites\/all\/themes\/devis\/sass\/layouts\/home\/home\.layout\.scss}line{font-family:\00003133}}
@@ -86,20 +86,21 @@
   font-size: 16px;
   font-size: 1rem;
   font-weight: 200;
-  margin-bottom: 2.4px;
-  margin-bottom: 0.15rem;
+  padding-bottom: 2.4px;
+  padding-bottom: 0.15rem;
   line-height: 27.2px;
   line-height: 1.7rem; }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Applications\/MAMP\/htdocs\/3devis\/sites\/all\/themes\/devis\/sass\/layouts\/home\/home\.layout\.scss}line{font-family:\00003156}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Applications\/MAMP\/htdocs\/3devis\/sites\/all\/themes\/devis\/sass\/layouts\/home\/home\.layout\.scss}line{font-family:\00003157}}
   .l-content-home h4.subtitle a {
+    color: #e6a300;
     font-size: inherit; }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Applications\/MAMP\/htdocs\/3devis\/sites\/all\/themes\/devis\/sass\/layouts\/home\/home\.layout\.scss}line{font-family:\00003161}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Applications\/MAMP\/htdocs\/3devis\/sites\/all\/themes\/devis\/sass\/layouts\/home\/home\.layout\.scss}line{font-family:\00003163}}
 .l-content-home section.third {
   background-image: url(http://cdn.lollum.com/nantes/corporate/wp-content/uploads/2014/10/bg_buy_section.jpg);
   background-color: #435b54;
   background-size: cover;
   background-attachment: fixed;
   background-repeat: repeat; }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Applications\/MAMP\/htdocs\/3devis\/sites\/all\/themes\/devis\/sass\/layouts\/home\/home\.layout\.scss}line{font-family:\00003169}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Applications\/MAMP\/htdocs\/3devis\/sites\/all\/themes\/devis\/sass\/layouts\/home\/home\.layout\.scss}line{font-family:\00003171}}
   .l-content-home section.third h3.title, .l-content-home section.third h4.subtitle {
     color: #f2f2f2; }

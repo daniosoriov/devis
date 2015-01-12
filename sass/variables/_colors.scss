@@ -55,11 +55,13 @@ $color-navigation-border-mobile-hover: darken($base-color, 7.5);//darken(white, 
 
 /* Tabs. */
 $color-tab-ul-background: darken(white, 2);
-$color-tab-ul-border: $default-color-border;
+$color-tab-ul-border: lighten(gray, 15);
 $color-tab-a-background: darken(white, 3);
 $color-tab-a-border: $default-color-border;
+$color-tab-a-border-bottom: $color-tab-ul-border;
 $color-tab-a: lighten(gray, 10);
 $color-tab-a-active: black;
+$color-tab-a-active-border: $color-tab-ul-border;
 $color-tab-a-active-background: white;
 $color-tab-a-hover: white; //lighten($base-color, 15);
 $color-tab-a-hover-background: darken(gray, 10);
@@ -185,6 +187,10 @@ $color-messages-red: $color-messages;
 $color-messages-red-background: lighten($red, 58);
 $color-messages-red-border: lighten($red, 7.5);
 
+$color-messages-admin: darken(gray, 15);
+$color-messages-admin-background: lighten($secondary-color, 53);
+$color-messages-admin-border: lighten($secondary-color, 10);
+
 $color-messages-a: darken($secondary-color, 5);
 $color-messages-a-hover: $secondary-color;
 
@@ -221,11 +227,11 @@ $color-footer-a-active: darken(white, 5); //lighten($default-color-blue, 10);
 /* Content. */
 $color-title-budget: $default-color-blue;
 
-$color-font-title: $base-color;
-$color-a: $base-color;//lighten($default-color-blue, 25);
-$color-font-a: darken($base-color, 3.5);//darken($color-a, 10);
-$color-font-a-hover: $color-a;
+$color-font-title: darken($base-color, 3.5);
+$color-font-a: lighten($default-color-blue, 27.5); //darken($base-color, 7);
+$color-font-a-hover: lighten($color-font-a, 5.5);
 $color-font-a-active: $color-font-a-hover;
+$color-font-a-home: darken($base-color, 5);
 
 $color-password-indicator-background: darken(white, 15);
 $color-password-indicator-background-green: fade-out(darken(lightgreen, 20), .4);
@@ -247,7 +253,7 @@ $color-border-div: darken(white, 5);
 // Font
 $color-font: darken(gray, 35);
 $color-font-h: lighten(black, 15);
-$color-font-h2: $base-color;//lighten(black, 15);
+$color-font-h2: darken($base-color, 3.5);//lighten(black, 15);
 $color-font-content-h3-field: lighten(black, 35);
 
 /* Misc */

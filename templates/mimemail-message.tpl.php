@@ -48,11 +48,6 @@
                   <tbody>
                     <tr>
                       <td id="head">
-                        <div>
-                          <a href="http://3devis.be">
-                            <img alt="3devis | Trouvez des comptables et fiscalistes qualifiés" src="https://3devis.be/sites/default/files/comptable-fiscaliste-bruxelles.png" height="101" width="250">
-                          </a>
-                        </div>
                       </td>
                     </tr>
                   </tbody>
@@ -87,8 +82,16 @@
                 <table id="footer">
                   <tbody>
                     <tr>
+                      <td id="footer-logo">
+                        <div>
+                          <a href="http://3devis.be">
+                            <img alt="3devis | Trouvez des comptables et fiscalistes qualifiés" src="https://3devis.be/sites/default/files/comptable-fiscaliste-bruxelles-mail.png" height="35" width="99">
+                          </a>
+                        </div>
+                      </td>
+                      <td></td>
                       <td id="footer-team">
-                        L&#39;&eacute;quipe de <a href="http://3devis.be">3devis.be</a>
+                        <a href="http://3devis.be">3devis.be</a>
                       </td>
                     </tr>
                   </tbody>

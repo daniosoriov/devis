@@ -12,12 +12,12 @@ stylesheets[all][] = css/devis.styles.css
 stylesheets[all][] = css/devis.no-query.css
 
 ; Layout Styles
-layout[sidebar][stylesheets][all][] = css/layouts/sidebar/level-sidebar.layout.css
+layout[block][stylesheets][all][] = css/layouts/block/level-block.layout.css
 layout[home][stylesheets][all][] = css/layouts/home/level-home.layout.css
+layout[regular][stylesheets][all][] = css/layouts/regular/level-regular.layout.css
 
 ; Scripts
 scripts[] = js/devis.behaviors.js
-; scripts[] = js/easydropdown/jquery.easydropdown.min.js
 
 ; Regions
 regions[header] = Header

@@ -40,9 +40,9 @@
 
 ?>
 
-<div class="invoice-invoiced">
+<div class="invoice-invoiced remove-br">
   <div class="header">
-    <img src="<?php print $content['invoice_logo']['#value']; ?>"/>
+    <img src="<?php print $content['invoice_logo']['#value']; ?>" height="35" width="99"/>
     <div class="invoice-header">
         <p><?php print render($content['invoice_header']); ?></p>
     </div>

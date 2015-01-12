@@ -2,6 +2,25 @@
   @include rem-fallback(margin-bottom, 1rem);
 }
 
+.view-commerce-user-orders {
+  thead {
+    th.active {
+      background: $color-thead-background;
+    }
+  }
+  tbody {
+    tr.odd:hover {
+      background: $color-tbody-tr-background-odd;
+    }
+    tr.even:hover {
+      background: $color-tbody-tr-background-even;
+    }
+    td.active {
+      background: inherit;
+    }
+  }
+}
+
 .field--commerce-line-items {
   table {
     @include rem-fallback(margin-bottom, 1rem);
@@ -39,10 +58,12 @@
 .field--commerce-customer-billing, .entity-commerce-customer-profile {
   @include rem-fallback(margin-bottom, 1rem);
   
-  .field--commerce-customer-address, .field-date {
+  .field--commerce-customer-address {
+    margin: 0;
+  }
+  .field-date {
     @include rem-fallback(margin-bottom, 1rem);
   }
-  
   .addressfield-container-inline, .street-block, .country {
     font-style: normal;
     @include rem-fallback(margin-bottom, .5rem);
