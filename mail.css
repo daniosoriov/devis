@@ -101,6 +101,17 @@ td#footer-border-bottom {
   padding-bottom: 40px;
 }
 
+ul {
+  padding: 0;
+  padding-left: 25px;
+  list-style-type: circle;
+}
+
+li {
+  padding: 0;
+  padding-bottom: 5px;
+}
+
 @media only screen and (max-width: 620px) {
   table#head {
     min-width: 500px;

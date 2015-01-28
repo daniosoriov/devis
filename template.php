@@ -3,9 +3,13 @@
 // https://www.drupal.org/node/2093811 : Let users edit their customer profile outside of checkout
 
 /**
- * @file
+ * @file template.php
  * Template overrides as well as (pre-)process and alter hooks for the
  * devis theme.
+ */
+
+/**
+ * Implements hook_theme().
  */
 function devis_theme() {
   $items = array();
@@ -17,33 +21,12 @@ function devis_theme() {
        'devis_preprocess_user_login'
     ),
   );
-  /*$items['user_register_form'] = array(
-    'render element' => 'form',
-    'path' => drupal_get_path('theme', 'devis') . '/templates',
-    'template' => 'user-register-form',
-    'preprocess functions' => array(
-      'yourtheme_preprocess_user_register_form'
-    ),
-  );*/
-  /*$items['user_pass'] = array(
-    'render element' => 'form',
-    'path' => drupal_get_path('theme', 'devis') . '/templates',
-    'template' => 'user-pass',
-    'preprocess functions' => array(
-      'devis_preprocess_user_pass'
-    ),
-  );*/
-  /*$items['user_profile'] = array(
-    'render element' => 'form',
-    'path' => drupal_get_path('theme', 'devis') . '/templates/user',
-    'template' => 'user-profile',
-    'preprocess functions' => array(
-      'devis_preprocess_user_profile'
-    ),
-  );*/
   return $items;
 }
 
+/**
+ * Implements theme_preprocess().
+ */
 function devis_preprocess(&$variables, $hook) {
   //dpm($variables, 'variables');
   //dpm($hook, 'hook');
@@ -66,355 +49,6 @@ function devis_preprocess(&$variables, $hook) {
   // Add a global variable to jQuery.
   $devenir = array('url' => url('eform/submit/devenir'));
   drupal_add_js(array('devenir' => $devenir), 'setting');
-}
-
-function devis_preprocess_user_login(&$variables) {
-  $variables['title'] = t('User login');
-  $variables['password_url'] = url('user/password');
-  $variables['password_label'] = t('Forgot password?');
-  $variables['register_url'] = url('eform/submit/devenir');
-  $variables['register_label'] = t('Become provider');
-}
-
-function devis_preprocess_user_pass(&$variables) {
-  //$variables['title'] = t('Forgot password?');
-  //$variables['description'] = t('Type in your e-mail address and we will send you an e-mail with instructions.');
-}
-
-function devis_preprocess_user_profile(&$variables) {
-  //$account = user_load(347);
-  //dpm($account, 'account');
-  //dpm(user_pass_reset_url($account) .'/login');
-  
-  $variables['user_profile']['field_prenom']['#access'] = FALSE;
-  if (isset($variables['user_profile']['field_name'])) {
-    $variables['user_profile']['field_name'][0]['#markup'] = 
-      $variables['user_profile']['field_prenom'][0]['#markup'] .' '. $variables['user_profile']['field_name'][0]['#markup'];
-  }
-
-  if (isset($variables['user_profile']['field_account_activity_status'])) {
-    if (!$variables['user_profile']['field_account_activity_status']['#items'][0]['value']) {
-      $variables['user_profile']['field_account_activity_status'][0]['#markup'] = '<span class="inactive">'. $variables['user_profile']['field_account_activity_status'][0]['#markup'] .'</span>';
-    }
-  }
-}
-
-function devis_preprocess_field(&$variables, $hook) {
-  if (
-    isset($variables['element']['#items'][0]) && (
-      !isset($variables['element']['#items'][0]['format']) ||
-      $variables['element']['#items'][0]['format'] === 'text_plain'
-    )
-  ) {
-    foreach ($variables['items'] as $index => $value) {
-      $markup = isset($variables['items'][$index]['#markup']) ? $variables['items'][$index]['#markup'] : '';
-      $variables['items'][$index]['#markup'] = nl2br($markup);
-    }
-  }
-}
-
-function devis_preprocess_entity(&$variables, $hook) {
-  $entity_type = $variables['entity_type'];
-  $view_mode = $variables['view_mode'];
-  
-  // Entityform demander devis.
-  if ($entity_type == 'entityform' && $variables['elements']['#entity_type'] == 'entityform' && $variables['elements']['#bundle'] == 'comptable') {
-    $entityform = $variables['entityform'];
-    $info_list = trois_devis_entity_get_hash_list($entityform->entityform_id);
-    
-    if (isset($variables['content']['field_provider_contacted']) && $variables['content']['field_provider_contacted']['#access']) {
-      foreach ($variables['content']['field_provider_contacted']['#items'] as $key => $arr) {
-        if (!$arr['access']) continue;
-        $info = $info_list[$arr['target_id']];
-        $variables['content']['field_provider_contacted'][$key]['#markup'] .= ' -- '. 
-          l('User URL', 'devis_info/'. $info->url_info, array('attributes' => array('target' => '_blank', 'title' => 'This is the secure URL for the user to see the budget...', 'onclick' => 'return false'))) .' - '.
-          (($info->date) ? 'viewed on '. format_date($info->date, 'medium', '', NULL, 'en') : '<em>not yet viewed</em>') .'';
-      }
-    }
-    
-    if (isset($variables['content']['field_company_name'])) {
-      $variables['content']['field_company_name']['#title'] = t('Société');
-    }
-    $variables['content']['field_tva']['#access'] = $variables['elements']['field_tva']['#access'] = TRUE;
-    if ($variables['content']['field_legal_status']['#items'][0]['value'] == 'association') {
-      $variables['content']['field_company_name']['#title'] = t('Association');
-      //$variables['content']['field_tva']['#title'] = t('Numéro de TVA de votre association');
-    }
-  }
-  
-  // Commerce Order view.
-  if ($entity_type == 'commerce_order' && $variables['elements']['#entity_type'] == 'commerce_order') {
-    $variables['content']['commerce_order_total']['#title'] = t('Total');
-    $variables['elements']['commerce_order_total']['#title'] = t('Total');
-    // If it's not admin, do not show billing cycle.
-    if (!$variables['is_admin']) {
-      $variables['content']['cl_billing_cycle']['#access'] = FALSE;
-    }
-    $user_path = 'user/'. $variables['user']->uid;
-    $variables['orders_url'] = l(t('Invoices'), $user_path .'/orders');
-    $variables['account_url'] = l(t('My account'), $user_path);
-  }
-  
-  // Commerce Order PDF.
-  $pdf_view_modes = array('pdf', 'canceled');
-  if ($entity_type == 'commerce_order' && in_array($view_mode, $pdf_view_modes)) {
-    //$variables['theme_hook_suggestions'][] = $entity_type . '__commerce_order__' . $view_mode;
-    $order = $variables['commerce_order'];
-    $variables['content']['order_number']['#markup'] = t('Invoice') .': '. $order->order_number;
-    $variables['content']['order_id']['#markup'] = t('Commande') .': '. $order->order_id;
-    
-    $markup = $variables['content']['commerce_line_items'][0]['#markup'];
-    $variables['content']['commerce_line_items'][0]['#markup'] = str_replace(array('Titre'), array(t('Product')), $markup);
-    $markup = $variables['content']['commerce_order_total'][0]['#markup'];
-    $variables['content']['commerce_order_total'][0]['#markup'] = str_replace(array('Order total'), array(t('Order total')), $markup);
-  }
-  
-  if ($entity_type == 'profile2' && $variables['elements']['#entity_type'] == 'profile2') {
-    $count = $variables['content']['field_contacted_this_month']['#items'][0]['value'];
-    $variables['content']['field_contacted_this_month'][0]['#markup'] = ($count) ? format_plural($count, '1 time', '@count times') : t('0 times');
-    $count = $variables['content']['field_contacted_total']['#items'][0]['value'];
-    $variables['content']['field_contacted_total'][0]['#markup'] = ($count) ? format_plural($count, '1 time', '@count times') : t('0 times');
-    
-    // Change the list of budgets layout for the viewed user.
-    if (isset($variables['content']['field_entity_devis_ref']['#items'])) {
-      $info_list = trois_devis_user_get_hash_list($variables['elements']['#entity']->uid);
-      foreach ($variables['content']['field_entity_devis_ref']['#items'] as $key => $arr) {
-        if (!$arr['access']) continue;
-        $entity = $arr['entity'];
-        $info = $info_list[$entity->entityform_id];
-        
-        $temp = array_keys($entity->field_prenom);
-        $lang_prenom = array_shift($temp);
-        $temp = array_keys($entity->field_name);
-        $lang_name = array_shift($temp);
-        $temp = array_keys($entity->field_company_name);
-        $lang_company = array_shift($temp);
-        
-        $markup = l($entity->entityform_id, 'entityform/'. $entity->entityform_id) .' - '. 
-          $entity->field_prenom[$lang_prenom][0]['safe_value'] .' '.
-          $entity->field_name[$lang_name][0]['safe_value'] .' - '.
-          $entity->field_company_name[$lang_company][0]['safe_value'] .' - '.
-          format_date($entity->created, 'medium', '', NULL, 'en') .' -- '.
-          l('User URL', 'devis_info/'. $info->url_info, array('attributes' => array('target' => '_blank', 'title' => 'This is the secure URL for the user to see the budget...', 'onclick' => 'return false'))) .' - '.
-          (($info->date) ? 'viewed on '. format_date($info->date, 'medium', '', NULL, 'en') : '<em>not yet viewed</em>');
-
-        $variables['content']['field_entity_devis_ref'][$key]['#markup'] = $markup;
-      }
-    }
-  }
-}
-
-/**
- * Implements theme_preprocess_fieldset().
- */
-function devis_preprocess_fieldset(&$variables) {
-  /*if (isset($variables['element']['#id']) && $variables['element']['#id'] == 'edit-legal') {
-    $variables['element']['#title'] = t('Termes et conditions');
-  }*/
-}
-
-/**
- * Implements theme_preprocess_panels_pane().
- */
-function devis_preprocess_panels_pane(&$variables) {
-  // Beautify ask for a password.
-  if (isset($variables['content']['system_main']['#id']) && $variables['content']['system_main']['#id'] == 'user-pass') {
-    $variables['content']['system_main']['name']['#access'] = FALSE;
-    $variables['title'] = t('Forgot password?');
-    $variables['description'] = t('Type in your e-mail address and we will send you an e-mail with instructions.');
-  }
-  
-  // Terms and conditions.
-  if (isset($variables['content']['system_main']['legal']) && strcmp($variables['title'], 'Terms and Conditions') === 0) {
-    $variables['title'] = $variables['content']['system_main']['legal']['#title'] = t('Comment ça marche - Combien ça coûte');//t('Termes et conditions');
-  }
-  
-  // Changes for the entityforms.
-  if (isset($variables['content']['system_main']['entityform'])) {
-    $array = array_values($variables['content']['system_main']['entityform']);
-    $element = array_shift($array);
-    $entityform_id = $element['#entity']->entityform_id;
-    if ($element['#bundle'] == 'comptable') {
-      $variables['title'] = t('Budget request @id', array('@id' => $entityform_id));
-    }
-    elseif ($element['#bundle'] == 'devenir') {
-      $variables['title'] = t('Provider request @id', array('@id' => $entityform_id));
-    }
-    $variables['content']['system_main']['entityform'][$entityform_id]['info']['user']['#markup'] = 'Submitted on '. format_date($element['#entity']->created, 'medium', '', NULL, 'en');
-  }
-  
-  // Modify user name on title.
-  if (isset($variables['content']['system_main']['profile_budget_profile']) && $variables['content']['system_main']['#theme'] != 'user_profile') {
-    $company_name = '';
-    $user = $variables['content']['system_main']['#user'];
-    if (!empty($user->field_company_name)) {
-      $temp = array_keys($user->field_company_name);
-      $lang = array_shift($temp);
-      $company_name = $user->field_company_name[$lang][0]['safe_value'];
-    }
-    if ($company_name) {
-      $variables['title'] = $company_name .' - '. $variables['title'];
-    }
-  }
-  
-  // Commerce Order.
-  if (isset($variables['content']['system_main']['commerce_order'])) {
-    // Fix some titles.
-    $title = $variables['content']['metatags']['global']['title']['#attached']['metatag_set_preprocess_variable'][0][2];
-    $title = str_replace('Order', t('Invoice'), $title);
-    $variables['content']['metatags']['global']['title']['#attached']['metatag_set_preprocess_variable'][0][2] =
-    $variables['content']['metatags']['global']['title']['#attached']['metatag_set_preprocess_variable'][1][2]['title'] = $title;
-    $variables['title'] = str_replace('Order', t('Invoice'), $variables['title']);
-  }
-  
-  if (isset($variables['content']['system_main']['#entity_type'])) {
-    $entity_type = $variables['content']['system_main']['#entity_type'];
-    switch ($entity_type) {
-      // Change display of user name on their profile.
-      // Change some descriptions.
-      case 'user':
-        $company_name = '';
-        // User profile.
-        if (isset($variables['content']['system_main']['#theme']) && $variables['content']['system_main']['#theme'] == 'user_profile') {
-          if (isset($variables['content']['system_main']['field_company_name'])) {
-            $company_name = $variables['content']['system_main']['field_company_name'][0]['#markup'];
-          }
-        }
-        // User profile edit.
-        if (isset($variables['content']['system_main']['#id']) && $variables['content']['system_main']['#id'] == 'user-profile-form') {
-          $variables['content']['system_main']['account']['mail']['#description'] = 
-            $variables['content']['system_main']['account']['mail']['mail']['#description'] = '';
-          if (isset($variables['content']['system_main']['account']['current_pass'])) {
-            $desc = $variables['content']['system_main']['account']['current_pass']['#description'];
-            $desc = strip_tags(str_replace('<a', '<br /><a', $desc), '<br><a>');
-            $variables['content']['system_main']['account']['current_pass']['#description'] = $desc;
-          }
-          
-          $lang = $variables['content']['system_main']['field_company_name']['#language'];
-          $company_name = $variables['content']['system_main']['field_company_name'][$lang][0]['value']['#default_value'];
-        }
-        if ($company_name && strpos($variables['title'], $company_name) === false) {
-          $variables['title'] = $company_name .' - '. $variables['title'];
-        }
-        // If the admin is viewing his own profile, hide the desired profile.
-        if (isset($variables['content']['system_main']['#account'])) {
-          $account = $variables['content']['system_main']['#account'];
-          $user = $variables['user'];
-          if ($account->uid == $user->uid && in_array('manager', $user->roles)) {
-            $variables['content']['system_main']['profile_budget_profile']['#access'] = FALSE;
-          }
-        }
-      break;
-      
-      case 'commerce_customer_profile':
-        // Add a class to fix the TVA value being in another fieldset.
-        if (isset($variables['content']['system_main']['commerce_customer_address'])) {
-          $variables['content']['system_main']['commerce_customer_address'][LANGUAGE_NONE][0]['#attributes']['class'][] = 'group-address-top';
-        }
-      break;
-      
-      // Changes for the entityforms edit/submission.
-      case 'entityform':
-        $entityform = $variables['content']['system_main']['#entity'];
-        $entityform_id = $entityform->entityform_id;
-        if ($entityform_id) {
-          if ($variables['content']['system_main']['#bundle'] == 'comptable') {
-            $variables['title'] = t('Budget request @id', array('@id' => $entityform_id));
-          }
-          elseif ($variables['content']['system_main']['#bundle'] == 'devenir') {
-            $variables['title'] = t('Provider request @id', array('@id' => $entityform_id));
-          }
-          $variables['content']['system_main']['user_info']['#markup'] = 'Submitted on '. format_date($entityform->created, 'medium', '', NULL, 'en');
-
-          $variables['content']['system_main']['intro']['#markup'] = '';
-        }
-        else {
-          $messages = theme_status_messages(array('display' => ''));
-          $variables['content']['system_main']['intro']['#markup'] .= '<div id="messages-box">'. $messages .'</div>';
-        }
-      break;
-    }
-  }
-  
-  if (isset($variables['user']) && is_object($variables['user']) && isset($variables['content']['system_main']['main'])) {
-    $path = current_path();
-    // Address Book.
-    $uid = $variables['user']->uid;
-    if ($path == 'user/'. $uid .'/addressbook/billing') {
-      $variables['title'] = t('Coordonnées de facturation');
-      $variables['content']['system_main']['main']['#markup'] = str_replace('>edit<', '>'. t('edit') .'<', $variables['content']['system_main']['main']['#markup']);
-      if (isset($variables['content']['system_main']['main']['#markup']) && strpos($variables['content']['system_main']['main']['#markup'], 'addressbook-nodata') !== false) {
-        $variables['content']['system_main']['main']['#markup'] = '<div class="addressbook-nodata">' . t('Votre coordonnées de facturation est actuellement vide.') . '</div>';
-      }
-    }
-    // Credit cards.
-    if ($path == 'user/'. $uid .'/cards') {
-      $variables['title'] = t('Credit cards');
-    }
-    // Orders.
-    if ($path == 'user/'. $uid .'/orders') {
-      $variables['title'] = t('Invoices');
-    }
-  }
-}
-
-/**
- * Implements theme_preprocess_pane_messages().
- */
-function devis_preprocess_pane_messages(&$variables) {
-  // If the user is viewing his cards, unset the action links on the pane_messages.
-  $path = current_path();
-  $path_alias = drupal_lookup_path('alias', $path);
-  if ($path == 'user/'. $variables['user']->uid .'/cards') {
-    $variables['action_links'] = array();
-  }
-  // If the user is viewing his addresses, unset the action links on the pane_messages.
-  if ($path == 'user/'. $variables['user']->uid .'/addressbook/billing') {
-    $variables['action_links'] = array();
-  }
-}
-
-/**
- * Implements theme_preprocess_views_view_table().
- */
-function devis_preprocess_views_view_table(&$variables) {
-  switch ($variables['view']->name) {
-    case 'commerce_user_orders':
-      // Update header names.
-      foreach ($variables['header'] as $key => $val) {
-        $variables['header'][$key] = t($val);
-      }
-      break;
-    
-    case 'commerce_line_item_table':
-      // Update header names.
-      foreach ($variables['header'] as $key => $val) {
-        if ($val == 'Titre') {
-          $val = 'Product';
-        }
-        $variables['header'][$key] = t($val);
-      }
-      break;
-  }
-}
-
-/**
- * Implements theme_preprocess_views_view().
- */
-function devis_preprocess_views_view(&$variables) {
-  switch ($variables['name']) {
-    case 'commerce_user_orders':
-      $variables['empty'] = t('You have not placed any orders with us yet.');
-      break;
-    
-    case 'commerce_addressbook_defaults':
-      //$variables['title'] = '<h3 class="title">'. t('Default address') .'</h3>';
-      break;
-    
-    case 'commerce_addressbook':
-      //$variables['title'] = '<h3 class="title">'. t('Other addresses') .'</h3>';
-      break;
-  }
 }
 
 function devis_entity_view_alter(&$build, $type) {
@@ -686,10 +320,11 @@ function devis_comptable_entityform_edit_form_validate($form, &$form_state) {
         $company_label = 'Nom de votre association';
         $company_error = TRUE;
       }
+      /* It seems TVA for association is not mandatory.
       if (!$tva) {
         $tva_label = 'Numéro de TVA de votre association';
         $tva_error = TRUE;
-      }
+      }*/
       break;
     
     case 'society':

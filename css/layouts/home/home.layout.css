@@ -41,6 +41,7 @@
   display: none; }
 @media -sass-debug-info{filename{font-family:file\:\/\/\/Applications\/MAMP\/htdocs\/3devis\/sites\/all\/themes\/devis\/sass\/layouts\/home\/home\.layout\.scss}line{font-family:\0000326}}
 .l-content-home section.first {
+  position: relative;
   margin: 0 auto;
   width: 100%;
   min-height: 272px;
@@ -53,39 +54,80 @@
   @media (min-width: 704px) {
 @media -sass-debug-info{filename{font-family:file\:\/\/\/Applications\/MAMP\/htdocs\/3devis\/sites\/all\/themes\/devis\/sass\/layouts\/home\/home\.layout\.scss}line{font-family:\0000326}}
     .l-content-home section.first {
-      min-height: 512px;
-      min-height: 32rem; } }
+      min-height: 480px;
+      min-height: 30rem; } }
   @media (min-width: 1088px) {
 @media -sass-debug-info{filename{font-family:file\:\/\/\/Applications\/MAMP\/htdocs\/3devis\/sites\/all\/themes\/devis\/sass\/layouts\/home\/home\.layout\.scss}line{font-family:\0000326}}
     .l-content-home section.first {
-      min-height: 592px;
-      min-height: 37rem; } }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Applications\/MAMP\/htdocs\/3devis\/sites\/all\/themes\/devis\/sass\/layouts\/home\/home\.layout\.scss}line{font-family:\0000341}}
+      min-height: 528px;
+      min-height: 33rem; } }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Applications\/MAMP\/htdocs\/3devis\/sites\/all\/themes\/devis\/sass\/layouts\/home\/home\.layout\.scss}line{font-family:\0000342}}
 .l-content-home section.second, .l-content-home section.third {
+  position: relative;
   margin: 0 auto;
   width: 100%;
   min-height: 272px;
   min-height: 17rem; }
   @media (min-width: 384px) {
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Applications\/MAMP\/htdocs\/3devis\/sites\/all\/themes\/devis\/sass\/layouts\/home\/home\.layout\.scss}line{font-family:\0000341}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Applications\/MAMP\/htdocs\/3devis\/sites\/all\/themes\/devis\/sass\/layouts\/home\/home\.layout\.scss}line{font-family:\0000342}}
     .l-content-home section.second, .l-content-home section.third {
       min-height: 320px;
       min-height: 20rem; } }
   @media (min-width: 1088px) {
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Applications\/MAMP\/htdocs\/3devis\/sites\/all\/themes\/devis\/sass\/layouts\/home\/home\.layout\.scss}line{font-family:\0000341}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Applications\/MAMP\/htdocs\/3devis\/sites\/all\/themes\/devis\/sass\/layouts\/home\/home\.layout\.scss}line{font-family:\0000342}}
     .l-content-home section.second, .l-content-home section.third {
       min-height: 432px;
       min-height: 27rem; } }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Applications\/MAMP\/htdocs\/3devis\/sites\/all\/themes\/devis\/sass\/layouts\/home\/home\.layout\.scss}line{font-family:\0000353}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Applications\/MAMP\/htdocs\/3devis\/sites\/all\/themes\/devis\/sass\/layouts\/home\/home\.layout\.scss}line{font-family:\0000355}}
+.l-content-home section.small {
+  min-height: 160px;
+  min-height: 10rem; }
+  @media (min-width: 704px) {
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Applications\/MAMP\/htdocs\/3devis\/sites\/all\/themes\/devis\/sass\/layouts\/home\/home\.layout\.scss}line{font-family:\0000355}}
+    .l-content-home section.small {
+      min-height: 256px;
+      min-height: 16rem; } }
+  @media (min-width: 384px) {
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Applications\/MAMP\/htdocs\/3devis\/sites\/all\/themes\/devis\/sass\/layouts\/home\/home\.layout\.scss}line{font-family:\0000361}}
+    .l-content-home section.small article.text-box {
+      padding-top: 48px;
+      padding-top: 3rem; } }
+  @media (min-width: 704px) {
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Applications\/MAMP\/htdocs\/3devis\/sites\/all\/themes\/devis\/sass\/layouts\/home\/home\.layout\.scss}line{font-family:\0000361}}
+    .l-content-home section.small article.text-box {
+      padding-top: 54.4px;
+      padding-top: 3.4rem; } }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Applications\/MAMP\/htdocs\/3devis\/sites\/all\/themes\/devis\/sass\/layouts\/home\/home\.layout\.scss}line{font-family:\0000371}}
+.l-content-home .arrow-first, .l-content-home .arrow-second, .l-content-home .arrow-special {
+  display: none; }
+  @media (min-width: 704px) {
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Applications\/MAMP\/htdocs\/3devis\/sites\/all\/themes\/devis\/sass\/layouts\/home\/home\.layout\.scss}line{font-family:\0000371}}
+    .l-content-home .arrow-first, .l-content-home .arrow-second, .l-content-home .arrow-special {
+      display: inherit;
+      height: 48px;
+      width: 48px;
+      background-image: url(http://3devis.be/sites/default/files/pictures/arrows-down.png);
+      background-size: 48px;
+      background-position: 0 100%;
+      position: absolute;
+      bottom: 32px;
+      bottom: 2rem;
+      left: 48%;
+      cursor: pointer; } }
+@media (min-width: 704px) {
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Applications\/MAMP\/htdocs\/3devis\/sites\/all\/themes\/devis\/sass\/layouts\/home\/home\.layout\.scss}line{font-family:\0000388}}
+  .l-content-home .arrow-second {
+    background-position: 0 0; } }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Applications\/MAMP\/htdocs\/3devis\/sites\/all\/themes\/devis\/sass\/layouts\/home\/home\.layout\.scss}line{font-family:\0000394}}
 .l-content-home section.first {
   opacity: 1;
   visibility: inherit;
-  background-image: url(http://cdn.lollum.com/nantes/corporate/wp-content/uploads/2014/10/slide_corporate.jpg);
+  background-image: url(http://3devis.be/sites/default/files/pictures/home.jpg);
   background-color: transparent;
   background-size: cover;
   background-position: 50% 0%;
   background-repeat: no-repeat; }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Applications\/MAMP\/htdocs\/3devis\/sites\/all\/themes\/devis\/sass\/layouts\/home\/home\.layout\.scss}line{font-family:\0000362}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Applications\/MAMP\/htdocs\/3devis\/sites\/all\/themes\/devis\/sass\/layouts\/home\/home\.layout\.scss}line{font-family:\00003104}}
   .l-content-home section.first article.text-box {
     margin: 0 auto;
     text-align: center;
@@ -93,66 +135,66 @@
     padding-top: 80px;
     padding-top: 5rem; }
     @media (min-width: 384px) {
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Applications\/MAMP\/htdocs\/3devis\/sites\/all\/themes\/devis\/sass\/layouts\/home\/home\.layout\.scss}line{font-family:\0000362}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Applications\/MAMP\/htdocs\/3devis\/sites\/all\/themes\/devis\/sass\/layouts\/home\/home\.layout\.scss}line{font-family:\00003104}}
       .l-content-home section.first article.text-box {
         padding-top: 120px;
         padding-top: 7.5rem;
         width: 374px; } }
     @media (min-width: 704px) {
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Applications\/MAMP\/htdocs\/3devis\/sites\/all\/themes\/devis\/sass\/layouts\/home\/home\.layout\.scss}line{font-family:\0000362}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Applications\/MAMP\/htdocs\/3devis\/sites\/all\/themes\/devis\/sass\/layouts\/home\/home\.layout\.scss}line{font-family:\00003104}}
       .l-content-home section.first article.text-box {
         width: 600px;
-        padding-top: 208px;
-        padding-top: 13rem; } }
+        padding-top: 192px;
+        padding-top: 12rem; } }
     @media (min-width: 1088px) {
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Applications\/MAMP\/htdocs\/3devis\/sites\/all\/themes\/devis\/sass\/layouts\/home\/home\.layout\.scss}line{font-family:\0000362}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Applications\/MAMP\/htdocs\/3devis\/sites\/all\/themes\/devis\/sass\/layouts\/home\/home\.layout\.scss}line{font-family:\00003104}}
       .l-content-home section.first article.text-box {
         width: auto;
-        padding-top: 248px;
-        padding-top: 15.5rem; } }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Applications\/MAMP\/htdocs\/3devis\/sites\/all\/themes\/devis\/sass\/layouts\/home\/home\.layout\.scss}line{font-family:\0000381}}
+        padding-top: 224px;
+        padding-top: 14rem; } }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Applications\/MAMP\/htdocs\/3devis\/sites\/all\/themes\/devis\/sass\/layouts\/home\/home\.layout\.scss}line{font-family:\00003123}}
   .l-content-home section.first h1.pane-title {
     color: #eda800;
     font-size: 28px;
     font-size: 1.75rem;
     font-weight: 400; }
     @media (min-width: 384px) {
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Applications\/MAMP\/htdocs\/3devis\/sites\/all\/themes\/devis\/sass\/layouts\/home\/home\.layout\.scss}line{font-family:\0000381}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Applications\/MAMP\/htdocs\/3devis\/sites\/all\/themes\/devis\/sass\/layouts\/home\/home\.layout\.scss}line{font-family:\00003123}}
       .l-content-home section.first h1.pane-title {
         font-family: "Raleway", Helvetica, Arial, sans-serif;
         font-weight: 400;
         font-size: 32px;
         font-size: 2rem; } }
     @media (min-width: 704px) {
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Applications\/MAMP\/htdocs\/3devis\/sites\/all\/themes\/devis\/sass\/layouts\/home\/home\.layout\.scss}line{font-family:\0000381}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Applications\/MAMP\/htdocs\/3devis\/sites\/all\/themes\/devis\/sass\/layouts\/home\/home\.layout\.scss}line{font-family:\00003123}}
       .l-content-home section.first h1.pane-title {
         line-height: 56px;
         line-height: 3.5rem;
         font-size: 40.32px;
         font-size: 2.52rem; } }
     @media (min-width: 1088px) {
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Applications\/MAMP\/htdocs\/3devis\/sites\/all\/themes\/devis\/sass\/layouts\/home\/home\.layout\.scss}line{font-family:\0000381}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Applications\/MAMP\/htdocs\/3devis\/sites\/all\/themes\/devis\/sass\/layouts\/home\/home\.layout\.scss}line{font-family:\00003123}}
       .l-content-home section.first h1.pane-title {
         font-size: 49.12px;
         font-size: 3.07rem;
         line-height: 72px;
         line-height: 4.5rem; } }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Applications\/MAMP\/htdocs\/3devis\/sites\/all\/themes\/devis\/sass\/layouts\/home\/home\.layout\.scss}line{font-family:\00003101}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Applications\/MAMP\/htdocs\/3devis\/sites\/all\/themes\/devis\/sass\/layouts\/home\/home\.layout\.scss}line{font-family:\00003143}}
 .l-content-home article.text-box {
   padding-top: 48px;
   padding-top: 3rem;
   text-align: center; }
   @media (min-width: 384px) {
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Applications\/MAMP\/htdocs\/3devis\/sites\/all\/themes\/devis\/sass\/layouts\/home\/home\.layout\.scss}line{font-family:\00003101}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Applications\/MAMP\/htdocs\/3devis\/sites\/all\/themes\/devis\/sass\/layouts\/home\/home\.layout\.scss}line{font-family:\00003143}}
     .l-content-home article.text-box {
       padding-top: 96px;
       padding-top: 6rem; } }
   @media (min-width: 1088px) {
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Applications\/MAMP\/htdocs\/3devis\/sites\/all\/themes\/devis\/sass\/layouts\/home\/home\.layout\.scss}line{font-family:\00003101}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Applications\/MAMP\/htdocs\/3devis\/sites\/all\/themes\/devis\/sass\/layouts\/home\/home\.layout\.scss}line{font-family:\00003143}}
     .l-content-home article.text-box {
       padding-top: 144px;
       padding-top: 9rem; } }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Applications\/MAMP\/htdocs\/3devis\/sites\/all\/themes\/devis\/sass\/layouts\/home\/home\.layout\.scss}line{font-family:\00003113}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Applications\/MAMP\/htdocs\/3devis\/sites\/all\/themes\/devis\/sass\/layouts\/home\/home\.layout\.scss}line{font-family:\00003155}}
 .l-content-home h3.title {
   margin: 0 auto;
   font-size: 20px;
@@ -162,25 +204,25 @@
   font-weight: 200;
   text-transform: uppercase; }
   @media (min-width: 384px) {
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Applications\/MAMP\/htdocs\/3devis\/sites\/all\/themes\/devis\/sass\/layouts\/home\/home\.layout\.scss}line{font-family:\00003113}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Applications\/MAMP\/htdocs\/3devis\/sites\/all\/themes\/devis\/sass\/layouts\/home\/home\.layout\.scss}line{font-family:\00003155}}
     .l-content-home h3.title {
       font-size: 24.8px;
       font-size: 1.55rem; } }
   @media (min-width: 704px) {
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Applications\/MAMP\/htdocs\/3devis\/sites\/all\/themes\/devis\/sass\/layouts\/home\/home\.layout\.scss}line{font-family:\00003113}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Applications\/MAMP\/htdocs\/3devis\/sites\/all\/themes\/devis\/sass\/layouts\/home\/home\.layout\.scss}line{font-family:\00003155}}
     .l-content-home h3.title {
       padding-bottom: 16px;
       padding-bottom: 1rem;
       font-size: 28px;
       font-size: 1.75rem; } }
   @media (min-width: 1088px) {
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Applications\/MAMP\/htdocs\/3devis\/sites\/all\/themes\/devis\/sass\/layouts\/home\/home\.layout\.scss}line{font-family:\00003113}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Applications\/MAMP\/htdocs\/3devis\/sites\/all\/themes\/devis\/sass\/layouts\/home\/home\.layout\.scss}line{font-family:\00003155}}
     .l-content-home h3.title {
       padding-bottom: 19.2px;
       padding-bottom: 1.2rem;
       font-size: 33.6px;
       font-size: 2.1rem; } }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Applications\/MAMP\/htdocs\/3devis\/sites\/all\/themes\/devis\/sass\/layouts\/home\/home\.layout\.scss}line{font-family:\00003133}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Applications\/MAMP\/htdocs\/3devis\/sites\/all\/themes\/devis\/sass\/layouts\/home\/home\.layout\.scss}line{font-family:\00003175}}
 .l-content-home h4.subtitle {
   width: 290px;
   margin: 0 auto;
@@ -192,7 +234,7 @@
   line-height: 27.2px;
   line-height: 1.7rem; }
   @media (min-width: 384px) {
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Applications\/MAMP\/htdocs\/3devis\/sites\/all\/themes\/devis\/sass\/layouts\/home\/home\.layout\.scss}line{font-family:\00003133}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Applications\/MAMP\/htdocs\/3devis\/sites\/all\/themes\/devis\/sass\/layouts\/home\/home\.layout\.scss}line{font-family:\00003175}}
     .l-content-home h4.subtitle {
       line-height: 26.4px;
       line-height: 1.65rem;
@@ -200,7 +242,7 @@
       font-size: 16.8px;
       font-size: 1.05rem; } }
   @media (min-width: 704px) {
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Applications\/MAMP\/htdocs\/3devis\/sites\/all\/themes\/devis\/sass\/layouts\/home\/home\.layout\.scss}line{font-family:\00003133}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Applications\/MAMP\/htdocs\/3devis\/sites\/all\/themes\/devis\/sass\/layouts\/home\/home\.layout\.scss}line{font-family:\00003175}}
     .l-content-home h4.subtitle {
       width: auto;
       padding-bottom: 8px;
@@ -208,7 +250,7 @@
       font-size: 18.4px;
       font-size: 1.15rem; } }
   @media (min-width: 1088px) {
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Applications\/MAMP\/htdocs\/3devis\/sites\/all\/themes\/devis\/sass\/layouts\/home\/home\.layout\.scss}line{font-family:\00003133}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Applications\/MAMP\/htdocs\/3devis\/sites\/all\/themes\/devis\/sass\/layouts\/home\/home\.layout\.scss}line{font-family:\00003175}}
     .l-content-home h4.subtitle {
       line-height: 30.4px;
       line-height: 1.9rem;
@@ -216,17 +258,17 @@
       padding-bottom: 0.75rem;
       font-size: 20px;
       font-size: 1.25rem; } }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Applications\/MAMP\/htdocs\/3devis\/sites\/all\/themes\/devis\/sass\/layouts\/home\/home\.layout\.scss}line{font-family:\00003157}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Applications\/MAMP\/htdocs\/3devis\/sites\/all\/themes\/devis\/sass\/layouts\/home\/home\.layout\.scss}line{font-family:\00003199}}
   .l-content-home h4.subtitle a {
     color: #e6a300;
     font-size: inherit; }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Applications\/MAMP\/htdocs\/3devis\/sites\/all\/themes\/devis\/sass\/layouts\/home\/home\.layout\.scss}line{font-family:\00003163}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Applications\/MAMP\/htdocs\/3devis\/sites\/all\/themes\/devis\/sass\/layouts\/home\/home\.layout\.scss}line{font-family:\00003205}}
 .l-content-home section.third {
-  background-image: url(http://cdn.lollum.com/nantes/corporate/wp-content/uploads/2014/10/bg_buy_section.jpg);
+  background-image: url(http://3devis.be/sites/default/files/pictures/home-2.jpg);
   background-color: #435b54;
   background-size: cover;
   background-attachment: fixed;
   background-repeat: repeat; }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Applications\/MAMP\/htdocs\/3devis\/sites\/all\/themes\/devis\/sass\/layouts\/home\/home\.layout\.scss}line{font-family:\00003171}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Applications\/MAMP\/htdocs\/3devis\/sites\/all\/themes\/devis\/sass\/layouts\/home\/home\.layout\.scss}line{font-family:\00003214}}
   .l-content-home section.third h3.title, .l-content-home section.third h4.subtitle {
     color: #f2f2f2; }

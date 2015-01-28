@@ -89,23 +89,19 @@
         
       case 'tva':
         if (element == "association") {
-          title = 'Num&eacute;ro de TVA de votre association'+ required;
+          title = 'Num&eacute;ro de TVA de votre association';//+ required;
         }
         break;
     }
     return title;
   }
   
-  Drupal.theme.prototype.devisChangeTVALabel = function(element, default_title, required) {
-    
-  }
-  
-  Drupal.theme.prototype.devisReplaceText = function(element, needle, str) {
+  /*Drupal.theme.prototype.devisReplaceText = function(element, needle, str) {
     element.each(function() {
       var text = $(this).text();
       $(this).text(text.replace(needle, str)); 
     });
-  }
+  }*/
     
   Drupal.behaviors.devisGeneral = {
     attach: function (context, settings) {
@@ -122,8 +118,23 @@
         }
       }
       
+      $(".arrow-first").click(function() {
+        $('html, body').animate({
+          scrollTop: $(".second").offset().top - $('header').height()
+        }, 850);
+      });
       
+      $(".arrow-special").click(function() {
+        $('html, body').animate({
+          scrollTop: $(".third").offset().top - $('header').height()
+        }, 850);
+      });
       
+      $(".arrow-second").click(function() {
+        $('html, body').animate({
+          scrollTop: $(".third").offset().top - $('header').height()
+        }, 850);
+      });
 
       var $window = $(window);
       $('section[data-type="background"]').each(function() {
@@ -136,9 +147,6 @@
           $bgobj.css({ backgroundPosition: coords });
         });
       });
-      
-      
-      
     }
   };
     
