@@ -70,11 +70,11 @@ function devis_preprocess_entity(&$variables, $hook) {
       $variables['content']['field_active_regions_belgium']['#title'] = t('Régions');
     }
     
-    if (isset($variables['field_contacted_this_month'][0]['value'])) {
+    if (isset($variables['content']['group_admin']['field_contacted_this_month'])) {
       $count = $variables['field_contacted_this_month'][0]['value'];
       $variables['content']['group_admin']['field_contacted_this_month'][0]['#markup'] = ($count) ? format_plural($count, '1 time', '@count times') : t('0 times');
     }
-    if (isset($variables['field_contacted_total'][0]['value'])) {
+    if (isset($variables['content']['group_admin']['field_contacted_total'][0])) {
       $count = $variables['field_contacted_total'][0]['value'];
       $variables['content']['group_admin']['field_contacted_total'][0]['#markup'] = ($count) ? format_plural($count, '1 time', '@count times') : t('0 times');
     }
@@ -93,11 +93,12 @@ function devis_preprocess_entity(&$variables, $hook) {
         $lang_name = array_shift($temp);
         $temp = array_keys($entity->field_company_name);
         $lang_company = array_shift($temp);
+        $company = (isset($entity->field_company_name[$lang_company])) ? $entity->field_company_name[$lang_company][0]['safe_value'] : '';
         
         $markup = l($entity->entityform_id, 'entityform/'. $entity->entityform_id) .' - '. 
           $entity->field_prenom[$lang_prenom][0]['safe_value'] .' '.
           $entity->field_name[$lang_name][0]['safe_value'] .' - '.
-          $entity->field_company_name[$lang_company][0]['safe_value'] .' - '.
+          (($company) ? $company .' - ' : '') .
           format_date($entity->created, 'medium', '', NULL, 'en') .' -- '.
           l('User URL', 'devis_info/'. $info->url_info, array('attributes' => array('target' => '_blank', 'title' => 'This is the secure URL for the user to see the budget...', 'onclick' => 'return false'))) .' - '.
           (($info->date) ? 'viewed on '. format_date($info->date, 'medium', '', NULL, 'en') : '<em>not yet viewed</em>');

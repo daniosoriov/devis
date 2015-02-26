@@ -4,6 +4,22 @@
  * Implements theme_preprocess_panels_pane().
  */
 function devis_preprocess_panels_pane(&$variables) {
+  // TODO: Remove this eventually, hopefully.
+  // This is a stupid hack made to fix a mistake with panels
+  // that adds the site name at the end of the page title.
+  if (isset($variables['title'])) {
+    // Get the current site name to see if the title has it.
+    $site_name = variable_get('site_name', '');
+    $bad = '| '. $site_name;
+    $pos = strpos($variables['title'], $bad);
+    // If the title is compromised, removed the site name.
+    if ($pos !== false) {
+      $len = 0 - intval(strlen(utf8_decode($bad)));
+      $variables['title'] = substr($variables['title'], 0, $len);
+    }
+  }
+  
+  
   // Beautify ask for a password.
   if (isset($variables['content']['system_main']['#id']) && $variables['content']['system_main']['#id'] == 'user-pass') {
     $variables['content']['system_main']['name']['#access'] = FALSE;
@@ -12,8 +28,8 @@ function devis_preprocess_panels_pane(&$variables) {
   }
   
   // Terms and conditions.
-  if (isset($variables['content']['system_main']['legal'])) {
-    $variables['title'] = $variables['content']['system_main']['legal']['#title'] = t('Comment ça marche - Combien ça coûte');//t('Termes et conditions');
+  if (isset($variables['content']['system_main']['legal']) && isset($variables['content']['system_main']['#id']) && $variables['content']['system_main']['#id'] == 'legal-login') {
+    $variables['title'] = $variables['content']['system_main']['legal']['#title'] = t('Comment ça marche - Combien ça coûte');
   }
   
   // Changes for the entityforms.

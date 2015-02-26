@@ -51,7 +51,7 @@
     }
   }
   
-  .arrow-first, .arrow-second, .arrow-special {
+  .arrow-first, .arrow-second, .arrow-third, .arrow-special {
     display: none;
 
     @include breakpoint($tab) {
@@ -68,7 +68,7 @@
     }
   }
   
-  .arrow-second {
+  .arrow-second, .arrow-third {
     @include breakpoint($tab) {
       background-position: 0 0;
     }
@@ -264,13 +264,19 @@
   section.small {
     @include rem-fallback(min-height, 10rem);
     @include breakpoint($tab) {
-      @include rem-fallback(min-height, 12rem);
+      @include rem-fallback(min-height, 16rem);
     }
     
     article.text-box {
       @include breakpoint($tab) {
         @include rem-fallback(padding-top, 3.4rem);
       }
+    }
+  }
+  
+  section.small.larger {
+    @include breakpoint($tab) {
+      @include rem-fallback(min-height, 18rem);
     }
   }
   

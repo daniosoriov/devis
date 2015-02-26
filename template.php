@@ -545,8 +545,6 @@ function devis_form_commerce_checkout_form_review_alter(&$form, &$form_state, $f
  */
 function devis_commerce_checkout_review($variables) {
   $content = '';
-  //dpm($variables, 'variables');
-
   foreach ($variables['form']['#data'] as $pane_id => $data) {
     $children = '';
     if ($pane_id == 'cart_contents') {
@@ -671,6 +669,7 @@ function devis_form_user_profile_form_alter(&$form, &$form_state, $form_id) {
       $form['field_account_activity_status']['#access'] = FALSE;
       $form['field_customer_profile_adresse']['#access'] = FALSE;
       $form['profile_budget_profile']['#access'] = FALSE;
+      $form['actions']['cancel']['#access'] = FALSE;
     }
     
     /*if ($form['#user_category'] == 'budget_profile') {
@@ -788,9 +787,14 @@ function devis_form_commerce_stripe_cardonfile_create_form_alter(&$form, &$form_
   
   $orders = commerce_order_load_multiple(array(), array('uid' => $user->uid, 'status' => 'checkout_checkout'));
   $stored_cards = commerce_cardonfile_load_multiple_by_uid($user->uid);
+  // If it's the first card to add.
   if ($orders || !$stored_cards) {
     $form['credit_card']['cardonfile_instance_default']['#default_value'] = 1;
     $form['credit_card']['cardonfile_instance_default']['#access'] = FALSE;
+  }
+  // If not, show the cancel button to go back.
+  else {
+    $form['submit']['#suffix'] = l(t('Cancel'), 'user/'. $user->uid .'/cards', array('attributes' => array('class' => array('cancel_url'))));
   }
   if ($orders) {
     drupal_set_message(t(variable_get('trois_devis_third_step_message')), 'warning');
@@ -824,15 +828,15 @@ function devis_form_commerce_stripe_cardonfile_create_form_alter(&$form, &$form_
   
   $form['submit']['#value'] = t('Validate');
   $form['submit']['#attributes']['class'] = array('card_submit');
-  $form['submit']['#suffix'] = l(t('Cancel'), 'user/'. $user->uid .'/cards', array('attributes' => array('class' => array('cancel_url'))));
   $form['submit']['#weight'] = 10;
   $form['credit_card']['cardonfile_instance_default']['#title'] = t('Set as your default credit card');
-  //$form['address']['country']['#access'] = FALSE;
-  //$form['address']['country']['#weight'] = 100;
-  $form['address']['country']['#attributes']['class'][] = 'dropdown';
-  $form['address']['street_block']['thoroughfare']['#title'] = t('Address');
-  $form['address']['street_block']['premise']['#attributes']['style'] = 'display: none;';
-  $form['address']['street_block']['premise']['#title_display'] = 'invisible';
+  $form['address']['country']['#access'] = FALSE;
+  $form['address']['country']['#weight'] = 100;
+  // This is now here as is not working on commerce stripe.
+  //$form['address']['country']['#attributes']['class'][] = 'dropdown';
+  //$form['address']['street_block']['thoroughfare']['#title'] = t('Address');
+  //$form['address']['street_block']['premise']['#attributes']['style'] = 'display: none;';
+  //$form['address']['street_block']['premise']['#title_display'] = 'invisible';
   
   $form['card-info']['credit_card'] = $form['credit_card'];
   $form['card-info']['address'] = $form['address'];
@@ -1013,6 +1017,21 @@ function devis_menu_local_tasks_alter(&$data, $router_item, $root_path) {
   }
   if ($remove_tabs) {
     $data['tabs'][0]['count'] = 0;
+  }
+  
+  if (in_array('manager', $user->roles)) {
+    $args = arg();
+    // If admin is watching his account, delete the addressbook tab.
+    if (isset($args[1]) && $args[1] == $user->uid) {
+      if (isset($data['tabs'][0]['output'])) {
+        foreach ($data['tabs'][0]['output'] as $key => $info) {
+          if ($info['#link']['path'] == 'user/%/addressbook') {
+            unset($data['tabs'][0]['output'][$key]);
+          }
+        }
+      }
+      $data['tabs'][0]['count'] -= 1;
+    }
   }
 }
 

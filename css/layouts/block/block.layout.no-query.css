@@ -46,7 +46,7 @@
   min-height: 272px;
   min-height: 17rem; }
 @media -sass-debug-info{filename{font-family:file\:\/\/\/Applications\/MAMP\/htdocs\/3devis\/sites\/all\/themes\/devis\/sass\/layouts\/block\/block\.layout\.scss}line{font-family:\0000354}}
-.l-content-block .arrow-first, .l-content-block .arrow-second, .l-content-block .arrow-special {
+.l-content-block .arrow-first, .l-content-block .arrow-second, .l-content-block .arrow-third, .l-content-block .arrow-special {
   display: none; }
 @media -sass-debug-info{filename{font-family:file\:\/\/\/Applications\/MAMP\/htdocs\/3devis\/sites\/all\/themes\/devis\/sass\/layouts\/block\/block\.layout\.scss}line{font-family:\0000377}}
 .l-content-block h3.title {
@@ -132,23 +132,23 @@
 .l-content-block section.small {
   min-height: 160px;
   min-height: 10rem; }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Applications\/MAMP\/htdocs\/3devis\/sites\/all\/themes\/devis\/sass\/layouts\/block\/block\.layout\.scss}line{font-family:\00003277}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Applications\/MAMP\/htdocs\/3devis\/sites\/all\/themes\/devis\/sass\/layouts\/block\/block\.layout\.scss}line{font-family:\00003283}}
 .l-content-block .about-small, .l-content-block .general-small {
   text-align: center;
   margin: 0 5.55556%;
   padding: 32px 0px 24px;
   padding: 2rem 0rem 1.5rem; }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Applications\/MAMP\/htdocs\/3devis\/sites\/all\/themes\/devis\/sass\/layouts\/block\/block\.layout\.scss}line{font-family:\00003287}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Applications\/MAMP\/htdocs\/3devis\/sites\/all\/themes\/devis\/sass\/layouts\/block\/block\.layout\.scss}line{font-family:\00003293}}
   .l-content-block .about-small p, .l-content-block .general-small p {
     text-align: center;
     font-size: 12.8px;
     font-size: 0.8rem;
     margin-bottom: 8px;
     margin-bottom: 0.5rem; }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Applications\/MAMP\/htdocs\/3devis\/sites\/all\/themes\/devis\/sass\/layouts\/block\/block\.layout\.scss}line{font-family:\00003299}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Applications\/MAMP\/htdocs\/3devis\/sites\/all\/themes\/devis\/sass\/layouts\/block\/block\.layout\.scss}line{font-family:\00003305}}
 .l-content-block .general-small {
   padding-top: 0; }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Applications\/MAMP\/htdocs\/3devis\/sites\/all\/themes\/devis\/sass\/layouts\/block\/block\.layout\.scss}line{font-family:\00003307}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Applications\/MAMP\/htdocs\/3devis\/sites\/all\/themes\/devis\/sass\/layouts\/block\/block\.layout\.scss}line{font-family:\00003313}}
 .l-content-block fieldset.devenir-comptable, .l-content-block fieldset.demander-devis, .l-content-block fieldset.group-admin,
 .l-content-block div#edit-field-adresse, .l-content-block div#edit-actions, .l-content-block div#messages-box {
   width: 94.44444%;

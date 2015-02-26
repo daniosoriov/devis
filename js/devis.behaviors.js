@@ -135,6 +135,12 @@
           scrollTop: $(".third").offset().top - $('header').height()
         }, 850);
       });
+      
+      $(".arrow-third").click(function() {
+        $('html, body').animate({
+          scrollTop: $("#messages-box").offset().top - $('header').height()
+        }, 850);
+      });
 
       var $window = $(window);
       $('section[data-type="background"]').each(function() {
