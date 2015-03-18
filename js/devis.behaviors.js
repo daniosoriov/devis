@@ -89,7 +89,8 @@
         
       case 'tva':
         if (element == "association") {
-          title = 'Num&eacute;ro de TVA de votre association';//+ required;
+          //title = 'Num&eacute;ro de TVA de votre association';//+ required;
+          title = default_title;//+ required;
         }
         break;
     }
@@ -153,6 +154,17 @@
           $bgobj.css({ backgroundPosition: coords });
         });
       });
+      
+      // If the form was submitted and there was an error, 
+      // scroll the page until the messages-box.
+      // This is for the two main forms of the site.
+      if (typeof settings.form_info != 'undefined') {
+        if (settings.form_info.submitted && settings.form_info.error) {
+          $('html, body').animate({
+            scrollTop: $("#messages-box").offset().top - $('header').height()
+          }, 850);
+        }
+      }
     }
   };
     

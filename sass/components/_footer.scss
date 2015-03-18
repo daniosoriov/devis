@@ -48,6 +48,7 @@
   div.menu-block-3 {
     margin-left: gutter-span();
     margin-right: gutter-span();
+    text-align: justify;
   }
   
   @include breakpoint($tab) {

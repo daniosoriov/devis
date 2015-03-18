@@ -77,25 +77,25 @@ $color-button-hover: white;
 $color-button-active: white;
 $color-button-text-shadow: rgba(0, 0, 0, 0);
 
-$color-button-background: lighten($base-color, 10);
-$color-button-hover-background: $base-color;
-$color-button-active-background: $base-color;
+$color-button-background: $base-color;
+$color-button-hover-background: lighten($base-color, 10);
+$color-button-active-background: lighten($base-color, 10);
 
-$color-button-background-top: lighten($base-color, 10);
-$color-button-hover-background-top: $base-color;
-$color-button-active-background-top: $base-color;
+$color-button-background-top: $base-color;
+$color-button-hover-background-top: lighten($base-color, 10);
+$color-button-active-background-top: lighten($base-color, 10);
 
-$color-button-background-bottom: lighten($base-color, 12);
-$color-button-hover-background-bottom: $base-color;
-$color-button-active-background-bottom: darken($base-color, 1);
+$color-button-background-bottom: $base-color;
+$color-button-hover-background-bottom: lighten($base-color, 12);
+$color-button-active-background-bottom: lighten($base-color, 12);
 
-$color-button-border: lighten($base-color, 7.5);
-$color-button-hover-border: darken($base-color, 5);
-$color-button-active-border: darken($base-color, 5);
+$color-button-border: darken($base-color, 5);
+$color-button-hover-border: lighten($base-color, 7.5);
+$color-button-active-border: lighten($base-color, 7.5);
 
-$color-button-border-side: lighten($base-color, 5);
-$color-button-hover-border-side: darken($base-color, 2.5);
-$color-button-active-border-side: darken($base-color, 2.5);
+$color-button-border-side: darken($base-color, 2.5);
+$color-button-hover-border-side: lighten($base-color, 5);
+$color-button-active-border-side: lighten($base-color, 5);
 
 $color-button-active-shadow: rgba(0, 0, 0, 0.2);
 

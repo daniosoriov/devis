@@ -60,6 +60,10 @@ hr {
   @include rem-fallback(margin-bottom, 1rem);
 }
 
+.container-inline {
+  display: inline-block;
+}
+
 .addressfield-container-inline, .street-block, .country {
   font-style: normal;
 }

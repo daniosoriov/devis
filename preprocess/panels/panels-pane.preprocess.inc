@@ -29,7 +29,7 @@ function devis_preprocess_panels_pane(&$variables) {
   
   // Terms and conditions.
   if (isset($variables['content']['system_main']['legal']) && isset($variables['content']['system_main']['#id']) && $variables['content']['system_main']['#id'] == 'legal-login') {
-    $variables['title'] = $variables['content']['system_main']['legal']['#title'] = t('Comment ça marche - Combien ça coûte');
+    $variables['title'] = $variables['content']['system_main']['legal']['#title'] = t('Bienvenue chez 3devis');
   }
   
   // Changes for the entityforms.
@@ -67,7 +67,7 @@ function devis_preprocess_panels_pane(&$variables) {
     $title = str_replace('Order', t('Invoice'), $title);
     $variables['content']['metatags']['global']['title']['#attached']['metatag_set_preprocess_variable'][0][2] =
     $variables['content']['metatags']['global']['title']['#attached']['metatag_set_preprocess_variable'][1][2]['title'] = $title;
-    $variables['title'] = str_replace('Order', t('Invoice'), $variables['title']);
+    //$variables['title'] = str_replace(array('Order', 'Commande'), array(t('Invoice'), t('Invoice')), $variables['title']);
   }
   
   if (isset($variables['content']['system_main']['#entity_type'])) {

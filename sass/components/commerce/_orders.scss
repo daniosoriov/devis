@@ -1,5 +1,22 @@
-.links {
-  @include rem-fallback(margin-bottom, 1rem);
+.order-links {
+  @include rem-fallback(padding-top, 2rem);
+  @include rem-fallback(padding-bottom, 1rem);
+}
+
+section.client-info {
+  article.client-address, article.invoice-date {
+    display: inline-block;
+    width: 50%;
+  }
+  
+  article.invoice-date {
+    text-align: right;
+    vertical-align: top;
+  }
+}
+
+p.invoice-footer {
+  text-align: center;
 }
 
 .view-commerce-user-orders {

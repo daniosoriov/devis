@@ -121,7 +121,7 @@ li {
   table#body {
     min-width: 500px;
     width: 90%;
-    font-size: 13px;
+    /*font-size: 13px;*/
     border-radius: 5px;
   }
   
@@ -144,7 +144,7 @@ li {
   table#body {
     min-width: 260px;
     width: 90%;
-    font-size: 12px;
+    /*font-size: 12px;*/
     border-radius: 5px;
   }
   
@@ -162,7 +162,7 @@ li {
   }
   
   td#footer-team {
-    font-size: 11px;
+    /*font-size: 11px;*/
   }
   
   td#footer-border-bottom {

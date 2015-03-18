@@ -43,7 +43,7 @@
       print render($content);
     ?>
   </div>
-  <div class="links">
-    <?php print $orders_url ?> | <?php print $account_url ?>
+  <div class="order-links">
+    <?php print $print_url; ?> | <?php print $orders_url; ?> | <?php print $account_url; ?>
   </div>
 </div>

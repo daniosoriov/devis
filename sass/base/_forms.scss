@@ -352,11 +352,22 @@ input[type="checkbox"], input[type="radio"] {
         width: 100%;
         margin-right: 1rem;
       }
+      
+      /*span.prefix-phone {
+        position: relative;
+        top: 8px;
+        margin-right: 0.5rem;
+        float: left;
+      }*/
     }
     @include breakpoint($desktop) {
       input {
         max-width: 210px;
         width: 210px;
+        &.input-fixed-width {
+          max-width: 266px;
+          width: 266px;
+        }
       }
     }
   }
