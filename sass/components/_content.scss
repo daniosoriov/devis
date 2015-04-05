@@ -77,7 +77,7 @@ div.addressfield-container-inline {
     margin-left: 0;
     margin-right: 0;
     @include breakpoint($desktop) {
-      @include rem-fallback(width, 7rem);
+      @include rem-fallback(width, 10rem);
     }
   }
 
@@ -87,7 +87,10 @@ div.addressfield-container-inline {
     margin-right: 0;
     
     @include breakpoint($desktop) {
-      @include rem-fallback(width, 16rem);
+      @include rem-fallback(width, 23.15rem);
+      &#edit-commerce-customer-address-und-0-locality {
+        @include rem-fallback(width, 22rem);
+      }
     }
   }
 }

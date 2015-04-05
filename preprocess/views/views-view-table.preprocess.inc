@@ -42,7 +42,7 @@ function devis_preprocess_views_view_table(&$variables) {
       // Update header names.
       foreach ($variables['header'] as $key => $val) {
         if ($val == 'Titre') {
-          $val = 'Product';
+          $val = 'Details';
         }
         $variables['header'][$key] = t($val);
       }

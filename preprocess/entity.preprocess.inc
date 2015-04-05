@@ -49,7 +49,8 @@ function devis_preprocess_entity(&$variables, $hook) {
     $user_path = 'user/'. $variables['user']->uid;
     $variables['orders_url'] = l(t('Invoices'), $user_path .'/orders');
     $variables['account_url'] = l(t('My account'), $user_path);
-    $variables['print_url'] = l(t('Print version'), 'print/'. current_path());
+    //$variables['print_url'] = l(t('Print version'), 'print/'. current_path());
+    $variables['pdf_url'] = l(t('PDF version'), 'invoice-pdf/'. $variables['commerce_order']->order_id);
   }
   
   // Commerce Order PDF.
@@ -61,9 +62,20 @@ function devis_preprocess_entity(&$variables, $hook) {
     $variables['content']['order_id']['#markup'] = t('Commande') .': '. $order->order_id;
     
     $markup = $variables['content']['commerce_line_items'][0]['#markup'];
-    $variables['content']['commerce_line_items'][0]['#markup'] = str_replace(array('Titre'), array(t('Product')), $markup);
+    $variables['content']['commerce_line_items'][0]['#markup'] = str_replace(array('Titre'), array(t('Details')), $markup);
     $markup = $variables['content']['commerce_order_total'][0]['#markup'];
-    $variables['content']['commerce_order_total'][0]['#markup'] = str_replace(array('Order total'), array(t('Order total')), $markup);
+    $variables['content']['commerce_order_total'][0]['#markup'] = str_replace(array('Order total'), array(t('Total')), $markup);
+    
+    $variables['content']['commerce_customer_billing']['#title'] = t('Client');
+    $variables['content']['invoice_header_date']['#title'] = t('Invoice date');
+    
+    // Invoice date and period.
+    if (isset($variables['field_commerce_billy_i_date'])) {
+      $info = $variables['field_commerce_billy_i_date'][0];
+      $date = date('d F Y', $info['value']);
+      $period = format_date(strtotime($date .' - 1 month'), 'custom', 'F Y', $info['timezone']);
+      $variables['content']['invoice_header_period'] = array('#markup' => $period, '#title' => t('Period'));
+    }
   }
   
   if ($entity_type == 'profile2' && $variables['elements']['#entity_type'] == 'profile2') {

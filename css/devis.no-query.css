@@ -1009,34 +1009,34 @@ div.addressfield-container-inline input.commerce-stripe-locality {
   margin-left: 0;
   margin-right: 0; }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Applications\/MAMP\/htdocs\/3devis\/sites\/all\/themes\/devis\/sass\/components\/_content\.scss}line{font-family:\0000396}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Applications\/MAMP\/htdocs\/3devis\/sites\/all\/themes\/devis\/sass\/components\/_content\.scss}line{font-family:\0000399}}
 textarea, .form-textarea-wrapper textarea {
   width: 100%; }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Applications\/MAMP\/htdocs\/3devis\/sites\/all\/themes\/devis\/sass\/components\/_content\.scss}line{font-family:\00003115}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Applications\/MAMP\/htdocs\/3devis\/sites\/all\/themes\/devis\/sass\/components\/_content\.scss}line{font-family:\00003118}}
 address {
   font-style: normal;
   margin-bottom: 8px;
   margin-bottom: 0.5rem; }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Applications\/MAMP\/htdocs\/3devis\/sites\/all\/themes\/devis\/sass\/components\/_content\.scss}line{font-family:\00003118}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Applications\/MAMP\/htdocs\/3devis\/sites\/all\/themes\/devis\/sass\/components\/_content\.scss}line{font-family:\00003121}}
   address .addressfield-container-inline, address .street-block, address .country {
     font-style: normal;
     margin-bottom: 8px;
     margin-bottom: 0.5rem; }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Applications\/MAMP\/htdocs\/3devis\/sites\/all\/themes\/devis\/sass\/components\/_content\.scss}line{font-family:\00003124}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Applications\/MAMP\/htdocs\/3devis\/sites\/all\/themes\/devis\/sass\/components\/_content\.scss}line{font-family:\00003127}}
 .addressbook-nodata {
   margin-bottom: 16px;
   margin-bottom: 1rem; }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Applications\/MAMP\/htdocs\/3devis\/sites\/all\/themes\/devis\/sass\/components\/_content\.scss}line{font-family:\00003128}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Applications\/MAMP\/htdocs\/3devis\/sites\/all\/themes\/devis\/sass\/components\/_content\.scss}line{font-family:\00003131}}
 div#commerce-addressbook-billing-default, div#commerce-addressbook-billing-list {
   margin-bottom: 16px;
   margin-bottom: 1rem; }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Applications\/MAMP\/htdocs\/3devis\/sites\/all\/themes\/devis\/sass\/components\/_content\.scss}line{font-family:\00003130}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Applications\/MAMP\/htdocs\/3devis\/sites\/all\/themes\/devis\/sass\/components\/_content\.scss}line{font-family:\00003133}}
   div#commerce-addressbook-billing-default h3.title, div#commerce-addressbook-billing-list h3.title {
     margin-bottom: 0; }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Applications\/MAMP\/htdocs\/3devis\/sites\/all\/themes\/devis\/sass\/components\/_content\.scss}line{font-family:\00003133}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Applications\/MAMP\/htdocs\/3devis\/sites\/all\/themes\/devis\/sass\/components\/_content\.scss}line{font-family:\00003136}}
   div#commerce-addressbook-billing-default div.addressbook, div#commerce-addressbook-billing-list div.addressbook {
     border-bottom: 1px solid #f2f2f2;
     -webkit-border-radius: 0.2rem;
@@ -1046,27 +1046,27 @@ div#commerce-addressbook-billing-default, div#commerce-addressbook-billing-list 
     border-radius: 0.2rem;
     padding: 16px;
     padding: 1rem; }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Applications\/MAMP\/htdocs\/3devis\/sites\/all\/themes\/devis\/sass\/components\/_content\.scss}line{font-family:\00003147}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Applications\/MAMP\/htdocs\/3devis\/sites\/all\/themes\/devis\/sass\/components\/_content\.scss}line{font-family:\00003150}}
   div#commerce-addressbook-billing-default .views-field, div#commerce-addressbook-billing-list .views-field {
     font-style: normal;
     margin-bottom: 8px;
     margin-bottom: 0.5rem; }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Applications\/MAMP\/htdocs\/3devis\/sites\/all\/themes\/devis\/sass\/components\/_content\.scss}line{font-family:\00003154}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Applications\/MAMP\/htdocs\/3devis\/sites\/all\/themes\/devis\/sass\/components\/_content\.scss}line{font-family:\00003157}}
 div#commerce-addressbook-billing-default div.addressbook {
   border-bottom: none; }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Applications\/MAMP\/htdocs\/3devis\/sites\/all\/themes\/devis\/sass\/components\/_content\.scss}line{font-family:\00003159}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Applications\/MAMP\/htdocs\/3devis\/sites\/all\/themes\/devis\/sass\/components\/_content\.scss}line{font-family:\00003162}}
 .pager {
   margin-top: 16px;
   margin-top: 1rem; }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Applications\/MAMP\/htdocs\/3devis\/sites\/all\/themes\/devis\/sass\/components\/_content\.scss}line{font-family:\00003164}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Applications\/MAMP\/htdocs\/3devis\/sites\/all\/themes\/devis\/sass\/components\/_content\.scss}line{font-family:\00003167}}
 fieldset legend {
   margin-left: 5.6px;
   margin-left: 0.35rem; }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Applications\/MAMP\/htdocs\/3devis\/sites\/all\/themes\/devis\/sass\/components\/_content\.scss}line{font-family:\00003175}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Applications\/MAMP\/htdocs\/3devis\/sites\/all\/themes\/devis\/sass\/components\/_content\.scss}line{font-family:\00003178}}
 .fieldset-wrapper {
   width: 94.44444%;
   float: right;
@@ -1074,7 +1074,7 @@ fieldset legend {
   margin-right: 2.77778%;
   clear: none; }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Applications\/MAMP\/htdocs\/3devis\/sites\/all\/themes\/devis\/sass\/components\/_content\.scss}line{font-family:\00003186}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Applications\/MAMP\/htdocs\/3devis\/sites\/all\/themes\/devis\/sass\/components\/_content\.scss}line{font-family:\00003189}}
 span.regular {
   font-weight: 400; }
 
@@ -1178,15 +1178,26 @@ span.regular {
 @media -sass-debug-info{filename{font-family:file\:\/\/\/Applications\/MAMP\/htdocs\/3devis\/sites\/all\/themes\/devis\/sass\/components\/_header\.scss}line{font-family:\000031}}
 header.l-header-content {
   text-align: center;
-  background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #6f868e), color-stop(100%, rgba(111, 134, 142, 0.9)));
-  background-image: -webkit-linear-gradient(#6f868e, rgba(111, 134, 142, 0.9));
-  background-image: -moz-linear-gradient(#6f868e, rgba(111, 134, 142, 0.9));
-  background-image: -o-linear-gradient(#6f868e, rgba(111, 134, 142, 0.9));
-  background-image: linear-gradient(#6f868e, rgba(111, 134, 142, 0.9));
+  /* IE9 SVG, needs conditional override of 'filter' to 'none' */
+  background: url(data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiA/Pgo8c3ZnIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgdmlld0JveD0iMCAwIDEgMSIgcHJlc2VydmVBc3BlY3RSYXRpbz0ibm9uZSI+CiAgPGxpbmVhckdyYWRpZW50IGlkPSJncmFkLXVjZ2ctZ2VuZXJhdGVkIiBncmFkaWVudFVuaXRzPSJ1c2VyU3BhY2VPblVzZSIgeDE9IjAlIiB5MT0iMCUiIHgyPSIwJSIgeTI9IjEwMCUiPgogICAgPHN0b3Agb2Zmc2V0PSIwJSIgc3RvcC1jb2xvcj0iIzZmODY4ZSIgc3RvcC1vcGFjaXR5PSIxIi8+CiAgICA8c3RvcCBvZmZzZXQ9IjEwMCUiIHN0b3AtY29sb3I9IiM2Zjg2OGUiIHN0b3Atb3BhY2l0eT0iMC45Ii8+CiAgPC9saW5lYXJHcmFkaWVudD4KICA8cmVjdCB4PSIwIiB5PSIwIiB3aWR0aD0iMSIgaGVpZ2h0PSIxIiBmaWxsPSJ1cmwoI2dyYWQtdWNnZy1nZW5lcmF0ZWQpIiAvPgo8L3N2Zz4=);
+  background: -moz-linear-gradient(top, #6f868e 0%, rgba(111, 134, 142, 0.9) 100%);
+  /* FF3.6+ */
+  background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #6f868e), color-stop(100%, rgba(111, 134, 142, 0.9)));
+  /* Chrome,Safari4+ */
+  background: -webkit-linear-gradient(top, #6f868e 0%, rgba(111, 134, 142, 0.9) 100%);
+  /* Chrome10+,Safari5.1+ */
+  background: -o-linear-gradient(top, #6f868e 0%, rgba(111, 134, 142, 0.9) 100%);
+  /* Opera 11.10+ */
+  background: -ms-linear-gradient(top, #6f868e 0%, rgba(111, 134, 142, 0.9) 100%);
+  /* IE10+ */
+  background: linear-gradient(to bottom, #6f868e 0%, rgba(111, 134, 142, 0.9) 100%);
+  /* W3C */
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#6f868e', endColorstr='#e66f868e',GradientType=0 );
+  /* IE6-8 */
   border: none;
   border-bottom: 3px solid #ffb500; }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Applications\/MAMP\/htdocs\/3devis\/sites\/all\/themes\/devis\/sass\/components\/_header\.scss}line{font-family:\0000330}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Applications\/MAMP\/htdocs\/3devis\/sites\/all\/themes\/devis\/sass\/components\/_header\.scss}line{font-family:\0000341}}
 .header-container a#logo > img {
   width: 0;
   height: 0;
@@ -1194,15 +1205,13 @@ header.l-header-content {
   background-repeat: no-repeat;
   background-size: 100px;
   background-image: url(http://3devis.be/sites/default/files/comptable-fiscaliste-bruxelles-mobile.png); }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Applications\/MAMP\/htdocs\/3devis\/sites\/all\/themes\/devis\/sass\/components\/_header\.scss}line{font-family:\0000347}}
-.header-container.maintenance {
-  height: 67px; }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Applications\/MAMP\/htdocs\/3devis\/sites\/all\/themes\/devis\/sass\/components\/_header\.scss}line{font-family:\0000349}}
-  .header-container.maintenance img {
-    position: relative;
-    top: 16px; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Applications\/MAMP\/htdocs\/3devis\/sites\/all\/themes\/devis\/sass\/components\/_header\.scss}line{font-family:\0000359}}
+.header-container.maintenance a#logo > img {
+  width: 180px;
+  margin: 16px 0px;
+  margin: 1rem 0rem; }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Applications\/MAMP\/htdocs\/3devis\/sites\/all\/themes\/devis\/sass\/components\/_header\.scss}line{font-family:\0000356}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Applications\/MAMP\/htdocs\/3devis\/sites\/all\/themes\/devis\/sass\/components\/_header\.scss}line{font-family:\0000366}}
 .l-region--header {
   display: inline-block;
   margin: 24px 0px;

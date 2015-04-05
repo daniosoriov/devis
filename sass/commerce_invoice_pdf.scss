@@ -15,7 +15,7 @@ hr {
 
 .remove-br {
   br {
-    //display: none;
+    display: none;
   }
 }
 
@@ -26,7 +26,7 @@ hr {
 }
 
 .header img {
-  width: 150px;
+  width: 200px;
   position: absolute;
 }
 
@@ -35,16 +35,38 @@ hr {
   top: 300px;
 }
 
+
 .invoice-header {
   @include rem-fallback(font-size, .9rem);
   color: darkgray;
   text-align: right;
 }
 
-.invoice-header-date {
-  border: none;
-  margin-top: 25px;
+.invoice-number {
+  position: relative;
+  top: 45px;
+  right: 0;
   text-align: right;
+}
+
+div.invoice-date {
+  width: 40%;
+  text-align: right;
+  display: inline-block;
+  .invoice-date-date {
+    border: none;
+    text-align: right;
+  }
+}
+
+div.customer {
+  width: 60%;
+  display: inline-block;
+  @include rem-fallback(margin-bottom, 1rem);
+}
+
+div.clear {
+  clear: both;
 }
 
 .customer .field-label,
@@ -56,10 +78,6 @@ hr {
   display: none;
 }
 
-.customer {
-  @include rem-fallback(margin-bottom, 1rem);
-}
-
 .container-inline {
   display: inline-block;
 }
@@ -69,7 +87,7 @@ hr {
 }
 
 .line-items {
-  @include rem-fallback(margin-top, 6rem);
+  @include rem-fallback(margin-top, -2rem);
 }
 
 .view-commerce-line-item-table {

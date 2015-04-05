@@ -44,6 +44,6 @@
     ?>
   </div>
   <div class="order-links">
-    <?php print $print_url; ?> | <?php print $orders_url; ?> | <?php print $account_url; ?>
+    <?php print $pdf_url; ?> | <?php print $orders_url; ?> | <?php print $account_url; ?>
   </div>
 </div>

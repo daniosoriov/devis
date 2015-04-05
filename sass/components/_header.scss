@@ -1,6 +1,17 @@
 header.l-header-content {
   text-align: center;
-  @include background-image(linear-gradient($color-navigation-background-top, $color-navigation-background-bottom));
+  //@include background-image(linear-gradient($color-navigation-background-top, $color-navigation-background-bottom));
+  
+  /* IE9 SVG, needs conditional override of 'filter' to 'none' */
+  background: url(data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiA/Pgo8c3ZnIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgdmlld0JveD0iMCAwIDEgMSIgcHJlc2VydmVBc3BlY3RSYXRpbz0ibm9uZSI+CiAgPGxpbmVhckdyYWRpZW50IGlkPSJncmFkLXVjZ2ctZ2VuZXJhdGVkIiBncmFkaWVudFVuaXRzPSJ1c2VyU3BhY2VPblVzZSIgeDE9IjAlIiB5MT0iMCUiIHgyPSIwJSIgeTI9IjEwMCUiPgogICAgPHN0b3Agb2Zmc2V0PSIwJSIgc3RvcC1jb2xvcj0iIzZmODY4ZSIgc3RvcC1vcGFjaXR5PSIxIi8+CiAgICA8c3RvcCBvZmZzZXQ9IjEwMCUiIHN0b3AtY29sb3I9IiM2Zjg2OGUiIHN0b3Atb3BhY2l0eT0iMC45Ii8+CiAgPC9saW5lYXJHcmFkaWVudD4KICA8cmVjdCB4PSIwIiB5PSIwIiB3aWR0aD0iMSIgaGVpZ2h0PSIxIiBmaWxsPSJ1cmwoI2dyYWQtdWNnZy1nZW5lcmF0ZWQpIiAvPgo8L3N2Zz4=);
+  background: -moz-linear-gradient(top, $color-navigation-background-top 0%, $color-navigation-background-bottom 100%); /* FF3.6+ */
+  background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,$color-navigation-background-top), color-stop(100%,$color-navigation-background-bottom)); /* Chrome,Safari4+ */
+  background: -webkit-linear-gradient(top, $color-navigation-background-top 0%,$color-navigation-background-bottom 100%); /* Chrome10+,Safari5.1+ */
+  background: -o-linear-gradient(top, $color-navigation-background-top 0%,$color-navigation-background-bottom 100%); /* Opera 11.10+ */
+  background: -ms-linear-gradient(top, $color-navigation-background-top 0%,$color-navigation-background-bottom 100%); /* IE10+ */
+  background: linear-gradient(to bottom, $color-navigation-background-top 0%,$color-navigation-background-bottom 100%); /* W3C */
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#6f868e', endColorstr='#e66f868e',GradientType=0 ); /* IE6-8 */
+  
   border: none;
   border-bottom: 3px solid $color-navigation-border-bottom;
   
@@ -45,10 +56,9 @@ header.l-header-content {
   }
   
   &.maintenance {
-    height: 67px;
-    img {
-      position: relative;
-      top: 16px;
+    a#logo > img {
+      width: 180px;
+      @include rem-fallback(margin, 1rem, 0);
     }
   }
 }
@@ -57,7 +67,7 @@ header.l-header-content {
   display: inline-block;
   @include rem-fallback(margin, 1.5rem, 0);
   @include breakpoint($tab) {
-    @include rem-fallback(margin, .9rem);
+    @include rem-fallback(margin, .9rem, 0);
   }
 }
 

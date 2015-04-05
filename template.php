@@ -99,7 +99,7 @@ function devis_entity_view_alter(&$build, $type) {
       switch ($build['#view_mode']) {
         case 'pdf':
           $markup = $build['commerce_line_items'][0]['#markup'];
-          $build['commerce_line_items'][0]['#markup'] = str_replace(array('Titre'), array(t('Product')), $markup);
+          $build['commerce_line_items'][0]['#markup'] = str_replace(array('Titre'), array(t('Details')), $markup);
           // An idea to fix the problem of the table is to create the table again from here using theme_table.
           break;
         
@@ -131,7 +131,7 @@ function devis_entity_view_alter(&$build, $type) {
             $build['field_commerce_billy_i_date']['#access'] = FALSE;
           }
           $children .= '</section>';
-          $var = array('element' => array('#children' => $children, '#title' => t('Billing information')));
+          $var = array('element' => array('#children' => $children, '#title' => ''));//t('Billing information')));
           $build['commerce_customer_billing']['#weight'] = -10;
           $build['commerce_customer_billing']['#title'] = '';
           $build['commerce_customer_billing'][0]['#markup'] = theme_fieldset($var);
@@ -142,7 +142,7 @@ function devis_entity_view_alter(&$build, $type) {
           $children .= '<div class="space"></div>';
           $children .= $build['commerce_order_total'][0]['#markup'];
           $children = str_replace('Order total', t('Total'), $children);
-          $var = array('element' => array('#children' => $children, '#title' => t('Products')));
+          $var = array('element' => array('#children' => $children, '#title' => ''));//t('Products')));
           $build['commerce_line_items'][0]['#markup'] = theme_fieldset($var);
           $build['commerce_order_total'][0]['#markup'] = '';
         
