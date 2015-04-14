@@ -228,7 +228,7 @@ function devis_form_alter_validate($form, &$form_state) {
           break;
       }
     }
-    if ($form['#id'] == 'legal_login') {
+    if ($form['#id'] == 'legal-login' || $form['#id'] == 'legal_login') {
       if (isset($errors[0]) && $errors[0] != '' && count($errors) == 1) {
         $errors[0] = t('Vous devez accepter nos conditions générales pour continuer.');
       }
@@ -453,7 +453,7 @@ function devis_comptable_entityform_edit_form_validate($form, &$form_state) {
   // scroll the browser to the messages box.
   // Add some variables to jQuery.
   $error = isset($_SESSION['messages']['error']) ? TRUE : FALSE;
-  $data = array('submitted' => TRUE, 'error' => TRUE);
+  $data = array('submitted' => TRUE, 'error' => $error);
   drupal_add_js(array('form_info' => $data), 'setting');
 }
 
@@ -570,23 +570,6 @@ function devis_form_devenir_entityform_edit_form_alter(&$form, &$form_state, $fo
     }
     $form_state['set_redirect'] = TRUE;
   }
-  
-  // This is done here, although it could be implemented in the module itself.
-  if (module_exists('promo_code')) {
-    $promo_enable = variable_get('trois_devis_promotion_enable', 0);
-    $promo_amount = variable_get('trois_devis_promotion_amount', 0);
-    $promo_access = TRUE;
-    if ($promo_enable) {
-      $user_list = promo_code_get_user_list();
-      if (count($user_list) >= $promo_amount) {
-        $promo_access = FALSE;
-      }
-    }
-    else {
-      $promo_access = FALSE;
-    }
-    $form['field_promotional_code']['#access'] = $promo_access;
-  }
 
   // Extra validation rules.
   $form['#validate'][] = 'devis_devenir_entityform_edit_form_validate';
@@ -619,7 +602,7 @@ function devis_devenir_entityform_edit_form_validate($form, &$form_state) {
   // scroll the browser to the messages box.
   // Add some variables to jQuery.
   $error = isset($_SESSION['messages']['error']) ? TRUE : FALSE;
-  $data = array('submitted' => TRUE, 'error' => TRUE);
+  $data = array('submitted' => TRUE, 'error' => $error);
   drupal_add_js(array('form_info' => $data), 'setting');
 }
 
@@ -1026,6 +1009,22 @@ function devis_form_commerce_stripe_cardonfile_create_form_alter(&$form, &$form_
   $form['card-info']['address'] = $form['address'];
   
   unset($form['credit_card'], $form['address']);
+  // Pass the default card to the next step in case there is one.
+  $form['#submit'][] = 'devis_form_commerce_stripe_cardonfile_create_form_submit';
+  $stored_cards = commerce_cardonfile_load_multiple_by_uid($user->uid, NULL, TRUE);
+  if ($stored_cards) {
+    $default_card = current($stored_cards);
+    $form_state['default_card'] = $default_card;
+  }
+}
+
+function devis_form_commerce_stripe_cardonfile_create_form_submit($form, &$form_state) {
+  // If the user didn't select the new card as a default card,
+  // then correct the problem that makes this new card as the default one,
+  // by asigning the default value back to the old default card.
+  if (!$form_state['values']['credit_card']['cardonfile_instance_default']) {
+    commerce_cardonfile_set_default_card($form_state['default_card']->card_id);
+  }
 }
 
 /**
@@ -1084,38 +1083,75 @@ function devis_form_contact_site_form_alter(&$form, &$form_state, $form_id) {
     $form['contact'][$key] = $form[$key];
     unset($form[$key]);
   }
+  
+  $form['#submit'][] = 'devis_form_contact_site_form_submit';
+}
+
+function devis_form_contact_site_form_submit($form, &$form_state) {
+  drupal_set_message(t('Merci, nous vous contacterons bientôt.'));
+  $form_state['redirect'] = 'contact';
 }
 
 /**
  * Implements hook_form_BASE_FORM_ID_alter().
  */
 function devis_form_legal_login_alter(&$form, &$form_state, $form_id) {
-  // Get the node with the terms.
-  $nid = variable_get('trois_devis_terms_nid', 4);
-  $query = new EntityFieldQuery();
-  $entities = $query->entityCondition('entity_type', 'node')
-  ->propertyCondition('nid', $nid)
-  ->propertyCondition('status', 1)
-  ->execute();
-  if (!empty($entities['node'])) {
-    $node = node_load($nid);
-    $lang = key($node->body);
-    $terms = $node->body[$lang][0]['value'];
-    $form['legal']['info'] = array(
-      '#markup' => $terms,
-      '#weight' => -10,
-    );
+  // If there are some changes in the conditions, display the changes in
+  // an open fieldset.
+  if (isset($form['changes'])) {
+    $form['changes']['collapsed'] = FALSE;
+    $form['changes']['collapsible'] = FALSE;
   }
-  
-  //$theme_path = drupal_get_path('theme', variable_get('theme_default', NULL));
-  //$form['#attached']['css'][] = $theme_path .'/css/dialog.css';
-  //$form['#attached']['js'][] = $theme_path .'/js/jquery-ui/jquery-ui.js';
+  // Otherwise, it's a first time login, so show the terms.
+  else {
+    $nid = variable_get('trois_devis_terms_nid', 4);
+    $query = new EntityFieldQuery();
+    $entities = $query->entityCondition('entity_type', 'node')
+    ->propertyCondition('nid', $nid)
+    ->propertyCondition('status', 1)
+    ->execute();
+    if (!empty($entities['node'])) {
+      $node = node_load($nid);
+      $lang = key($node->body);
+      $terms = $node->body[$lang][0]['value'];
+      $form['legal']['info'] = array(
+        '#markup' => $terms,
+        '#weight' => -10,
+      );
+    }
+  }
   $form['#validate'][] = 'devis_form_alter_validate';
   $form['#submit'][] = 'devis_form_legal_login_submit';
 }
 
+/**
+ * This function is copying the same code from legal.
+ */
 function devis_form_legal_login_submit($form, &$form_state) {
-  $form_state['redirect'] = 'user';
+  // This is a copy from the legal module.
+  global $user;
+  $values = $form_state['values'];
+  $user   = user_load($values['uid']);
+
+  $redirect = 'user/' . $user->uid;
+
+  if (!empty($_GET['destination'])) {
+    $redirect = $_GET['destination'];
+  }
+
+  $form_state['redirect'] = $redirect;
+
+  // Update the user table timestamp noting user has logged in.
+  db_update('users')
+    ->fields(array('login' => time()))
+    ->condition('uid', $user->uid)
+    ->execute();
+
+  // User has new permissions, so we clear their menu cache.
+  cache_clear_all($user->uid, 'cache_menu', TRUE);
+  // Fixes login problems in Pressflow.
+  drupal_session_regenerate();
+  user_module_invoke('login', $edit, $user);
 }
 
 /**
@@ -1316,34 +1352,28 @@ function devis_legal_accept_label($variables) {
  * Implements theme_legal_login().
  */
 function devis_legal_login($variables) {
-  $user = user_load($variables['form']['uid']['#value']);
-  $lang = key($user->field_honorific);
-  $honorific = $user->field_honorific[$lang][0]['value'];
-  $welcome = ($honorific == 'female') ? 'Bienvenue' : 'Bienvenu'; // Bienvenu/e
-  
+  $output = '';
   $form = $variables['form'];
-  //$form['legal']['#title'] = t('@welcome à 3devis.be', array('@welcome' => $welcome)); //t('Termes et conditions');
   $form['legal']['#title'] = '';
   $form = theme('legal_display', array('form' => $form));
 
+  // If the changes exist, display them in a new fieldset and delete the
+  // module layout for the changes.
   if (isset($form['changes'])) {
-    $form['changes']['#title'] = t('Changements');
-    $form['changes']['#description'] = t('Les modifications apportées aux conditions générales');
-    $form['changes']['#collapsed'] = FALSE;
-    $form['changes']['#collapsible'] = FALSE;
+    $form['changes_new'] = array(
+      '#type'        => 'fieldset',
+      '#title'       => t('Les modifications apportées aux conditions générales'),
+      '#description' => '',
+      '#collapsible' => FALSE,
+      '#collapsed'   => FALSE,
+      '#tree'        => TRUE,
+    );
+    $form['changes_new']['bullet_points'] = array(
+      '#markup' => $form['changes']['bullet_points']['#markup'],
+    );
+    $output .= drupal_render($form['changes_new']);
+    unset($form['changes']);
   }
-  
-  if (isset($form['changes']['#value'])) {
-    foreach (element_children($form['changes']) as $key) {
-      $form['changes'][$key]['#prefix'] .= '<li>';
-      $form['changes'][$key]['#suffix'] .= '</li>';
-    }
-
-    $form['changes']['start_list'] = array('#value' => '<ul>', '#weight' => 0);
-    $form['changes']['end_list']   = array('#value' => '</ul>', '#weight' => 3);
-    $output .= drupal_render($form['changes']);
-  }
-
   $save = drupal_render($form['save']);
   $output .= drupal_render_children($form);
   
@@ -1351,9 +1381,7 @@ function devis_legal_login($variables) {
   $conditions = legal_get_conditions($language->language);
   $conditions = $conditions['conditions'];
   $output .= '<div id="dialog" title="'. t('Termes et conditions') .'">'. $conditions .'</div>';*/
-  
   $output .= $save;
-
   return $output;
 }
 

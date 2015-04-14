@@ -46,11 +46,16 @@ function devis_preprocess_entity(&$variables, $hook) {
     if (!$variables['is_admin']) {
       $variables['content']['cl_billing_cycle']['#access'] = FALSE;
     }
+    // If it's a manager, different links on the bottom.
+    $is_manager = FALSE;
+    if (in_array('manager', $variables['user']->roles)) {
+      $is_manager = TRUE;
+    }
     $user_path = 'user/'. $variables['user']->uid;
-    $variables['orders_url'] = l(t('Invoices'), $user_path .'/orders');
-    $variables['account_url'] = l(t('My account'), $user_path);
+    $variables['orders_url'] = ($is_manager) ? l(t('Invoices'), 'adminpage/report/order') : l(t('Invoices'), $user_path .'/orders');
+    $variables['account_url'] = ($is_manager) ? '' : l(t('My account'), $user_path);
     //$variables['print_url'] = l(t('Print version'), 'print/'. current_path());
-    $variables['pdf_url'] = l(t('PDF version'), 'invoice-pdf/'. $variables['commerce_order']->order_id);
+    $variables['pdf_url'] = ($variables['commerce_order']->status == 'invoiced') ? l(t('PDF version'), 'invoice-pdf/'. $variables['commerce_order']->order_id) : '';
   }
   
   // Commerce Order PDF.
@@ -94,6 +99,7 @@ function devis_preprocess_entity(&$variables, $hook) {
       foreach ($variables['content']['group_admin']['field_entity_devis_ref']['#items'] as $key => $arr) {
         if (!$arr['access']) continue;
         $entity = $arr['entity'];
+        if (!isset($info_list[$entity->entityform_id])) continue;
         $info = $info_list[$entity->entityform_id];
         
         $lang_prenom = key($entity->field_prenom);

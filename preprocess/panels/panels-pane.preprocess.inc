@@ -29,7 +29,11 @@ function devis_preprocess_panels_pane(&$variables) {
   
   // Terms and conditions.
   if (isset($variables['content']['system_main']['legal']) && isset($variables['content']['system_main']['#id']) && $variables['content']['system_main']['#id'] == 'legal-login') {
-    $variables['title'] = $variables['content']['system_main']['legal']['#title'] = t('Bienvenue chez 3devis');
+    $title = t('Bienvenue chez 3devis');
+    if (isset($variables['content']['system_main']['changes'])) {
+      $title = t('Changements chez 3devis');
+    }
+    $variables['title'] = $variables['content']['system_main']['legal']['#title'] = $title;
   }
   
   // Changes for the entityforms.
@@ -137,8 +141,14 @@ function devis_preprocess_panels_pane(&$variables) {
         }
       break;
     }
+  }  
+  if (isset($variables['user']) && is_object($variables['user']) && isset($variables['content']['system_main']['card-info'])) {
+    $args = arg();
+    if ($args[2] == 'cards' && $args[4] == 'edit') {
+      $card = commerce_cardonfile_load($args[3]);
+      $variables['title'] = t('Carte de crédit terminant en @card_number', array('@card_number' => $card->card_number));
+    }
   }
-  
   if (isset($variables['user']) && is_object($variables['user']) && isset($variables['content']['system_main']['main'])) {
     $path = current_path();
     // Address Book.
