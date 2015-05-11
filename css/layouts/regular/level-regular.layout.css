@@ -746,6 +746,7 @@ input[type="checkbox"], input[type="radio"] {
     .container-wrapper div.form-wrapper input {
       max-width: 200px;
       width: 100%;
+      margin-right: 16px;
       margin-right: 1rem; } }
 @media (min-width: 1088px) {
 @media -sass-debug-info{filename{font-family:file\:\/\/\/Applications\/MAMP\/htdocs\/3devis\/sites\/all\/themes\/devis\/sass\/base\/_forms\.scss}line{font-family:\00003364}}
@@ -757,31 +758,41 @@ input[type="checkbox"], input[type="radio"] {
       max-width: 266px;
       width: 266px; } }
 
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Applications\/MAMP\/htdocs\/3devis\/sites\/all\/themes\/devis\/sass\/base\/_forms\.scss}line{font-family:\00003377}}
+div#edit-field-has-accountant-und div.form-item-field-has-accountant-und {
+  display: inline-block;
+  vertical-align: top;
+  margin-bottom: 0; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Applications\/MAMP\/htdocs\/3devis\/sites\/all\/themes\/devis\/sass\/base\/_forms\.scss}line{font-family:\00003382}}
+  div#edit-field-has-accountant-und div.form-item-field-has-accountant-und:nth-child(2) {
+    margin-left: 16px;
+    margin-left: 1rem; }
+
 /* Fix weird behaviors. Especial cases. */
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Applications\/MAMP\/htdocs\/3devis\/sites\/all\/themes\/devis\/sass\/base\/_forms\.scss}line{font-family:\00003378}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Applications\/MAMP\/htdocs\/3devis\/sites\/all\/themes\/devis\/sass\/base\/_forms\.scss}line{font-family:\00003390}}
 fieldset.group-address-top {
   margin-bottom: 0; }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Applications\/MAMP\/htdocs\/3devis\/sites\/all\/themes\/devis\/sass\/base\/_forms\.scss}line{font-family:\00003382}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Applications\/MAMP\/htdocs\/3devis\/sites\/all\/themes\/devis\/sass\/base\/_forms\.scss}line{font-family:\00003394}}
 fieldset.group-address-extra {
   background: none;
   margin-top: 0;
   padding: 0; }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Applications\/MAMP\/htdocs\/3devis\/sites\/all\/themes\/devis\/sass\/base\/_forms\.scss}line{font-family:\00003390}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Applications\/MAMP\/htdocs\/3devis\/sites\/all\/themes\/devis\/sass\/base\/_forms\.scss}line{font-family:\00003402}}
 div#edit-actions input {
   margin: 0; }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Applications\/MAMP\/htdocs\/3devis\/sites\/all\/themes\/devis\/sass\/base\/_forms\.scss}line{font-family:\00003394}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Applications\/MAMP\/htdocs\/3devis\/sites\/all\/themes\/devis\/sass\/base\/_forms\.scss}line{font-family:\00003406}}
 div#edit-actions a {
   padding: 0px 16px;
   padding: 0rem 1rem; }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Applications\/MAMP\/htdocs\/3devis\/sites\/all\/themes\/devis\/sass\/base\/_forms\.scss}line{font-family:\00003399}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Applications\/MAMP\/htdocs\/3devis\/sites\/all\/themes\/devis\/sass\/base\/_forms\.scss}line{font-family:\00003411}}
 form.confirmation {
   line-height: 24px;
   line-height: 1.5rem; }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Applications\/MAMP\/htdocs\/3devis\/sites\/all\/themes\/devis\/sass\/base\/_forms\.scss}line{font-family:\00003409}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Applications\/MAMP\/htdocs\/3devis\/sites\/all\/themes\/devis\/sass\/base\/_forms\.scss}line{font-family:\00003421}}
 div.form-actions .button,
 div.form-actions button,
 div.form-actions input[type="submit"]#edit-cancel,
@@ -792,22 +803,22 @@ div.form-actions input[type="button"] {
   margin-right: 16px;
   margin-right: 1rem; }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Applications\/MAMP\/htdocs\/3devis\/sites\/all\/themes\/devis\/sass\/base\/_forms\.scss}line{font-family:\00003418}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Applications\/MAMP\/htdocs\/3devis\/sites\/all\/themes\/devis\/sass\/base\/_forms\.scss}line{font-family:\00003430}}
 div.form-type-link-field {
   margin-bottom: 0; }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Applications\/MAMP\/htdocs\/3devis\/sites\/all\/themes\/devis\/sass\/base\/_forms\.scss}line{font-family:\00003422}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Applications\/MAMP\/htdocs\/3devis\/sites\/all\/themes\/devis\/sass\/base\/_forms\.scss}line{font-family:\00003434}}
 select[name*='field_approval'], select[name^='field_approval'] {
   width: 100px; }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Applications\/MAMP\/htdocs\/3devis\/sites\/all\/themes\/devis\/sass\/base\/_forms\.scss}line{font-family:\00003426}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Applications\/MAMP\/htdocs\/3devis\/sites\/all\/themes\/devis\/sass\/base\/_forms\.scss}line{font-family:\00003438}}
 .counter {
   margin: 4px 0px 0px;
   margin: 0.25rem 0rem 0rem;
   font-size: 11.2px;
   font-size: 0.7rem;
   font-weight: 200; }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Applications\/MAMP\/htdocs\/3devis\/sites\/all\/themes\/devis\/sass\/base\/_forms\.scss}line{font-family:\00003431}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Applications\/MAMP\/htdocs\/3devis\/sites\/all\/themes\/devis\/sass\/base\/_forms\.scss}line{font-family:\00003443}}
   .counter.messages.warning, .counter.error {
     font-weight: 400;
     background: 0;
@@ -817,22 +828,22 @@ select[name*='field_approval'], select[name^='field_approval'] {
     color: red;
     margin: 0; }
   @media (min-width: 384px) {
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Applications\/MAMP\/htdocs\/3devis\/sites\/all\/themes\/devis\/sass\/base\/_forms\.scss}line{font-family:\00003426}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Applications\/MAMP\/htdocs\/3devis\/sites\/all\/themes\/devis\/sass\/base\/_forms\.scss}line{font-family:\00003438}}
     .counter {
       font-size: 12.8px;
       font-size: 0.8rem; } }
   @media (min-width: 704px) {
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Applications\/MAMP\/htdocs\/3devis\/sites\/all\/themes\/devis\/sass\/base\/_forms\.scss}line{font-family:\00003426}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Applications\/MAMP\/htdocs\/3devis\/sites\/all\/themes\/devis\/sass\/base\/_forms\.scss}line{font-family:\00003438}}
     .counter {
       font-size: 13.6px;
       font-size: 0.85rem; } }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Applications\/MAMP\/htdocs\/3devis\/sites\/all\/themes\/devis\/sass\/base\/_forms\.scss}line{font-family:\00003449}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Applications\/MAMP\/htdocs\/3devis\/sites\/all\/themes\/devis\/sass\/base\/_forms\.scss}line{font-family:\00003461}}
 .confirm-parent {
   margin-bottom: 0; }
 
 /* Autocomplete. */
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Applications\/MAMP\/htdocs\/3devis\/sites\/all\/themes\/devis\/sass\/base\/_forms\.scss}line{font-family:\00003454}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Applications\/MAMP\/htdocs\/3devis\/sites\/all\/themes\/devis\/sass\/base\/_forms\.scss}line{font-family:\00003466}}
 div#autocomplete {
   color: #002c52;
   background: white;
@@ -845,7 +856,7 @@ div#autocomplete {
   -webkit-box-shadow: 0px 1px 5px rgba(0, 0, 0, 0.05);
   -moz-box-shadow: 0px 1px 5px rgba(0, 0, 0, 0.05);
   box-shadow: 0px 1px 5px rgba(0, 0, 0, 0.05); }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Applications\/MAMP\/htdocs\/3devis\/sites\/all\/themes\/devis\/sass\/base\/_forms\.scss}line{font-family:\00003461}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Applications\/MAMP\/htdocs\/3devis\/sites\/all\/themes\/devis\/sass\/base\/_forms\.scss}line{font-family:\00003473}}
   div#autocomplete li {
     font-family: "Source Sans Pro", Helvetica, Arial, sans-serif;
     font-weight: 400;
@@ -859,7 +870,7 @@ div#autocomplete {
     background-image: -moz-linear-gradient(#ffffff, #fbfbfb);
     background-image: -o-linear-gradient(#ffffff, #fbfbfb);
     background-image: linear-gradient(#ffffff, #fbfbfb); }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Applications\/MAMP\/htdocs\/3devis\/sites\/all\/themes\/devis\/sass\/base\/_forms\.scss}line{font-family:\00003468}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Applications\/MAMP\/htdocs\/3devis\/sites\/all\/themes\/devis\/sass\/base\/_forms\.scss}line{font-family:\00003480}}
     div#autocomplete li.selected {
       color: white;
       background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, rgba(46, 158, 255, 0.8)), color-stop(100%, rgba(0, 120, 224, 0.8)));
@@ -868,29 +879,29 @@ div#autocomplete {
       background-image: -o-linear-gradient(rgba(46, 158, 255, 0.8), rgba(0, 120, 224, 0.8));
       background-image: linear-gradient(rgba(46, 158, 255, 0.8), rgba(0, 120, 224, 0.8)); }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Applications\/MAMP\/htdocs\/3devis\/sites\/all\/themes\/devis\/sass\/base\/_forms\.scss}line{font-family:\00003476}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Applications\/MAMP\/htdocs\/3devis\/sites\/all\/themes\/devis\/sass\/base\/_forms\.scss}line{font-family:\00003488}}
 html.js input.form-autocomplete {
   /*background-image: url(path-to-your/loader.gif); /* tweak this according to your gif */
   background-position: 100% 10px;
   background-repeat: no-repeat; }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Applications\/MAMP\/htdocs\/3devis\/sites\/all\/themes\/devis\/sass\/base\/_forms\.scss}line{font-family:\00003482}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Applications\/MAMP\/htdocs\/3devis\/sites\/all\/themes\/devis\/sass\/base\/_forms\.scss}line{font-family:\00003494}}
 html.js input.throbbing {
   background-position: 100% -13px; }
 
 /* Draggable objects */
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Applications\/MAMP\/htdocs\/3devis\/sites\/all\/themes\/devis\/sass\/base\/_forms\.scss}line{font-family:\00003489}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Applications\/MAMP\/htdocs\/3devis\/sites\/all\/themes\/devis\/sass\/base\/_forms\.scss}line{font-family:\00003501}}
 .tabledrag-handle .handle {
   margin: 0;
   padding: 0;
   background-position: 0px 0px;
   background-repeat: no-repeat; }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Applications\/MAMP\/htdocs\/3devis\/sites\/all\/themes\/devis\/sass\/base\/_forms\.scss}line{font-family:\00003498}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Applications\/MAMP\/htdocs\/3devis\/sites\/all\/themes\/devis\/sass\/base\/_forms\.scss}line{font-family:\00003510}}
 .tabledrag-handle-hover .handle {
   background-position: 0px -20px; }
 
 /* these apply to all ajax progresses */
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Applications\/MAMP\/htdocs\/3devis\/sites\/all\/themes\/devis\/sass\/base\/_forms\.scss}line{font-family:\00003504}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Applications\/MAMP\/htdocs\/3devis\/sites\/all\/themes\/devis\/sass\/base\/_forms\.scss}line{font-family:\00003516}}
 .ajax-progress {
     /*display: inline-block;
     *display: inline;

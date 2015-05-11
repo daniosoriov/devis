@@ -105,6 +105,14 @@
       width: 50%;
     }
   }
+  
+  article.field-group-article-three {
+    @include breakpoint($tab) {
+      display: inline-block;
+      vertical-align: top;
+      width: 33%;
+    }
+  }
 }
 
 div.tabs {

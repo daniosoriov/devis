@@ -11,176 +11,186 @@
 /* Footer */
 /* Content. */
 /* Misc */
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Applications\/MAMP\/htdocs\/3devis\/sites\/all\/themes\/devis\/sass\/commerce_invoice_pdf\.scss}line{font-family:\000036}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Applications\/MAMP\/htdocs\/3devis\/sites\/all\/themes\/devis\/sass\/commerce_invoice_pdf\.scss}line{font-family:\000038}}
 body {
   font-family: Helvetica, arial, sans-serif;
   font-size: 16px;
   font-size: 1rem;
   color: #1a1a1a; }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Applications\/MAMP\/htdocs\/3devis\/sites\/all\/themes\/devis\/sass\/commerce_invoice_pdf\.scss}line{font-family:\0000312}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Applications\/MAMP\/htdocs\/3devis\/sites\/all\/themes\/devis\/sass\/commerce_invoice_pdf\.scss}line{font-family:\0000314}}
 hr {
   display: none; }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Applications\/MAMP\/htdocs\/3devis\/sites\/all\/themes\/devis\/sass\/commerce_invoice_pdf\.scss}line{font-family:\0000317}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Applications\/MAMP\/htdocs\/3devis\/sites\/all\/themes\/devis\/sass\/commerce_invoice_pdf\.scss}line{font-family:\0000319}}
 .remove-br br {
   display: none; }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Applications\/MAMP\/htdocs\/3devis\/sites\/all\/themes\/devis\/sass\/commerce_invoice_pdf\.scss}line{font-family:\0000322}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Applications\/MAMP\/htdocs\/3devis\/sites\/all\/themes\/devis\/sass\/commerce_invoice_pdf\.scss}line{font-family:\0000324}}
 .header {
   width: 100%;
   height: 100px;
   border-bottom: 1px solid #002c52; }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Applications\/MAMP\/htdocs\/3devis\/sites\/all\/themes\/devis\/sass\/commerce_invoice_pdf\.scss}line{font-family:\0000328}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Applications\/MAMP\/htdocs\/3devis\/sites\/all\/themes\/devis\/sass\/commerce_invoice_pdf\.scss}line{font-family:\0000330}}
 .header img {
   width: 200px;
   position: absolute; }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Applications\/MAMP\/htdocs\/3devis\/sites\/all\/themes\/devis\/sass\/commerce_invoice_pdf\.scss}line{font-family:\0000333}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Applications\/MAMP\/htdocs\/3devis\/sites\/all\/themes\/devis\/sass\/commerce_invoice_pdf\.scss}line{font-family:\0000335}}
 .text {
   position: absolute;
   top: 300px; }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Applications\/MAMP\/htdocs\/3devis\/sites\/all\/themes\/devis\/sass\/commerce_invoice_pdf\.scss}line{font-family:\0000339}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Applications\/MAMP\/htdocs\/3devis\/sites\/all\/themes\/devis\/sass\/commerce_invoice_pdf\.scss}line{font-family:\0000341}}
 .invoice-header {
   font-size: 14.4px;
   font-size: 0.9rem;
   color: darkgray;
   text-align: right; }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Applications\/MAMP\/htdocs\/3devis\/sites\/all\/themes\/devis\/sass\/commerce_invoice_pdf\.scss}line{font-family:\0000345}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Applications\/MAMP\/htdocs\/3devis\/sites\/all\/themes\/devis\/sass\/commerce_invoice_pdf\.scss}line{font-family:\0000347}}
 .invoice-number {
   position: relative;
   top: 45px;
   right: 0;
   text-align: right; }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Applications\/MAMP\/htdocs\/3devis\/sites\/all\/themes\/devis\/sass\/commerce_invoice_pdf\.scss}line{font-family:\0000352}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Applications\/MAMP\/htdocs\/3devis\/sites\/all\/themes\/devis\/sass\/commerce_invoice_pdf\.scss}line{font-family:\0000354}}
 div.invoice-date {
   width: 40%;
   text-align: right;
   display: inline-block; }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Applications\/MAMP\/htdocs\/3devis\/sites\/all\/themes\/devis\/sass\/commerce_invoice_pdf\.scss}line{font-family:\0000356}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Applications\/MAMP\/htdocs\/3devis\/sites\/all\/themes\/devis\/sass\/commerce_invoice_pdf\.scss}line{font-family:\0000358}}
   div.invoice-date .invoice-date-date {
     border: none;
     text-align: right; }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Applications\/MAMP\/htdocs\/3devis\/sites\/all\/themes\/devis\/sass\/commerce_invoice_pdf\.scss}line{font-family:\0000362}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Applications\/MAMP\/htdocs\/3devis\/sites\/all\/themes\/devis\/sass\/commerce_invoice_pdf\.scss}line{font-family:\0000364}}
 div.customer {
   width: 60%;
   display: inline-block;
   margin-bottom: 16px;
   margin-bottom: 1rem; }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Applications\/MAMP\/htdocs\/3devis\/sites\/all\/themes\/devis\/sass\/commerce_invoice_pdf\.scss}line{font-family:\0000368}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Applications\/MAMP\/htdocs\/3devis\/sites\/all\/themes\/devis\/sass\/commerce_invoice_pdf\.scss}line{font-family:\0000370}}
 div.clear {
   clear: both; }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Applications\/MAMP\/htdocs\/3devis\/sites\/all\/themes\/devis\/sass\/commerce_invoice_pdf\.scss}line{font-family:\0000372}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Applications\/MAMP\/htdocs\/3devis\/sites\/all\/themes\/devis\/sass\/commerce_invoice_pdf\.scss}line{font-family:\0000374}}
 .customer .field-label,
 .customer .field__label {
   display: none; }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Applications\/MAMP\/htdocs\/3devis\/sites\/all\/themes\/devis\/sass\/commerce_invoice_pdf\.scss}line{font-family:\0000376}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Applications\/MAMP\/htdocs\/3devis\/sites\/all\/themes\/devis\/sass\/commerce_invoice_pdf\.scss}line{font-family:\0000378}}
 .customer .field-name-field-customer-lastname,
 .customer .field--name-field-customer-lastname {
   display: none; }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Applications\/MAMP\/htdocs\/3devis\/sites\/all\/themes\/devis\/sass\/commerce_invoice_pdf\.scss}line{font-family:\0000381}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Applications\/MAMP\/htdocs\/3devis\/sites\/all\/themes\/devis\/sass\/commerce_invoice_pdf\.scss}line{font-family:\0000383}}
 .container-inline {
   display: inline-block; }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Applications\/MAMP\/htdocs\/3devis\/sites\/all\/themes\/devis\/sass\/commerce_invoice_pdf\.scss}line{font-family:\0000385}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Applications\/MAMP\/htdocs\/3devis\/sites\/all\/themes\/devis\/sass\/commerce_invoice_pdf\.scss}line{font-family:\0000387}}
 .addressfield-container-inline, .street-block, .country {
   font-style: normal; }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Applications\/MAMP\/htdocs\/3devis\/sites\/all\/themes\/devis\/sass\/commerce_invoice_pdf\.scss}line{font-family:\0000389}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Applications\/MAMP\/htdocs\/3devis\/sites\/all\/themes\/devis\/sass\/commerce_invoice_pdf\.scss}line{font-family:\0000391}}
 .line-items {
   margin-top: -32px;
   margin-top: -2rem; }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Applications\/MAMP\/htdocs\/3devis\/sites\/all\/themes\/devis\/sass\/commerce_invoice_pdf\.scss}line{font-family:\0000393}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Applications\/MAMP\/htdocs\/3devis\/sites\/all\/themes\/devis\/sass\/commerce_invoice_pdf\.scss}line{font-family:\0000395}}
 .view-commerce-line-item-table {
   font-size: 13.6px;
   font-size: 0.85rem; }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Applications\/MAMP\/htdocs\/3devis\/sites\/all\/themes\/devis\/sass\/commerce_invoice_pdf\.scss}line{font-family:\0000395}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Applications\/MAMP\/htdocs\/3devis\/sites\/all\/themes\/devis\/sass\/commerce_invoice_pdf\.scss}line{font-family:\0000397}}
   .view-commerce-line-item-table table {
     width: 100%;
     line-height: 1.2em;
     border-collapse: collapse; }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Applications\/MAMP\/htdocs\/3devis\/sites\/all\/themes\/devis\/sass\/commerce_invoice_pdf\.scss}line{font-family:\00003100}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Applications\/MAMP\/htdocs\/3devis\/sites\/all\/themes\/devis\/sass\/commerce_invoice_pdf\.scss}line{font-family:\00003102}}
   .view-commerce-line-item-table thead {
     border-bottom: 2px solid #002c52; }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Applications\/MAMP\/htdocs\/3devis\/sites\/all\/themes\/devis\/sass\/commerce_invoice_pdf\.scss}line{font-family:\00003102}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Applications\/MAMP\/htdocs\/3devis\/sites\/all\/themes\/devis\/sass\/commerce_invoice_pdf\.scss}line{font-family:\00003104}}
     .view-commerce-line-item-table thead tr {
       background: #dfdfdf; }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Applications\/MAMP\/htdocs\/3devis\/sites\/all\/themes\/devis\/sass\/commerce_invoice_pdf\.scss}line{font-family:\00003105}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Applications\/MAMP\/htdocs\/3devis\/sites\/all\/themes\/devis\/sass\/commerce_invoice_pdf\.scss}line{font-family:\00003107}}
     .view-commerce-line-item-table thead th {
-      text-align: left;
+      width: 20%;
+      text-align: right;
       font-weight: 600;
       padding: 8px;
       padding: 0.5rem; }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Applications\/MAMP\/htdocs\/3devis\/sites\/all\/themes\/devis\/sass\/commerce_invoice_pdf\.scss}line{font-family:\00003114}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Applications\/MAMP\/htdocs\/3devis\/sites\/all\/themes\/devis\/sass\/commerce_invoice_pdf\.scss}line{font-family:\00003112}}
+      .view-commerce-line-item-table thead th.views-field-line-item-title {
+        width: 40%;
+        text-align: left; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Applications\/MAMP\/htdocs\/3devis\/sites\/all\/themes\/devis\/sass\/commerce_invoice_pdf\.scss}line{font-family:\00003121}}
   .view-commerce-line-item-table tbody tr.odd {
     background: #fcfcfc; }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Applications\/MAMP\/htdocs\/3devis\/sites\/all\/themes\/devis\/sass\/commerce_invoice_pdf\.scss}line{font-family:\00003117}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Applications\/MAMP\/htdocs\/3devis\/sites\/all\/themes\/devis\/sass\/commerce_invoice_pdf\.scss}line{font-family:\00003124}}
   .view-commerce-line-item-table tbody tr.even {
     background: #f6f6f6; }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Applications\/MAMP\/htdocs\/3devis\/sites\/all\/themes\/devis\/sass\/commerce_invoice_pdf\.scss}line{font-family:\00003121}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Applications\/MAMP\/htdocs\/3devis\/sites\/all\/themes\/devis\/sass\/commerce_invoice_pdf\.scss}line{font-family:\00003128}}
   .view-commerce-line-item-table tbody td {
-    text-align: left;
+    width: 20%;
+    text-align: right;
     padding: 8px;
     padding: 0.5rem; }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Applications\/MAMP\/htdocs\/3devis\/sites\/all\/themes\/devis\/sass\/commerce_invoice_pdf\.scss}line{font-family:\00003127}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Applications\/MAMP\/htdocs\/3devis\/sites\/all\/themes\/devis\/sass\/commerce_invoice_pdf\.scss}line{font-family:\00003132}}
+    .view-commerce-line-item-table tbody td.views-field-line-item-title {
+      width: 40%;
+      text-align: left; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Applications\/MAMP\/htdocs\/3devis\/sites\/all\/themes\/devis\/sass\/commerce_invoice_pdf\.scss}line{font-family:\00003139}}
   .view-commerce-line-item-table .views-field-line-item-title {
     width: 65%; }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Applications\/MAMP\/htdocs\/3devis\/sites\/all\/themes\/devis\/sass\/commerce_invoice_pdf\.scss}line{font-family:\00003131}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Applications\/MAMP\/htdocs\/3devis\/sites\/all\/themes\/devis\/sass\/commerce_invoice_pdf\.scss}line{font-family:\00003143}}
   .view-commerce-line-item-table .views-field-quantity {
     width: 5%; }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Applications\/MAMP\/htdocs\/3devis\/sites\/all\/themes\/devis\/sass\/commerce_invoice_pdf\.scss}line{font-family:\00003135}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Applications\/MAMP\/htdocs\/3devis\/sites\/all\/themes\/devis\/sass\/commerce_invoice_pdf\.scss}line{font-family:\00003147}}
   .view-commerce-line-item-table .views-align-right {
     text-align: right; }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Applications\/MAMP\/htdocs\/3devis\/sites\/all\/themes\/devis\/sass\/commerce_invoice_pdf\.scss}line{font-family:\00003140}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Applications\/MAMP\/htdocs\/3devis\/sites\/all\/themes\/devis\/sass\/commerce_invoice_pdf\.scss}line{font-family:\00003152}}
 .order-total {
   font-size: 14.4px;
   font-size: 0.9rem;
   margin-top: 48px;
   margin-top: 3rem; }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Applications\/MAMP\/htdocs\/3devis\/sites\/all\/themes\/devis\/sass\/commerce_invoice_pdf\.scss}line{font-family:\00003144}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Applications\/MAMP\/htdocs\/3devis\/sites\/all\/themes\/devis\/sass\/commerce_invoice_pdf\.scss}line{font-family:\00003156}}
   .order-total table {
     border-collapse: collapse;
     font-weight: 600;
     width: 50%;
     margin-left: auto; }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Applications\/MAMP\/htdocs\/3devis\/sites\/all\/themes\/devis\/sass\/commerce_invoice_pdf\.scss}line{font-family:\00003149}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Applications\/MAMP\/htdocs\/3devis\/sites\/all\/themes\/devis\/sass\/commerce_invoice_pdf\.scss}line{font-family:\00003161}}
     .order-total table tr {
       background: #f6f6f6; }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Applications\/MAMP\/htdocs\/3devis\/sites\/all\/themes\/devis\/sass\/commerce_invoice_pdf\.scss}line{font-family:\00003152}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Applications\/MAMP\/htdocs\/3devis\/sites\/all\/themes\/devis\/sass\/commerce_invoice_pdf\.scss}line{font-family:\00003164}}
     .order-total table td {
       padding: 8px;
       padding: 0.5rem; }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Applications\/MAMP\/htdocs\/3devis\/sites\/all\/themes\/devis\/sass\/commerce_invoice_pdf\.scss}line{font-family:\00003154}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Applications\/MAMP\/htdocs\/3devis\/sites\/all\/themes\/devis\/sass\/commerce_invoice_pdf\.scss}line{font-family:\00003166}}
       .order-total table td.component-total {
         text-align: right; }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Applications\/MAMP\/htdocs\/3devis\/sites\/all\/themes\/devis\/sass\/commerce_invoice_pdf\.scss}line{font-family:\00003161}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Applications\/MAMP\/htdocs\/3devis\/sites\/all\/themes\/devis\/sass\/commerce_invoice_pdf\.scss}line{font-family:\00003173}}
 .contextual-links-wrapper {
   display: none; }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Applications\/MAMP\/htdocs\/3devis\/sites\/all\/themes\/devis\/sass\/commerce_invoice_pdf\.scss}line{font-family:\00003165}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Applications\/MAMP\/htdocs\/3devis\/sites\/all\/themes\/devis\/sass\/commerce_invoice_pdf\.scss}line{font-family:\00003177}}
 .invoice-canceled .order-total table {
   margin-top: 100px; }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Applications\/MAMP\/htdocs\/3devis\/sites\/all\/themes\/devis\/sass\/commerce_invoice_pdf\.scss}line{font-family:\00003170}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Applications\/MAMP\/htdocs\/3devis\/sites\/all\/themes\/devis\/sass\/commerce_invoice_pdf\.scss}line{font-family:\00003182}}
 .invoice-text {
   font-size: 14.4px;
   font-size: 0.9rem;
   margin-top: 112px;
   margin-top: 7rem; }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Applications\/MAMP\/htdocs\/3devis\/sites\/all\/themes\/devis\/sass\/commerce_invoice_pdf\.scss}line{font-family:\00003175}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Applications\/MAMP\/htdocs\/3devis\/sites\/all\/themes\/devis\/sass\/commerce_invoice_pdf\.scss}line{font-family:\00003187}}
 .invoice-footer {
   position: absolute;
   bottom: 0;

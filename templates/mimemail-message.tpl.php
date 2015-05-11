@@ -85,7 +85,7 @@
                       <td id="footer-logo">
                         <div>
                           <a href="http://3devis.be">
-                            <img alt="3devis | Trouvez des comptables et fiscalistes qualifiés" src="https://3devis.be/sites/default/files/comptable-fiscaliste-bruxelles-mail.png" height="51" width="140">
+                            <img alt="3devis | Les meilleurs fournisseurs en Belgique" src="https://3devis.be/sites/default/files/comptable-fiscaliste-bruxelles-mail.png" height="51" width="140">
                           </a>
                         </div>
                       </td>

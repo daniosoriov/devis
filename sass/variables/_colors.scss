@@ -46,7 +46,8 @@ $color-navigation-hover-border: $base-color; //darken($base-color, 2);
 $color-navigation-sticky-shadow: rgba(0, 0, 0, 0.4);
 
 $color-navigation-special-box: darken(white, 2);
-$color-navigation-special-box-background: fade-out(darken($green-base, 15), .05); //fade-out($default-color-blue, .05);
+$color-navigation-special-box-base: darken($green-base, 15);
+$color-navigation-special-box-background: fade-out($color-navigation-special-box-base, .05);
 $color-navigation-special-box-a: $base-color;
 $color-navigation-special-box-a-hover: lighten($base-color, 35);
 
@@ -67,8 +68,8 @@ $color-tab-a-hover: white; //lighten($base-color, 15);
 $color-tab-a-hover-background: darken(gray, 10);
 
 /* Blocks. */
-$color-block-background-gray: darken(white, 4);
-$color-block-background-gray-dark: darken(gray, 10);
+$color-block-background-gray: darken(white, 7.5);
+$color-block-background-gray-dark: darken(gray, 12);
 $color-block-font-gray: darken(white, 5);
 
 /* Buttons. */

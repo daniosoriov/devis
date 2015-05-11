@@ -3,6 +3,8 @@
 @import "variables/**/*";
 @import "abstractions/**/*";
 
+// THE VIEW: commerce_cart_summary.
+
 body {
   font-family: Helvetica, arial, sans-serif;
   @include rem-fallback(font-size, 1rem);
@@ -103,9 +105,14 @@ div.clear {
       background: darken(white, 12.5);
     }
     th {
-      text-align: left;
+      width: 20%;
+      text-align: right;
       font-weight: 600;
       @include rem-fallback(padding, .5rem);
+      &.views-field-line-item-title {
+        width: 40%;
+        text-align: left;
+      }
     }
   }
     
@@ -119,8 +126,13 @@ div.clear {
       }
     }
     td {
-      text-align: left;
+      width: 20%;
+      text-align: right;
       @include rem-fallback(padding, .5rem);
+      &.views-field-line-item-title {
+        width: 40%;
+        text-align: left;
+      }
     }
   }
   

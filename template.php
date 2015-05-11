@@ -24,6 +24,28 @@ function devis_theme() {
   return $items;
 }
 
+function devis_html_head_alter(&$head_elements) {
+  $content = '';
+  // Change the description head tag for the entityforms.
+  $current_path = current_path();
+  switch ($current_path) {
+    case 'eform/submit/comptable':
+      $content = variable_get('trois_devis_comptable_description', '');
+      break;
+    
+    case 'eform/submit/devenir':
+      $content = variable_get('trois_devis_devenir_description', '');
+      break;
+  }
+  if ($content) {
+    $head_elements['description'] = array(
+      '#type' => 'html_tag',
+      '#tag' => 'meta',
+      '#attributes' => array('name' => 'description', 'content' => $content),
+    );
+  }
+}
+
 /**
  * Implements theme_preprocess().
  */
@@ -32,6 +54,7 @@ function devis_preprocess(&$variables, $hook) {
   //dpm($hook, 'hook');
   //dpm(array_keys($variables), 'variables KEYS');
   //dpm($variables['title'], 'title');
+  //dpm($variables['head_title'], 'head_title');
   if ($hook == 'entity') {
     //dpm($variables, 'variables');
   }
@@ -43,6 +66,20 @@ function devis_preprocess(&$variables, $hook) {
   if ($hook == 'user_profile_category') {
     if (isset($variables['element']['#title'])) {// && $variables['element']['#title'] == 'Profil de devis souhaité') {
       $variables['title'] = '';
+    }
+  }
+  
+  // Change head title for the entityforms.
+  if ($hook == 'html') {
+    $current_path = current_path();
+    switch ($current_path) {
+      case 'eform/submit/comptable':
+        $variables['head_title'] = variable_get('trois_devis_comptable_title', '');
+        break;
+      
+      case 'eform/submit/devenir':
+        $variables['head_title'] = variable_get('trois_devis_devenir_title', '');
+        break;
     }
   }
   
@@ -187,6 +224,11 @@ function devis_form_alter(&$form, &$form_state, $form_id) {
   //dpm($form_id, 'form_id');
   
   switch ($form_id) {
+    case 'simplenews_confirm_removal_form':
+      $form['description']['#access'] = FALSE;
+      $form['#submit'][] = 'devis_form_alter_submit';
+      break;
+    
     case 'commerce_cardonfile_card_form':
       $form['#validate'][] = 'devis_form_alter_validate';
       //$form['actions']['submit']['#validate'][] = 'devis_form_alter_validate';
@@ -238,6 +280,15 @@ function devis_form_alter_validate($form, &$form_state) {
 
 function devis_form_alter_submit($form, &$form_state) {
   switch ($form['#id']) {
+    case 'simplenews-confirm-removal-form':
+      $status = $_SESSION['messages']['status'];
+      if (isset($status[0]) && $status[0] != '' && count($status) == 1) {
+        unset($_SESSION['messages']);
+      }
+      $nid = variable_get('trois_devis_unsubscribe_confirm_nid', 0);
+      $form_state['redirect'] = 'node/'. $nid;
+      break;
+    
     case 'entityform-delete-form':
       $form_state['redirect'] = $form_state['redirect_url'];
       break;
@@ -282,6 +333,10 @@ function devis_form_comptable_entityform_edit_form_alter(&$form, &$form_state, $
   $form['field_annual_revenue'][$form['field_annual_revenue']['#language']]['#attributes']['class'][] = 'dropdown';
   $form['field_annual_invoice'][$form['field_annual_invoice']['#language']]['#attributes']['class'][] = 'dropdown';
   $form['field_number_employees'][$form['field_number_employees']['#language']]['#attributes']['class'][] = 'dropdown';
+  $form['field_change_accountant_reason'][$form['field_change_accountant_reason']['#language']]['#attributes']['class'][] = 'dropdown';
+  
+  $lang = $form['field_change_accountant_reason']['#language'];
+  $form['field_change_accountant_reason'][$lang]['#options']['_none'] = t('- Select -');
   
   // Amounts.
   $lang = $form['field_estimated_annual_revenue']['#language'];
@@ -408,6 +463,24 @@ function devis_comptable_entityform_edit_form_validate($form, &$form_state) {
     form_set_error('field_estimated_number_employees]['. $lang .'][0][value', t('Le champ !label est requis.', array('!label' => $label)));
   }
   
+  // If it has accountant, make mandatory the dependee.
+  $lang = $form['field_has_accountant']['#language'];
+  if ($values['field_has_accountant'][$lang][0]['value']) {
+    $lang = $form['field_change_accountant_reason']['#language'];
+    $value = $values['field_change_accountant_reason'][$lang][0]['value'];
+    if (!$value) {
+      $label = $form['field_change_accountant_reason'][$lang]['#title'];
+      form_set_error('field_change_accountant_reason]['. $lang .'][0][value', t('Le champ !label est requis.', array('!label' => $label)));
+    }
+    elseif ($value == 'other') {
+      $lang = $form['field_change_accountant_other']['#language'];
+      if (!trim($values['field_change_accountant_other'][$lang][0]['value'])) {
+        $label = $form['field_change_accountant_other'][$lang]['#title'];
+        form_set_error('field_change_accountant_other]['. $lang .'][0][value', t('Le champ !label est requis.', array('!label' => $label)));
+      }
+    }
+  }
+  
   $lang = $form['field_company_name']['#language'];
   $lang_tva = $form['field_tva']['#language'];
   $company = $values['field_company_name'][$lang][0]['value'];
@@ -439,6 +512,7 @@ function devis_comptable_entityform_edit_form_validate($form, &$form_state) {
       break;
     
     case 'independent':
+    case 'independent_comp':
       if (!$tva) $tva_error = TRUE;
       break;
   }
@@ -542,6 +616,16 @@ function devis_form_devenir_entityform_edit_form_alter(&$form, &$form_state, $fo
   
   // Website.
   $form['#after_build'][] = 'devis_form_devenir_entityform_edit_form_after_build';
+  
+  // Address fields.
+  $lang = $form['field_adresse']['#language'];
+  $form['field_adresse'][$lang][0]['#prefix'] = '';
+  $form['field_adresse'][$lang][0]['#suffix'] = '';
+  $form['field_adresse'][$lang][0]['#title'] = '';
+  $form['field_adresse'][$lang][0]['#attributes']['class'][] = 'fieldset-hide';
+  $form['field_adresse'][$lang][0]['street_block']['thoroughfare']['#title'] = t('Address');
+  $form['field_adresse'][$lang][0]['street_block']['premise']['#attributes']['style'] = 'display: none;';
+  $form['field_adresse'][$lang][0]['street_block']['premise']['#title_display'] = 'invisible';
   
   /*$lang = $form['field_info_extra']['#language'];
   $desc = $form['field_info_extra'][$lang][0]['value']['#description'];
@@ -799,10 +883,11 @@ function devis_form_user_profile_form_alter(&$form, &$form_state, $form_id) {
   // Deny access to account name.
   $form['account']['name']['#access'] = FALSE;
   $form['contact']['#access'] = FALSE;
-  
+
   // Check if $user has the manager role.
   if (in_array('manager', array_values($user->roles)) && $form_state['user']->uid == $user->uid) {
     if ($form['#user_category'] == 'account') {
+      
       //$form['field_prenom']['#access'] = FALSE;
       //$form['field_name']['#access'] = FALSE;
       //$form['field_company_name']['#access'] = FALSE;
@@ -814,6 +899,8 @@ function devis_form_user_profile_form_alter(&$form, &$form_state, $form_id) {
       $form['field_customer_profile_adresse']['#access'] = FALSE;
       $form['field_promotional_code']['#access'] = FALSE;
       $form['field_promo_code_usage']['#access'] = FALSE;
+      $form['field_number_ipcf_iec']['#access'] = FALSE;
+      $form['field_staff_number']['#access'] = FALSE;
       $form['profile_budget_profile']['#access'] = FALSE;
       $form['actions']['cancel']['#access'] = FALSE;
     }
@@ -861,6 +948,16 @@ function devis_form_user_profile_form_alter(&$form, &$form_state, $form_id) {
     $form['field_name'][$lang][0]['value']['#title'] = t('Last name');
     $form['field_name'][$lang][0]['value']['#title_display'] = 'invisible';
     $form['field_name']['#suffix'] = '</div>';
+    
+    // Address fields.
+    $lang = $form['field_adresse']['#language'];
+    $form['field_adresse'][$lang][0]['#prefix'] = '';
+    $form['field_adresse'][$lang][0]['#suffix'] = '';
+    $form['field_adresse'][$lang][0]['#title'] = '';
+    $form['field_adresse'][$lang][0]['#attributes']['class'][] = 'fieldset-hide';
+    $form['field_adresse'][$lang][0]['street_block']['thoroughfare']['#title'] = t('Address');
+    $form['field_adresse'][$lang][0]['street_block']['premise']['#attributes']['style'] = 'display: none;';
+    $form['field_adresse'][$lang][0]['street_block']['premise']['#title_display'] = 'invisible';
     
     /*
     $lang = $form['field_phone_belgium']['#language'];
@@ -1165,6 +1262,7 @@ function devis_form_commerce_addressbook_customer_profile_form_alter(&$form, &$f
     drupal_set_message(t(variable_get('trois_devis_second_step_message')), 'warning');
     $form_state['first_time'] = TRUE;
     $form_state['user'] = $user;
+    $form['field_is_new'][$form['field_is_new']['#language']]['#default_value'] = 0;
   }
   
   drupal_set_title(t('Coordonnées de facturation'));
@@ -1276,6 +1374,16 @@ function devis_menu_local_tasks_alter(&$data, $router_item, $root_path) {
       if ($info['#link']['path'] == 'user/%/devel/token') {
         unset($data['tabs'][0]['output'][$key]);
         $data['tabs'][0]['count'] -= 1;
+      }
+    }
+  }
+  
+  // Remove newsletter tabs for everybody.
+  if (isset($data['tabs'][1]['output'])) {
+    foreach ($data['tabs'][1]['output'] as $key => $info) {
+      if ($info['#link']['path'] == 'user/%/edit/simplenews') {
+        unset($data['tabs'][1]['output'][$key]);
+        $data['tabs'][1]['count'] -= 1;
       }
     }
   }

@@ -88,7 +88,7 @@
         break;
         
       case 'tva':
-        if (element == "association") {
+        if (element == "association" || element == "nonexistent" || element == "independent_plan") {
           //title = 'Num&eacute;ro de TVA de votre association';//+ required;
           title = default_title;//+ required;
         }
@@ -142,6 +142,12 @@
           scrollTop: $("#messages-box").offset().top - $('header').height()
         }, 850);
       });
+      
+      $(".arrow-contact").click(function() {
+        $('html, body').animate({
+          scrollTop: $(".group-contact-form").offset().top - $('header').height()
+        }, 850);
+      });
 
       var $window = $(window);
       $('section[data-type="background"]').each(function() {
@@ -165,21 +171,49 @@
           }, 850);
         }
       }
+      
+      // Placeholders don't work on IE.
+      // Solution: http://www.hagenburger.net/BLOG/HTML5-Input-Placeholder-Fix-With-jQuery.html
+      $('[placeholder]').focus(function() {
+        var input = $(this);
+        if (input.val() == input.attr('placeholder')) {
+          input.val('');
+          input.removeClass('placeholder');
+        }
+      }).blur(function() {
+        var input = $(this);
+        if (input.val() == '' || input.val() == input.attr('placeholder')) {
+          input.addClass('placeholder');
+          input.val(input.attr('placeholder'));
+        }
+      }).blur();
+      
+      $('[placeholder]').parents('form').submit(function() {
+        $(this).find('[placeholder]').each(function() {
+          var input = $(this);
+          if (input.val() == input.attr('placeholder')) {
+            input.val('');
+          }
+        })
+      });
+      
     }
   };
     
   Drupal.behaviors.devisBecomeProviderBox = {
     attach: function (context, settings) {
       //console.log(settings);
-      var $anchor = Drupal.theme('devisSpecialBoxContent', settings.devenir.url);
-      $('.navSpecial', context).once('foo', function() {
-        $anchor.appendTo($(this).parent());
-      });
+      if ($.support.opacity) { /* IE 6-8 */ 
+        var $anchor = Drupal.theme('devisSpecialBoxContent', settings.devenir.url);
+        $('.navSpecial', context).once('foo', function() {
+          $anchor.appendTo($(this).parent());
+        });
 
-      $(window).resize(function() {
+        $(window).resize(function() {
+          Drupal.theme('devisSpecialBoxMeasureWidth', $('.navSpecial'), $anchor);
+        });
         Drupal.theme('devisSpecialBoxMeasureWidth', $('.navSpecial'), $anchor);
-      });
-      Drupal.theme('devisSpecialBoxMeasureWidth', $('.navSpecial'), $anchor);
+      }
     }
   };
     
@@ -261,6 +295,12 @@
   
   Drupal.behaviors.devisDemanderDevis = {
     attach: function (context, settings) {
+      // Add the mandatory mark to some fields.
+      var title = $("label[for='edit-field-change-accountant-reason-und']").html();
+      $("label[for='edit-field-change-accountant-reason-und']").html(title + settings.devenir.required);
+      var title = $("label[for='edit-field-change-accountant-other-und-0-value']").html();
+      $("label[for='edit-field-change-accountant-other-und-0-value']").html(title + settings.devenir.required);
+      
       // Change the Company label depending on the legal status.
       // Change the TVA label depending on the legal status.
       $("#edit-field-legal-status-und").change(function() {
@@ -284,6 +324,21 @@
   Drupal.behaviors.devisDeleteUnnecessaryBr = {
     attach: function (context, settings) {
       $(".remove-br").find("br").remove();
+    }
+  };
+  
+  Drupal.behaviors.devisFAQ = {
+    attach: function (context, settings) {
+      
+      $('.faq-answer-devis').hide();
+      
+      $('.faq-question-devis').click(
+      function() {
+        var toggle = $(this).nextUntil('.faq-question-devis');
+        toggle.slideToggle();
+        //$('.faq-answer-devis').not(toggle).slideUp();
+        return false;
+      });
     }
   };
   

@@ -112,6 +112,24 @@ li {
   padding-bottom: 5px;
 }
 
+p.center {
+  text-align: center;
+}
+
+p.newsletter-footer {
+  text-align: center;
+  padding-top: 1em;
+}
+
+p.newsletter-footer a {
+  font-size: 11px;
+  color: lightgray;
+}
+
+span.reference_small {
+  font-size: 11px;
+}
+
 @media only screen and (max-width: 620px) {
   table#head {
     min-width: 500px;

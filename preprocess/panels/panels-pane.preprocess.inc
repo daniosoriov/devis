@@ -141,9 +141,56 @@ function devis_preprocess_panels_pane(&$variables) {
         }
       break;
     }
-  }  
+  }
+  
+  $args = arg();
+  global $user;
+  // Legal control to disallow anonymous users to see the page.
+  if ($args[0] == 'legal') {
+    // If it's not a logged in user,
+    if (!$user->uid) {
+      // Check if he's coming from the legal accept page.
+      if (!strpos($_SERVER['HTTP_REFERER'], 'legal_accept')) {
+        drupal_access_denied();
+      }
+    }
+  }
+  
+  // User account. This is done here as the preprocess file 
+  // dedicated to the user profile is not working properly.
+  if ($args[0] == 'user' && (count($args) == 1 || count($args) == 2)) {
+    if (isset($variables['content']['system_main']['#account'])) {
+      if (user_access('3devis see promo code usage')) {
+        if (module_exists(promo_code) && isset($variables['content']['system_main']['field_promotional_code'])) {
+          $account = $variables['content']['system_main']['#account'];
+          $promo = promo_code_load_by_user($account);
+          $vals = promo_code_get_user_values($account);
+          $variables['content']['system_main']['field_promotional_code'][0]['#markup'] .= 
+            ' ('. (($vals->code_usage) ? $vals->code_usage : '0') .' EUR / '. $promo->discount .' EUR)';
+        }
+      }
+      
+      $variables['content']['system_main']['user_mail']['#title'] = 'E-mail';
+      
+      $variables['content']['system_main']['field_prenom']['#access'] = 
+      $variables['content']['system_main']['field_honorific']['#access'] = FALSE;
+      if (isset($variables['content']['system_main']['field_name'])) {
+        $variables['content']['system_main']['field_name'][0]['#markup'] = 
+          $variables['content']['system_main']['field_honorific'][0]['#markup'] .' '. 
+          $variables['content']['system_main']['field_prenom'][0]['#markup'] .' '. 
+          $variables['content']['system_main']['field_name'][0]['#markup'];
+      }
+      
+      if (isset($variables['content']['system_main']['field_account_activity_status'])) {
+        if (!$variables['content']['system_main']['field_account_activity_status']['#items'][0]['value']) {
+          $variables['content']['system_main']['field_account_activity_status'][0]['#markup'] = 
+            '<span class="inactive">'. $variables['content']['system_main']['field_account_activity_status'][0]['#markup'] .'</span>';
+        }
+      }
+    }
+  }
+  
   if (isset($variables['user']) && is_object($variables['user']) && isset($variables['content']['system_main']['card-info'])) {
-    $args = arg();
     if ($args[2] == 'cards' && $args[4] == 'edit') {
       $card = commerce_cardonfile_load($args[3]);
       $variables['title'] = t('Carte de crédit terminant en @card_number', array('@card_number' => $card->card_number));

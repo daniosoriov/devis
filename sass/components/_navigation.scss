@@ -101,12 +101,17 @@ nav.l-navigation-content {
       }
 
       ul.navSpecialBox {
+        z-index: 100;
         right: 0;
 
         li {
           font-weight: 200;
           color: $color-navigation-special-box;
           background: $color-navigation-special-box-background;
+          
+          @include filter-gradient($color-navigation-special-box-base, $color-navigation-special-box-base, vertical); // IE6-9
+          @include background-image(linear-gradient(top, $color-navigation-special-box-background 0%, $color-navigation-special-box-background 100%));
+          
           width: 15rem;
           @include rem-fallback(font-size, .85rem);
           @include rem-fallback(padding, .8rem);

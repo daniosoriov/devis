@@ -189,3 +189,18 @@ fieldset {
 span.regular {
   font-weight: 400;
 }
+
+/* FAQ Page */
+div.faq {
+  .faq-question, .faq-question-devis {
+    @include rem-fallback(padding-top, 1.25rem);
+    @include rem-fallback(padding-left, 1.5rem);
+    a.active {
+      color: $color-font-a;
+    }
+  }
+  .faq-answer, .faq-answer-devis {
+    @include rem-fallback(padding-top, 1rem);
+    @include rem-fallback(padding-left, 3rem);
+  }
+}

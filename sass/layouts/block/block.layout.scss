@@ -51,7 +51,7 @@
     }
   }
   
-  .arrow-first, .arrow-second, .arrow-third, .arrow-special {
+  .arrow-first, .arrow-second, .arrow-third, .arrow-special, .arrow-contact {
     display: none;
 
     @include breakpoint($tab) {
@@ -68,7 +68,7 @@
     }
   }
   
-  .arrow-second, .arrow-third {
+  .arrow-second, .arrow-third, .arrow-contact {
     @include breakpoint($tab) {
       background-position: 0 0;
     }
@@ -119,6 +119,8 @@
     
     a {
       font-size: inherit;
+      color: inherit;
+      text-decoration: underline;
     }
   }
   
@@ -310,8 +312,10 @@
     }
   }
   
-  fieldset.devenir-comptable, fieldset.demander-devis, fieldset.group-admin, 
-  div#edit-field-adresse, div#edit-actions, div#messages-box {
+  fieldset.devenir-comptable, fieldset.demander-devis, 
+  fieldset.group-admin, fieldset.group-contact-form,
+  div#edit-field-adresse, div#edit-actions, div#messages-box, div.pane-page-messages,
+  .field--extra-text {
     @include grid-span(3, 1);
   
     @include breakpoint($mobile) {
@@ -327,6 +331,38 @@
       margin-left: auto;
       margin-right: auto;
     }
+  }
+  
+  .field--map {
+    position: absolute;
+    width: 100%;
+  }
+  
+  div.cover {
+    position: absolute;
+    width: 100%;
+    @include rem-fallback(min-height, 25rem);
+    @include breakpoint($mobile) {
+      @include rem-fallback(min-height, 32rem);
+    }
+    @include breakpoint($desktop) {
+      @include rem-fallback(min-height, 33rem);
+    }
+    z-index: 0;
+    opacity: 0.5;
+    background-color: black;
+  }
+  
+  fieldset.group-contact-form {
+    margin-bottom: 0;
+    form#webform-client-form-17, div.form-actions, input.webform-submit {
+      margin-bottom: 0;
+    }
+  }
+  
+  .field--extra-text {
+    @include rem-fallback(padding, .75rem);
+    @include rem-fallback(font-size, .8rem);
   }
   
 }
