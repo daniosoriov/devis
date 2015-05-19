@@ -151,7 +151,8 @@ function devis_preprocess_panels_pane(&$variables) {
     if (!$user->uid) {
       // Check if he's coming from the legal accept page.
       if (!strpos($_SERVER['HTTP_REFERER'], 'legal_accept')) {
-        drupal_access_denied();
+        // This is off for now, but the page it's still not reachable.
+        //drupal_access_denied();
       }
     }
   }
