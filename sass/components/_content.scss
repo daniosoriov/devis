@@ -1,97 +1,206 @@
 // LOGIN THEME HELP URL: https://www.drupal.org/node/1949472
 
-.l-main {
-    padding-top: 65px;
-    padding-bottom: 220px;
-    
-    @include breakpoint(max-width $tab) {
-        padding-top: 0;
-        padding-bottom: 500px;
+// This is for the maintenance page.
+.l-main-block.maintenance {
+  @include rem-fallback(padding, 7rem, 0, 3.5rem);
+  @include breakpoint($tab) {
+    @include rem-fallback(padding, 12rem, 0, 6rem);
+  }
+  .l-content-block {
+    text-align: center;
+  }
+  
+  h1.title {
+    color: $color-font-title;
+    @include rem-fallback(font-size, 1.75rem);
+    font-weight: 400;
+
+    @include breakpoint($mobile) {
+      @include font-family('Raleway');
+      @include rem-fallback(font-size, 2rem);
     }
-    
-    @include breakpoint($tab $desktop) {
-        padding-bottom: 270px;
+    @include breakpoint($tab) {
+      @include rem-fallback(line-height, 3.5rem);
+      @include rem-fallback(font-size, 2.52rem);
     }
+    @include breakpoint($desktop) {
+      @include rem-fallback(font-size, 3.07rem);
+      @include rem-fallback(line-height, 4.5rem);
+    }
+  }
 }
 
-.l-content {
-    background: $color-background-content;
-    border: 1px solid $color-border-content;
-    @include rem-fallback(margin-bottom, 1rem);
-    @include rem-fallback(padding, 1rem, 1.5rem, 1.5rem);
-    @include border-radius();
-    @include single-box-shadow();
-    
-    @include breakpoint(max-width $tab) {
-        @include rem-fallback(padding, .2rem, .5rem);
-    }
-
-    @include breakpoint($tab $desktop) {
-        @include rem-fallback(padding, .35rem, 1rem);
-    }
-    
-    h2.pane-title {
-        @include rem-fallback(margin, 1.5rem, 0, .5rem);
-        color: $color-font-h2;
-    }
+/* Fixing input widths here as in _form.scss is not working */
+input[type="text"],
+input[type="password"],
+input[type="email"],
+select {
+  //@include grid-span(3, 1, false, 0); //3 of 3
+  //float: none;
+  width: 100%;
   
-  h3.field-label {
-    @include rem-fallback(font-size, 1.17rem);
-    @include rem-fallback(line-height, 1.9rem);
+  @include breakpoint($mobile) {
+    @include grid-span(4, 1, false, 0); //4 of 6
+    float: none;
+  }
+  @include breakpoint($tab) {
+    @include grid-span(4, 1, false, 0); //4 of 8
+    float: none;
+  }
+  @include breakpoint($desktop) {
+    @include grid-span(6, 1, false, 0); // 6 of 12
+    float: none;
+  }
+}
+
+.views-exposed-form {
+  .views-exposed-widget {
+    input, select {
+      width: auto;
+      margin-left: 0;
+      margin-right: 0;
+      float: none;
+    }
+    .form-submit {
+      @include rem-fallback(margin-top, .5rem);
+    }
+  }
+}
+
+div.addressfield-container-inline {
+  select.commerce-stripe-country {
+    @include rem-fallback(width, 20rem);
+  }
+  
+  input.commerce-stripe-postal-code {
+    width: 100%;
+    margin-left: 0;
+    margin-right: 0;
+    @include breakpoint($desktop) {
+      @include rem-fallback(width, 10rem);
+    }
+  }
+
+  input.commerce-stripe-locality {
+    width: 100%;
+    margin-left: 0;
+    margin-right: 0;
+    
+    @include breakpoint($desktop) {
+      @include rem-fallback(width, 23.15rem);
+      &#edit-commerce-customer-address-und-0-locality {
+        @include rem-fallback(width, 22rem);
+      }
+    }
+  }
+}
+
+
+textarea, .form-textarea-wrapper textarea {
+  //@include grid-span(3, 1, false, 0);
+  //float: none;
+  width: 100%;
+  
+  @include breakpoint($mobile) {
+    @include grid-span(5, 1, false, 0); // 5 of 6
+    float: none;
+  }
+  @include breakpoint($tab) {
+    @include grid-span(5, 1, false, 0); // 5 of 8
+    float: none;
+  }
+  @include breakpoint($desktop) {
+    @include grid-span(6, 1, false, 0); // 6 of 12
+    float: none;
+  }
+}
+
+address {
+  font-style: normal;
+  @include rem-fallback(margin-bottom, .5rem);
+  .addressfield-container-inline, .street-block, .country {
+    font-style: normal;
+    @include rem-fallback(margin-bottom, .5rem);
+  }
+}
+
+.addressbook-nodata {
+  @include rem-fallback(margin-bottom, 1rem);
+}
+
+div#commerce-addressbook-billing-default, div#commerce-addressbook-billing-list {
+  @include rem-fallback(margin-bottom, 1rem);
+  h3.title {
     margin-bottom: 0;
   }
-  
-  div[class*=' field--'], div[class^='field--'], span[class*=' field--'], span[class^='field--'] {
-    @include rem-fallback(margin-bottom, 1rem);
-    display: block;
+  div.addressbook {
+    border-bottom: 1px solid $color-addressbook-border;
+    @include border-radius();
+    @include rem-fallback(padding, 1rem);
+    
+    @include breakpoint($tab) {
+      @include grid-span(5, 1, false, 0); // 5 of 8
+      float: none;
+    }
+    @include breakpoint($desktop) {
+      @include grid-span(6, 1, false, 0); // 6 of 12
+      float: none;
+    }
   }
-  
-  div.submitted {
-    @include rem-fallback(margin-bottom, 1rem);
-    @include rem-fallback(font-size, .95rem);
+  .views-field {
+    font-style: normal;
+    @include rem-fallback(margin-bottom, .5rem);
   }
 }
 
-div#tabs {
-    @include rem-fallback(margin, .5rem, 0, 1rem);
-    ul.tabs--primary, ul.tabs--secondary {
-        background: $color-tab-ul-background;
-        border-bottom: 1px solid $color-tab-ul-border;
-        margin: 0;
-        @include border-top-radius(.5rem);
-        
-        li {
-            @include rem-fallback(margin, 0, .15rem);
-        }
-        
-        a {
-            background: $color-tab-a-background;
-            @include rem-fallback(padding, .5rem, 1rem);
-            color: $color-tab-a;
-            text-decoration: none;
-            border: 1px solid $color-tab-a-border;
-            @include border-top-radius(.5rem);
-            display: block;
-            margin: -1px 0 -1px -1px;
-            position: relative;
-            left: 1px;
-            @include single-transition(all, .1s);
+div#commerce-addressbook-billing-default {
+  div.addressbook {
+    border-bottom: none;
+  }
+}
 
-            &.active {
-                color: $color-tab-a-active;
-                background: $color-tab-a-active-background;
-            }
+.pager {
+  @include rem-fallback(margin-top, 1rem);
+}
 
-            &:hover, &:focus {
-                color: $color-tab-a-hover;
-                background: $color-tab-a-hover-background;
-            }
-        }
+fieldset {
+  legend {
+    @include rem-fallback(margin-left, .35rem);
+    @include breakpoint($tab) {
+      @include rem-fallback(margin-left, .45rem);
     }
-    
-    ul.tabs--secondary {
-        a {
-            
-        }
+    @include breakpoint($desktop) {
+      @include rem-fallback(margin-left, .65rem);
     }
+  }
+}
+
+.fieldset-wrapper {
+  @include grid-span(3, 1);
+  
+  @include breakpoint($mobile) {
+    @include grid-span(6, 1);
+  }
+  @include breakpoint($tab) {
+    @include grid-span(8, 1);
+  }
+}
+
+span.regular {
+  font-weight: 400;
+}
+
+/* FAQ Page */
+div.faq {
+  .faq-question, .faq-question-devis {
+    @include rem-fallback(padding-top, 1.25rem);
+    @include rem-fallback(padding-left, 1.5rem);
+    a.active {
+      color: $color-font-a;
+    }
+  }
+  .faq-answer, .faq-answer-devis {
+    @include rem-fallback(padding-top, 1rem);
+    @include rem-fallback(padding-left, 3rem);
+  }
 }

@@ -1,6 +1,37 @@
-$grids: 12;
-$gutters: 1/5;
+$mobile: 384px; //24em;
+$tab: 704px; //44em;
+$tab-large: 896px; //56em
+$desktop: 1088px; //68em;
+$max-width: 1120px; //70em;
 
-$mobile: 24em;
-$tab: 44em;
-$desktop: 70em;
+// Settings for Singularitygs 1.1.2
+$grids: 3;
+$grids: add-grid(6 at 384px);
+$grids: add-grid(8 at 704px);
+$grids: add-grid(12 at 1088px);
+//$grids: add-grid(2 8 2 at 900px);
+//$grids: add-grid(1 3 5 7 9 at 1100px);
+
+$gutters: 1/5;
+$gutters: add-gutter(.25 at 900px);
+
+// split the gutter's full width evenly on either side of a column.
+$gutter-styles: 'split';
+
+//@include background-grid($color: blue);
+
+// settings for susy 1.0.9
+// --------
+/*$total-columns  : 6;
+$column-width   : 4em;
+$gutter-width   : 1em;
+$grid-padding   : $gutter-width;
+
+//$container-width: 1200px;
+
+$tablet-break: 8;
+$tablet-breakpoint: $tab, $tablet-break;
+
+$desktop-break: 12;
+$desktop-breakpoint: $desktop, $desktop-break;
+*/

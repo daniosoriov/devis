@@ -58,10 +58,10 @@
     }
   };
     
-    Drupal.theme.prototype.devisSpecialBoxContent = function() {
-        var li1 = '<li>Vous &#234;tes comptable-fiscaliste ou expert-comptable?</li>';
-        var li2 = '<li><a class="navSpecialBoxReg" href="/devenir-comptable">Inscrivez-vous!</a></li>';
-        return $('<ul class="navSpecialBox">'+ li1 + li2 +'</ul>');
+    Drupal.theme.prototype.devisSpecialBoxContent = function(url) {
+      var li1 = '<li>Vous &#234;tes comptable-fiscaliste ou expert-comptable?</li>';
+      var li2 = '<li><a class="navSpecialBoxReg" href="'+ url +'">Inscrivez-vous!</a></li>';
+      return $('<ul class="navSpecialBox">'+ li1 + li2 +'</ul>');
     };
     
     Drupal.theme.prototype.devisSpecialBoxMeasureWidth = function(element, anchor) {
@@ -72,56 +72,206 @@
             anchor.appendTo(element.parent());
         }
     };
+  
+  Drupal.theme.prototype.devisSelectCompanyLabel = function(element) {
     
-    Drupal.behaviors.devisGeneral = {
-        attach: function (context, settings) {
-            $('.grippie').remove();
+    return title;
+  }
+  
+  Drupal.theme.prototype.devisPrepareLabelHTML = function(id, element, default_title, required) {
+    var title = default_title + required;
+    switch (id) {
+      case 'company':
+        if (element == "association") {
+          title = 'Nom de votre association'+ required;
         }
-    };
-    
-    Drupal.behaviors.devisBecomeProviderBox = {
-        attach: function (context, settings) {
-            var $anchor = Drupal.theme('devisSpecialBoxContent');
-            $('.navSpecial', context).once('foo', function() {
-                //alert(JSON.stringify(settings));
-                
-                $anchor.appendTo($(this).parent());
-            });
-            
-            $(window).resize(function() {
-                Drupal.theme('devisSpecialBoxMeasureWidth', $('.navSpecial'), $anchor);
-            });
-            Drupal.theme('devisSpecialBoxMeasureWidth', $('.navSpecial'), $anchor);
+        break;
+        
+      case 'tva':
+        if (element == "association" || element == "nonexistent" || element == "independent_plan") {
+          //title = 'Num&eacute;ro de TVA de votre association';//+ required;
+          title = default_title;//+ required;
         }
-    };
+        break;
+    }
+    return title;
+  }
+  
+  /*Drupal.theme.prototype.devisReplaceText = function(element, needle, str) {
+    element.each(function() {
+      var text = $(this).text();
+      $(this).text(text.replace(needle, str)); 
+    });
+  }*/
     
-    Drupal.behaviors.devisStickyNav = {
-        attach: function (context, settings) {
-            var  mn = $('.l-region--navigation');
-            mns = 'navSticky';
-            hdr = $('header').height();
+  Drupal.behaviors.devisGeneral = {
+    attach: function (context, settings) {
+      $('.grippie').remove();
+      
+      if (typeof easyDropDown != 'undefined' && $.isFunction(easyDropDown)) {
+        // deactivate easydropdown on mobile devices.
+        if ($(window).width() <= 384) {
+          $('div').easyDropDown('disable');
+        }
+        // easyDropDown to 10 show 10 values.
+        else {
+          $('select').easyDropDown({ cutOff: 10 });
+        }
+      }
+      
+      $(".arrow-first").click(function() {
+        $('html, body').animate({
+          scrollTop: $(".second").offset().top - $('header').height()
+        }, 850);
+      });
+      
+      $(".arrow-special").click(function() {
+        $('html, body').animate({
+          scrollTop: $(".third").offset().top - $('header').height()
+        }, 850);
+      });
+      
+      $(".arrow-second").click(function() {
+        $('html, body').animate({
+          scrollTop: $(".third").offset().top - $('header').height()
+        }, 850);
+      });
+      
+      $(".arrow-third").click(function() {
+        $('html, body').animate({
+          scrollTop: $("#messages-box").offset().top - $('header').height()
+        }, 850);
+      });
+      
+      $(".arrow-contact").click(function() {
+        $('html, body').animate({
+          scrollTop: $(".group-contact-form").offset().top - $('header').height()
+        }, 850);
+      });
 
-            $(window).scroll(function() {
-                if ($(window).width() > 704) {
-                    if ($(this).scrollTop() > hdr) {
-                        mn.addClass(mns);
-                    }
-                    else {
-                        mn.removeClass(mns);
-                    }
-                }
-                else {
-                    mn.removeClass(mns);
-                }
-            });
-            
-            $(window).resize(function() {
-                if ($(window).width() <= 704) {
-                    mn.removeClass(mns);
-                }
-            });
+      var $window = $(window);
+      $('section[data-type="background"]').each(function() {
+        var $bgobj = $(this); // assigning the object
+        $(window).scroll(function() {
+          var yPos = -($window.scrollTop() / $bgobj.data('speed'));
+          // Put together our final background position
+          var coords = '50% '+ yPos + 'px';
+          // Move the background
+          $bgobj.css({ backgroundPosition: coords });
+        });
+      });
+      
+      // If the form was submitted and there was an error, 
+      // scroll the page until the messages-box.
+      // This is for the two main forms of the site.
+      if (typeof settings.form_info != 'undefined') {
+        if (settings.form_info.submitted && settings.form_info.error) {
+          $('html, body').animate({
+            scrollTop: $("#messages-box").offset().top - $('header').height()
+          }, 850);
         }
-    };
+      }
+      
+      // Placeholders don't work on IE.
+      // Solution: http://www.hagenburger.net/BLOG/HTML5-Input-Placeholder-Fix-With-jQuery.html
+      $('[placeholder]').focus(function() {
+        var input = $(this);
+        if (input.val() == input.attr('placeholder')) {
+          input.val('');
+          input.removeClass('placeholder');
+        }
+      }).blur(function() {
+        var input = $(this);
+        if (input.val() == '' || input.val() == input.attr('placeholder')) {
+          input.addClass('placeholder');
+          input.val(input.attr('placeholder'));
+        }
+      }).blur();
+      
+      $('[placeholder]').parents('form').submit(function() {
+        $(this).find('[placeholder]').each(function() {
+          var input = $(this);
+          if (input.val() == input.attr('placeholder')) {
+            input.val('');
+          }
+        })
+      });
+      
+    }
+  };
+    
+  Drupal.behaviors.devisBecomeProviderBox = {
+    attach: function (context, settings) {
+      //console.log(settings);
+      if ($.support.opacity) { /* IE 6-8 */ 
+        var $anchor = Drupal.theme('devisSpecialBoxContent', settings.devenir.url);
+        $('.navSpecial', context).once('foo', function() {
+          $anchor.appendTo($(this).parent());
+        });
+
+        $(window).resize(function() {
+          Drupal.theme('devisSpecialBoxMeasureWidth', $('.navSpecial'), $anchor);
+        });
+        Drupal.theme('devisSpecialBoxMeasureWidth', $('.navSpecial'), $anchor);
+      }
+    }
+  };
+    
+    /*Drupal.behaviors.devisStickyNav = {
+      attach: function (context, settings) {
+        var  mn = $('header.l-header-content');
+        mns = 'navSticky';
+        hdr = ($('header').height() < 100) ? 135 : $('header').height();
+
+        $(window).scroll(function() {
+          if ($(window).width() > 704) {
+            if ($(this).scrollTop() > hdr) {
+              mn.addClass(mns);
+            }
+            else {
+              mn.removeClass(mns);
+            }
+          }
+          else {
+            mn.removeClass(mns);
+          }
+        });
+
+        $(window).resize(function() {
+          if ($(window).width() <= 704) {
+            mn.removeClass(mns);
+          }
+        });
+      }
+    };*/
+  
+  /** 
+   * Function to control the select boxes of the regions in the user profile.
+   */
+  /*Drupal.behaviors.devisLegalDialogBox = {
+    attach: function (context, settings) {
+      $( "#dialog" ).dialog({
+        autoOpen: false,
+        dialogClass: 'dialog-box',
+        width: 900,
+        height: 400,
+        modal: true,
+        draggable: false,
+        resizable: false,
+        show: 'fade', 
+        hide: 'fade',
+        //minWidth: 500,
+        //maxHeight: 600,
+        //maxWidth: 800,
+        //modal: true,
+      });
+      $( "#opener" ).click(function() {
+        $( "#dialog" ).dialog( "open" );
+        return false;
+      });
+    }
+  };*/
+  
   
   /** 
    * Function to control the select boxes of the regions in the user profile.
@@ -129,18 +279,74 @@
   Drupal.behaviors.devisProviderProfileCheckbox = {
     attach: function (context, settings) {
       $("input[value='BEL']").click(function() {
-        if ($(this).attr('checked')) {
-          $("input[name*='field_active_regions_belgium']").attr('checked', '');
-          $(this).attr('checked', 'checked');
+        if ($(this).prop('checked')) {
+          $("input[name*='field_active_regions_belgium']").prop('checked', false);
+          $(this).prop('checked', true);
         }
       });
       
       $("input[name*='field_active_regions_belgium']").click(function() {
-        if ($(this).attr('checked') && $(this).val() != 'BEL') {
-          $("input[value='BEL']").attr('checked', '');
+        if ($(this).prop('checked') && $(this).val() != 'BEL') {
+          $("input[value='BEL']").prop('checked', false);
         }
       });
     }
   };
+  
+  Drupal.behaviors.devisDemanderDevis = {
+    attach: function (context, settings) {
+      // Add the mandatory mark to some fields.
+      var title = $("label[for='edit-field-change-accountant-reason-und']").html();
+      $("label[for='edit-field-change-accountant-reason-und']").html(title + settings.devenir.required);
+      var title = $("label[for='edit-field-change-accountant-other-und-0-value']").html();
+      $("label[for='edit-field-change-accountant-other-und-0-value']").html(title + settings.devenir.required);
+      
+      // Change the Company label depending on the legal status.
+      // Change the TVA label depending on the legal status.
+      $("#edit-field-legal-status-und").change(function() {
+        var val = $(this).val();
+        var title = Drupal.theme('devisPrepareLabelHTML', 'company', val, settings.devenir.companyTitle, settings.devenir.required);
+        $("label[for='edit-field-company-name-und-0-value']").html(title);
+        var title = Drupal.theme('devisPrepareLabelHTML', 'tva', val, settings.devenir.tvaTitle, settings.devenir.required);
+        $("label[for='edit-field-tva-und-0-value']").html(title);
+      });
+      var $object = $('form#comptable-entityform-edit-form');
+      if ($object.length) {
+        var val = $("#edit-field-legal-status-und").val();
+        var title = Drupal.theme('devisPrepareLabelHTML', 'company', val, settings.devenir.companyTitle, settings.devenir.required);
+        $("label[for='edit-field-company-name-und-0-value']").html(title);
+        var title = Drupal.theme('devisPrepareLabelHTML', 'tva', val, settings.devenir.tvaTitle, settings.devenir.required);
+        $("label[for='edit-field-tva-und-0-value']").html(title);
+      }
+    }
+  };
+  
+  Drupal.behaviors.devisDeleteUnnecessaryBr = {
+    attach: function (context, settings) {
+      $(".remove-br").find("br").remove();
+    }
+  };
+  
+  Drupal.behaviors.devisFAQ = {
+    attach: function (context, settings) {
+      
+      $('.faq-answer-devis').hide();
+      
+      $('.faq-question-devis').click(
+      function() {
+        var toggle = $(this).nextUntil('.faq-question-devis');
+        toggle.slideToggle();
+        //$('.faq-answer-devis').not(toggle).slideUp();
+        return false;
+      });
+    }
+  };
+  
+  setTimeout(function() {
+    $(document).ready(function() {
+      $('select.error').parent().parent().addClass('dropdown-error');
+    });
+  }, 20);
+
 
 })(jQuery);

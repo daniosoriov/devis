@@ -4,14 +4,18 @@
 
 // sass colors: https://github.com/sass/sass/blob/stable/lib/sass/script/value/color.rb#L28-L180
 
+// rgb(111, 134, 142)
+
 $blue: #2E64FE;
 $orange: #FF8000;
 $yellow: #FBD760;
-$green: #94f286;
+$green: #89E489;//#00F59B;
 $green-blue: #5EDCDB;
 $purple: #4C3463;
 
-$base-color: #ffb900;
+$green-base: #6F868E;
+
+$base-color: #FFB500; //#ffb900;
 $secondary-color: #0078E0; //#0088ff;
 $tertiary-color: #800022;
 
@@ -25,78 +29,121 @@ $default-color-border: darken(white, 15);
 $default-color-blue: #002C52;
 
 /* Header */
-$color-header-background: #002C52;
+$color-header-background: white;//#002C52;
 $color-header-border: darken(white, 15);
-$color-name-slogan: whitesmoke;
+$color-name-slogan: $default-color-dark;
 
 /* Navigation. */
-$color-navigation-a: $default-color-blue;
-$color-navigation-hover-a: black;
-$color-navigation-background: lighten($base-color, 10);
-$color-navigation-background-top: fade-out($color-navigation-background, .15);
-$color-navigation-background-bottom: fade-out($color-navigation-background, .05);
+$color-navigation-a: darken(white, 7.5); //$default-color-dark;
+$color-navigation-hover-a: darken(white, 5); //black;
+$color-navigation-background: $green-base;//darken(white, 1);//lighten($base-color, 10);
+$color-navigation-background-top: $green-base; //darken(white, 5); //fade-out($color-navigation-background, .15);
+$color-navigation-background-bottom: fade-out($green-base, .1); //fade-out(darken(white, 5), .25); //fade-out($color-navigation-background, .05);
 $color-navigation-hover-background: $base-color;
-$color-navigation-border: darken(white, 15);
-$color-navigation-hover-border: darken($base-color, 2);
+$color-navigation-border: $base-color;//darken(white, 15);
+$color-navigation-border-bottom: $base-color;
+$color-navigation-hover-border: $base-color; //darken($base-color, 2);
 $color-navigation-sticky-shadow: rgba(0, 0, 0, 0.4);
 
 $color-navigation-special-box: darken(white, 2);
-$color-navigation-special-box-background: fade-out($default-color-blue, .05);
+$color-navigation-special-box-base: darken($green-base, 15);
+$color-navigation-special-box-background: fade-out($color-navigation-special-box-base, .05);
 $color-navigation-special-box-a: $base-color;
 $color-navigation-special-box-a-hover: lighten($base-color, 35);
 
+$color-navigation-border-mobile: darken(white, 25);
+$color-navigation-border-mobile-hover: darken($base-color, 7.5);//darken(white, 10);
+
 /* Tabs. */
 $color-tab-ul-background: darken(white, 2);
-$color-tab-ul-border: $default-color-border;
+$color-tab-ul-border: lighten(gray, 15);
 $color-tab-a-background: darken(white, 3);
 $color-tab-a-border: $default-color-border;
+$color-tab-a-border-bottom: $color-tab-ul-border;
 $color-tab-a: lighten(gray, 10);
 $color-tab-a-active: black;
+$color-tab-a-active-border: $color-tab-ul-border;
 $color-tab-a-active-background: white;
 $color-tab-a-hover: white; //lighten($base-color, 15);
 $color-tab-a-hover-background: darken(gray, 10);
 
+/* Blocks. */
+$color-block-background-gray: darken(white, 7.5);
+$color-block-background-gray-dark: darken(gray, 12);
+$color-block-font-gray: darken(white, 5);
+
 /* Buttons. */
-$color-button: darken(gray, 15);
-$color-button-hover: darken(gray, 35);
-$color-button-active: black;
-$color-button-text-shadow: rgba(0, 0, 0, 0.1);
+$color-button: white;
+$color-button-hover: white;
+$color-button-active: white;
+$color-button-text-shadow: rgba(0, 0, 0, 0);
 
-$color-button-background: darken(white, 3);
-$color-button-hover-background: white;
-$color-button-active-background: white;
+$color-button-background: $base-color;
+$color-button-hover-background: lighten($base-color, 10);
+$color-button-active-background: lighten($base-color, 10);
 
-$color-button-background-top: darken(white, 3);
-$color-button-hover-background-top: white;
-$color-button-active-background-top: white;
+$color-button-background-top: $base-color;
+$color-button-hover-background-top: lighten($base-color, 10);
+$color-button-active-background-top: lighten($base-color, 10);
 
-$color-button-background-bottom: fade-out(darken(white, 20), .3);
-$color-button-hover-background-bottom: fade-out(darken(white, 15), .3);
-$color-button-active-background-bottom: darken(white, 17);
+$color-button-background-bottom: $base-color;
+$color-button-hover-background-bottom: lighten($base-color, 12);
+$color-button-active-background-bottom: lighten($base-color, 12);
 
-$color-button-border: darken(white, 30);
-$color-button-hover-border: darken(white, 35);
-$color-button-active-border: darken(white, 45);
+$color-button-border: darken($base-color, 5);
+$color-button-hover-border: lighten($base-color, 7.5);
+$color-button-active-border: lighten($base-color, 7.5);
 
-$color-button-border-side: darken(white, 15);
-$color-button-hover-border-side: darken(white, 20);
-$color-button-active-border-side: darken(white, 30);
+$color-button-border-side: darken($base-color, 2.5);
+$color-button-hover-border-side: lighten($base-color, 5);
+$color-button-active-border-side: lighten($base-color, 5);
 
 $color-button-active-shadow: rgba(0, 0, 0, 0.2);
 
-/* Forms. */
-$color-form-required: fade-out(red, .2);
 
-$color-fieldset-legend: $default-color-blue;
+$color-button-cancel: white;
+$color-button-cancel-hover: white;
+$color-button-cancel-active: white;
+
+$red-cancel: #D9534F;
+$color-button-cancel-background: $red-cancel;
+$color-button-cancel-hover-background: darken($red-cancel, 5);
+$color-button-cancel-active-background: darken($red-cancel, 7);
+
+$color-button-cancel-background-top: $red-cancel;
+$color-button-cancel-hover-background-top: darken($red-cancel, 5);
+$color-button-cancel-active-background-top: darken($red-cancel, 7);
+
+$color-button-cancel-background-bottom: lighten($red-cancel, 2);
+$color-button-cancel-hover-background-bottom: darken($red-cancel, 4);
+$color-button-cancel-active-background-bottom: darken($red-cancel, 5);
+
+$color-button-cancel-border: darken($red-cancel, 5);
+$color-button-cancel-hover-border: darken($red-cancel, 10);
+$color-button-cancel-active-border: darken($red-cancel, 10);
+
+$color-button-cancel-border-side: darken($red-cancel, 2);
+$color-button-cancel-hover-border-side: darken($red-cancel, 7);
+$color-button-cancel-active-border-side: darken($red-cancel, 7);
+
+$color-button-cancel-active-shadow: rgba(0, 0, 0, 0.3);
+
+
+/* Forms. */
+$color-form-required: inherit; //darken(gray, 15);//fade-out(red, .2);
+
+$color-fieldset-legend: $green-base;//$default-color-blue;
 $color-fieldset-border: darken(white, 5);
 $color-fieldset-description: darken(gray, 20);
-$color-fieldset-background: darken(white, 2.5);
+$color-fieldset-background: darken(white, 2);
+$color-fieldset-background-top: darken(white, 2);
+$color-fieldset-background-bottom: white;
 $color-fieldset-shadow: rgba(0, 0, 0, 0.1);
 $color-fieldset-admin-border: fade-out(lighten($secondary-color, 10), .7);
 
 $color-input: darken(gray, 15);
 $color-input-hover: darken(gray, 35);
-$color-input-active: black;
+$color-input-active: $default-color-dark;
 
 $color-input-background: darken(white, 1.2);
 $color-input-hover-background: darken(white, 1);
@@ -125,21 +172,28 @@ $color-div-autocomplete-li-selected-background-top: fade-out(lighten($secondary-
 $color-div-autocomplete-li-selected-background-bottom: fade-out($secondary-color, .2);
 
 /* Messages. */
-$color-messages: lighten(black, 15);
+$color-messages: darken(gray, 5);
 $color-messages-background: darken(white, 4);
 $color-messages-border: darken(white, 8);
 
-$color-messages-green: darkolivegreen;
-$color-messages-green-background: fade-out($green, 0.92);
-$color-messages-green-border: fade-out($green, 0.88);
+$color-messages-green: $color-messages;
+$color-messages-green-background: lighten($green, 25);
+$color-messages-green-border: $green;
 
-$color-messages-yellow: darkgoldenrod;
-$color-messages-yellow-background: fade-out($yellow, 0.92);
-$color-messages-yellow-border: fade-out($yellow, 0.88);
+$color-messages-yellow: $color-messages;
+$color-messages-yellow-background: lighten($base-color, 45);
+$color-messages-yellow-border: lighten($base-color, 10);
 
-$color-messages-red: darkred;
-$color-messages-red-background: fade-out($red, 0.92);
-$color-messages-red-border: fade-out($red, 0.88);
+$color-messages-red: $color-messages;
+$color-messages-red-background: lighten($red, 58);
+$color-messages-red-border: lighten($red, 7.5);
+
+$color-messages-admin: darken(gray, 15);
+$color-messages-admin-background: lighten($secondary-color, 53);
+$color-messages-admin-border: lighten($secondary-color, 10);
+
+$color-messages-a: darken($secondary-color, 5);
+$color-messages-a-hover: $secondary-color;
 
 /* Tables. */
 $color-thead-background: darken(white, 20);
@@ -152,29 +206,41 @@ $color-tbody-tr-background-hover: fade-out(lighten($secondary-color, 15), .8);
 
 $color-tbody-td-background-active: fade-out(lighten($secondary-color, 15), .9);
 
+$color-status-approved: fade-out(darken(green, 5), .4);
+$color-status-approved-background: fade-out(darken(green, 5), .95);
+$color-status-denied: fade-out(lighten(darkred, 10), .4);
+$color-status-denied-background: fade-out(lighten(darkred, 10), .95);
+$color-status-pending: lighten(darkgoldenrod, 15);
+$color-status-pending-background: fade-out(lighten(darkgoldenrod, 15), .95);
+
 /* Footer */
 $color-footer-border: darken(white, 15);
-$color-footer-background: lighten($base-color, 10);
-$color-footer-background-top: fade-out($color-navigation-background, .15);
-$color-footer-background-bottom: fade-out($color-navigation-background, .05);
+$color-footer-border-top: $base-color;
+$color-footer-background: $color-navigation-background; //lighten($base-color, 10);
+$color-footer-background-top: $color-navigation-background-top;//fade-out($color-navigation-background, .15);
+$color-footer-background-bottom: $color-navigation-background-top;//fade-out($color-navigation-background, .05);
 
-$color-footer-title: black;
-$color-footer-a: $default-color-blue;
-$color-footer-a-hover: black;
-$color-footer-a-active: black;
+$color-footer-title: $default-color-dark;
+$color-footer-a: darken(white, 10); //$default-color-dark;
+$color-footer-a-hover: darken(white, 5); //lighten($default-color-blue, 10);
+$color-footer-a-active: darken(white, 5); //lighten($default-color-blue, 10);
 
 /* Content. */
 $color-title-budget: $default-color-blue;
 
-$color-font-a: lighten($default-color-blue, 25);
-$color-font-a-hover: darken($color-font-a, 10);
+$color-font-title: darken($base-color, 3.5);
+$color-font-a: lighten($default-color-blue, 27.5); //darken($base-color, 7);
+$color-font-a-hover: lighten($color-font-a, 5.5);
 $color-font-a-active: $color-font-a-hover;
+$color-font-a-home: darken($base-color, 5);
 
+$color-password-indicator-background: darken(white, 15);
+$color-password-indicator-background-green: fade-out(darken(lightgreen, 20), .4);
 
 
 
 // Background
-$color-background-body: darken(white, 5);
+$color-background-body: white;// darken(white, 5);
 $color-background-content: white;
 $color-background-div: white;
 
@@ -182,13 +248,15 @@ $color-background-div: white;
 $color-box-shadow: rgba(0, 0, 0, 0.05);
 
 // Border
-$color-border-content: darken(white, 15);
-
-
-$color-border-div: darken(white, 15);
+$color-border-content: darken(white, 5);
+$color-border-div: darken(white, 5);
 
 // Font
 $color-font: darken(gray, 35);
 $color-font-h: lighten(black, 15);
-$color-font-h2: lighten(black, 15);
+$color-font-h2: darken($base-color, 3.5);//lighten(black, 15);
 $color-font-content-h3-field: lighten(black, 35);
+
+/* Misc */
+$color-inactive-account: $red;
+$color-addressbook-border: darken(white, 5);

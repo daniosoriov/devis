@@ -4,9 +4,9 @@ fieldset {
   }
 }
 
-.field--customer-profile-adresse {
+.field--customer-profile-adresse, .field--adresse {
   font-style: normal;
-  //@include rem-fallback(margin-bottom, 1rem);
+  @include rem-fallback(margin-bottom, 1rem);
   br {
     display: none;
   }
@@ -32,4 +32,78 @@ div.addressfield-container-inline.name-block {
 
 .form-item-field-customer-profile-adresse-und-profiles-0-commerce-customer-address-und-0-country {
   display: none;
+}
+
+div.password-strength, div.password-confirm {
+  @include rem-fallback(font-size, .85rem);
+  @include rem-fallback(margin, 1rem, 0);
+  float: none;
+  @include breakpoint($mobile) {
+    @include rem-fallback(font-size, .9rem);
+    @include grid-span(4, 1, false, 0);
+    @include font-family('Source Sans Pro');
+    float: none;
+  }
+  @include breakpoint($tab) {
+    @include rem-fallback(font-size, 1rem);
+    @include grid-span(3, 6);
+    @include rem-fallback(margin-top, 1.5rem);
+  }
+}
+
+.password-indicator {
+  background-color: $color-password-indicator-background;
+  .indicator {
+    //background-color: $color-password-indicator-background-green;
+  }
+}
+
+div.password-suggestions.description {
+  @include rem-fallback(font-size, .7rem);
+  font-weight: 400;
+  @include grid-span(3, 1);
+  float: none;
+  border: 1px solid $color-fieldset-border;
+  @include border-radius();
+  @include rem-fallback(padding, .5rem);
+  font-weight: 600;
+  
+  @include breakpoint($mobile) {
+    @include rem-fallback(font-size, .8rem);
+  }
+  @include breakpoint($tab) {
+    @include rem-fallback(font-size, .85rem);
+    margin-left: 0;
+    margin-right: 0;
+    width: 50%;
+  }
+  
+  ul {
+    font-weight: 300;
+    margin: 0;
+    
+    li {
+      @include rem-fallback(font-size, .7rem);
+      margin: 0;
+      @include rem-fallback(margin-top, .2rem);
+      @include breakpoint($mobile) {
+        @include rem-fallback(font-size, .8rem);
+      }
+      @include breakpoint($tab) {
+        @include rem-fallback(font-size, .85rem);
+        @include rem-fallback(margin-top, .3rem);
+      }
+    }
+  }
+}
+
+span.inactive {
+  color: $color-inactive-account;
+}
+
+fieldset#edit-legal {
+  div.legal-terms, div.legal-terms-extra {
+    @include rem-fallback(height, 15rem);
+    overflow: scroll;
+  }
 }

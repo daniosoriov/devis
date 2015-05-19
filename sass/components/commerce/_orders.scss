@@ -1,0 +1,88 @@
+.order-links {
+  @include rem-fallback(padding-top, 2rem);
+  @include rem-fallback(padding-bottom, 1rem);
+}
+
+section.client-info {
+  article.client-address, article.invoice-date {
+    display: inline-block;
+    width: 50%;
+  }
+  
+  article.invoice-date {
+    text-align: right;
+    vertical-align: top;
+  }
+}
+
+p.invoice-footer {
+  text-align: center;
+}
+
+.view-commerce-user-orders {
+  thead {
+    th.active {
+      background: $color-thead-background;
+    }
+  }
+  tbody {
+    tr.odd:hover {
+      background: $color-tbody-tr-background-odd;
+    }
+    tr.even:hover {
+      background: $color-tbody-tr-background-even;
+    }
+    td.active {
+      background: inherit;
+    }
+  }
+}
+
+.field--commerce-line-items {
+  table {
+    @include rem-fallback(margin-bottom, 1rem);
+    border: 1px solid whitesmoke;
+    
+    .views-field-commerce-unit-price, .views-field-quantity, .views-field-commerce-total {
+      width: 12%;
+    }
+
+    tbody {
+      tr.odd:hover {
+        background: $color-tbody-tr-background-odd;
+      }
+
+      tr.even:hover {
+        background: $color-tbody-tr-background-even;
+      }
+    }
+
+    &.commerce-price-formatted-components {
+      width: 33%;
+      margin-left: auto;
+      
+      tr {
+        font-weight: 600;
+      }
+    }
+  }
+  
+  .space {
+    height: 50px;
+  }
+}
+
+.field--commerce-customer-billing, .entity-commerce-customer-profile {
+  @include rem-fallback(margin-bottom, 1rem);
+  
+  .field--commerce-customer-address {
+    margin: 0;
+  }
+  .field-date {
+    @include rem-fallback(margin-bottom, 1rem);
+  }
+  .addressfield-container-inline, .street-block, .country {
+    font-style: normal;
+    @include rem-fallback(margin-bottom, .5rem);
+  }
+}

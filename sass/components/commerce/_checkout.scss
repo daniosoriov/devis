@@ -1,0 +1,34 @@
+.checkout_review, fieldset#edit-cart-contents {
+  table {
+    border: 1px solid whitesmoke;
+    
+    tbody {
+      tr.odd:hover {
+        background: $color-tbody-tr-background-odd;
+      }
+      
+      tr.even:hover {
+        background: $color-tbody-tr-background-even;
+      }
+    }
+  }
+}
+
+.pane-data {
+  @include rem-fallback(margin-bottom, 1rem);
+  .addressfield-container-inline, .street-block, .country {
+    font-style: normal;
+    @include rem-fallback(margin-bottom, .5rem);
+  }
+}
+
+.commerce_payment, .customer_profile_billing {
+  .stripe, input[name*="customer_profile_billing"] {
+    
+  }
+}
+
+.checkout-buttons .checkout-cancel, .checkout-buttons .checkout-back {
+  @extend input[type="submit"]#edit-cancel;
+  @include rem-fallback(margin-left, 1rem);
+}

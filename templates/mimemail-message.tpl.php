@@ -48,7 +48,6 @@
                   <tbody>
                     <tr>
                       <td id="head">
-                        <div><a href="http://3devis.be">3devis.be</a></div>
                       </td>
                     </tr>
                   </tbody>
@@ -83,8 +82,16 @@
                 <table id="footer">
                   <tbody>
                     <tr>
+                      <td id="footer-logo">
+                        <div>
+                          <a href="http://3devis.be">
+                            <img alt="3devis | Les meilleurs fournisseurs en Belgique" src="https://3devis.be/sites/default/files/comptable-fiscaliste-bruxelles-mail.png" height="51" width="140">
+                          </a>
+                        </div>
+                      </td>
+                      <td></td>
                       <td id="footer-team">
-                        <div>&eacute;quipe <a href="http://3devis.be">3devis.be</a></div>
+                        <!--<a href="http://3devis.be">3devis.be</a>-->
                       </td>
                     </tr>
                   </tbody>

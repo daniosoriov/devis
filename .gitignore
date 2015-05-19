@@ -3,3 +3,17 @@ node_modules
 
 # We absolutely don't want to have the .sass-cache in git.
 .sass-cache
+
+# Ignoring easydropdown library that can be found on git.
+/js/easydropdown/*
+
+# OS generated files #
+######################
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+Icon?
+ehthumbs.db
+Thumbs.db

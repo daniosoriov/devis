@@ -1,0 +1,171 @@
+@import "compass";
+@import "breakpoint";
+@import "singularitygs";
+
+// Globbing from within sub-folders only only works with relative paths.
+@import "../../variables/**/*";
+@import "../../abstractions/**/*";
+
+.l-main {
+  @include clearfix;
+  margin: 0 auto;
+  @include breakpoint($tab) {
+    @include rem-fallback(padding-top, 6.5rem);
+    padding-bottom: 245px;
+  }
+  @include breakpoint($desktop) {
+    max-width: $max-width;
+    padding-bottom: 200px;
+  }
+}
+
+.l-content {
+  //@include background-grid($color: blue);
+  background: $color-background-content;
+  @include rem-fallback(padding-bottom, 1rem);
+  @include grid-span(3, 1);
+  
+  @include breakpoint($mobile) {
+    @include grid-span(6, 1);
+  }
+  
+  @include breakpoint($tab) {
+    @include grid-span(8, 1);
+  }
+  
+  @include breakpoint($desktop) {
+    @include grid-span(12, 1);
+  }
+    
+  h2.pane-title {
+    @include rem-fallback(margin-top, 1rem);
+    color: $color-font-h2;
+    @include rem-fallback(font-size, 1.35rem);
+    font-weight: 400;
+    
+    @include breakpoint($mobile) {
+      @include font-family('Raleway');
+      @include rem-fallback(font-size, 1.6rem);
+    }
+    @include breakpoint($tab) {
+      @include rem-fallback(font-size, 1.8rem);
+    }
+    @include breakpoint($desktop) {
+      @include rem-fallback(font-size, 2rem);
+    }
+  }
+  
+  .user-profile, div.content, .ds-1col {
+    div[class*=' field--'], div[class^='field--'], span[class*=' field--'], span[class^='field--'] {
+      @include rem-fallback(line-height, 1.1rem);
+      @include rem-fallback(padding-bottom, .8rem);
+      display: block;
+    }
+  }
+  
+  h3.field-label {
+    @include rem-fallback(font-size, 1rem);
+    @include rem-fallback(line-height, 1.5rem);
+    @include rem-fallback(padding-bottom, .5rem);
+    
+    @include breakpoint($mobile) {
+      @include rem-fallback(font-size, 1.17rem);
+      @include rem-fallback(line-height, 1.9rem);
+      padding-bottom: 0;
+    }
+  }
+  
+  div.submitted {
+    @include rem-fallback(padding-bottom, 1rem);
+    @include rem-fallback(font-size, .95rem);
+  }
+  
+  div.remove-br br {
+    display: none;
+  }
+}
+
+.panel-pane.pane-page-content {
+  @include grid-span(3, 1);
+  
+  @include breakpoint($mobile) {
+    @include grid-span(6, 1);
+  }
+  @include breakpoint($tab) {
+    @include grid-span(8, 1);
+  }
+  @include breakpoint($desktop) {
+    @include grid-span(12, 1);
+  }
+  
+  article.field-group-article {
+    @include breakpoint($tab) {
+      display: inline-block;
+      vertical-align: top;
+      width: 50%;
+    }
+  }
+  
+  article.field-group-article-three {
+    @include breakpoint($tab) {
+      display: inline-block;
+      vertical-align: top;
+      width: 33%;
+    }
+  }
+}
+
+div.tabs {
+  ul.tabs--primary, ul.tabs--secondary {
+    @include rem-fallback(margin, .5rem, 0, 0);
+    background: $color-tab-ul-background;
+    border-bottom: 1px solid $color-tab-ul-border;
+    @include border-top-radius(.5rem);
+    
+    li {
+      @include rem-fallback(margin, 0, .15rem);
+    }
+
+    a {
+      background: $color-tab-a-background;
+      color: $color-tab-a;
+      text-decoration: none;
+      border: 1px solid $color-tab-a-border;
+      border-bottom: 1px solid $color-tab-a-border-bottom;
+      @include border-top-radius(.5rem);
+      display: block;
+      margin: -1px 0 -1px -1px;
+      position: relative;
+      left: 1px;
+      @include single-transition(all, .1s);
+      
+      @include breakpoint($mobile) {
+        @include rem-fallback(padding, .35rem, 1rem);
+      }
+      
+      &:hover, &:focus {
+        color: $color-tab-a-hover;
+        background: $color-tab-a-hover-background;
+      }
+
+      &.active {
+        color: $color-tab-a-active;
+        background: $color-tab-a-active-background;
+        border: 1px solid $color-tab-a-active-border;
+        border-bottom: 1px solid transparent;
+        
+        &:hover {
+          color: $color-tab-a-active;
+          background: $color-tab-a-active-background;
+        }
+      }
+    }
+  }
+
+  ul.tabs--secondary {
+    margin: 0;
+    a {
+
+    }
+  }
+}

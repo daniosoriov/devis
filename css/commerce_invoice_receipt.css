@@ -1,0 +1,97 @@
+/* Defaults */
+/* Header */
+/* Navigation. */
+/* Tabs. */
+/* Blocks. */
+/* Buttons. */
+/* Forms. */
+/* Autocomplete. */
+/* Messages. */
+/* Tables. */
+/* Footer */
+/* Content. */
+/* Misc */
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Applications\/MAMP\/htdocs\/3devis\/sites\/all\/themes\/devis\/sass\/commerce_invoice_receipt\.scss}line{font-family:\000036}}
+.field-name-commerce-order-total .commerce-price-formatted-components {
+  width: 33%;
+  margin-left: auto; }
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Applications\/MAMP\/htdocs\/3devis\/sites\/all\/themes\/devis\/sass\/commerce_invoice_receipt\.scss}line{font-family:\0000311}}
+.field-name-commerce-order-total .commerce-price-formatted-components tr.component-type-commerce-price-formatted-amount {
+  font-weight: bold; }
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Applications\/MAMP\/htdocs\/3devis\/sites\/all\/themes\/devis\/sass\/commerce_invoice_receipt\.scss}line{font-family:\0000315}}
+.products ul {
+  display: none; }
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Applications\/MAMP\/htdocs\/3devis\/sites\/all\/themes\/devis\/sass\/commerce_invoice_receipt\.scss}line{font-family:\0000319}}
+.component-title {
+  font-weight: bold; }
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Applications\/MAMP\/htdocs\/3devis\/sites\/all\/themes\/devis\/sass\/commerce_invoice_receipt\.scss}line{font-family:\0000323}}
+table {
+  width: 100%;
+  border-spacing: 0;
+  font-size: 11.2px;
+  font-size: 0.7rem; }
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Applications\/MAMP\/htdocs\/3devis\/sites\/all\/themes\/devis\/sass\/commerce_invoice_receipt\.scss}line{font-family:\0000329}}
+thead {
+  color: whitesmoke;
+  background: #002c52;
+  font-weight: 600;
+  font-size: 12.8px;
+  font-size: 0.8rem; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Applications\/MAMP\/htdocs\/3devis\/sites\/all\/themes\/devis\/sass\/commerce_invoice_receipt\.scss}line{font-family:\0000335}}
+  thead th {
+    text-align: left;
+    padding: 8px;
+    padding: 0.5rem;
+    vertical-align: middle;
+    text-transform: uppercase; }
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Applications\/MAMP\/htdocs\/3devis\/sites\/all\/themes\/devis\/sass\/commerce_invoice_receipt\.scss}line{font-family:\0000345}}
+tbody tr.odd {
+  background: #f0f0f0; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Applications\/MAMP\/htdocs\/3devis\/sites\/all\/themes\/devis\/sass\/commerce_invoice_receipt\.scss}line{font-family:\0000349}}
+tbody tr.even {
+  background: #f7f7f7; }
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Applications\/MAMP\/htdocs\/3devis\/sites\/all\/themes\/devis\/sass\/commerce_invoice_receipt\.scss}line{font-family:\0000355}}
+.products table td {
+  padding: 5.6px;
+  padding: 0.35rem; }
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Applications\/MAMP\/htdocs\/3devis\/sites\/all\/themes\/devis\/sass\/commerce_invoice_receipt\.scss}line{font-family:\0000359}}
+table.order-total {
+  width: 33%;
+  margin-left: auto; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Applications\/MAMP\/htdocs\/3devis\/sites\/all\/themes\/devis\/sass\/commerce_invoice_receipt\.scss}line{font-family:\0000363}}
+  table.order-total tr {
+    font-weight: 600; }
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Applications\/MAMP\/htdocs\/3devis\/sites\/all\/themes\/devis\/sass\/commerce_invoice_receipt\.scss}line{font-family:\0000368}}
+table.details td {
+  padding: 0 5px; }
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Applications\/MAMP\/htdocs\/3devis\/sites\/all\/themes\/devis\/sass\/commerce_invoice_receipt\.scss}line{font-family:\0000372}}
+.views-field-commerce-total,
+.component-total {
+  width: 100px !important;
+  text-align: right; }
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Applications\/MAMP\/htdocs\/3devis\/sites\/all\/themes\/devis\/sass\/commerce_invoice_receipt\.scss}line{font-family:\0000378}}
+.products table.commerce-price-formatted-components {
+  width: 200px;
+  padding-top: 20px;
+  float: right; }
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Applications\/MAMP\/htdocs\/3devis\/sites\/all\/themes\/devis\/sass\/commerce_invoice_receipt\.scss}line{font-family:\0000384}}
+.field--commerce-customer-address {
+  margin-top: 8px;
+  margin-top: 0.5rem; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Applications\/MAMP\/htdocs\/3devis\/sites\/all\/themes\/devis\/sass\/commerce_invoice_receipt\.scss}line{font-family:\0000386}}
+  .field--commerce-customer-address .addressfield-container-inline, .field--commerce-customer-address .street-block, .field--commerce-customer-address .country {
+    font-style: normal;
+    margin-bottom: 4.8px;
+    margin-bottom: 0.3rem; }

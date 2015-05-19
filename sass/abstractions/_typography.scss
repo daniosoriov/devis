@@ -4,34 +4,34 @@
   font-size: $sizeValue + rem;
 }
 
-@mixin font-family($name, $type: regular) {
-    font-family: $name, Helvetica, Arial, sans-serif;
-    @if ($type == regular) {
-        font-weight: 400;
-    }
-    @if ($type == light) {
-        font-weight: 300;
-    }
-    @if ($type == semibold) {
-        font-weight: 600;
-    }
-    @if ($type == bold) {
-        font-weight: 700;
-    }
+@mixin font-family($name: 'Source Sans Pro', $type: regular) {
+  font-family: $name, Helvetica, Arial, sans-serif;
+  @if ($type == regular) {
+    font-weight: 400;
+  }
+  @if ($type == light) {
+    font-weight: 300;
+  }
+  @if ($type == semibold) {
+    font-weight: 600;
+  }
+  @if ($type == bold) {
+    font-weight: 700;
+  }
 }
 
 @mixin font-family-mobile($type: regular) {
-    font-family: sans-serif;
-    @if ($type == regular) {
-        font-weight: 400;
-    }
-    @if ($type == light) {
-        font-weight: 300;
-    }
-    @if ($type == semibold) {
-        font-weight: 600;
-    }
-    @if ($type == bold) {
-        font-weight: 700;
-    }
+  font-family: sans-serif;
+  @if ($type == regular) {
+    font-weight: 400;
+  }
+  @if ($type == light) {
+    font-weight: 300;
+  }
+  @if ($type == semibold) {
+    font-weight: 600;
+  }
+  @if ($type == bold) {
+    font-weight: 700;
+  }
 }

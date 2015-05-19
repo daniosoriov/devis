@@ -2,6 +2,7 @@
 /* Header */
 /* Navigation. */
 /* Tabs. */
+/* Blocks. */
 /* Buttons. */
 /* Forms. */
 /* Autocomplete. */
@@ -9,26 +10,106 @@
 /* Tables. */
 /* Footer */
 /* Content. */
+/* Misc */
 @media -sass-debug-info{filename{font-family:file\:\/\/\/Applications\/MAMP\/htdocs\/3devis\/sites\/all\/themes\/devis\/sass\/layouts\/home\/home\.layout\.scss}line{font-family:\000039}}
-.l-main {
+.l-main-home {
+  margin: 0 auto;
   /* for IE 6/7 */
   *zoom: expression(this.runtimeStyle.zoom="1", this.appendChild(document.createElement("br")).style.cssText="clear:both;font:0/0 serif");
   /* non-JS fallback */
   *zoom: 1; }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/danielosoriov\/\.rvm\/gems\/ruby-1\.9\.3-p547\@omega\.devis\/gems\/singularitygs-1\.1\.2\/stylesheets\/singularitygs\/helpers\/_clearfix\.scss}line{font-family:\0000348}}
-  .l-main:before, .l-main:after {
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/danielosoriov\/\.rvm\/gems\/ruby-1\.9\.3-p547\/gems\/singularitygs-1\.1\.2\/stylesheets\/singularitygs\/helpers\/_clearfix\.scss}line{font-family:\0000347}}
+  .l-main-home:before, .l-main-home:after {
     content: ".";
     display: block;
     height: 0;
     overflow: hidden; }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/danielosoriov\/\.rvm\/gems\/ruby-1\.9\.3-p547\@omega\.devis\/gems\/singularitygs-1\.1\.2\/stylesheets\/singularitygs\/helpers\/_clearfix\.scss}line{font-family:\0000355}}
-  .l-main:after {
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/danielosoriov\/\.rvm\/gems\/ruby-1\.9\.3-p547\/gems\/singularitygs-1\.1\.2\/stylesheets\/singularitygs\/helpers\/_clearfix\.scss}line{font-family:\0000355}}
+  .l-main-home:after {
     clear: both; }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Applications\/MAMP\/htdocs\/3devis\/sites\/all\/themes\/devis\/sass\/layouts\/home\/home\.layout\.scss}line{font-family:\0000313}}
-.l-content {
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Applications\/MAMP\/htdocs\/3devis\/sites\/all\/themes\/devis\/sass\/layouts\/home\/home\.layout\.scss}line{font-family:\0000322}}
+.l-content-home h2.pane-title {
+  display: none; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Applications\/MAMP\/htdocs\/3devis\/sites\/all\/themes\/devis\/sass\/layouts\/home\/home\.layout\.scss}line{font-family:\0000326}}
+.l-content-home section.first {
+  position: relative;
+  margin: 0 auto;
   width: 100%;
-  float: right;
-  margin-left: 0;
-  margin-right: 0;
-  clear: none; }
+  min-height: 272px;
+  min-height: 17rem; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Applications\/MAMP\/htdocs\/3devis\/sites\/all\/themes\/devis\/sass\/layouts\/home\/home\.layout\.scss}line{font-family:\0000342}}
+.l-content-home section.second, .l-content-home section.third {
+  position: relative;
+  margin: 0 auto;
+  width: 100%;
+  min-height: 272px;
+  min-height: 17rem; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Applications\/MAMP\/htdocs\/3devis\/sites\/all\/themes\/devis\/sass\/layouts\/home\/home\.layout\.scss}line{font-family:\0000355}}
+.l-content-home section.small {
+  min-height: 160px;
+  min-height: 10rem; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Applications\/MAMP\/htdocs\/3devis\/sites\/all\/themes\/devis\/sass\/layouts\/home\/home\.layout\.scss}line{font-family:\0000371}}
+.l-content-home .arrow-first, .l-content-home .arrow-second, .l-content-home .arrow-special {
+  display: none; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Applications\/MAMP\/htdocs\/3devis\/sites\/all\/themes\/devis\/sass\/layouts\/home\/home\.layout\.scss}line{font-family:\0000394}}
+.l-content-home section.first {
+  opacity: 1;
+  visibility: inherit;
+  background-image: url(http://3devis.be/sites/default/files/pictures/home.jpg);
+  background-color: transparent;
+  background-size: cover;
+  background-position: 50% 0%;
+  background-repeat: no-repeat; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Applications\/MAMP\/htdocs\/3devis\/sites\/all\/themes\/devis\/sass\/layouts\/home\/home\.layout\.scss}line{font-family:\00003104}}
+  .l-content-home section.first article.text-box {
+    margin: 0 auto;
+    text-align: center;
+    width: 295px;
+    padding-top: 80px;
+    padding-top: 5rem; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Applications\/MAMP\/htdocs\/3devis\/sites\/all\/themes\/devis\/sass\/layouts\/home\/home\.layout\.scss}line{font-family:\00003123}}
+  .l-content-home section.first h1.pane-title {
+    color: #eda800;
+    font-size: 28px;
+    font-size: 1.75rem;
+    font-weight: 400; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Applications\/MAMP\/htdocs\/3devis\/sites\/all\/themes\/devis\/sass\/layouts\/home\/home\.layout\.scss}line{font-family:\00003143}}
+.l-content-home article.text-box {
+  padding-top: 48px;
+  padding-top: 3rem;
+  text-align: center; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Applications\/MAMP\/htdocs\/3devis\/sites\/all\/themes\/devis\/sass\/layouts\/home\/home\.layout\.scss}line{font-family:\00003155}}
+.l-content-home h3.title {
+  margin: 0 auto;
+  font-size: 20px;
+  font-size: 1.25rem;
+  padding-bottom: 4.8px;
+  padding-bottom: 0.3rem;
+  font-weight: 200;
+  text-transform: uppercase; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Applications\/MAMP\/htdocs\/3devis\/sites\/all\/themes\/devis\/sass\/layouts\/home\/home\.layout\.scss}line{font-family:\00003175}}
+.l-content-home h4.subtitle {
+  width: 290px;
+  margin: 0 auto;
+  font-size: 16px;
+  font-size: 1rem;
+  font-weight: 200;
+  padding-bottom: 2.4px;
+  padding-bottom: 0.15rem;
+  line-height: 27.2px;
+  line-height: 1.7rem; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Applications\/MAMP\/htdocs\/3devis\/sites\/all\/themes\/devis\/sass\/layouts\/home\/home\.layout\.scss}line{font-family:\00003199}}
+  .l-content-home h4.subtitle a {
+    color: #e6a300;
+    font-size: inherit; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Applications\/MAMP\/htdocs\/3devis\/sites\/all\/themes\/devis\/sass\/layouts\/home\/home\.layout\.scss}line{font-family:\00003205}}
+.l-content-home section.third {
+  background-image: url(http://3devis.be/sites/default/files/pictures/home-2.jpg);
+  background-color: #435b54;
+  background-size: cover;
+  background-attachment: fixed;
+  background-repeat: repeat; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Applications\/MAMP\/htdocs\/3devis\/sites\/all\/themes\/devis\/sass\/layouts\/home\/home\.layout\.scss}line{font-family:\00003214}}
+  .l-content-home section.third h3.title, .l-content-home section.third h4.subtitle {
+    color: #f2f2f2; }

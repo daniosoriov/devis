@@ -6,10 +6,213 @@
 @import "../../variables/**/*";
 @import "../../abstractions/**/*";
 
-.l-main {
-    @include clearfix;
+.l-main-home {
+  margin: 0 auto;
+  @include breakpoint($tab) {
+    //padding-top: 80px;
+    padding-bottom: 245px;
+  }
+  @include breakpoint($desktop) {
+    padding-bottom: 200px;
+  }
+  @include clearfix;
 }
 
-.l-content {
-    @include grid-span(12, 1);
+.l-content-home {
+  h2.pane-title {
+    display: none;
+  }
+  
+  section.first {
+    position: relative;
+    margin: 0 auto;
+    width: 100%;
+    @include rem-fallback(min-height, 17rem);
+    @include breakpoint($mobile) {
+      @include rem-fallback(min-height, 20rem);
+    }
+    @include breakpoint($tab) {
+      @include rem-fallback(min-height, 30rem);
+    }
+    @include breakpoint($desktop) {
+      @include rem-fallback(min-height, 33rem);
+    }
+  }
+  
+  section.second, section.third {
+    position: relative;
+    margin: 0 auto;
+    width: 100%;
+    @include rem-fallback(min-height, 17rem);
+    @include breakpoint($mobile) {
+      @include rem-fallback(min-height, 20rem);
+    }
+    @include breakpoint($desktop) {
+      @include rem-fallback(min-height, 27rem);
+    }
+  }
+  
+  section.small {
+    @include rem-fallback(min-height, 10rem);
+    @include breakpoint($tab) {
+      @include rem-fallback(min-height, 16rem);
+    }
+    
+    article.text-box {
+      @include breakpoint($mobile) {
+        @include rem-fallback(padding-top, 3rem);
+      }
+      @include breakpoint($tab) {
+        @include rem-fallback(padding-top, 3.4rem);
+      }
+    }
+  }
+  
+  .arrow-first, .arrow-second, .arrow-special {
+    display: none;
+
+    @include breakpoint($tab) {
+      display: inherit;
+      height: 48px;
+      width: 48px;
+      background-image: url(http://3devis.be/sites/default/files/pictures/arrows-down.png);
+      background-size: 48px;
+      background-position: 0 100%;
+      position: absolute;
+      @include rem-fallback(bottom, 2rem);
+      left: 48%;
+      cursor: pointer;
+    }
+  }
+  
+  .arrow-second {
+    @include breakpoint($tab) {
+      background-position: 0 0;
+    }
+  }
+  
+  section.first {
+    opacity: 1;
+    visibility: inherit;
+    //background-image: url(http://cdn.lollum.com/nantes/corporate/wp-content/uploads/2014/10/slide_corporate.jpg);
+    background-image: url(http://3devis.be/sites/default/files/pictures/home.jpg);
+    background-color: rgba(0, 0, 0, 0);
+    background-size: cover;
+    background-position: 50% 0%;
+    background-repeat: no-repeat;
+    
+    article.text-box {
+      margin: 0 auto;
+      text-align: center;
+      width: 295px;
+      @include rem-fallback(padding-top, 5rem);
+      @include breakpoint($mobile) {
+        @include rem-fallback(padding-top, 7.5rem);
+        width: $mobile - 10;
+      }
+      @include breakpoint($tab) {
+        width: 600px;
+        @include rem-fallback(padding-top, 12rem);
+      }
+      @include breakpoint($desktop) {
+        width: auto;
+        @include rem-fallback(padding-top, 14rem);
+      }
+    }
+    
+    h1.pane-title {
+      color: $color-font-title;
+      @include rem-fallback(font-size, 1.75rem);
+      font-weight: 400;
+      
+      @include breakpoint($mobile) {
+        @include font-family('Raleway');
+        @include rem-fallback(font-size, 2rem);
+      }
+      @include breakpoint($tab) {
+        @include rem-fallback(line-height, 3.5rem);
+        @include rem-fallback(font-size, 2.52rem);
+      }
+      @include breakpoint($desktop) {
+        @include rem-fallback(font-size, 3.07rem);
+        @include rem-fallback(line-height, 4.5rem);
+      }
+    }
+  }
+  
+  article.text-box {
+    @include rem-fallback(padding-top, 3rem);
+    text-align: center;
+
+    @include breakpoint($mobile) {
+      @include rem-fallback(padding-top, 6rem);
+    }
+    @include breakpoint($desktop) {
+      @include rem-fallback(padding-top, 9rem);
+    }
+  }
+  
+  h3.title {
+    margin: 0 auto;
+    @include rem-fallback(font-size, 1.25rem);
+    @include rem-fallback(padding-bottom, .3rem);
+    font-weight: 200;
+    text-transform: uppercase;
+
+    @include breakpoint($mobile) {
+      @include rem-fallback(font-size, 1.55rem);
+    }
+    @include breakpoint($tab) {
+      @include rem-fallback(padding-bottom, 1rem);
+      @include rem-fallback(font-size, 1.75rem);
+    }
+    @include breakpoint($desktop) {
+      @include rem-fallback(padding-bottom, 1.2rem);
+      @include rem-fallback(font-size, 2.1rem);
+    }
+  }
+
+  h4.subtitle {
+    width: 290px;
+    margin: 0 auto;
+    @include rem-fallback(font-size, 1rem);
+    font-weight: 200;
+    @include rem-fallback(padding-bottom, .15rem);
+    @include rem-fallback(line-height, 1.7rem);
+
+    @include breakpoint($mobile) {
+      @include rem-fallback(line-height, 1.65rem);
+      width: 360px;
+      @include rem-fallback(font-size, 1.05rem);
+    }
+    @include breakpoint($tab) {
+      width: auto;
+      @include rem-fallback(padding-bottom, .5rem);
+      @include rem-fallback(font-size, 1.15rem);
+    }
+    @include breakpoint($desktop) {
+      @include rem-fallback(line-height, 1.9rem);
+      @include rem-fallback(padding-bottom, .75rem);
+      @include rem-fallback(font-size, 1.25rem);
+    }
+    
+    a {
+      color: $color-font-a-home;
+      font-size: inherit;
+    }
+  }
+  
+  section.third {
+    //background-image: url(http://cdn.lollum.com/nantes/corporate/wp-content/uploads/2014/10/bg_buy_section.jpg);
+    background-image: url(http://3devis.be/sites/default/files/pictures/home-2.jpg);
+    background-color: rgb(67, 91, 84);
+    //background-position: 49% 45px;
+    background-size: cover;
+    background-attachment: fixed;
+    background-repeat: repeat;
+    
+    h3.title, h4.subtitle {
+      color: $color-block-font-gray;
+    }
+  }
 }

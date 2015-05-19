@@ -1,5 +1,6 @@
 // Import external libraries.
 @import "compass";
+@import "susy";
 @import "breakpoint";
 @import "singularitygs";
 @import "toolkit-no-css";
@@ -22,47 +23,85 @@
 @import "components/**/*";
 
 // use SPRITE COW for the sprites.
-
 s, strike, del {
     color: $color-font-a;
 }
 
 /* Messages */
 div {
-    &.messages {
-        color: $color-messages;
-        border: none;
-        border-bottom: 1px solid $color-messages-border;
-        background: $color-messages-background;
-        @include border-bottom-radius();
-        @include single-box-shadow();
-        @include rem-fallback(padding, 1rem);
-        text-align: justify;
-        
-        ul {
-            margin: 0;
-            li {
-                @include rem-fallback(line-height, 1.5rem);
-                @include rem-fallback(padding, .2rem, 0);
-            }
-        }
+  &.messages {
+    color: $color-messages;
+    border: none;
+    @include rem-fallback(padding, .3rem);
+    @include rem-fallback(margin, 1rem, 0);
+    background: none;
+    @include rem-fallback(font-size, .85rem);
+    //border-bottom: 1px solid $color-messages-border;
+    //background: $color-messages-background;
+    @include border-radius();
+    //@include single-box-shadow();
+    //text-align: justify;
+    
+    @include breakpoint ($mobile) {
+      @include rem-fallback(font-size, 1rem);
+    }
+    @include breakpoint ($tab) {
+      @include rem-fallback(padding, .4rem);
+      @include rem-fallback(font-size, 1.1rem);
+    }
+    @include breakpoint($desktop) {
+      @include rem-fallback(padding, .5rem);
     }
     
-    &.status, &.messages--status {
-        color: $color-messages-green;
-        background: $color-messages-green-background;
-        border-bottom: 1px solid $color-messages-green-border;
+    a {
+      color: $color-messages-a;
+      &:hover {
+        color: $color-messages-a-hover;
+      }
+    }
+    
+    p {
+      margin: 0;
+      @include rem-fallback(padding, .35rem);
+      @include breakpoint ($mobile) {
+        @include rem-fallback(padding, .5rem);
+      }
     }
 
-    &.warning, &.messages--warning {
-        color: $color-messages-yellow;
-        background: $color-messages-yellow-background;
-        border-bottom: 1px solid $color-messages-yellow-border;
+    ul {
+      margin: 0;
+      li {
+        @include rem-fallback(padding, .35rem);
+        margin: 0;
+        
+        @include breakpoint ($mobile) {
+          @include rem-fallback(padding, .5rem);
+        }
+      }
     }
+  }
 
-    &.error, &.messages--error {
-        color: $color-messages-red;
-        background: $color-messages-red-background;
-        border-bottom: 1px solid $color-messages-red-border;
-    }
+  &.status, &.messages--status {
+    color: $color-messages-green;
+    background: $color-messages-green-background;
+    border-left: 5px solid $color-messages-green-border;
+  }
+
+  &.warning, &.messages--warning {
+    color: $color-messages-yellow;
+    background: $color-messages-yellow-background;
+    border-left: 5px solid $color-messages-yellow-border;
+  }
+
+  &.error, &.messages--error {
+    color: $color-messages-red;
+    background: $color-messages-red-background;
+    border-left: 5px solid $color-messages-red-border;
+  }
+  
+  &.admin, &.messages--admin {
+    color: $color-messages-admin;
+    background: $color-messages-admin-background;
+    border-left: 5px solid $color-messages-admin-border;
+  }
 }

@@ -1,0 +1,45 @@
+diff --git a/commerce_billy.admin.inc b/commerce_billy.admin.inc
+index 934ce88..efe2513 100644
+--- a/commerce_billy.admin.inc
++++ b/commerce_billy.admin.inc
+@@ -62,6 +62,14 @@ function commerce_billy_admin_form($form, &$form_state) {
+     '#default_value' => $last_number['id'],
+   );
+ 
++  $form['commerce_billy_invoice_id_padding'] = array(
++    '#type' => 'textfield',
++    '#title' => t('Invoice id padding'),
++    '#description' => t('Pad the invoice id with leading zeroes. Example: a value of 6 will output invoice id 52 as 000052.'),
++    '#size' => 10,
++    '#default_value' => variable_get('commerce_billy_invoice_id_padding', 6),
++  );
++
+   $form['commerce_billy_auto_invoice'] = array(
+     '#type' => 'checkbox',
+     '#title' => t('Automatically invoice orders on checkout completion.'),
+@@ -93,6 +101,11 @@ function commerce_billy_admin_form_validate($form, &$form_state) {
+     form_set_error('commerce_billy_invoice_nr_pattern', t('You must include additional characters to {id}, as otherwise the invoice number might overlap with the order ID, leading the database exceptions.'));
+   }
+ 
++  // Check invoice id padding input.
++  if (preg_match('#\D#', $form_state['values']['commerce_billy_invoice_id_padding']) || $form_state['values']['commerce_billy_invoice_id_padding'] < 1 || $form_state['values']['commerce_billy_invoice_id_padding'] > 20) {
++    form_set_error('commerce_billy_invoice_id_padding', t('Please enter a number from 1 to 20 for invoice id padding.'));
++  }
++
+   // Check for valid characters.
+   $test_nr = str_replace('{id}', 1, $pattern);
+   $test_nr = token_replace($test_nr, array(), array('clear' => TRUE));
+diff --git a/commerce_billy.module b/commerce_billy.module
+index 8007bda..105959b 100644
+--- a/commerce_billy.module
++++ b/commerce_billy.module
+@@ -173,7 +173,8 @@ function commerce_billy_invoice_nr_infinite() {
+  */
+ function commerce_billy_apply_invoice_nr_pattern($nr_array) {
+   $pattern = variable_get('commerce_billy_invoice_nr_pattern', '[date:custom:Y]-{id}');
+-  $new_nr = str_replace('{id}', $nr_array['id'], $pattern);
++  $invoice_id = str_pad($nr_array['id'], variable_get('commerce_billy_invoice_id_padding', 6), '0', STR_PAD_LEFT);
++  $new_nr = str_replace('{id}', $invoice_id, $pattern);
+   $new_nr = token_replace($new_nr, array(), array('clear' => TRUE));
+ 
+   return $new_nr;

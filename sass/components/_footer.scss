@@ -1,113 +1,185 @@
 #page-footer {
+  @include breakpoint($tab) {
     position: absolute;
     bottom: 0;
-    height: 220px;
-    
-    @include breakpoint(max-width $tab) {
-        height: 500px;
-    }
-    
-    @include breakpoint($tab $desktop) {
-        height: 270px;
-    }
+    height: 245px;
+  }
+  
+  @include breakpoint($desktop) {
+    height: 200px;
+  }
 }
 
 .l-footer {
-    background: $color-footer-background;
-    @include background-image(linear-gradient($color-footer-background-top, $color-footer-background-bottom));
-    border: 1px solid $color-footer-border;
-    @include single-box-shadow();
-    @include grid-span(12, 1);
-    @include border-top-radius();
-    
-    @include breakpoint(max-width $tab) {
-        width: $mobile;
-    }
-    
-    @include breakpoint($tab $desktop) {
-        width: $tab;
-    }
-    
+  //@include background-grid($color: blue);
+  width: 100%;
+  background: $color-footer-background;
+  @include background-image(linear-gradient($color-footer-background-top, $color-footer-background-bottom));
+  border: none;
+  border-top: 3px solid $color-footer-border-top;
+  
+  .l-region--footer {
+    margin: 0 auto;
     @include breakpoint($desktop) {
-        width: $desktop;
+      max-width: $max-width;
+    }
+  }
+  
+  &.maintenance {
+    position: absolute;
+    bottom: 0;
+    height: 100px;
+  }
+    
+  // menu-block-1 has been added on the panels menu on drupal.
+  div[class*=' menu-block'], div[class^='menu-block'], div.panels-ipe-portlet-wrapper {
+    text-align: center;
+    @include rem-fallback(margin-top, 1rem);
+    @include rem-fallback(padding-bottom, .25rem);
+    
+    @include breakpoint($tab) {
+      @include rem-fallback(margin-top, 2rem);
+      padding: 0;
+      text-align: left;
+      //display: inline-block;
+    }
+  }
+  
+  div.menu-block-3 {
+    margin-left: gutter-span();
+    margin-right: gutter-span();
+    text-align: justify;
+  }
+  
+  @include breakpoint($tab) {
+    div.menu-block-1 {
+      @include grid-span(2, 1);
+      margin-left: gutter-span();
+    }
+    div.menu-block-2 {
+      @include grid-span(2, 3);
+    }
+    div.menu-block-3 {
+      @include grid-span(4, 5);
+      margin-left: gutter-span();
+      margin-right: gutter-span();
+    }
+    /*div.menu-block-4 {
+      @include grid-span(2, 7);
+    }*/
+  }
+  @include breakpoint($desktop) {
+    div.menu-block-1 {
+      @include grid-span(3, 1);
+      margin-left: gutter-span();
+    }
+    div.menu-block-2 {
+      @include grid-span(3, 4);
+    }
+    div.menu-block-3 {
+      @include grid-span(6, 7);
+      margin-left: gutter-span();
+      margin-right: gutter-span();
+    }
+    /*div.menu-block-4 {
+      @include grid-span(3, 10);
+    }*/
+  }
+    
+  ul {
+    @include rem-fallback(margin-top, .3rem);
+    text-align: center;
+    
+    @include breakpoint($tab) {
+      text-align: left;
     }
     
-    // menu-block-1 has been added on the panels menu on drupal.
-    div[class*=' menu-block'], div[class^='menu-block'] {
-        display: inline-block;
-        vertical-align: top;
-        @include rem-fallback(padding, 0, 1rem);
-        width: 20%;
-        
-        @include breakpoint(max-width $tab) {
-            display: block;
-            width: 100%;
-            text-align: center;
-            ul {
-                text-align: center;
-            }
-        }
+    .leaf {
+      list-style-image: none;
+      list-style-type: none;
     }
-    
-    div.panels-ipe-portlet-wrapper {
-        display: inline-block;
-        vertical-align: top;
-        @include rem-fallback(padding, 0, 1rem);
-        width: 20%;
-        
-        div[class*=' menu-block'], div[class^='menu-block'] {
-            display: block;
-            width: 100%;
-            padding: 0;
-        }
-    }
-    
-    ul {
-        .leaf {
-            list-style-image: none;
-            list-style-type: none;
-        }
 
-        li {
-            @include rem-fallback(margin, .5rem);
-            @include transition-duration(.08s);
-            
-            &.active-trail {
-                @include rem-fallback(padding-left, .2rem);
-            }
-            &:hover {
-                @include rem-fallback(padding, 0, .2rem);
-            }
-        }
-    }
-    
-    a {
-        color: $color-footer-a;
-        @include font-family('Source Sans Pro', light);
-        &:hover {
-            color: $color-footer-a-hover;
-        }
+    li {
+      @include rem-fallback(margin, 0, 0, .35rem);
+      @include transition-duration(.08s);
+
+      &.active-trail {
         
-        @include breakpoint(max-width $mobile) {
-            @include font-family-mobile(light);
-        }
+      }
+      &:hover {
+        @include rem-fallback(padding-left, .2rem);
+      }
+    }
+  }
+  
+  p {
+    @include rem-fallback(margin-top, .3rem);
+    @include rem-fallback(font-size, .8rem);
+    color: $color-footer-a;
+    @include font-family-mobile('light');
+    text-align: center;
+
+    @include breakpoint($mobile) {
+      @include rem-fallback(font-size, .85rem);
+      @include font-family('Source Sans Pro', 'light');
     }
     
-    a.active {
-        color: $color-footer-a-active;
-        @include font-family('Source Sans Pro', regular);
-        &:hover {
-            color: $color-footer-a-hover;
-        }
-        
-        @include breakpoint(max-width $mobile) {
-            @include font-family-mobile();
-        }
+    @include breakpoint($tab) {
+      text-align: inherit;
+      @include rem-fallback(font-size, .95rem);
+    }
+  }
+
+  a {
+    @include rem-fallback(font-size, .8rem);
+    color: $color-footer-a;
+    @include font-family-mobile('light');
+
+    @include breakpoint($mobile) {
+      @include rem-fallback(font-size, .85rem);
+      @include font-family('Source Sans Pro', 'light');
     }
     
-    h2.pane-title {
-        @include rem-fallback(font-size, 1.25rem);
-        font-weight: 400;
-        color: $color-footer-title;
+    @include breakpoint($tab) {
+      @include rem-fallback(font-size, .95rem);
     }
+
+    &:hover {
+      color: $color-footer-a-hover;
+    }
+  }
+
+  a.active {
+    @include rem-fallback(font-size, .8rem);
+    color: $color-footer-a-active;
+    @include font-family-mobile();
+
+    @include breakpoint($mobile) {
+      @include rem-fallback(font-size, .85rem);
+      @include font-family('Source Sans Pro');
+    }
+    
+    @include breakpoint($tab) {
+      @include rem-fallback(font-size, .95rem);
+    }
+
+    &:hover {
+      color: $color-footer-a-hover;
+    }
+  }
+
+  h2.pane-title, h2.node__title {
+    display: none;
+    /*@include rem-fallback(font-size, .95rem);
+    font-weight: 400;
+    color: $color-footer-title;
+    margin: 0;
+    
+    @include breakpoint($mobile) {
+      @include rem-fallback(font-size, 1.25rem);
+    }
+
+    @include breakpoint($tab) {
+    }*/
+  }
 }

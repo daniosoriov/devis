@@ -1,0 +1,74 @@
+input#edit-commerce-payment-payment-details-credit-card-code,
+input#edit-credit-card-code {
+  @include rem-fallback(width, 3rem);
+}
+
+input#edit-credit-card-number {
+  @include rem-fallback(width, 12rem);
+}
+
+select.stripe {
+  width: 100%;
+}
+
+
+.commerce-credit-card-expiration {
+  margin-bottom: 0;
+  
+  .form-item {
+    display: inline-block;
+  }
+  
+  .commerce-month-year-divider {
+    @include rem-fallback(margin, 0, .5rem);
+    
+    @include breakpoint($mobile) {
+      position: relative;
+      top: -9px;
+    }
+  }
+}
+
+.view-commerce-card-on-file-user-cards {
+  @include rem-fallback(margin-bottom, 1rem);
+  tbody {
+    tr.odd:hover {
+      background: $color-tbody-tr-background-odd;
+    }
+
+    tr.even:hover {
+      background: $color-tbody-tr-background-even;
+    }
+    
+    td {
+      .card-expired, .card-expired-description {
+        display: inline-block;
+      }
+      .card-expired-description {
+        @include rem-fallback(margin-left, .3rem);
+        font-size: 85%;
+      }
+      
+      ul {
+        margin: 0;
+        
+        li {
+          margin: 0;
+          @include rem-fallback(margin-right, .5rem);
+        }
+      }
+    }
+  }
+}
+
+.entity-commerce-cardonfile {
+  @include rem-fallback(margin-bottom, 1rem);
+}
+
+input[type="submit"].card_submit {
+  margin: 0;
+}
+
+.cancel_url {
+  @include rem-fallback(padding, 0, 1rem);
+}
