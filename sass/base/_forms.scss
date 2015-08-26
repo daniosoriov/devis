@@ -212,6 +212,15 @@ fieldset {
       display: none;
     }
   }
+  
+  &.no-show {
+    display: none;
+  }
+}
+
+div.admin-field {
+  @include border-radius();
+  background: $color-messages-admin-background;
 }
 
 input[type="text"],
@@ -417,21 +426,20 @@ div[class*='form-item-field-preferred-language'].form-type-checkbox {
   //@include rem-fallback(margin-right, 1rem);
 }
 
-div.form-actions {
-  .button,
-  button,
-  input[type="submit"],
-  input[type="reset"],
-  input[type="button"] {
-    @include rem-fallback(margin-right, 1rem);
-  }
+.button, 
+button,
+input[type="submit"],
+input[type="reset"],
+input[type="button"] {
+  @include rem-fallback(margin-right, 1rem);
 }
 
 div.form-type-link-field {
   margin-bottom: 0;
 }
 
-select[name*='field_approval'], select[name^='field_approval'] {
+select[name*='field_approval'], select[name^='field_approval'],
+select[name*='field_devis_product'], select[name^='field_devis_product'] {
   width: 100px;
 }
 

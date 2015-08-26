@@ -1,0 +1,98 @@
+// Import external libraries.
+@import "compass";
+@import "susy";
+@import "breakpoint";
+@import "singularitygs";
+@import "toolkit-no-css";
+
+// Import variables, abstractions, base styles and components using globbing.
+//
+// Globbing will always import files alphabetically. Optimally, all your
+// components should be self-contained and explicit enough to not have any
+// contained styles leak into unrelated components: The import order should not
+// affect the result.
+//
+// If there are variables, functions or mixins that depend on each other and
+// therefore need to be imported in a specific order you can import them
+// directly. Variables-, function- or mixin providing partials should never
+// output any styles themselves: Importing them multiple times to resolve
+// dependencies shouldn't be a problem.
+@import "variables/**/*";
+@import "abstractions/**/*";
+
+
+
+/* jQuery Countdown styles 2.0.0. */
+.is-countdown {
+    width: 100%;
+	border: 1px solid #ddd;
+	background-color: #eee;
+	@include border-radius();
+	height: 85px;
+	padding-top: 4px;
+  
+  @include breakpoint($mobile) {
+    @include grid-span(4, 1, false, 0);
+    float: none;
+  }
+  @include breakpoint($tab) {
+    @include grid-span(4, 1, false, 0); // 4 of 8
+    float: none;
+  }
+  @include breakpoint($desktop) {
+    @include grid-span(6, 1, false, 0); // 5 of 12
+    float: none;
+  }
+  
+}
+.countdown-rtl {
+	direction: rtl;
+}
+.countdown-holding span {
+	color: #888;
+}
+.countdown-row {
+	clear: both;
+	width: 100%;
+	/*padding: 0px 10px;*/
+	text-align: center;
+	vertical-align: middle;
+}
+.countdown-show1 .countdown-section {
+	width: 98%;
+}
+.countdown-show2 .countdown-section {
+	width: 48%;
+}
+.countdown-show3 .countdown-section {
+	width: 32.5%;
+}
+.countdown-show4 .countdown-section {
+	width: 24.5%;
+}
+.countdown-show5 .countdown-section {
+	width: 19.5%;
+}
+.countdown-show6 .countdown-section {
+	width: 16.25%;
+}
+.countdown-show7 .countdown-section {
+	width: 14%;
+}
+.countdown-section {
+	display: block;
+	float: left;
+	font-size: 75%;
+	text-align: center;
+  @include rem-fallback(margin-bottom, 1rem);
+}
+.countdown-amount {
+	font-size: 200%;
+}
+.countdown-period {
+    display: block;
+}
+.countdown-descr {
+	display: block;
+	width: 100%;
+}

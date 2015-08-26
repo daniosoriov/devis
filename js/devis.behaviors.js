@@ -97,6 +97,33 @@
     return title;
   }
   
+  Drupal.theme.prototype.devisChangePricesFromLegalStatus = function(legalStatus, prices) {
+    var newOptions = {};
+    $.each(prices, function(key, value) {
+      if (key == legalStatus) {
+        newOptions = value;
+        /*$.each(value, function(keyIn, valueIn) {
+          newOptions.push({
+            key: keyIn, 
+            value: valueIn
+          });
+        });*/
+      }
+    });
+
+    //console.log(newOptions);
+    //newOptions = newOptions.sort(function(a, b){return newOptions[a].localeCompare(newOptions[b]) });
+    //newOptions = newOptions.sort(function(a, b) {return a[1] - b[1]});
+    //console.log(newOptions);
+    
+    var $el = $("#edit-field-devis-product-und");
+    $el.empty(); // remove old options
+    $.each(newOptions, function(key, value) {
+      $el.append($("<option></option>")
+         .attr("value", key).text(value));
+    });
+  }
+  
   /*Drupal.theme.prototype.devisReplaceText = function(element, needle, str) {
     element.each(function() {
       var text = $(this).text();
@@ -301,14 +328,20 @@
       var title = $("label[for='edit-field-change-accountant-other-und-0-value']").html();
       $("label[for='edit-field-change-accountant-other-und-0-value']").html(title + settings.devenir.required);
       
+      //console.log(settings);
+      
       // Change the Company label depending on the legal status.
       // Change the TVA label depending on the legal status.
+      // Change the prices.
       $("#edit-field-legal-status-und").change(function() {
         var val = $(this).val();
         var title = Drupal.theme('devisPrepareLabelHTML', 'company', val, settings.devenir.companyTitle, settings.devenir.required);
         $("label[for='edit-field-company-name-und-0-value']").html(title);
         var title = Drupal.theme('devisPrepareLabelHTML', 'tva', val, settings.devenir.tvaTitle, settings.devenir.required);
         $("label[for='edit-field-tva-und-0-value']").html(title);
+        
+        Drupal.theme('devisChangePricesFromLegalStatus', val, settings.prices);
+        
       });
       var $object = $('form#comptable-entityform-edit-form');
       if ($object.length) {
@@ -324,6 +357,24 @@
   Drupal.behaviors.devisDeleteUnnecessaryBr = {
     attach: function (context, settings) {
       $(".remove-br").find("br").remove();
+    }
+  };
+  
+  Drupal.behaviors.countdown = {
+    attach: function (context, settings) {
+      if (typeof settings.stats.minutesLeft != 'undefined') {
+        $('#defaultCountdown').countdown({
+          until: '+'+ settings.stats.minutesLeft +'m', 
+          format: 'HMS', 
+          description: settings.stats.description,
+          expiryText: settings.stats.expiryText,
+          onExpiry: noLongerValid,
+        });
+
+        function noLongerValid() { 
+          $("input#edit-submit").remove();
+        }
+      }
     }
   };
   

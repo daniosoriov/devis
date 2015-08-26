@@ -186,8 +186,13 @@ fieldset {
   }
 }
 
-span.regular {
-  font-weight: 400;
+span {
+  &.red {
+    color: $color-status-denied;
+  }
+  &.regular {
+    font-weight: 400;
+  }
 }
 
 /* FAQ Page */

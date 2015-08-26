@@ -12,15 +12,53 @@ function devis_preprocess_entity(&$variables, $hook) {
     $entityform = $variables['entityform'];
     $info_list = trois_devis_entity_get_hash_list($entityform->entityform_id);
     
+    // Admin fields.
+    if (isset($variables['content']['group_content']['field_activity_admin'])) {
+      $variables['content']['group_content']['field_activity_admin']['#prefix'] = '<div class="admin-field">';
+      $variables['content']['group_content']['field_activity_admin']['#suffix'] = '</div>';
+    }
+    if (isset($variables['content']['group_content']['field_info_extra_admin'])) {
+      $variables['content']['group_content']['field_info_extra_admin']['#prefix'] = '<div class="admin-field">';
+      $variables['content']['group_content']['field_info_extra_admin']['#suffix'] = '</div>';
+    }
+    
+    if (isset($variables['content']['group_admin']['field_devis_product'])) {
+      $lang = key($entityform->field_devis_product);
+      $product_id = $entityform->field_devis_product[$lang][0]['product_id'];
+      $product = commerce_product_load($product_id);
+      $price = commerce_product_calculate_sell_price($product);
+      $price_display = commerce_currency_format($price['amount'], $price['currency_code'], $product);
+      $variables['content']['group_admin']['field_devis_product'][0]['#markup'] = $price_display .' ('. $product->sku .')';
+    }
+    
+    // Providers contacted.
     if (isset($variables['content']['group_admin']['field_provider_contacted']) && 
         $variables['content']['group_admin']['field_provider_contacted']['#access']) {
       foreach ($variables['content']['group_admin']['field_provider_contacted']['#items'] as $key => $arr) {
         if (!$arr['access']) continue;
         if (!isset($info_list[$arr['target_id']])) continue;
         $info = $info_list[$arr['target_id']];
-        $variables['content']['group_admin']['field_provider_contacted'][$key]['#markup'] .= ' -- '. 
-          l('User URL', 'devis_info/'. $info->url_info, array('attributes' => array('target' => '_blank', 'title' => 'This is the secure URL for the user to see the budget...', 'onclick' => 'return false'))) .' - '.
-          (($info->date) ? 'viewed on '. format_date($info->date, 'medium', '', NULL, 'en') : '<em>not yet viewed</em>') .'';
+        
+        $link = ($info->min_since_contacted > (24 * 2 * 60)) ? '<span class="red"><em>Expired</em></span>' : 
+          l('User preview URL', 'devis_accept/'. $info->url_accept, array('attributes' => array('target' => '_blank', 'title' => 'This is the secure URL for the user to preview and accept the budget...', 'onclick' => 'return false')));
+        $markup = ' -- '. $link .' - '. (($info->opened_date) ? 'viewed on '. format_date($info->opened_date, 'medium', '', NULL, 'en') : '<em>not yet viewed</em>') .'';
+        $variables['content']['group_admin']['field_provider_contacted'][$key]['#markup'] .= $markup;
+        $variables['elements']['group_admin']['field_provider_contacted'][$key]['#markup'] .= $markup;
+        $variables['elements']['field_provider_contacted'][$key]['#markup'] .= $markup;
+      }
+    }
+    
+    // Providers accepted.
+    if (isset($variables['content']['group_admin']['field_providers_accepted']) && 
+        $variables['content']['group_admin']['field_providers_accepted']['#access']) {
+      foreach ($variables['content']['group_admin']['field_providers_accepted']['#items'] as $key => $arr) {
+        if (!$arr['access']) continue;
+        if (!isset($info_list[$arr['target_id']])) continue;
+        $info = $info_list[$arr['target_id']];
+        
+        $variables['content']['group_admin']['field_providers_accepted'][$key]['#markup'] .= ' -- '. 
+          l('User budget URL', 'devis_info/'. $info->url_info, array('attributes' => array('target' => '_blank', 'title' => 'This is the secure URL for the user to view the budget...'))) 
+          .' - accepted on '. format_date($info->date, 'medium', '', NULL, 'en');
       }
     }
     
@@ -36,6 +74,8 @@ function devis_preprocess_entity(&$variables, $hook) {
       $variables['content']['group_contact']['field_company_name']['#title'] = t('Association');
       //$variables['content']['group_contact']['field_tva']['#title'] = t('Numéro de TVA de votre association');
     }
+    //$template = render(drupal_get_form('devis_test_form', $entityform));
+    //$variables['content']['group_admin']['field_email_template_devis'][0]['#markup'] = $template;
   }
   
   // Commerce Order view.
@@ -84,13 +124,20 @@ function devis_preprocess_entity(&$variables, $hook) {
   }
   
   if ($entity_type == 'profile2' && $variables['elements']['#entity_type'] == 'profile2') {
-    if (isset($variables['content']['group_admin']['field_contacted_this_month'])) {
-      $count = $variables['field_contacted_this_month'][0]['value'];
-      $variables['content']['group_admin']['field_contacted_this_month'][0]['#markup'] = ($count) ? format_plural($count, '1 time', '@count times') : t('0 times');
-    }
-    if (isset($variables['content']['group_admin']['field_contacted_total'][0])) {
-      $count = $variables['field_contacted_total'][0]['value'];
-      $variables['content']['group_admin']['field_contacted_total'][0]['#markup'] = ($count) ? format_plural($count, '1 time', '@count times') : t('0 times');
+    $change = array(
+      'field_contacted_this_month' => 'group_contacted', 
+      'field_contacted_total' => 'group_contacted', 
+      'field_accepted_this_month' => 'group_accepted', 
+      'field_accepted_total' => 'group_accepted', 
+    );
+    foreach ($change as $field => $group) {
+      if (isset($variables['content']['group_admin'][$group][$field])) {
+        $count = $variables[$field][0]['value'];
+        $markup = ($count) ? format_plural($count, '1 time', '@count times') : t('0 times');
+        $variables['elements']['group_admin'][$group][$field][0]['#markup'] = 
+        $variables['elements'][$field][0]['#markup'] = 
+        $variables['content']['group_admin'][$group][$field][0]['#markup'] = $markup;
+      }
     }
     
     // Change the list of budgets layout for the viewed user.

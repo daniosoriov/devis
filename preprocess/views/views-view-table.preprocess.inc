@@ -4,23 +4,34 @@
  * Implements theme_preprocess_views_view_table().
  */
 function devis_preprocess_views_view_table(&$variables) {
+  // Budgets received by user and Budgets accepted by user.
   switch ($variables['view']->name) {
-    case 'entityform_by_user':
-      $args = arg();
-      $uid = $args[1];
-      $list = trois_devis_user_get_hash_list($uid);
-      foreach ($variables['result'] as $key => $res) {
-        // Change the layout of the budget entityform ID.
-        $entityform = $res->_field_data['entityform_id']['entity'];
-        $id = trois_devis_get_entityform_print_id($entityform);  
-        $entityform_id = $entityform->entityform_id;
-        $hash = $list[$entityform_id]->url_info;
-        $link = l($id, 'devis_info/'. $hash, array('attributes' => array('target'=>'_blank')));
-        $variables['rows'][$key]['entityform_id'] = $link;
+    case 'budget_provider_association':
+      $time = time();
+      switch ($variables['view']->current_display) {
+        case 'budgets_received_by_user':
+          foreach ($variables['result'] as $key => $res) {
+            // Fix last name.
+            $lastname = ucfirst(substr($res->field_field_name[0]['raw']['safe_value'], 0, 1));
+            $variables['rows'][$key]['field_prenom'] .= ' '. $lastname .'.';
+            
+            // Fix the status of the request.
+            if (($time - $res->devis_provider_assoc_contacted) > (48 * 60 * 60)) {
+              $variables['rows'][$key]['url_accept'] = '<em>'. t('Expired') .'</em>';
+              $variables['field_classes']['url_accept'][$key] .= ' Denied';
+            }
+          }
+          break;
         
-        // Put the viewed date.
-        $date = $list[$entityform_id]->date;
-        $variables['rows'][$key]['nothing'] = ($date) ? format_date($date, 'medium', '', NULL, NULL) : '-';
+        case 'budgets_accepted_by_user':
+          foreach ($variables['result'] as $key => $res) {
+            // Change the layout of the budget entityform ID.
+            $entityform = $res->_field_data['entityform_devis_provider_assoc_entityform_id']['entity'];
+            $id = trois_devis_get_entityform_print_id($entityform);  
+            $link = l($id, 'devis_info/'. $res->devis_provider_assoc_url_info, array('attributes' => array('target'=>'_blank')));
+            $variables['rows'][$key]['entityform_id'] = $link;
+          }
+          break;
       }
       break;
     
@@ -45,6 +56,23 @@ function devis_preprocess_views_view_table(&$variables) {
           $val = 'Details';
         }
         $variables['header'][$key] = t($val);
+      }
+      break;
+    
+    case 'provider':
+      switch ($variables['view']->current_display) {
+        case 'accountant_list':
+          $change = array(
+            'field_contacted_this_month' => 'Contacted this month',
+            'field_contacted_total' => 'Contacted total',
+            'field_accepted_this_month' => 'Accepted this month',
+            'field_accepted_total' => 'Accepted total',
+          );
+          foreach ($variables['header'] as $key => $label) {
+            if (!array_key_exists($key, $change)) continue;
+            $variables['header'][$key] = '<div title="'. $change[$key] .'">'. $label .'</div>';
+          }
+        break;
       }
       break;
   }

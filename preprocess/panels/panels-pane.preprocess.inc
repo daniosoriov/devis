@@ -109,6 +109,7 @@ function devis_preprocess_panels_pane(&$variables) {
           $user = $variables['user'];
           if ($account->uid == $user->uid && in_array('manager', $user->roles)) {
             $variables['content']['system_main']['profile_budget_profile']['#access'] = FALSE;
+            $variables['content']['system_main']['field_adresse']['#access'] = FALSE;
           }
         }
       break;
@@ -162,12 +163,12 @@ function devis_preprocess_panels_pane(&$variables) {
   if ($args[0] == 'user' && (count($args) == 1 || count($args) == 2)) {
     if (isset($variables['content']['system_main']['#account'])) {
       if (user_access('3devis see promo code usage')) {
-        if (module_exists(promo_code) && isset($variables['content']['system_main']['field_promotional_code'])) {
+        if (module_exists('promo_code') && isset($variables['content']['system_main']['field_promotional_code'])) {
           $account = $variables['content']['system_main']['#account'];
           $promo = promo_code_load_by_user($account);
           $vals = promo_code_get_user_values($account);
-          $variables['content']['system_main']['field_promotional_code'][0]['#markup'] .= 
-            ' ('. (($vals->code_usage) ? $vals->code_usage : '0') .' EUR / '. $promo->discount .' EUR)';
+          $promo_val = ($promo && $vals) ? ' ('. (($vals->code_usage) ? $vals->code_usage : '0') .' EUR / '. $promo->discount .' EUR)' : 'Not valid/Not applicable';
+          $variables['content']['system_main']['field_promotional_code'][0]['#markup'] .= $promo_val;
         }
       }
       

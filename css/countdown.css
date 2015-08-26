@@ -1,0 +1,119 @@
+/* Defaults */
+/* Header */
+/* Navigation. */
+/* Tabs. */
+/* Blocks. */
+/* Buttons. */
+/* Forms. */
+/* Autocomplete. */
+/* Messages. */
+/* Tables. */
+/* Footer */
+/* Content. */
+/* Misc */
+/* jQuery Countdown styles 2.0.0. */
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Applications\/MAMP\/htdocs\/3devis\/sites\/all\/themes\/devis\/sass\/countdown\.scss}line{font-family:\0000326}}
+.is-countdown {
+  width: 100%;
+  border: 1px solid #ddd;
+  background-color: #eee;
+  -webkit-border-radius: 0.2rem;
+  -moz-border-radius: 0.2rem;
+  -ms-border-radius: 0.2rem;
+  -o-border-radius: 0.2rem;
+  border-radius: 0.2rem;
+  height: 85px;
+  padding-top: 4px; }
+  @media (min-width: 384px) {
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Applications\/MAMP\/htdocs\/3devis\/sites\/all\/themes\/devis\/sass\/countdown\.scss}line{font-family:\0000326}}
+    .is-countdown {
+      width: 66.66667%;
+      float: left;
+      margin-right: -100%;
+      margin-left: 0%;
+      clear: none;
+      float: none; } }
+  @media (min-width: 704px) {
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Applications\/MAMP\/htdocs\/3devis\/sites\/all\/themes\/devis\/sass\/countdown\.scss}line{font-family:\0000326}}
+    .is-countdown {
+      width: 50%;
+      float: left;
+      margin-right: -100%;
+      margin-left: 0%;
+      clear: none;
+      float: none; } }
+  @media (min-width: 1088px) {
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Applications\/MAMP\/htdocs\/3devis\/sites\/all\/themes\/devis\/sass\/countdown\.scss}line{font-family:\0000326}}
+    .is-countdown {
+      width: 50%;
+      float: left;
+      margin-right: -100%;
+      margin-left: 0%;
+      clear: none;
+      float: none; } }
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Applications\/MAMP\/htdocs\/3devis\/sites\/all\/themes\/devis\/sass\/countdown\.scss}line{font-family:\0000348}}
+.countdown-rtl {
+  direction: rtl; }
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Applications\/MAMP\/htdocs\/3devis\/sites\/all\/themes\/devis\/sass\/countdown\.scss}line{font-family:\0000351}}
+.countdown-holding span {
+  color: #888; }
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Applications\/MAMP\/htdocs\/3devis\/sites\/all\/themes\/devis\/sass\/countdown\.scss}line{font-family:\0000354}}
+.countdown-row {
+  clear: both;
+  width: 100%;
+  /*padding: 0px 10px;*/
+  text-align: center;
+  vertical-align: middle; }
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Applications\/MAMP\/htdocs\/3devis\/sites\/all\/themes\/devis\/sass\/countdown\.scss}line{font-family:\0000361}}
+.countdown-show1 .countdown-section {
+  width: 98%; }
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Applications\/MAMP\/htdocs\/3devis\/sites\/all\/themes\/devis\/sass\/countdown\.scss}line{font-family:\0000364}}
+.countdown-show2 .countdown-section {
+  width: 48%; }
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Applications\/MAMP\/htdocs\/3devis\/sites\/all\/themes\/devis\/sass\/countdown\.scss}line{font-family:\0000367}}
+.countdown-show3 .countdown-section {
+  width: 32.5%; }
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Applications\/MAMP\/htdocs\/3devis\/sites\/all\/themes\/devis\/sass\/countdown\.scss}line{font-family:\0000370}}
+.countdown-show4 .countdown-section {
+  width: 24.5%; }
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Applications\/MAMP\/htdocs\/3devis\/sites\/all\/themes\/devis\/sass\/countdown\.scss}line{font-family:\0000373}}
+.countdown-show5 .countdown-section {
+  width: 19.5%; }
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Applications\/MAMP\/htdocs\/3devis\/sites\/all\/themes\/devis\/sass\/countdown\.scss}line{font-family:\0000376}}
+.countdown-show6 .countdown-section {
+  width: 16.25%; }
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Applications\/MAMP\/htdocs\/3devis\/sites\/all\/themes\/devis\/sass\/countdown\.scss}line{font-family:\0000379}}
+.countdown-show7 .countdown-section {
+  width: 14%; }
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Applications\/MAMP\/htdocs\/3devis\/sites\/all\/themes\/devis\/sass\/countdown\.scss}line{font-family:\0000382}}
+.countdown-section {
+  display: block;
+  float: left;
+  font-size: 75%;
+  text-align: center;
+  margin-bottom: 16px;
+  margin-bottom: 1rem; }
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Applications\/MAMP\/htdocs\/3devis\/sites\/all\/themes\/devis\/sass\/countdown\.scss}line{font-family:\0000389}}
+.countdown-amount {
+  font-size: 200%; }
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Applications\/MAMP\/htdocs\/3devis\/sites\/all\/themes\/devis\/sass\/countdown\.scss}line{font-family:\0000392}}
+.countdown-period {
+  display: block; }
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Applications\/MAMP\/htdocs\/3devis\/sites\/all\/themes\/devis\/sass\/countdown\.scss}line{font-family:\0000395}}
+.countdown-descr {
+  display: block;
+  width: 100%; }
