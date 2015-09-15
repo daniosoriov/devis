@@ -7,6 +7,14 @@ function devis_preprocess_views_view_table(&$variables) {
   // Budgets received by user and Budgets accepted by user.
   switch ($variables['view']->name) {
     case 'budget_provider_association':
+      // Update header names.
+      foreach ($variables['header'] as $key => $val) {
+        $variables['header'][$key] = t($val);
+        if ($val == 'Courriel') {
+          $variables['header'][$key] = 'E-mail';
+        }
+      }
+      
       $time = time();
       switch ($variables['view']->current_display) {
         case 'budgets_received_by_user':

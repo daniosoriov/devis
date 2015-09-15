@@ -167,7 +167,7 @@ function devis_preprocess_panels_pane(&$variables) {
           $account = $variables['content']['system_main']['#account'];
           $promo = promo_code_load_by_user($account);
           $vals = promo_code_get_user_values($account);
-          $promo_val = ($promo && $vals) ? ' ('. (($vals->code_usage) ? $vals->code_usage : '0') .' EUR / '. $promo->discount .' EUR)' : 'Not valid/Not applicable';
+          $promo_val = ($promo) ? ' ('. (($vals->code_usage) ? $vals->code_usage : '0') .' EUR / '. $promo->discount .' EUR)' : 'Not valid/Not applicable';
           $variables['content']['system_main']['field_promotional_code'][0]['#markup'] .= $promo_val;
         }
       }

@@ -37,6 +37,10 @@ tbody {
     &:hover {
       background: $color-tbody-tr-background-hover;
     }
+    
+    &.nohover:hover {
+      background: none;
+    }
   }
 
   td {

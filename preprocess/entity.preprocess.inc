@@ -74,8 +74,6 @@ function devis_preprocess_entity(&$variables, $hook) {
       $variables['content']['group_contact']['field_company_name']['#title'] = t('Association');
       //$variables['content']['group_contact']['field_tva']['#title'] = t('Numéro de TVA de votre association');
     }
-    //$template = render(drupal_get_form('devis_test_form', $entityform));
-    //$variables['content']['group_admin']['field_email_template_devis'][0]['#markup'] = $template;
   }
   
   // Commerce Order view.

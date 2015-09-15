@@ -86,16 +86,12 @@ function devis_preprocess(&$variables, $hook) {
   // Add a global variable to jQuery.
   $devenir = array('url' => url('eform/submit/devenir'));
   drupal_add_js(array('devenir' => $devenir), 'setting');
-}
-
-function devis_entity_email_template_form($form, &$form_state, $entityform) {
-  $form = array();
-  $template = trois_devis_create_entityform_template($entityform, NULL, TRUE);
-  $form['template'] = array(
-    '#type' => 'text_format',
-    '#format' => 'full_html_advanced',
-    '#default_value' => $template,
-  );
+  
+  // This is added here just to make trois_devis.module not interfere
+  // when using the countdown javascript plugin.
+  $stats = array();
+  drupal_add_js(array('stats' => $stats), 'setting');
+  
   return $form;
 }
 
@@ -106,7 +102,21 @@ function devis_entity_view_alter(&$build, $type) {
   
   switch ($type) {
     case 'entityform':
-      $build['field_email_template_devis'][0]['#markup'] = render(drupal_get_form('devis_entity_email_template_form', $build['#entity']));
+      $entityform = $build['#entity'];
+      $markup = '';
+      $lang = key($entityform->field_approval);
+      if ($entityform->field_approval[$lang][0]['value'] == 'approved') {
+        $template = trois_devis_create_entityform_template($entityform, NULL, TRUE);
+        //$button = '<button id="copy-button" data-clipboard-text="'. $template .'" title="Click to copy me.">Copy template to Clipboard</button>';
+        $url = l('Generate template code', 'adminpage/request/budget/entity_template/'. $entityform->entityform_id);
+        $markup = $url .'<div class="email_template"><code>'. $template .'</code></div>';
+      }
+      if ($markup && isset($build['field_email_template_devis'])) {
+        $build['field_email_template_devis'][0]['#markup'] = $markup;
+      }
+      if (!$markup) {
+        $build['field_email_template_devis']['#access'] = FALSE;
+      }
       break;
       
     // This is also on the preprocess but it is not working there, so I had to duplicate it here.
@@ -398,6 +408,7 @@ function devis_form_comptable_entityform_edit_form_alter(&$form, &$form_state, $
   
   $theme_path = drupal_get_path('theme', variable_get('theme_default', NULL));
   $form['#attached']['js'][] = $theme_path .'/js/easydropdown/jquery.easydropdown.min.js';
+  $form['#attached']['js'][] = $theme_path .'/js/zeroclipboard/dist/ZeroClipboard.min.js';
   $form['#attached']['css'][] = $theme_path .'/css/easydropdown.css';
   
   $lang = $form['field_info_extra']['#language'];
@@ -1074,6 +1085,7 @@ function devis_form_user_profile_form_alter(&$form, &$form_state, $form_id) {
       $form['field_promo_code_usage']['#access'] = FALSE;
       $form['field_number_ipcf_iec']['#access'] = FALSE;
       $form['field_staff_number']['#access'] = FALSE;
+      $form['field_mailchimp_subscription']['#access'] = FALSE;
       $form['field_adresse']['#access'] = FALSE;
       $form['profile_budget_profile']['#access'] = FALSE;
       $form['actions']['cancel']['#access'] = FALSE;
@@ -1271,10 +1283,10 @@ function devis_form_commerce_stripe_cardonfile_create_form_alter(&$form, &$form_
   $form['address']['country']['#access'] = FALSE;
   $form['address']['country']['#weight'] = 100;
   // This is now here as is not working on commerce stripe.
-  //$form['address']['country']['#attributes']['class'][] = 'dropdown';
-  //$form['address']['street_block']['thoroughfare']['#title'] = t('Address');
-  //$form['address']['street_block']['premise']['#attributes']['style'] = 'display: none;';
-  //$form['address']['street_block']['premise']['#title_display'] = 'invisible';
+  $form['address']['country']['#attributes']['class'][] = 'dropdown';
+  $form['address']['street_block']['thoroughfare']['#title'] = t('Address');
+  $form['address']['street_block']['premise']['#attributes']['style'] = 'display: none;';
+  $form['address']['street_block']['premise']['#title_display'] = 'invisible';
   
   $form['card-info']['credit_card'] = $form['credit_card'];
   $form['card-info']['address'] = $form['address'];

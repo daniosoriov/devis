@@ -195,6 +195,21 @@ span {
   }
 }
 
+div.email_template {
+  @include rem-fallback(padding, 1rem);
+  border: 1px solid #666;
+  @include border-radius();
+  
+  @include breakpoint($tab) {
+    @include rem-fallback(padding, 2.5rem);
+    @include rem-fallback(margin, 1rem);
+  }
+  
+  @include breakpoint($desktop) {
+    @include rem-fallback(padding, 4rem);
+  }
+}
+
 /* FAQ Page */
 div.faq {
   .faq-question, .faq-question-devis {
