@@ -216,11 +216,20 @@ fieldset {
   &.no-show {
     display: none;
   }
+  
+  &.group-more-space {
+    @include rem-fallback(margin-top, 2rem);
+  }
 }
 
 div.admin-field {
   @include border-radius();
   background: $color-messages-admin-background;
+}
+
+div.warning-field {
+  @include border-radius();
+  background: $color-messages-yellow-background;
 }
 
 input[type="text"],
@@ -468,6 +477,19 @@ select[name*='field_devis_product'], select[name^='field_devis_product'] {
 
 .confirm-parent {
   margin-bottom: 0;
+}
+
+.views-exposed-form .views-exposed-widget {
+  float: none;
+  display: inline-block;
+  vertical-align: bottom;
+  label {
+    float: none;
+  }
+}
+
+.commerce-backoffice-view .views-exposed-form label {
+  float: none;
 }
 
 /* Autocomplete. */

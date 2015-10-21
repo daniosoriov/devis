@@ -38,8 +38,8 @@ function devis_preprocess_entity(&$variables, $hook) {
         if (!$arr['access']) continue;
         if (!isset($info_list[$arr['target_id']])) continue;
         $info = $info_list[$arr['target_id']];
-        
-        $link = ($info->min_since_contacted > (24 * 2 * 60)) ? '<span class="red"><em>Expired</em></span>' : 
+
+        $link = ($info->min_left < 0) ? '<span class="red"><em>URL Expired</em></span>' : 
           l('User preview URL', 'devis_accept/'. $info->url_accept, array('attributes' => array('target' => '_blank', 'title' => 'This is the secure URL for the user to preview and accept the budget...', 'onclick' => 'return false')));
         $markup = ' -- '. $link .' - '. (($info->opened_date) ? 'viewed on '. format_date($info->opened_date, 'medium', '', NULL, 'en') : '<em>not yet viewed</em>') .'';
         $variables['content']['group_admin']['field_provider_contacted'][$key]['#markup'] .= $markup;

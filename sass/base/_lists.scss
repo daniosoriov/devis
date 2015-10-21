@@ -48,3 +48,32 @@ li {
 }
 ul.large li { line-height: 21px; }
 li p { line-height: 21px; }
+
+
+/* Breadcrumbs */
+.pane-page-breadcrumb {
+  @include rem-fallback(margin-left, .5rem);
+  @include rem-fallback(padding-top, 1rem);
+  ul.breadcrumb {
+    margin: 0;
+    li {
+      display: inline;
+      margin: 0;
+      &::after {
+        content: " » ";
+      }
+      &:last-child::after{
+        content: "";
+      }
+      a {
+        @include rem-fallback(font-size, .7rem);
+        @include breakpoint($mobile) {
+          @include rem-fallback(font-size, .8rem);
+        }
+        @include breakpoint($tab) {
+          @include rem-fallback(font-size, .9rem);
+        }
+      }
+    }
+  }
+}

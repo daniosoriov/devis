@@ -7,14 +7,21 @@ function devis_preprocess_views_view_table(&$variables) {
   // Budgets received by user and Budgets accepted by user.
   switch ($variables['view']->name) {
     case 'budget_provider_association':
+      global $user;
+      if (($variables['view']->current_display == 'budgets_accepted_admin') && !in_array('manager', array_values($user->roles))) {
+        drupal_access_denied();
+      }
+      
       // Update header names.
       foreach ($variables['header'] as $key => $val) {
         $variables['header'][$key] = t($val);
         if ($val == 'Courriel') {
           $variables['header'][$key] = 'E-mail';
         }
+        if (($val == 'Provider' || $val == 'Price') && $variables['view']->current_display == 'budgets_accepted_admin') {
+          $variables['header'][$key] = $val;
+        }
       }
-      
       $time = time();
       switch ($variables['view']->current_display) {
         case 'budgets_received_by_user':
@@ -24,20 +31,31 @@ function devis_preprocess_views_view_table(&$variables) {
             $variables['rows'][$key]['field_prenom'] .= ' '. $lastname .'.';
             
             // Fix the status of the request.
-            if (($time - $res->devis_provider_assoc_contacted) > (48 * 60 * 60)) {
-              $variables['rows'][$key]['url_accept'] = '<em>'. t('Expired') .'</em>';
+            if ($time > $res->devis_provider_assoc_until_date) {
+              $variables['rows'][$key]['url_accept'] = '<em>'. t('Expirée') .'</em>';
               $variables['field_classes']['url_accept'][$key] .= ' Denied';
             }
           }
           break;
         
         case 'budgets_accepted_by_user':
+        case 'budgets_accepted_admin':
           foreach ($variables['result'] as $key => $res) {
             // Change the layout of the budget entityform ID.
             $entityform = $res->_field_data['entityform_devis_provider_assoc_entityform_id']['entity'];
             $id = trois_devis_get_entityform_print_id($entityform);  
             $link = l($id, 'devis_info/'. $res->devis_provider_assoc_url_info, array('attributes' => array('target'=>'_blank')));
             $variables['rows'][$key]['entityform_id'] = $link;
+            
+            // Put the price in the row.
+            if ($entityform->field_devis_product) {
+              $field = field_get_items('entityform', $entityform, 'field_devis_product');
+              $product = commerce_product_load($field[0]['product_id']);
+              $price = commerce_product_calculate_sell_price($product);
+              $price_display = commerce_currency_format($price['amount'], $price['currency_code'], $product);
+              $field_name = ($variables['view']->current_display == 'budgets_accepted_by_user') ? 'nothing' : 'field_devis_product';
+              $variables['rows'][$key][$field_name] = $price_display;
+            }
           }
           break;
       }
@@ -80,7 +98,21 @@ function devis_preprocess_views_view_table(&$variables) {
             if (!array_key_exists($key, $change)) continue;
             $variables['header'][$key] = '<div title="'. $change[$key] .'">'. $label .'</div>';
           }
+          foreach ($variables['rows'] as $key => $res) {
+            $date = format_date($variables['result'][$key]->users_created, 'month_short_year', '', NULL, 'en');
+            $variables['rows'][$key]['created'] = $date;
+          }
         break;
+      }
+      break;
+      
+    case 'promo_code_usage':
+      if ($variables['view']->current_display == 'promo_code_usage_admin') {
+        // Update prices.
+        foreach ($variables['rows'] as $key => $res) {
+          $variables['rows'][$key]['discount'] = number_format($variables['rows'][$key]['discount'] / 100, 2, ',', '') .' €';
+          $variables['rows'][$key]['code_usage'] = number_format($variables['rows'][$key]['code_usage'] / 100, 2, ',', '') .' €';
+        }
       }
       break;
   }

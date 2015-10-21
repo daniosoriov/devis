@@ -87,7 +87,8 @@ div.addressfield-container-inline {
     margin-right: 0;
     
     @include breakpoint($desktop) {
-      @include rem-fallback(width, 23.15rem);
+      //@include rem-fallback(width, 23.15rem);
+      @include rem-fallback(width, 22rem);
       &#edit-commerce-customer-address-und-0-locality {
         @include rem-fallback(width, 22rem);
       }
@@ -208,6 +209,11 @@ div.email_template {
   @include breakpoint($desktop) {
     @include rem-fallback(padding, 4rem);
   }
+}
+
+div.description-small {
+  font-size: small;
+  @include rem-fallback(margin-top, .5rem);
 }
 
 /* FAQ Page */

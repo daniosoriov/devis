@@ -135,6 +135,18 @@
     attach: function (context, settings) {
       $('.grippie').remove();
       
+      $(window).scroll(function() {
+        var value = $(this).scrollTop();
+        if (value > 50) {
+          $(".l-region--header-custom").addClass("small");
+          $(".l-navigation-content").addClass("small");
+        }
+        else {
+          $(".l-region--header-custom").removeClass("small");
+          $(".l-navigation-content").removeClass("small");
+        }
+      });
+      
       if (typeof easyDropDown != 'undefined' && $.isFunction(easyDropDown)) {
         // deactivate easydropdown on mobile devices.
         if ($(window).width() <= 384) {
@@ -148,13 +160,13 @@
       
       $(".arrow-first").click(function() {
         $('html, body').animate({
-          scrollTop: $(".second").offset().top - $('header').height()
+          scrollTop: $(".second").offset().top - $('header').height() + 12
         }, 850);
       });
       
       $(".arrow-special").click(function() {
         $('html, body').animate({
-          scrollTop: $(".third").offset().top - $('header').height()
+          scrollTop: $(".third").offset().top - $('header').height() + 12
         }, 850);
       });
       

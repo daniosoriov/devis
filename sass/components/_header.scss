@@ -63,11 +63,17 @@ header.l-header-content {
   }
 }
 
-.l-region--header {
+.l-region--header, .l-region--header-custom {
   display: inline-block;
   @include rem-fallback(margin, 1.5rem, 0);
   @include breakpoint($tab) {
     @include rem-fallback(margin, .9rem, 0);
+  }
+  @include single-transition(all, .5s);
+  &.small {
+    //width: 120px;
+    @include rem-fallback(margin, .5rem, 0);
+    @include single-transition(all, .5s);
   }
 }
 

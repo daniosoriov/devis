@@ -24,7 +24,7 @@ select.stripe {
     
     @include breakpoint($mobile) {
       position: relative;
-      top: -9px;
+      top: -2px;
     }
   }
 }
@@ -71,4 +71,11 @@ input[type="submit"].card_submit {
 
 .cancel_url {
   @include rem-fallback(padding, 0, 1rem);
+}
+
+.payment-images-wrapper {
+  @include rem-fallback(margin-bottom, 1rem);
+  @include breakpoint($mobile) {
+    @include rem-fallback(margin-bottom, 1.5rem);
+  }
 }

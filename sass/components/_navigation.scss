@@ -4,6 +4,11 @@ nav.l-navigation-content {
     float: right;
     position: relative;
     top: 1.35rem;
+    @include single-transition(all, .5s);
+    &.small {
+      top: .9rem;
+      @include single-transition(all, .5s);
+    }
   }
 }
 

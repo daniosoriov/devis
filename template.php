@@ -91,8 +91,6 @@ function devis_preprocess(&$variables, $hook) {
   // when using the countdown javascript plugin.
   $stats = array();
   drupal_add_js(array('stats' => $stats), 'setting');
-  
-  return $form;
 }
 
 function devis_entity_view_alter(&$build, $type) {
@@ -102,20 +100,22 @@ function devis_entity_view_alter(&$build, $type) {
   
   switch ($type) {
     case 'entityform':
-      $entityform = $build['#entity'];
-      $markup = '';
-      $lang = key($entityform->field_approval);
-      if ($entityform->field_approval[$lang][0]['value'] == 'approved') {
-        $template = trois_devis_create_entityform_template($entityform, NULL, TRUE);
-        //$button = '<button id="copy-button" data-clipboard-text="'. $template .'" title="Click to copy me.">Copy template to Clipboard</button>';
-        $url = l('Generate template code', 'adminpage/request/budget/entity_template/'. $entityform->entityform_id);
-        $markup = $url .'<div class="email_template"><code>'. $template .'</code></div>';
-      }
-      if ($markup && isset($build['field_email_template_devis'])) {
-        $build['field_email_template_devis'][0]['#markup'] = $markup;
-      }
-      if (!$markup) {
-        $build['field_email_template_devis']['#access'] = FALSE;
+      if ($build['#bundle'] == 'comptable') {
+        $entityform = $build['#entity'];
+        $markup = '';
+        $lang = key($entityform->field_approval);
+        if ($entityform->field_approval[$lang][0]['value'] == 'approved') {
+          $template = trois_devis_create_entityform_template($entityform, NULL, TRUE);
+          //$button = '<button id="copy-button" data-clipboard-text="'. $template .'" title="Click to copy me.">Copy template to Clipboard</button>';
+          $url = l('Generate template code', 'adminpage/request/budget/entity_template/'. $entityform->entityform_id);
+          $markup = $url .'<div class="email_template"><code>'. $template .'</code></div>';
+        }
+        if ($markup && isset($build['field_email_template_devis'])) {
+          $build['field_email_template_devis'][0]['#markup'] = $markup;
+        }
+        if (!$markup) {
+          $build['field_email_template_devis']['#access'] = FALSE;
+        }
       }
       break;
       
@@ -327,10 +327,9 @@ function devis_form_alter_submit($form, &$form_state) {
 function devis_get_prices_from_legal_status($legal_status) {
   $product_key = trois_devis_get_product_from_status($legal_status);
   $products = commerce_product_load_multiple(array(), array('type' => 'devis'));
-  $search = array($product_key, $product_key .'_low', $product_key .'_high');
   $keep = $temp = $order = array();
   foreach ($products as $key => $product) {
-    if (in_array($product->sku, $search)) {
+    if (substr($product->sku, 0, -5) == $product_key) {
       $price = commerce_product_calculate_sell_price($product);
       $price_display = commerce_currency_format($price['amount'], $price['currency_code'], $product);
       $temp[$key] = $price_display;
@@ -369,8 +368,7 @@ function devis_form_comptable_entityform_edit_form_alter(&$form, &$form_state, $
     }
     else {
       drupal_set_message(t('Notice: Please check the sensitive information fields: Additional Information and Activity'), 'warning');
-      
-      $legal_status = ($form_state['values']) ? 
+      $legal_status = (isset($form_state['values'])) ? 
         $form_state['values']['field_legal_status'][$form['field_legal_status']['#language']][0]['value'] : 
         $form['field_legal_status'][$form['field_legal_status']['#language']]['#default_value'][0];
       
@@ -379,29 +377,6 @@ function devis_form_comptable_entityform_edit_form_alter(&$form, &$form_state, $
       foreach ($keep as $key => $val) {
         $form['field_devis_product'][$form['field_devis_product']['#language']]['#options'][$key] = $val;
       }
-      
-      
-      // Calculate potential providers to contact.
-      /*$result = trois_devis_get_accountants_to_contact($entity);
-      if (!$result) {
-        drupal_set_message(t('Warning: This budget request cannot be approved yet. There are no providers to contact which match the specified parameters.'));
-      }
-      else {
-        $string = array();
-        foreach ($result as $tmp) {
-          $account_tmp = user_load($tmp->uid);
-          $variables = array(
-            'account' => $account_tmp, 
-            'name' => $account_tmp->realname, 
-            'extra' => '',
-            'link_path' => '/user/'. $account_tmp->uid,
-            'link_options' => array('attributes' => array('target' => '_blank')),
-          );
-          $string[] = theme_username($variables);
-        }
-       drupal_set_message(t('Users that will be contacted: !users.', array('!users' => implode($string, ', '))), 'warning');
-       
-      }*/
     }
     $form_state['set_redirect'] = TRUE;
   }
@@ -434,6 +409,20 @@ function devis_form_comptable_entityform_edit_form_alter(&$form, &$form_state, $
   $lang = $form['field_info_extra_admin']['#language'];
   $form['field_info_extra_admin'][$lang][0]['value']['#prefix'] = '<div class="admin-field">';
   $form['field_info_extra_admin'][$lang][0]['value']['#suffix'] = '</div>';
+  
+  if ($manager_view) {
+    $form['field_legal_status']['#disabled'] = TRUE;
+    
+    $lang = $form['field_activity']['#language'];
+    $form['field_activity'][$lang][0]['value']['#prefix'] = '<div class="warning-field">';
+    $form['field_activity'][$lang][0]['value']['#suffix'] = '</div>';
+    $form['field_activity'][$lang][0]['value']['#title'] .= ' (Sensitive)';
+
+    $lang = $form['field_info_extra']['#language'];
+    $form['field_info_extra'][$lang][0]['value']['#prefix'] = '<div class="warning-field">';
+    $form['field_info_extra'][$lang][0]['value']['#suffix'] = '</div>';
+    $form['field_info_extra'][$lang][0]['value']['#title'] .= ' (Sensitive)';
+  }
   
   // Amounts.
   $lang = $form['field_estimated_annual_revenue']['#language'];
@@ -648,7 +637,6 @@ function devis_comptable_entityform_edit_form_validate($form, &$form_state) {
 }
 
 function devis_comptable_entityform_edit_form_submit($form, &$form_state) {
-  dpm($form_state, 'form_state SUBMIT');
   // Only for manager/admin.
   if (isset($form_state['stage'])) {
     $rebuild = TRUE;
@@ -694,12 +682,13 @@ function devis_form_comptable_entityform_edit_form_after_build($form, &$form_sta
   );
   drupal_add_js(array('devenir' => $devenir), 'setting');
   
-  $prices = array();
+  // Drupal cannot handle this amount of data in javascript, the page breaks.
+  /*$prices = array();
   foreach ($form['field_legal_status'][$form['field_legal_status']['#language']]['#options'] as $key => $val) {
     $options = devis_get_prices_from_legal_status($key);
     $prices[$key] = $options;
   }
-  drupal_add_js(array('prices' => $prices), 'setting');
+  drupal_add_js(array('prices' => $prices), 'setting');*/
   
   if ($form['field_legal_status'][$form['field_legal_status']['#language']]['#value'] == 'association') {
     $form['field_company_name']['#title'] = 
@@ -715,43 +704,6 @@ function devis_form_comptable_entityform_edit_form_after_build($form, &$form_sta
  */
 function devis_form_devenir_entityform_edit_form_alter(&$form, &$form_state, $form_id) {
   global $user;
-  
-  // Check if the user is coming from an email with an URL to the registration.
-  /*$current_url = url(current_path(), array('absolute' => TRUE, 'query' => drupal_get_query_parameters()));
-  $parse = drupal_parse_url($current_url);
-  if (user_is_anonymous()) {
-    $hash = $email = $promo_code = '';
-    //user_cookie_delete('devis_e_hash');
-    //user_cookie_delete('devis_p_c');
-    
-    // If the values are in the cookie, use them.
-    if (isset($_COOKIE['Drupal_visitor_devis_e_hash'])) {
-      $hash = $_COOKIE['Drupal_visitor_devis_e_hash'];
-    }
-    if (isset($_COOKIE['Drupal_visitor_devis_p_c'])) {
-      $promo_code = $_COOKIE['Drupal_visitor_devis_p_c'];
-    }
-    
-    // If the values are in the URL, save them in the cookies.
-    // Since the values are not saved immediately, we have to keep them in
-    // a local variable.
-    $values = array();
-    if (isset($parse['query']['id'])) {
-      $values['devis_e_hash'] = $hash = $parse['query']['id'];
-    }
-    if (isset($parse['query']['code'])) {
-      $values['devis_p_c'] = $promo_code = $parse['query']['code'];
-    }
-    // If there are values to save, then save in the cookie.
-    if ($values) {
-      user_cookie_save($values);
-    }
-    $form_state['hash'] = $hash;
-    $form_state['hash_email'] = trois_devis_get_hash_email($hash);
-    $form['field_hash_email'][$form['field_hash_email']['#language']][0]['email']['#default_value'] =
-    $form['field_email'][$form['field_email']['#language']][0]['email']['#default_value'] = $form_state['hash_email'];
-  }*/
-  
   if (in_array('provider', $user->roles)) {
     drupal_set_message(t('AVIS: Vous êtes déjà fournisseur.'), 'warning');
     $form['actions']['submit']['#access'] = FALSE;
@@ -811,12 +763,6 @@ function devis_form_devenir_entityform_edit_form_alter(&$form, &$form_state, $fo
   $form['field_adresse'][$lang][0]['street_block']['premise']['#attributes']['style'] = 'display: none;';
   $form['field_adresse'][$lang][0]['street_block']['premise']['#title_display'] = 'invisible';
   
-  /*$lang = $form['field_info_extra']['#language'];
-  $desc = $form['field_info_extra'][$lang][0]['value']['#description'];
-  $form['field_info_extra'][$lang][0]['value']['#attributes']['placeholder'] = $desc;//t('@description', array('@description' => $desc));
-  $form['field_info_extra'][$lang][0]['value']['#description'] = '';
-  $form['field_info_extra']['#access'] = FALSE;*/
-  
   // If the request is being checked by a manager, so it is not new.
   if (in_array('manager', array_values($user->roles)) && !isset($form_state['build_info']['args'][0]->is_new)) {
     $entity = $form_state['build_info']['args'][0];
@@ -837,6 +783,15 @@ function devis_form_devenir_entityform_edit_form_alter(&$form, &$form_state, $fo
       $form['actions']['#access'] = FALSE;
     }
     $form_state['set_redirect'] = TRUE;
+  }
+  else {
+    $cid = variable_get('trois_devis_registration_promo_id', 0);
+    $promo_code = promo_code_load($cid);
+    if ($promo_code) {
+      drupal_set_message(t('Register now and get a !promo_discount EUR discount!', array('!promo_discount' => $promo_code->discount / 100)), 'promo');
+      $lang = $form['field_promotional_code']['#language'];
+      $form['field_promotional_code'][$lang][0]['value']['#default_value'] = $promo_code->code;
+    }
   }
 
   // Extra validation rules.
@@ -1261,6 +1216,36 @@ function devis_form_commerce_stripe_cardonfile_create_form_alter(&$form, &$form_
     '#title' => t('Information'),
     '#weight' => 0,
   );
+  // Add images for powered by stripe and accepted payments.
+  $image_options = array(
+    'path' => '/sites/default/files/pictures/stripe_powered.png',
+    'alt' => t('Powered by Stripe'),
+    'title' => t('Powered by Stripe'),
+    'width' => '180px',
+    'attributes' => array('class' => 'img-cc', 'id' => 'stripe_powered'),
+  );
+  $image = theme('image', $image_options);
+  $form['credit_card']['image_1'] = array(
+    '#markup' => $image,
+    '#prefix' => '<div class="payment-images-wrapper"><div class="payment-img">',
+    '#suffix' => '</div>',
+    '#weight' => -999,
+  );
+  $image_options = array(
+    'path' => '/sites/default/files/pictures/payment_cards.png',
+    'alt' => t('Accepted payments methods'),
+    'title' => t('Accepted payments methods'),
+    'width' => '180px',
+    'attributes' => array('class' => 'img-cc', 'id' => 'payment_cards'),
+  );
+  $image = theme('image', $image_options);
+  $form['credit_card']['image_2'] = array(
+    '#markup' => $image,
+    '#prefix' => '<div class="payment-img">',
+    '#suffix' => '</div></div>',
+    '#weight' => -997,
+  );
+  
   // Change labels.
   $form['credit_card']['owner']['#title'] = t('Credit card owner');
   $form['credit_card']['number']['#title'] = t('Credit card number');
@@ -1512,13 +1497,27 @@ function devis_menu_local_tasks_alter(&$data, $router_item, $root_path) {
     $data['tabs'][0]['count'] = 0;
   }
   
-  // Changing Address Book title.
+  // Some general changes.
   if (isset($data['tabs'][0]['output'])) {
     foreach ($data['tabs'][0]['output'] as $key => $info) {
       if ($info['#link']['title'] == 'Address Book') {
         $data['tabs'][0]['output'][$key]['#link']['title'] = t('Coordonnées de facturation');
       }
+      
+      // Remove devel tabs for everybody.
+      if ($info['#link']['path'] == 'user/%/devel/token') {
+        unset($data['tabs'][0]['output'][$key]);
+        $data['tabs'][0]['count'] -= 1;
+      }
+      
+      // Change titles in adminpages.
       if ($info['#link']['path'] == 'adminpage/request/provider') {
+        $data['tabs'][0]['output'][$key]['#link']['title'] = 'Providers';
+      }
+      if ($info['#link']['path'] == 'adminpage/report/order') {
+        $data['tabs'][0]['output'][$key]['#link']['title'] = 'Invoices';
+      }
+      if ($info['#link']['path'] == 'adminpage/report/provider') {
         $data['tabs'][0]['output'][$key]['#link']['title'] = 'Providers';
       }
     }
@@ -1551,16 +1550,6 @@ function devis_menu_local_tasks_alter(&$data, $router_item, $root_path) {
         }
       }
       $data['tabs'][0]['count'] -= $total;
-    }
-  }
-  
-  // Remove devel tabs for everybody.
-  if (isset($data['tabs'][0]['output'])) {
-    foreach ($data['tabs'][0]['output'] as $key => $info) {
-      if ($info['#link']['path'] == 'user/%/devel/token') {
-        unset($data['tabs'][0]['output'][$key]);
-        $data['tabs'][0]['count'] -= 1;
-      }
     }
   }
   

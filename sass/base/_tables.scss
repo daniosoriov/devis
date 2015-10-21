@@ -73,5 +73,9 @@ tbody {
       color: $color-status-pending;
       //background: $color-status-pending-background;
     }
+    
+    &.views-field-field-devis-product, &.views-field-nothing {
+      white-space: nowrap;
+    }
   }
 }

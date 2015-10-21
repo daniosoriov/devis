@@ -132,8 +132,8 @@ span.reference_small {
 
 
 span.span-desc {
-  font-style: italic;
-  color: #6F868E;
+  font-weight: bold; 
+  color: #6F868E; 
   margin-bottom: 5px;
 }
 
@@ -142,11 +142,13 @@ table.logo {
 }
 
 table.request {
+  border-collapse: separate; 
+  border-spacing: 0px; 
+  table-layout: fixed; 
   width: 100%;
-  padding: 30px 20%;
-  border: 1px solid #E0E0E0;
-  border-bottom: none;
-  border-top-left-radius: 5px;
+  border: 1px solid #E0E0E0; 
+  border-bottom: none; 
+  border-top-left-radius: 5px; 
   border-top-right-radius: 5px;
 }
 
@@ -155,20 +157,14 @@ table.request thead tr {
   background-color: #f5f5f5;
 }
 
-tbody.center {
-  text-align: center;
-}
-
-td.void {
-  height: 35px;
-}
-
 table.button {
-  text-align: center;
-  width: 100%;
-  padding: 50px 25%;
+  border-collapse: separate; 
+  border-spacing: 0px; 
+  table-layout: fixed; 
+  text-align: center; 
+  width: 100%; 
   border: 1px solid #E0E0E0;
-  border-bottom-left-radius: 5px;
+  border-bottom-left-radius: 5px; 
   border-bottom-right-radius: 5px;
 }
 
@@ -185,9 +181,10 @@ td.button {
 }
 
 table#body a.button {
-  font-size: 16px;
+  color: white; 
+  text-decoration: none; 
+  font-size: 16px; 
   font-weight: bold;
-  color: white;
 }
 
 span.small {
