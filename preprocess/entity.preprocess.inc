@@ -90,7 +90,7 @@ function devis_preprocess_entity(&$variables, $hook) {
       $is_manager = TRUE;
     }
     $user_path = 'user/'. $variables['user']->uid;
-    $variables['orders_url'] = ($is_manager) ? l(t('Invoices'), 'adminpage/report/order') : l(t('Invoices'), $user_path .'/orders');
+    $variables['orders_url'] = ($is_manager) ? '' : l(t('Invoices'), $user_path .'/orders');
     $variables['account_url'] = ($is_manager) ? '' : l(t('My account'), $user_path);
     //$variables['print_url'] = l(t('Print version'), 'print/'. current_path());
     $variables['pdf_url'] = ($variables['commerce_order']->status == 'invoiced') ? l(t('PDF version'), 'invoice-pdf/'. $variables['commerce_order']->order_id) : '';

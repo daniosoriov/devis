@@ -785,12 +785,14 @@ function devis_form_devenir_entityform_edit_form_alter(&$form, &$form_state, $fo
     $form_state['set_redirect'] = TRUE;
   }
   else {
-    $cid = variable_get('trois_devis_registration_promo_id', 0);
-    $promo_code = promo_code_load($cid);
-    if ($promo_code) {
-      drupal_set_message(t('Register now and get a !promo_discount EUR discount!', array('!promo_discount' => $promo_code->discount / 100)), 'promo');
-      $lang = $form['field_promotional_code']['#language'];
-      $form['field_promotional_code'][$lang][0]['value']['#default_value'] = $promo_code->code;
+    if (user_is_anonymous()) {
+      $cid = variable_get('trois_devis_registration_promo_id', 0);
+      $promo_code = promo_code_load($cid);
+      if ($promo_code) {
+        drupal_set_message(t('Register now and get a !promo_discount EUR discount!', array('!promo_discount' => $promo_code->discount / 100)), 'promo');
+        $lang = $form['field_promotional_code']['#language'];
+        $form['field_promotional_code'][$lang][0]['value']['#default_value'] = $promo_code->code;
+      }
     }
   }
 

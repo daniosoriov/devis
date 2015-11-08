@@ -475,6 +475,13 @@ select[name*='field_devis_product'], select[name^='field_devis_product'] {
   }
 }
 
+input#edit-register.form-submit {
+  @include rem-fallback(margin-top, 1.2rem);
+  @include breakpoint($mobile) {
+    margin-top: 0;
+  }
+}
+
 .confirm-parent {
   margin-bottom: 0;
 }

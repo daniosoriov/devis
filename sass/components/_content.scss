@@ -191,6 +191,9 @@ span {
   &.red {
     color: $color-status-denied;
   }
+  &.green {
+    color: $color-status-approved;
+  }
   &.regular {
     font-weight: 400;
   }
@@ -198,7 +201,7 @@ span {
 
 div.email_template {
   @include rem-fallback(padding, 1rem);
-  border: 1px solid #666;
+  border: 1px solid $default-color-dark;
   @include border-radius();
   
   @include breakpoint($tab) {
@@ -214,6 +217,20 @@ div.email_template {
 div.description-small {
   font-size: small;
   @include rem-fallback(margin-top, .5rem);
+}
+
+div.price_display {
+  width: 115px;
+  text-align: center;
+  border: 1px solid $default-color-dark;
+  @include rem-fallback(padding, .7rem);
+  @include rem-fallback(margin-bottom, 2rem);
+  @include border-radius();
+  font-weight: 600;
+  @include rem-fallback(font-size, 1rem);
+  @include breakpoint($tab) {
+    @include rem-fallback(font-size, 1.2rem);
+  }
 }
 
 /* FAQ Page */
