@@ -68,9 +68,9 @@ function devis_preprocess_views_view_table(&$variables) {
       }
       // Update period.
       foreach ($variables['rows'] as $key => $res) {
-        $period = format_date(strtotime($res['created'] .' - 1 month'), 'custom', 'F Y');
+        $period = format_date(strtotime($res['created']), 'custom', 'F Y');
         $variables['rows'][$key]['created'] = $period;
-        $date = format_date(strtotime($res['created']), 'custom', 'j F Y');
+        $date = strtolower(format_date(strtotime($res['created'] .' +1 month'), 'custom', '1 F Y'));
         $variables['rows'][$key]['field_commerce_billy_i_date'] = $date;
       }
       break;

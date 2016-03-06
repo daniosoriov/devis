@@ -162,23 +162,19 @@ function devis_preprocess_panels_pane(&$variables) {
   // dedicated to the user profile is not working properly.
   if ($args[0] == 'user' && (count($args) == 1 || count($args) == 2)) {
     if (isset($variables['content']['system_main']['#account'])) {
-      if (user_access('3devis see promo code usage')) {
-        if (module_exists('promo_code') && isset($variables['content']['system_main']['field_promotional_code'])) {
-          $account = $variables['content']['system_main']['#account'];
-          $promo = promo_code_load_by_user($account);
-          $vals = promo_code_get_user_values($account);
-          $promo_used = ($vals->code_usage) ? ($vals->code_usage / 100) : 0;
-          $promo_total = ($promo->discount / 100);
-          $promo_left = $promo_total - $promo_used;
-          
-          $total = '<span title="Total">'. $promo_total .'</span>';
-          $used  = '<span class="red" title="Used">'. $promo_used .'</span>';
-          $left  = '<span class="green" title="Left">'. $promo_left .'</span>';
-          $promo_val = ($promo) ? ' ('. $total .' | '. $left .' | '. $used .')' : 'Not valid/Not applicable';
-          
-          $promo_val2 = ($promo) ? ' ('. $promo_total .'Used: '. $promo_used .' EUR, Left: '. $promo_left .' EUR, Total: '. $promo_total .' EUR)' : 'Not valid/Not applicable';
-          $variables['content']['system_main']['field_promotional_code'][0]['#markup'] .= $promo_val;
-        }
+      if (module_exists('promo_code') && isset($variables['content']['system_main']['field_promotional_code'])) {
+        $account = $variables['content']['system_main']['#account'];
+        $promo = promo_code_load_by_user($account);
+        $vals = promo_code_get_user_values($account);
+        $promo_used = ($vals->code_usage) ? ($vals->code_usage / 100) : 0;
+        $promo_total = ($promo->discount / 100);
+        $promo_left = $promo_total - $promo_used;
+
+        $total = '<span title="'. t('Total') .'">'. $promo_total .' EUR</span>';
+        $used  = '<span class="red" title="'. t('Used') .'">'. $promo_used .' EUR</span>';
+        $left  = '<span class="green" title="'. t('Remaining') .'">'. $promo_left .' EUR</span>';
+        $promo_val = ($promo) ? ' ('. $left .' | '. $used .' | '. $total .')' : 'Not valid/Not applicable';
+        $variables['content']['system_main']['field_promotional_code'][0]['#markup'] .= $promo_val;
       }
       
       $variables['content']['system_main']['user_mail']['#title'] = 'E-mail';

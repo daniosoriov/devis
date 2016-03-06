@@ -115,8 +115,12 @@ function devis_preprocess_entity(&$variables, $hook) {
     // Invoice date and period.
     if (isset($variables['field_commerce_billy_i_date'])) {
       $info = $variables['field_commerce_billy_i_date'][0];
-      $date = date('d F Y', $info['value']);
-      $period = format_date(strtotime($date .' - 1 month'), 'custom', 'F Y', $info['timezone']);
+      
+      $new_date = strtotime(date('F Y', $order->created) .' +1 month');
+      $date = strtolower(format_date($new_date, 'custom', '1 F Y', $info['timezone']));
+      $variables['content']['invoice_header_date']['#markup'] = strtolower($date);
+      
+      $period = format_date(strtotime(date('F Y', $order->created)), 'custom', 'F Y', $info['timezone']);
       $variables['content']['invoice_header_period'] = array('#markup' => $period, '#title' => t('Period'));
     }
   }

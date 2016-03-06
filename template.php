@@ -159,6 +159,7 @@ function devis_entity_view_alter(&$build, $type) {
       break;
     
     case 'commerce_order':
+      $order = $build['#entity'];
       switch ($build['#view_mode']) {
         case 'pdf':
           $markup = $build['commerce_line_items'][0]['#markup'];
@@ -183,12 +184,12 @@ function devis_entity_view_alter(&$build, $type) {
             $children .= '<article class="invoice-date">';
             $children .= '<h3 class="field-label">'. t('Invoice date') .'</h3>';
             $info = $build['field_commerce_billy_i_date']['#items'][0];
-            $date = strtolower(format_date($info['value'], 'custom', 'j F Y', $info['timezone']));
+            $new_date = strtotime(date('F Y', $order->created) .' +1 month');
+            $date = strtolower(format_date($new_date, 'custom', '1 F Y', $info['timezone']));
             $children .= '<div class="field-date">'. $date .'</div>';
             
             $children .= '<h3 class="field-label">'. t('Period') .'</h3>';
-            $date = date('d F Y', $info['value']);
-            $period = format_date(strtotime($date .' - 1 month'), 'custom', 'F Y', $info['timezone']);
+            $period = format_date(strtotime(date('F Y', $order->created)), 'custom', 'F Y', $info['timezone']);
             $children .= '<div class="field-date">'. $period .'</div>';
             $children .= '</article>';
             $build['field_commerce_billy_i_date']['#access'] = FALSE;
@@ -218,7 +219,6 @@ function devis_entity_view_alter(&$build, $type) {
       
         // good info: https://drupalcommerce.org/discussions/2370/additional-information-order-page
         case 'administrator':
-          $order = $build['#entity'];
           $build['status'] = array(
             '#type' => 'fieldset',
             '#title' => t('Order details'),
