@@ -332,36 +332,40 @@
     }
   };
   
+  
   Drupal.behaviors.devisDemanderDevis = {
     attach: function (context, settings) {
-      // Add the mandatory mark to some fields.
-      var title = $("label[for='edit-field-change-accountant-reason-und']").html();
-      $("label[for='edit-field-change-accountant-reason-und']").html(title + settings.devenir.required);
-      var title = $("label[for='edit-field-change-accountant-other-und-0-value']").html();
-      $("label[for='edit-field-change-accountant-other-und-0-value']").html(title + settings.devenir.required);
-      
       //console.log(settings);
-      
-      // Change the Company label depending on the legal status.
-      // Change the TVA label depending on the legal status.
-      // Change the prices.
-      $("#edit-field-legal-status-und").change(function() {
-        var val = $(this).val();
-        var title = Drupal.theme('devisPrepareLabelHTML', 'company', val, settings.devenir.companyTitle, settings.devenir.required);
-        $("label[for='edit-field-company-name-und-0-value']").html(title);
-        var title = Drupal.theme('devisPrepareLabelHTML', 'tva', val, settings.devenir.tvaTitle, settings.devenir.required);
-        $("label[for='edit-field-tva-und-0-value']").html(title);
-        
-        Drupal.theme('devisChangePricesFromLegalStatus', val, settings.prices);
-        
-      });
-      var $object = $('form#comptable-entityform-edit-form');
-      if ($object.length) {
-        var val = $("#edit-field-legal-status-und").val();
-        var title = Drupal.theme('devisPrepareLabelHTML', 'company', val, settings.devenir.companyTitle, settings.devenir.required);
-        $("label[for='edit-field-company-name-und-0-value']").html(title);
-        var title = Drupal.theme('devisPrepareLabelHTML', 'tva', val, settings.devenir.tvaTitle, settings.devenir.required);
-        $("label[for='edit-field-tva-und-0-value']").html(title);
+      if (settings.comptable) {
+        // Add the mandatory mark to some fields.
+        var title = $("label[for='edit-field-change-accountant-reason-und']").html();
+        $("label[for='edit-field-change-accountant-reason-und']").html(title + settings.comptable.required);
+        var title = $("label[for='edit-field-change-accountant-other-und-0-value']").html();
+        $("label[for='edit-field-change-accountant-other-und-0-value']").html(title + settings.comptable.required);
+
+        //console.log(settings);
+
+        // Change the Company label depending on the legal status.
+        // Change the TVA label depending on the legal status.
+        // Change the prices.
+        $("#edit-field-legal-status-und").change(function() {
+          var val = $(this).val();
+          var title = Drupal.theme('devisPrepareLabelHTML', 'company', val, settings.comptable.companyTitle, settings.comptable.required);
+          $("label[for='edit-field-company-name-und-0-value']").html(title);
+          var title = Drupal.theme('devisPrepareLabelHTML', 'tva', val, settings.comptable.tvaTitle, settings.comptable.required);
+          $("label[for='edit-field-tva-und-0-value']").html(title);
+
+          Drupal.theme('devisChangePricesFromLegalStatus', val, settings.prices);
+
+        });
+        var $object = $('form#comptable-entityform-edit-form');
+        if ($object.length) {
+          var val = $("#edit-field-legal-status-und").val();
+          var title = Drupal.theme('devisPrepareLabelHTML', 'company', val, settings.comptable.companyTitle, settings.comptable.required);
+          $("label[for='edit-field-company-name-und-0-value']").html(title);
+          var title = Drupal.theme('devisPrepareLabelHTML', 'tva', val, settings.comptable.tvaTitle, settings.comptable.required);
+          $("label[for='edit-field-tva-und-0-value']").html(title);
+        }
       }
     }
   };

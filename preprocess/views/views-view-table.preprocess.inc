@@ -115,5 +115,21 @@ function devis_preprocess_views_view_table(&$variables) {
         }
       }
       break;
+      
+    case 'provider_request_list':
+      // Try to change the filter values.
+      // IT DOESN'T WORK!
+      foreach ($variables['view']->filter['type']->value_options as $key => $res) {
+        $pieces = explode(' ', $res);
+        $type = ucwords(array_pop($pieces));
+        $variables['view']->filter['type']->value_options[$key] = $type;
+      }
+      // Change the column values to a smaller value.
+      foreach ($variables['rows'] as $key => $res) {
+        $pieces = explode(' ', $res['label']);
+        $type = ucwords(array_pop($pieces));
+        $variables['rows'][$key]['label'] = $type;
+      }
+      break;
   }
 }

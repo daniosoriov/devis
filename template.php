@@ -36,6 +36,10 @@ function devis_html_head_alter(&$head_elements) {
     case 'eform/submit/devenir':
       $content = variable_get('trois_devis_devenir_description', '');
       break;
+      
+    case 'eform/submit/devenir-fournisseur-photographe':
+      $content = variable_get('trois_devis_devenir_photographe_description', '');
+      break;
   }
   if ($content) {
     $head_elements['description'] = array(
@@ -79,6 +83,10 @@ function devis_preprocess(&$variables, $hook) {
       
       case 'eform/submit/devenir':
         $variables['head_title'] = variable_get('trois_devis_devenir_title', '');
+        break;
+      
+      case 'eform/submit/devenir-fournisseur-photographe':
+        $variables['head_title'] = variable_get('trois_devis_devenir_photographe_title', '');
         break;
     }
   }
@@ -250,6 +258,11 @@ function devis_form_alter(&$form, &$form_state, $form_id) {
   //dpm($form_id, 'form_id');
   
   switch ($form_id) {
+    case 'devenir_entityform_edit_form':
+    case 'devenir_fournisseur_photographe_entityform_edit_form':
+      devis_form_entityform_basic_functionalities($form, $form_state, $form_id, 'devenir');
+      break;
+      
     case 'simplenews_confirm_removal_form':
       $form['description']['#access'] = FALSE;
       $form['#submit'][] = 'devis_form_alter_submit';
@@ -262,8 +275,10 @@ function devis_form_alter(&$form, &$form_state, $form_id) {
     
     case 'entityform_delete_form':
       $entityform = $form_state['entityform'];
+      $type = trois_devis_get_entityform_label($entityform->type);
       switch ($entityform->type) {
         case 'devenir':
+        case 'devenir_fournisseur_photographe':
           $title = 'Provider';
           $redirect = 'adminpage/request/provider';
           break;
@@ -274,7 +289,7 @@ function devis_form_alter(&$form, &$form_state, $form_id) {
           break;
       }
       $form_state['redirect_url'] = $redirect;
-      drupal_set_title($title .' request '. $entityform->entityform_id);
+      drupal_set_title("“{$type}” {$title} request ". $entityform->entityform_id);
       $form['description']['#markup'] = '<p>Are you sure you want to delete this submission? This action cannot be undone.</p>';
       $form['#submit'][] = 'devis_form_alter_submit';
       $form['actions']['cancel']['#href'] = $redirect;
@@ -675,12 +690,12 @@ function devis_form_comptable_entityform_edit_form_after_build($form, &$form_sta
   $company = $form['field_company_name'][$lang];
   $tva = $form['field_tva'][$lang_tva];
   $req_span = ' <span class="form-required" title="'. t('Ce champ est requis.') .'">*</span>';
-  $devenir = array(
+  $comptable = array(
     'companyTitle' => $company['#title'],
     'tvaTitle' => $tva['#title'],
     'required' => $req_span,
   );
-  drupal_add_js(array('devenir' => $devenir), 'setting');
+  drupal_add_js(array('comptable' => $comptable), 'setting');
   
   // Drupal cannot handle this amount of data in javascript, the page breaks.
   /*$prices = array();
@@ -699,20 +714,25 @@ function devis_form_comptable_entityform_edit_form_after_build($form, &$form_sta
   return $form;
 }
 
-/**
- * Implements hook_form_BASE_FORM_ID_alter().
- */
-function devis_form_devenir_entityform_edit_form_alter(&$form, &$form_state, $form_id) {
+function devis_form_entityform_basic_functionalities(&$form, &$form_state, $form_id, $type = 'devenir') {
   global $user;
-  if (in_array('provider', $user->roles)) {
-    drupal_set_message(t('AVIS: Vous êtes déjà fournisseur.'), 'warning');
-    $form['actions']['submit']['#access'] = FALSE;
+  
+  switch ($type) {
+    case 'devenir':
+      if (in_array('provider', $user->roles)) {
+        drupal_set_message(t('AVIS: Vous êtes déjà fournisseur.'), 'warning');
+        $form['actions']['submit']['#access'] = FALSE;
+      }
+      break;
+      
+    case 'comptable':
+      break;
   }
   
   $theme_path = drupal_get_path('theme', variable_get('theme_default', NULL));
   $form['#attached']['js'][] = $theme_path .'/js/easydropdown/jquery.easydropdown.min.js';
   $form['#attached']['css'][] = $theme_path .'/css/easydropdown.css';
-
+  
   // Honorific, Name and Surname on the same line.
   $lang = $form['field_honorific']['#language'];
   $label = '<label for="edit-field-honorific-'. $lang .'">'. t('Last name') .' <span class="form-required" title="'. t('Ce champ est requis.') .'">*</span></label>';
@@ -795,7 +815,7 @@ function devis_form_devenir_entityform_edit_form_alter(&$form, &$form_state, $fo
       }
     }
   }
-
+  
   // Extra validation rules.
   $form['#validate'][] = 'devis_devenir_entityform_edit_form_validate';
   $form['actions']['submit']['#validate'][] = 'devis_devenir_entityform_edit_form_validate';
@@ -803,6 +823,24 @@ function devis_form_devenir_entityform_edit_form_alter(&$form, &$form_state, $fo
   // Extra submission rules.
   $form['#submit'][] = 'devis_devenir_entityform_edit_form_submit';
   $form['actions']['save']['#submit'][] = 'devis_devenir_entityform_edit_form_submit';
+}
+
+/**
+ * Implements hook_form_BASE_FORM_ID_alter().
+ */
+function devis_form_devenir_fournisseur_photographe_entityform_edit_form_alter(&$form, &$form_state, $form_id) {
+  //dpm($form, 'form');
+  $lang = $form['field_social_link']['#language'];
+  
+  $form['field_social_link'][$lang]['social_buttons']['add_one_social']['#attributes']['class'][] = 'dropdown';
+  $form['field_years_experience'][$form['field_years_experience']['#language']]['#attributes']['class'][] = 'dropdown';
+}
+
+/**
+ * Implements hook_form_BASE_FORM_ID_alter().
+ */
+function devis_form_devenir_entityform_edit_form_alter(&$form, &$form_state, $form_id) {
+  
 }
 
 /**
@@ -1044,6 +1082,7 @@ function devis_form_user_profile_form_alter(&$form, &$form_state, $form_id) {
       $form['field_staff_number']['#access'] = FALSE;
       $form['field_mailchimp_subscription']['#access'] = FALSE;
       $form['field_adresse']['#access'] = FALSE;
+      $form['field_provider_type']['#access'] = FALSE;
       $form['profile_budget_profile']['#access'] = FALSE;
       $form['actions']['cancel']['#access'] = FALSE;
     }
@@ -1102,6 +1141,45 @@ function devis_form_user_profile_form_alter(&$form, &$form_state, $form_id) {
     $form['field_adresse'][$lang][0]['street_block']['premise']['#attributes']['style'] = 'display: none;';
     $form['field_adresse'][$lang][0]['street_block']['premise']['#title_display'] = 'invisible';
     
+    if (isset($form['field_provider_type'])) {
+      $form['field_provider_type'][$form['field_provider_type']['#language']]['#attributes']['class'][] = 'dropdown';
+    }
+    
+    $provider_type_field = field_get_items('user', $form_state['user'], 'field_provider_type');
+    switch ($provider_type_field[0]['tid']) {
+      // Accountant
+      case 10:
+      case 11:
+        $form['field_social_link']['#access'] = FALSE;
+        $form['field_years_experience']['#access'] = FALSE;
+        
+        $lang = $form['field_staff_number']['#language'];
+        $form['field_staff_number'][$lang]['#required'] = 1;
+        $label = '<label for="edit-field-staff-number-und-'. $lang .'-value">'. t('Nombre de collaborateurs') .' <span class="form-required" title="'. t('Ce champ est requis.') .'">*</span></label>';
+        $form['field_staff_number'][$lang][0]['value']['#title'] = $label;
+        
+        $lang = $form['field_number_ipcf_iec']['#language'];
+        $form['field_number_ipcf_iec'][$lang]['#required'] = 1;
+        $label = '<label for="edit-field-number-ipcf-iec-'. $lang .'-value">'. t('N° membre IPCF/IEC') .' <span class="form-required" title="'. t('Ce champ est requis.') .'">*</span></label>';
+        $form['field_number_ipcf_iec'][$lang][0]['value']['#title'] = $label;
+        break;
+        
+      // Photographer
+      case 12:
+      case 13:
+        $form['field_number_ipcf_iec']['#access'] = FALSE;
+        $form['field_staff_number']['#access'] = FALSE;
+        
+        $lang = $form['field_years_experience']['#language'];
+        $form['field_years_experience'][$lang]['#attributes']['class'][] = 'dropdown';
+        
+        $form['field_years_experience'][$lang]['#required'] = 1;
+        $label = '<label for="edit-field-years-experience-und-'. $lang .'-value">'. t('Années d’expériences') .' <span class="form-required" title="'. t('Ce champ est requis.') .'">*</span></label>';
+        $form['field_years_experience'][$lang][0]['value']['#title'] = $label;
+        break;
+    }
+    
+    
     /*
     $lang = $form['field_phone_belgium']['#language'];
     $form['field_phone_belgium'][$lang][0]['value']['#field_prefix'] = '<span class="prefix-phone">+32</span>';
@@ -1128,6 +1206,33 @@ function devis_form_user_profile_form_alter(&$form, &$form_state, $form_id) {
 }
 
 function devis_user_profile_form_validate($form, &$form_state) {
+  $provider_type_field = field_get_items('user', $form_state['user'], 'field_provider_type');
+  switch ($provider_type_field[0]['tid']) {
+    // Accountant
+    case 10:
+    case 11:
+      if (isset($form['field_staff_number'])) {
+        $lang = $form['field_staff_number']['#language'];
+        if (empty($form_state['values']['field_staff_number'][$lang][0]['value'])) {
+          form_set_error('field_staff_number]['. $lang .'][0][value', t("Le champ Nombre de collaborateurs est requis."));
+        }
+      }
+      if (isset($form['field_number_ipcf_iec'])) {
+        $lang = $form['field_number_ipcf_iec']['#language'];
+        if (empty($form_state['values']['field_number_ipcf_iec'][$lang][0]['value'])) {
+          form_set_error('field_number_ipcf_iec]['. $lang .'][0][value', t("Le champ N° membre IPCF/IEC est requis."));
+        }
+      }
+      break;
+      
+    // Photographer
+    case 12:
+    case 13:
+      
+      dpm('Check that at least one option is selected in years of experience. VALIDATE');
+      break;
+  }
+  
   // This is a check in case the javascript is disabled for whatever reason.
   if (isset($form['profile_budget_profile']['field_active_regions_belgium'])) {
     $belgium = FALSE;

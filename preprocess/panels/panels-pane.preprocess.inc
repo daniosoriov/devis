@@ -41,11 +41,16 @@ function devis_preprocess_panels_pane(&$variables) {
     $array = array_values($variables['content']['system_main']['entityform']);
     $element = array_shift($array);
     $entityform_id = $element['#entity']->entityform_id;
-    if ($element['#bundle'] == 'comptable') {
-      $variables['title'] = t('Budget request @id', array('@id' => $entityform_id));
-    }
-    elseif ($element['#bundle'] == 'devenir') {
-      $variables['title'] = t('Provider request @id', array('@id' => $entityform_id));
+    switch ($element['#bundle']) {
+      case 'comptable':
+        $variables['title'] = t('Budget request @id', array('@id' => $entityform_id));
+        break;
+        
+      case 'devenir':
+      case 'devenir_fournisseur_photographe':
+        $type = trois_devis_get_entityform_label($element['#bundle']);
+        $variables['title'] = t('&#8220;@type&#8221; Provider request @id', array('@id' => $entityform_id, '@type' => $type));
+        break;
     }
     $variables['content']['system_main']['entityform'][$entityform_id]['info']['user']['#markup'] = 'Submitted on '. format_date($element['#entity']->created, 'medium', '', NULL, 'en');
   }
@@ -126,11 +131,16 @@ function devis_preprocess_panels_pane(&$variables) {
         $entityform = $variables['content']['system_main']['#entity'];
         $entityform_id = $entityform->entityform_id;
         if ($entityform_id) {
-          if ($variables['content']['system_main']['#bundle'] == 'comptable') {
-            $variables['title'] = t('Budget request @id', array('@id' => $entityform_id));
-          }
-          elseif ($variables['content']['system_main']['#bundle'] == 'devenir') {
-            $variables['title'] = t('Provider request @id', array('@id' => $entityform_id));
+          switch ($variables['content']['system_main']['#bundle']) {
+            case 'comptable':
+              $variables['title'] = t('Budget request @id', array('@id' => $entityform_id));
+              break;
+              
+            case 'devenir':
+            case 'devenir_fournisseur_photographe':
+              $type = trois_devis_get_entityform_label($variables['content']['system_main']['#bundle']);
+              $variables['title'] = t('&#8220;@type&#8221; Provider request @id', array('@id' => $entityform_id, '@type' => $type));
+              break;
           }
           $variables['content']['system_main']['user_info']['#markup'] = 'Submitted on '. format_date($entityform->created, 'medium', '', NULL, 'en');
 
