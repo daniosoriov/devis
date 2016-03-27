@@ -117,6 +117,7 @@ function devis_preprocess_views_view_table(&$variables) {
       break;
       
     case 'provider_request_list':
+    case 'budget_list':
       // Try to change the filter values.
       // IT DOESN'T WORK!
       foreach ($variables['view']->filter['type']->value_options as $key => $res) {

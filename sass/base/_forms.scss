@@ -405,6 +405,10 @@ div#edit-field-has-accountant-und {
 
 /* Fix weird behaviors. Especial cases. */
 
+#edit-field-event-date-und-0-value {
+  @include rem-fallback(padding-bottom, .5rem);
+}
+
 fieldset.group-address-top {
   margin-bottom: 0;
 }

@@ -41,17 +41,9 @@ function devis_preprocess_panels_pane(&$variables) {
     $array = array_values($variables['content']['system_main']['entityform']);
     $element = array_shift($array);
     $entityform_id = $element['#entity']->entityform_id;
-    switch ($element['#bundle']) {
-      case 'comptable':
-        $variables['title'] = t('Budget request @id', array('@id' => $entityform_id));
-        break;
-        
-      case 'devenir':
-      case 'devenir_fournisseur_photographe':
-        $type = trois_devis_get_entityform_label($element['#bundle']);
-        $variables['title'] = t('&#8220;@type&#8221; Provider request @id', array('@id' => $entityform_id, '@type' => $type));
-        break;
-    }
+    $entityform_type = trois_devis_get_entityform_type_label($element['#bundle']);
+    $type = trois_devis_get_entityform_label($element['#bundle']);
+    $variables['title'] = t('@type @entityform_type request @id', array('@id' => $entityform_id, '@entityform_type' => $entityform_type, '@type' => $type));
     $variables['content']['system_main']['entityform'][$entityform_id]['info']['user']['#markup'] = 'Submitted on '. format_date($element['#entity']->created, 'medium', '', NULL, 'en');
   }
   
@@ -131,19 +123,11 @@ function devis_preprocess_panels_pane(&$variables) {
         $entityform = $variables['content']['system_main']['#entity'];
         $entityform_id = $entityform->entityform_id;
         if ($entityform_id) {
-          switch ($variables['content']['system_main']['#bundle']) {
-            case 'comptable':
-              $variables['title'] = t('Budget request @id', array('@id' => $entityform_id));
-              break;
-              
-            case 'devenir':
-            case 'devenir_fournisseur_photographe':
-              $type = trois_devis_get_entityform_label($variables['content']['system_main']['#bundle']);
-              $variables['title'] = t('&#8220;@type&#8221; Provider request @id', array('@id' => $entityform_id, '@type' => $type));
-              break;
-          }
+          $bundle_type = $variables['content']['system_main']['#bundle'];
+          $entityform_type = trois_devis_get_entityform_type_label($bundle_type);
+          $type = trois_devis_get_entityform_label($bundle_type);
+          $variables['title'] = t('@type @entityform_type request @id', array('@id' => $entityform_id, '@entityform_type' => $entityform_type, '@type' => $type));
           $variables['content']['system_main']['user_info']['#markup'] = 'Submitted on '. format_date($entityform->created, 'medium', '', NULL, 'en');
-
           $variables['content']['system_main']['intro']['#markup'] = '';
         }
         else {

@@ -32,6 +32,10 @@ function devis_html_head_alter(&$head_elements) {
     case 'eform/submit/comptable':
       $content = variable_get('trois_devis_comptable_description', '');
       break;
+      
+    case 'eform/submit/budget-photographer':
+      $content = variable_get('trois_devis_budget_photographer_description', '');
+      break;
     
     case 'eform/submit/devenir':
       $content = variable_get('trois_devis_devenir_description', '');
@@ -79,6 +83,10 @@ function devis_preprocess(&$variables, $hook) {
     switch ($current_path) {
       case 'eform/submit/comptable':
         $variables['head_title'] = variable_get('trois_devis_comptable_title', '');
+        break;
+      
+      case 'eform/submit/budget-photographer':
+        $variables['head_title'] = variable_get('trois_devis_budget_photographer_title', '');
         break;
       
       case 'eform/submit/devenir':
@@ -260,7 +268,12 @@ function devis_form_alter(&$form, &$form_state, $form_id) {
   switch ($form_id) {
     case 'devenir_entityform_edit_form':
     case 'devenir_fournisseur_photographe_entityform_edit_form':
-      devis_form_entityform_basic_functionalities($form, $form_state, $form_id, 'devenir');
+      devis_form_entityform_basic_functionalities($form, $form_state, $form_id);
+      break;
+      
+    case 'comptable_entityform_edit_form':
+    case 'budget_photographer_entityform_edit_form':
+      devis_form_entityform_basic_functionalities($form, $form_state, $form_id);
       break;
       
     case 'simplenews_confirm_removal_form':
@@ -275,21 +288,11 @@ function devis_form_alter(&$form, &$form_state, $form_id) {
     
     case 'entityform_delete_form':
       $entityform = $form_state['entityform'];
+      $entityform_type = trois_devis_get_entityform_type_label($entityform->type);
       $type = trois_devis_get_entityform_label($entityform->type);
-      switch ($entityform->type) {
-        case 'devenir':
-        case 'devenir_fournisseur_photographe':
-          $title = 'Provider';
-          $redirect = 'adminpage/request/provider';
-          break;
-        
-        case 'comptable':
-          $title = 'Budget';
-          $redirect = 'adminpage/request/budget';
-          break;
-      }
+      $redirect = 'adminpage/request/'. $entityform_type;
       $form_state['redirect_url'] = $redirect;
-      drupal_set_title("“{$type}” {$title} request ". $entityform->entityform_id);
+      drupal_set_title("{$type} {$entityform_type} request ". $entityform->entityform_id);
       $form['description']['#markup'] = '<p>Are you sure you want to delete this submission? This action cannot be undone.</p>';
       $form['#submit'][] = 'devis_form_alter_submit';
       $form['actions']['cancel']['#href'] = $redirect;
@@ -363,43 +366,7 @@ function devis_get_prices_from_legal_status($legal_status) {
  */
 function devis_form_comptable_entityform_edit_form_alter(&$form, &$form_state, $form_id) {
   global $user;
-  
-  if (in_array('provider', $user->roles)) {
-    drupal_set_message(t('AVIS: Vous êtes fournisseur. Vous ne pouvez pas faire une demande de devis.'), 'warning');
-    $form['actions']['submit']['#access'] = FALSE;
-  }
-  
-  // If a manager/admin is viewing the form.
   $manager_view = (in_array('manager', $user->roles) && !isset($form_state['build_info']['args'][0]->is_new)) ? TRUE : FALSE;
-  $form_state['manager_view'] = $manager_view;
-  if ($manager_view) {
-    $entity = $form_state['build_info']['args'][0];
-    $lang = key($entity->field_approval);
-    $approval = $entity->field_approval[$lang][0]['value'];
-    // If the request has been already approved or denied.
-    if ($approval != 'pending') {
-      drupal_set_message(t('Notice: This request can no longer be modified.'), 'warning');
-      $form['actions']['#access'] = FALSE;
-    }
-    else {
-      drupal_set_message(t('Notice: Please check the sensitive information fields: Additional Information and Activity'), 'warning');
-      $legal_status = (isset($form_state['values'])) ? 
-        $form_state['values']['field_legal_status'][$form['field_legal_status']['#language']][0]['value'] : 
-        $form['field_legal_status'][$form['field_legal_status']['#language']]['#default_value'][0];
-      
-      $keep = devis_get_prices_from_legal_status($legal_status);
-      unset($form['field_devis_product'][$form['field_devis_product']['#language']]['#options']);
-      foreach ($keep as $key => $val) {
-        $form['field_devis_product'][$form['field_devis_product']['#language']]['#options'][$key] = $val;
-      }
-    }
-    $form_state['set_redirect'] = TRUE;
-  }
-  
-  $theme_path = drupal_get_path('theme', variable_get('theme_default', NULL));
-  $form['#attached']['js'][] = $theme_path .'/js/easydropdown/jquery.easydropdown.min.js';
-  $form['#attached']['js'][] = $theme_path .'/js/zeroclipboard/dist/ZeroClipboard.min.js';
-  $form['#attached']['css'][] = $theme_path .'/css/easydropdown.css';
   
   $lang = $form['field_info_extra']['#language'];
   $desc = $form['field_info_extra'][$lang][0]['value']['#description'];
@@ -447,64 +414,12 @@ function devis_form_comptable_entityform_edit_form_alter(&$form, &$form_state, $
   $form['field_estimated_annual_invoice'][$lang][0]['value']['#attributes']['class'][] = 'input-smaller';
   $lang = $form['field_estimated_number_employees']['#language'];
   $form['field_estimated_number_employees'][$lang][0]['value']['#attributes']['class'][] = 'input-smaller';
-
-  // Name and Surname on the same line.
-  // Honorific, Name and Surname on the same line.
-  $lang = $form['field_honorific']['#language'];
-  $label = '<label for="edit-field-honorific-'. $lang .'">'. t('Last name') .' <span class="form-required" title="'. t('Ce champ est requis.') .'">*</span></label>';
-  $form['field_honorific']['#prefix'] = '<div class="container-wrapper">'. $label;
-  $form['field_honorific'][$lang]['#options'] = array('_none' => t('Civilité')) + $form['field_honorific'][$lang]['#options'];
-  $form['field_honorific'][$lang]['#title'] = t('Civilité');
-  $form['field_honorific'][$lang]['#title_display'] = 'invisible';
-  $form['field_honorific'][$lang]['#attributes']['class'][] = 'dropdown';
-  $form['field_honorific']['#attributes']['class'][] = 'dropdown-honorific';
   
-  $lang = $form['field_prenom']['#language'];
-  $form['field_prenom'][$lang][0]['value']['#attributes']['placeholder'] = 
-  $form['field_prenom'][$lang][0]['value']['#title'] = t('First name');
-  $form['field_prenom'][$lang][0]['value']['#title_display'] = 'invisible';
-
-  $lang = $form['field_name']['#language'];
-  $form['field_name'][$lang][0]['value']['#attributes']['placeholder'] = 
-  $form['field_name'][$lang][0]['value']['#title'] = t('Last name');
-  $form['field_name'][$lang][0]['value']['#title_display'] = 'invisible';
-  $form['field_name']['#suffix'] = '</div>';
-  
-  // Email and telephone in the same line.
-  $lang = $form['field_email']['#language'];
-  $label = '<label for="edit-field-email-'. $lang .'">'. t('Contact') .' <span class="form-required" title="'. t('Ce champ est requis.') .'">*</span></label>';
-  $form['field_email']['#prefix'] = '<div class="container-wrapper">'. $label;
-  $form['field_email'][$lang][0]['email']['#title'] = 'E-mail';
-  $form['field_email'][$lang][0]['email']['#title_display'] = 'invisible';
-  $form['field_email'][$lang][0]['email']['#attributes']['placeholder'] = 'E-mail';
-  $form['field_email'][$lang][0]['email']['#attributes']['class'][] = 'input-fixed-width';
-
-  $lang = $form['field_phone_belgium']['#language'];
-  $form['field_phone_belgium'][$lang][0]['value']['#title_display'] = 'invisible';
-  //$form['field_phone_belgium'][$lang][0]['value']['#prefix'] = '<span class="prefix-phone">+32</span>';
-  $form['field_phone_belgium'][$lang][0]['value']['#attributes']['placeholder'] = t('Telephone');
-  $form['field_phone_belgium'][$lang][0]['value']['#attributes']['class'][] = 'input-fixed-width';
-  $form['field_phone_belgium']['#suffix'] = '</div>';
-  
-  // Website.
   $form['#after_build'][] = 'devis_form_comptable_entityform_edit_form_after_build';
-
-  // Address fields.
-  $lang = $form['field_adresse']['#language'];
-  $form['field_adresse'][$lang][0]['#prefix'] = '';
-  $form['field_adresse'][$lang][0]['#suffix'] = '';
-  $form['field_adresse'][$lang][0]['#title'] = '';
-  $form['field_adresse'][$lang][0]['#attributes']['class'][] = 'fieldset-hide';
-  $form['field_adresse'][$lang][0]['street_block']['thoroughfare']['#title'] = t('Address');
-  $form['field_adresse'][$lang][0]['street_block']['premise']['#attributes']['style'] = 'display: none;';
-  $form['field_adresse'][$lang][0]['street_block']['premise']['#title_display'] = 'invisible';
   
   // Extra validation rules.
   $form['#validate'][] = 'devis_comptable_entityform_edit_form_validate';
   $form['actions']['submit']['#validate'][] = 'devis_comptable_entityform_edit_form_validate';
-  // Extra submission rules
-  $form['#submit'][] = 'devis_comptable_entityform_edit_form_submit';
-  $form['actions']['save']['#submit'][] = 'devis_comptable_entityform_edit_form_submit';
 }
 
 function devis_comptable_entityform_edit_form_validate($form, &$form_state) {
@@ -524,26 +439,8 @@ function devis_comptable_entityform_edit_form_validate($form, &$form_state) {
     }
   }
 
-  // E-mail check.
-  $lang = $form['field_email']['#language'];
-  if (!valid_email_address($form_state['values']['field_email'][$lang][0]['email'])) {
-    form_set_error('field_email]['. $lang .'][0][email', t('The specified email is not a valid email.'));
-  }
-  devis_field_phone_belgium_validate($form, $form_state);
   if ($legal_status == 'society' || $legal_status == 'independent') {
     devis_field_tva_validate($form, $form_state);
-  }
-
-  // Postal code validation.
-  if (module_exists('postal_code_validation')) {
-    $lang = $form['field_adresse']['#language'];
-    $address = $values['field_adresse'][$lang][0];
-    $postal_code = $address['postal_code'];
-    $country = $address['country'];
-    $result = postal_code_validation_validate($postal_code, $country);
-    if ($result['error']) {
-      form_set_error('field_adresse]['. $lang .'][0][postal_code', $result['error']);
-    }
   }
 
   $lang = $form['field_estimated_annual_revenue']['#language'];
@@ -627,63 +524,9 @@ function devis_comptable_entityform_edit_form_validate($form, &$form_state) {
   if ($tva_error) {
     form_set_error('field_tva]['. $lang_tva .'][0][value', t('Le champ !label est requis.', array('!label' => $tva_label)));
   }
-
-  // If it's new, update the admin fields with the normal field values.
-  if (isset($form_state['build_info']['args'][0]->is_new)) {
-    $lang = $form['field_activity_admin']['#language'];
-    $lang_act = $form['field_activity']['#language'];
-    $new_value = array($lang => array(0 => array('value' => $values['field_activity'][$lang_act][0]['value'])));
-    $value = array('#parents' => array('field_activity_admin'));
-    form_set_value($value, $new_value, $form_state);
-
-    $lang = $form['field_info_extra_admin']['#language'];
-    $lang_act = $form['field_info_extra']['#language'];
-    $new_value = array($lang => array(0 => array('value' => $values['field_info_extra'][$lang_act][0]['value'])));
-    $value = array('#parents' => array('field_info_extra_admin'));
-    form_set_value($value, $new_value, $form_state);
-  }
-
-  // If the form was submitted and there are errors, 
-  // scroll the browser to the messages box.
-  // Add some variables to jQuery.
-  $error = isset($_SESSION['messages']['error']) ? TRUE : FALSE;
-  $data = array('submitted' => TRUE, 'error' => $error);
-  drupal_add_js(array('form_info' => $data), 'setting');
 }
 
-function devis_comptable_entityform_edit_form_submit($form, &$form_state) {
-  // Only for manager/admin.
-  if (isset($form_state['stage'])) {
-    $rebuild = TRUE;
-    // If on initial stage, set the preview stage.
-    if ($form_state['stage'] == 'initial') {
-      $form_state['stage'] = 'preview';
-      $form_state['multistep_values'][$form_state['stage']] = $form_state['values'];
-    }
-    // If in preview stage and going back.
-    if ($form_state['stage'] == 'preview' && $form_state['triggering_element']['#id'] == 'edit-back') {
-      $form_state['stage'] = 'initial';
-    }
-    elseif ($form_state['stage'] == 'preview' && $form_state['triggering_element']['#id'] == 'edit-next') {
-      $rebuild = FALSE;
-    }
-    if (isset($form_state['multistep_values']['form_build_id'])) {
-      $form_state['values']['form_build_id'] = $form_state['multistep_values']['form_build_id'];
-    }
-    if ($rebuild) {
-      $form_state['multistep_values']['form_build_id'] = $form_state['values']['form_build_id'];
-      $form_state['rebuild'] = TRUE;
-    }
-  }
-  
-  if (isset($form_state['set_redirect'])) {
-    $form_state['redirect'] = 'adminpage/request/budget';
-  }
-}
-
-function devis_form_comptable_entityform_edit_form_after_build($form, &$form_state) {
-  $form['field_website'][$form['field_website']['#language']][0]['url']['#attributes']['placeholder'] = 'www.siteweb.com';
-  
+function devis_form_comptable_entityform_edit_form_after_build($form, &$form_state) {  
   // JS variables for jQuery.
   $lang = $form['field_company_name']['#language'];
   $lang_tva = $form['field_tva']['#language'];
@@ -714,18 +557,171 @@ function devis_form_comptable_entityform_edit_form_after_build($form, &$form_sta
   return $form;
 }
 
-function devis_form_entityform_basic_functionalities(&$form, &$form_state, $form_id, $type = 'devenir') {
+/**
+ * Make date_field fieldset dissapear.
+ */
+function devis_date_combo($variables) {
+  return theme('form_element', $variables);
+}
+
+/**
+ * Implements hook_form_BASE_FORM_ID_alter().
+ */
+function devis_form_budget_photographer_entityform_edit_form_alter(&$form, &$form_state, $form_id) {
+  // easydropdown
+  $form['field_event_type'][$form['field_event_type']['#language']]['#attributes']['class'][] = 'dropdown';
+  $form['field_event_attendees'][$form['field_event_attendees']['#language']]['#attributes']['class'][] = 'dropdown';
+  $form['field_photo_budget'][$form['field_photo_budget']['#language']]['#attributes']['class'][] = 'dropdown';
+  
+  $lang = $form['field_event_attendees_other']['#language'];
+  $form['field_event_attendees_other'][$lang][0]['value']['#attributes']['class'][] = 'input-smaller';
+  
+  $lang = $form['field_photo_budget_other']['#language'];
+  $form['field_photo_budget_other'][$lang][0]['value']['#attributes']['placeholder'] = '€';
+  $form['field_photo_budget_other'][$lang][0]['value']['#field_prefix'] = '';
+  $form['field_photo_budget_other'][$lang][0]['value']['#attributes']['class'][] = 'input-smaller';
+  
+  $lang = $form['field_photo_hours']['#language'];
+  $form['field_photo_hours'][$lang][0]['value']['#attributes']['class'][] = 'input-smaller';
+  
+  $lang = $form['field_event_date']['#language'];
+  unset($form['field_event_date'][$lang][0]['#title']);
+  
+  // Extra validation rules.
+  $form['#validate'][] = 'devis_budget_photographer_entityform_edit_form_validate';
+  $form['actions']['submit']['#validate'][] = 'devis_budget_photographer_entityform_edit_form_validate';
+}
+
+function devis_budget_photographer_entityform_edit_form_validate($form, &$form_state) {
+  $values = $form_state['values'];
+  
+  
+  
+  
+  
+  
+  // HACER EL CHEQUEO DE LOS USUARIOS A CONTACTAR PARA LOS ADMINS! SI NO HAY, NO DEJAR ACEPTAR EL FORMULARIO!
+  
+  
+  
+  
+  
+  
+  $lang = $form['field_event_type_other']['#language'];
+  $value = $values['field_event_type_other'][$lang][0]['value'];
+  if (isset($value)) $value = trim($value);
+  if ($values['field_event_type'][$form['field_event_type']['#language']][0]['value'] == 'nonexistent' && !$value) {
+    $label = $form['field_event_type_other'][$lang]['#title'];
+    form_set_error('field_event_type_other]['. $lang .'][0][value', t('Le champ !label est requis.', array('!label' => $label)));
+  }
+  $lang = $form['field_event_attendees_other']['#language'];
+  $value = $values['field_event_attendees_other'][$lang][0]['value'];
+  if (isset($value)) $value = trim($value);
+  if ($values['field_event_attendees'][$form['field_event_attendees']['#language']][0]['value'] == 'nonexistent' && !$value) {
+    $label = $form['field_event_attendees_other'][$lang]['#title'];
+    form_set_error('field_event_attendees_other]['. $lang .'][0][value', t('Le champ !label est requis.', array('!label' => $label)));
+  }
+  $lang = $form['field_photo_style_other']['#language'];
+  $value = $values['field_photo_style_other'][$lang][0]['value'];
+  if (isset($value)) $value = trim($value);
+  if ($values['field_photo_style'][$form['field_photo_style']['#language']][0]['value'] == 'nonexistent' && !$value) {
+    $label = $form['field_photo_style_other'][$lang]['#title'];
+    form_set_error('field_photo_style_other]['. $lang .'][0][value', t('Le champ !label est requis.', array('!label' => $label)));
+  }
+  $lang = $form['field_photo_budget_other']['#language'];
+  $value = $values['field_photo_budget_other'][$lang][0]['value'];
+  if (isset($value)) $value = trim($value);
+  if ($values['field_photo_budget'][$form['field_photo_budget']['#language']][0]['value'] == 'nonexistent' && !$value) {
+    $label = $form['field_photo_budget_other'][$lang]['#title'];
+    form_set_error('field_photo_budget_other]['. $lang .'][0][value', t('Le champ !label est requis.', array('!label' => $label)));
+  }
+}
+
+function devis_form_entityform_basic_functionalities(&$form, &$form_state, $form_id) {
   global $user;
   
-  switch ($type) {
+  switch ($form['#entity']->type) {
+    case 'comptable':
+    case 'budget_photographer':
+      if (in_array('provider', $user->roles)) {
+        drupal_set_message(t('AVIS: Vous êtes fournisseur. Vous ne pouvez pas faire une demande de devis.'), 'warning');
+        $form['actions']['submit']['#access'] = FALSE;
+      }
+
+      // If a manager/admin is viewing the form.
+      $manager_view = (in_array('manager', $user->roles) && !isset($form_state['build_info']['args'][0]->is_new)) ? TRUE : FALSE;
+      $form_state['manager_view'] = $manager_view;
+      if ($manager_view) {
+        $entity = $form_state['build_info']['args'][0];
+        $lang = key($entity->field_approval);
+        $approval = $entity->field_approval[$lang][0]['value'];
+        // If the request has been already approved or denied.
+        if ($approval != 'pending') {
+          drupal_set_message(t('Notice: This request can no longer be modified.'), 'warning');
+          $form['actions']['#access'] = FALSE;
+        }
+        else {
+          switch ($form_id) {
+            case 'comptable_entityform_edit_form':
+              drupal_set_message(t('Notice: Please check the sensitive information fields: Additional Information and Activity'), 'warning');
+              $legal_status = (isset($form_state['values'])) ? 
+                $form_state['values']['field_legal_status'][$form['field_legal_status']['#language']][0]['value'] : 
+                $form['field_legal_status'][$form['field_legal_status']['#language']]['#default_value'][0];
+
+              $keep = devis_get_prices_from_legal_status($legal_status);
+              unset($form['field_devis_product'][$form['field_devis_product']['#language']]['#options']);
+              foreach ($keep as $key => $val) {
+                $form['field_devis_product'][$form['field_devis_product']['#language']]['#options'][$key] = $val;
+              }
+              break;
+              
+            case 'budget_photographer_entityform_edit_form':
+              break;
+          }
+        }
+        $form_state['set_redirect'] = TRUE;
+      }
+      break;
+      
     case 'devenir':
+    case 'devenir_fournisseur_photographe':
       if (in_array('provider', $user->roles)) {
         drupal_set_message(t('AVIS: Vous êtes déjà fournisseur.'), 'warning');
         $form['actions']['submit']['#access'] = FALSE;
       }
-      break;
       
-    case 'comptable':
+      // If the request is being checked by a manager, so it is not new.
+      if (in_array('manager', array_values($user->roles)) && !isset($form_state['build_info']['args'][0]->is_new)) {
+        $entity = $form_state['build_info']['args'][0];
+        $mail = $entity->field_email[$form['field_email']['#language']][0]['email'];
+        $lang = key($entity->field_approval);
+        $approval = $entity->field_approval[$lang][0]['value'];
+        // If the mail of the request is already registered.
+        if ($approval == 'pending') {
+          $account = user_load_by_mail($mail);
+          if ($account) {
+            drupal_set_message(t('Notice: The requester is already registered in the system: !user', array('!user' => theme('username', array('account' => $account)))), 'warning');
+            $form['actions']['#access'] = FALSE;
+          }
+        }
+        // If the request has been already approved or denied.
+        else {
+          drupal_set_message(t('Notice: This request can no longer be modified.'), 'warning');
+          $form['actions']['#access'] = FALSE;
+        }
+        $form_state['set_redirect'] = TRUE;
+      }
+      else {
+        if (user_is_anonymous()) {
+          $cid = variable_get('trois_devis_registration_promo_id', 0);
+          $promo_code = promo_code_load($cid);
+          if ($promo_code) {
+            drupal_set_message(t('Register now and get a !promo_discount EUR discount!', array('!promo_discount' => $promo_code->discount / 100)), 'promo');
+            $lang = $form['field_promotional_code']['#language'];
+            $form['field_promotional_code'][$lang][0]['value']['#default_value'] = $promo_code->code;
+          }
+        }
+      }
       break;
   }
   
@@ -734,106 +730,152 @@ function devis_form_entityform_basic_functionalities(&$form, &$form_state, $form
   $form['#attached']['css'][] = $theme_path .'/css/easydropdown.css';
   
   // Honorific, Name and Surname on the same line.
-  $lang = $form['field_honorific']['#language'];
-  $label = '<label for="edit-field-honorific-'. $lang .'">'. t('Last name') .' <span class="form-required" title="'. t('Ce champ est requis.') .'">*</span></label>';
-  $form['field_honorific']['#prefix'] = '<div class="container-wrapper">'. $label;
-  $form['field_honorific'][$lang]['#options'] = array('_none' => t('Civilité')) + $form['field_honorific'][$lang]['#options'];
-  $form['field_honorific'][$lang]['#title'] = t('Civilité');
-  $form['field_honorific'][$lang]['#title_display'] = 'invisible';
-  $form['field_honorific'][$lang]['#attributes']['class'][] = 'dropdown';
-  $form['field_honorific']['#attributes']['class'][] = 'dropdown-honorific';
-  
-  $lang = $form['field_prenom']['#language'];
-  $form['field_prenom'][$lang][0]['value']['#attributes']['placeholder'] = 
-  $form['field_prenom'][$lang][0]['value']['#title'] = t('First name');
-  $form['field_prenom'][$lang][0]['value']['#title_display'] = 'invisible';
+  if (isset($form['field_honorific'])) {
+    $lang = $form['field_honorific']['#language'];
+    $label = '<label for="edit-field-honorific-'. $lang .'">'. t('Last name') .' <span class="form-required" title="'. t('Ce champ est requis.') .'">*</span></label>';
+    $form['field_honorific']['#prefix'] = '<div class="container-wrapper">'. $label;
+    $form['field_honorific'][$lang]['#options'] = array('_none' => t('Civilité')) + $form['field_honorific'][$lang]['#options'];
+    $form['field_honorific'][$lang]['#title'] = t('Civilité');
+    $form['field_honorific'][$lang]['#title_display'] = 'invisible';
+    $form['field_honorific'][$lang]['#attributes']['class'][] = 'dropdown';
+    $form['field_honorific']['#attributes']['class'][] = 'dropdown-honorific';
 
-  $lang = $form['field_name']['#language'];
-  $form['field_name'][$lang][0]['value']['#attributes']['placeholder'] = 
-  $form['field_name'][$lang][0]['value']['#title'] = t('Last name');
-  $form['field_name'][$lang][0]['value']['#title_display'] = 'invisible';
-  $form['field_name']['#suffix'] = '</div>';
+    $lang = $form['field_prenom']['#language'];
+    $form['field_prenom'][$lang][0]['value']['#attributes']['placeholder'] = 
+    $form['field_prenom'][$lang][0]['value']['#title'] = t('First name');
+    $form['field_prenom'][$lang][0]['value']['#title_display'] = 'invisible';
+
+    $lang = $form['field_name']['#language'];
+    $form['field_name'][$lang][0]['value']['#attributes']['placeholder'] = 
+    $form['field_name'][$lang][0]['value']['#title'] = t('Last name');
+    $form['field_name'][$lang][0]['value']['#title_display'] = 'invisible';
+    $form['field_name']['#suffix'] = '</div>';
+  }
   
   // Email and telephone in the same line.
-  $lang = $form['field_email']['#language'];
-  $label = '<label for="edit-field-email-'. $lang .'">'. t('Contact') .' <span class="form-required" title="'. t('Ce champ est requis.') .'">*</span></label>';
-  $form['field_email']['#prefix'] = '<div class="container-wrapper">'. $label;
-  $form['field_email'][$lang][0]['email']['#title'] = 'E-mail';
-  $form['field_email'][$lang][0]['email']['#title_display'] = 'invisible';
-  $form['field_email'][$lang][0]['email']['#attributes']['placeholder'] = 'E-mail';
-  $form['field_email'][$lang][0]['email']['#attributes']['class'][] = 'input-fixed-width';
+  if (isset($form['field_email']) && isset($form['field_phone_belgium'])) {
+    $lang = $form['field_email']['#language'];
+    $label = '<label for="edit-field-email-'. $lang .'">'. t('Contact') .' <span class="form-required" title="'. t('Ce champ est requis.') .'">*</span></label>';
+    $form['field_email']['#prefix'] = '<div class="container-wrapper">'. $label;
+    $form['field_email'][$lang][0]['email']['#title'] = 'E-mail';
+    $form['field_email'][$lang][0]['email']['#title_display'] = 'invisible';
+    $form['field_email'][$lang][0]['email']['#attributes']['placeholder'] = 'E-mail';
+    $form['field_email'][$lang][0]['email']['#attributes']['class'][] = 'input-fixed-width';
   
-  $lang = $form['field_phone_belgium']['#language'];
-  $form['field_phone_belgium'][$lang][0]['value']['#title_display'] = 'invisible';
-  //$form['field_phone_belgium'][$lang][0]['value']['#prefix'] = '<span class="prefix-phone">+32</span>';
-  $form['field_phone_belgium'][$lang][0]['value']['#attributes']['placeholder'] = t('Telephone');
-  $form['field_phone_belgium'][$lang][0]['value']['#attributes']['class'][] = 'input-fixed-width';
-  $form['field_phone_belgium']['#suffix'] = '</div>';
+    $lang = $form['field_phone_belgium']['#language'];
+    $form['field_phone_belgium'][$lang][0]['value']['#title_display'] = 'invisible';
+    //$form['field_phone_belgium'][$lang][0]['value']['#prefix'] = '<span class="prefix-phone">+32</span>';
+    $form['field_phone_belgium'][$lang][0]['value']['#attributes']['placeholder'] = t('Telephone');
+    $form['field_phone_belgium'][$lang][0]['value']['#attributes']['class'][] = 'input-fixed-width';
+    $form['field_phone_belgium']['#suffix'] = '</div>';
+  }
   
   // Website.
-  $form['#after_build'][] = 'devis_form_devenir_entityform_edit_form_after_build';
+  if (isset($form['field_website'])) {
+    $form['#after_build'][] = 'devis_form_entityform_basic_after_build_website';
+  }
   
   // Address fields.
-  $lang = $form['field_adresse']['#language'];
-  $form['field_adresse'][$lang][0]['#prefix'] = '';
-  $form['field_adresse'][$lang][0]['#suffix'] = '';
-  $form['field_adresse'][$lang][0]['#title'] = '';
-  $form['field_adresse'][$lang][0]['#attributes']['class'][] = 'fieldset-hide';
-  $form['field_adresse'][$lang][0]['street_block']['thoroughfare']['#title'] = t('Address');
-  $form['field_adresse'][$lang][0]['street_block']['premise']['#attributes']['style'] = 'display: none;';
-  $form['field_adresse'][$lang][0]['street_block']['premise']['#title_display'] = 'invisible';
-  
-  // If the request is being checked by a manager, so it is not new.
-  if (in_array('manager', array_values($user->roles)) && !isset($form_state['build_info']['args'][0]->is_new)) {
-    $entity = $form_state['build_info']['args'][0];
-    $mail = $entity->field_email[$form['field_email']['#language']][0]['email'];
-    $lang = key($entity->field_approval);
-    $approval = $entity->field_approval[$lang][0]['value'];
-    // If the mail of the request is already registered.
-    if ($approval == 'pending') {
-      $account = user_load_by_mail($mail);
-      if ($account) {
-        drupal_set_message(t('Notice: The requester is already registered in the system: !user', array('!user' => theme('username', array('account' => $account)))), 'warning');
-        $form['actions']['#access'] = FALSE;
-      }
-    }
-    // If the request has been already approved or denied.
-    else {
-      drupal_set_message(t('Notice: This request can no longer be modified.'), 'warning');
-      $form['actions']['#access'] = FALSE;
-    }
-    $form_state['set_redirect'] = TRUE;
-  }
-  else {
-    if (user_is_anonymous()) {
-      $cid = variable_get('trois_devis_registration_promo_id', 0);
-      $promo_code = promo_code_load($cid);
-      if ($promo_code) {
-        drupal_set_message(t('Register now and get a !promo_discount EUR discount!', array('!promo_discount' => $promo_code->discount / 100)), 'promo');
-        $lang = $form['field_promotional_code']['#language'];
-        $form['field_promotional_code'][$lang][0]['value']['#default_value'] = $promo_code->code;
-      }
-    }
+  if (isset($form['field_adresse'])) {
+    $lang = $form['field_adresse']['#language'];
+    $form['field_adresse'][$lang][0]['#prefix'] = '';
+    $form['field_adresse'][$lang][0]['#suffix'] = '';
+    $form['field_adresse'][$lang][0]['#title'] = '';
+    $form['field_adresse'][$lang][0]['#attributes']['class'][] = 'fieldset-hide';
+    $form['field_adresse'][$lang][0]['street_block']['thoroughfare']['#title'] = t('Address');
+    $form['field_adresse'][$lang][0]['street_block']['premise']['#attributes']['style'] = 'display: none;';
+    $form['field_adresse'][$lang][0]['street_block']['premise']['#title_display'] = 'invisible';
   }
   
   // Extra validation rules.
-  $form['#validate'][] = 'devis_devenir_entityform_edit_form_validate';
-  $form['actions']['submit']['#validate'][] = 'devis_devenir_entityform_edit_form_validate';
-  
+  $form['#validate'][] = 'devis_form_entityform_basic_validate';
+  $form['actions']['submit']['#validate'][] = 'devis_form_entityform_basic_validate';
   // Extra submission rules.
-  $form['#submit'][] = 'devis_devenir_entityform_edit_form_submit';
-  $form['actions']['save']['#submit'][] = 'devis_devenir_entityform_edit_form_submit';
+  $form['#submit'][] = 'devis_form_entityform_basic_submit';
+  $form['actions']['save']['#submit'][] = 'devis_form_entityform_basic_submit';
 }
 
-/**
- * Implements hook_form_BASE_FORM_ID_alter().
- */
-function devis_form_devenir_fournisseur_photographe_entityform_edit_form_alter(&$form, &$form_state, $form_id) {
-  //dpm($form, 'form');
-  $lang = $form['field_social_link']['#language'];
+function devis_form_entityform_basic_validate($form, &$form_state) {
+  $values = $form_state['values'];
   
-  $form['field_social_link'][$lang]['social_buttons']['add_one_social']['#attributes']['class'][] = 'dropdown';
-  $form['field_years_experience'][$form['field_years_experience']['#language']]['#attributes']['class'][] = 'dropdown';
+  switch ($form['#entity']->type) {
+    case 'comptable':
+    case 'budget_photographer':
+      // Postal code validation.
+      if (module_exists('postal_code_validation')) {
+        $lang = $form['field_adresse']['#language'];
+        $address = $values['field_adresse'][$lang][0];
+        $postal_code = $address['postal_code'];
+        $country = $address['country'];
+        $result = postal_code_validation_validate($postal_code, $country);
+        if ($result['error']) {
+          form_set_error('field_adresse]['. $lang .'][0][postal_code', $result['error']);
+        }
+      }
+      
+      // If it's new, update the admin fields with the normal field values.
+      if (isset($form_state['build_info']['args'][0]->is_new)) {
+        if (isset($form['field_activity_admin'])) {
+          $lang = $form['field_activity_admin']['#language'];
+          $lang_act = $form['field_activity']['#language'];
+          $new_value = array($lang => array(0 => array('value' => $values['field_activity'][$lang_act][0]['value'])));
+          $value = array('#parents' => array('field_activity_admin'));
+          form_set_value($value, $new_value, $form_state);
+        }
+        if (isset($form['field_info_extra_admin'])) {
+          $lang = $form['field_info_extra_admin']['#language'];
+          $lang_act = $form['field_info_extra']['#language'];
+          $new_value = array($lang => array(0 => array('value' => $values['field_info_extra'][$lang_act][0]['value'])));
+          $value = array('#parents' => array('field_info_extra_admin'));
+          form_set_value($value, $new_value, $form_state);
+        }
+      }
+      break;
+      
+    case 'devenir':
+    case 'devenir_fournisseur_photographe':
+      // Check if the email has been registered. Only for new forms.
+      $lang = $form['field_email']['#language'];
+      if (user_load_by_mail($form_state['values']['field_email'][$lang][0]['email']) && isset($form['#entity']->is_new)) {
+        $site_name = variable_get('site_name', '3devis.be');
+        form_set_error('field_email]['. $lang .'][0][email', t('The specified email is already registered in !site_name.', array('!site_name' => $site_name)));
+      }
+      devis_field_tva_validate($form, $form_state);
+      break;
+  }
+  
+  devis_field_email_validate($form, $form_state);
+  devis_field_phone_belgium_validate($form, $form_state);
+  
+  // If the form was submitted and there are errors, 
+  // scroll the browser to the messages box.
+  // Add some variables to jQuery.
+  $error = isset($_SESSION['messages']['error']) ? TRUE : FALSE;
+  $data = array('submitted' => TRUE, 'error' => $error);
+  drupal_add_js(array('form_info' => $data), 'setting');
+}
+
+function devis_form_entityform_basic_submit($form, &$form_state) {
+  if (isset($form_state['set_redirect'])) {
+    switch ($form['#entity']->type) {
+      case 'comptable':
+      case 'budget_photographer':
+        $form_state['redirect'] = 'adminpage/request/budget';
+        break;
+        
+      case 'devenir':
+      case 'devenir_fournisseur_photographe':
+        $form_state['redirect'] = 'adminpage/request/provider';
+        break;
+    }
+  }
+}
+
+function devis_form_entityform_basic_after_build_website($form, &$form_state) {
+  if (isset($form['field_website'])) {
+    $form['field_website'][$form['field_website']['#language']][0]['url']['#attributes']['placeholder'] = 'www.siteweb.com';
+  }
+  return $form;
 }
 
 /**
@@ -844,40 +886,12 @@ function devis_form_devenir_entityform_edit_form_alter(&$form, &$form_state, $fo
 }
 
 /**
- * Validation for becoming accountant.
+ * Implements hook_form_BASE_FORM_ID_alter().
  */
-function devis_devenir_entityform_edit_form_validate($form, &$form_state) {
-  // Check if the email has been registered. Only for new forms.
-  $lang = $form['field_email']['#language'];
-  if (user_load_by_mail($form_state['values']['field_email'][$lang][0]['email']) && isset($form['#entity']->is_new)) {
-    $site_name = variable_get('site_name', '3devis.be');
-    form_set_error('field_email]['. $lang .'][0][email', t('The specified email is already registered in !site_name.', array('!site_name' => $site_name)));
-  }
-  
-  // E-mail check.
-  if (!valid_email_address($form_state['values']['field_email'][$lang][0]['email'])) {
-    form_set_error('field_email]['. $lang .'][0][email', t('The specified email is not a valid email.'));
-  }
-  devis_field_phone_belgium_validate($form, $form_state);
-  devis_field_tva_validate($form, $form_state);
-  
-  // If the form was submitted and there are errors, 
-  // scroll the browser to the messages box.
-  // Add some variables to jQuery.
-  $error = isset($_SESSION['messages']['error']) ? TRUE : FALSE;
-  $data = array('submitted' => TRUE, 'error' => $error);
-  drupal_add_js(array('form_info' => $data), 'setting');
-}
-
-function devis_devenir_entityform_edit_form_submit($form, &$form_state) {
-  if (isset($form_state['set_redirect'])) {
-    $form_state['redirect'] = 'adminpage/request/provider';
-  }
-}
-
-function devis_form_devenir_entityform_edit_form_after_build($form, &$form_state) {
-  $form['field_website'][$form['field_website']['#language']][0]['url']['#attributes']['placeholder'] = 'www.siteweb.com';
-  return $form;
+function devis_form_devenir_fournisseur_photographe_entityform_edit_form_alter(&$form, &$form_state, $form_id) {
+  $lang = $form['field_social_link']['#language'];
+  $form['field_social_link'][$lang]['social_buttons']['add_one_social']['#attributes']['class'][] = 'dropdown';
+  $form['field_years_experience'][$form['field_years_experience']['#language']]['#attributes']['class'][] = 'dropdown';
 }
 
 /**
@@ -1779,6 +1793,18 @@ function devis_menu_alter(&$items) {
 }
 
 function devis_mail_alter(&$message) {   
+}
+
+/**
+ * Check email.
+ */
+function devis_field_email_validate($form, $form_state) {
+  if (isset($form_state['values']['field_email'])) {
+    $lang = $form['field_email']['#language'];
+    if (!valid_email_address($form_state['values']['field_email'][$lang][0]['email'])) {
+      form_set_error('field_email]['. $lang .'][0][email', t('The specified email is not a valid email.'));
+    }
+  }
 }
 
 /*
