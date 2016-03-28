@@ -116,7 +116,8 @@ function devis_entity_view_alter(&$build, $type) {
   
   switch ($type) {
     case 'entityform':
-      if ($build['#bundle'] == 'comptable') {
+      $budgets = array('comptable', 'budget_photographer');
+      if (in_array($build['#bundle'], $budgets)) {
         $entityform = $build['#entity'];
         $markup = '';
         $lang = key($entityform->field_approval);
@@ -540,18 +541,20 @@ function devis_form_budget_photographer_entityform_edit_form_alter(&$form, &$for
 
 function devis_budget_photographer_entityform_edit_form_validate($form, &$form_state) {
   $values = $form_state['values'];
+  $event_type = $values['field_event_type'][$form['field_event_type']['#language']][0]['value'];
   
-  
-  
-  
-  
-  
-  // HACER EL CHEQUEO DE LOS USUARIOS A CONTACTAR PARA LOS ADMINS! SI NO HAY, NO DEJAR ACEPTAR EL FORMULARIO!
-  
-  
-  
-  
-  
+  // Do not go forward if there are no providers to contact and is being accepted.
+  $lang = $form['field_approval']['#language'];
+  if ($values['field_approval'][$lang][0]['value'] == 'approved') {
+    $lang = key($values['field_adresse']);
+    $postal_code = $values['field_adresse'][$lang][0]['postal_code'];
+    $regions = trois_devis_get_region_by_postal_code($postal_code) .'+BEL';
+    $result = views_get_view_result('provider', 'photographers_to_contact', $event_type, $regions);
+    
+    if (empty($result)) {
+      form_set_error('field_approval]['. $lang .'][0][value', t('This budget request cannot be approved yet. There are no providers to contact which match the specified parameters.'));
+    }
+  }
   
   $lang = $form['field_event_type_other']['#language'];
   $value = $values['field_event_type_other'][$lang][0]['value'];
@@ -1302,14 +1305,16 @@ function devis_form_commerce_stripe_cardonfile_create_form_alter(&$form, &$form_
   global $user;
   
   $orders = commerce_order_load_multiple(array(), array('uid' => $user->uid, 'status' => 'checkout_checkout'));
+  $stored_cards_valid = commerce_cardonfile_load_multiple_by_uid($user->uid, NULL, TRUE);
   $stored_cards = commerce_cardonfile_load_multiple_by_uid($user->uid);
-  // If it's the first card to add.
-  if ($orders || !$stored_cards) {
+  // If it's the first card to add or has no valid card, then
+  // set as the default card.
+  if ($orders || !$stored_cards_valid) {
     $form['credit_card']['cardonfile_instance_default']['#default_value'] = 1;
     $form['credit_card']['cardonfile_instance_default']['#access'] = FALSE;
   }
-  // If not, show the cancel button to go back.
-  else {
+  // If it has cards already show the cancel button to go back.
+  if ($stored_cards) {
     $form['submit']['#suffix'] = l(t('Cancel'), 'user/'. $user->uid .'/cards', array('attributes' => array('class' => array('cancel_url'))));
   }
   if ($orders) {
@@ -1359,40 +1364,53 @@ function devis_form_commerce_stripe_cardonfile_create_form_alter(&$form, &$form_
   
   // Change labels.
   $form['credit_card']['owner']['#title'] = t('Credit card owner');
+  //$form['credit_card']['owner']['#required'] = TRUE;
   $form['credit_card']['number']['#title'] = t('Credit card number');
+  //$form['credit_card']['number']['#required'] = TRUE;
     
+  //$label = '<label for="edit-credit-card-exp-month">'. t('Expiration date') .' <span class="form-required" title="'. t('Ce champ est requis.') .'">*</span></label>';
+  $label = '<label for="edit-credit-card-exp-month">'. t('Expiration date') .'</label>';
   $form['credit_card']['exp_month']['#title'] = t('Expiration date');
   $form['credit_card']['exp_month']['#title_display'] = 'invisible';
-  $form['credit_card']['exp_month']['#prefix'] .= '<label for="edit-credit-card-exp-month">'. t('Expiration date') .'</label>';
+  $form['credit_card']['exp_month']['#prefix'] .= $label;
   $form['credit_card']['exp_month']['#prefix'] .= '<div class="dropdown-expiration-date">';
   $form['credit_card']['exp_month']['#suffix'] = '</div>'. $form['credit_card']['exp_month']['#suffix'];
   $form['credit_card']['exp_month']['#attributes']['class'][] = 'dropdown';
+  //$form['credit_card']['exp_month']['#required'] = TRUE;
   
   $form['credit_card']['exp_year']['#prefix'] = '<div class="dropdown-expiration-date">';
   $form['credit_card']['exp_year']['#suffix'] = '</div>'. $form['credit_card']['exp_year']['#suffix'];
   $form['credit_card']['exp_year']['#attributes']['class'][] = 'dropdown';
+  //$form['credit_card']['exp_year']['#required'] = TRUE;
+  
+  //$form['credit_card']['code']['#required'] = TRUE;
   
   $form['submit']['#value'] = t('Validate');
   $form['submit']['#attributes']['class'] = array('card_submit');
   $form['submit']['#weight'] = 10;
   $form['credit_card']['cardonfile_instance_default']['#title'] = t('Set as your default credit card');
-  $form['address']['country']['#access'] = FALSE;
-  $form['address']['country']['#weight'] = 100;
+  
+  $form['commerce_customer_profile']['field_tva']['#access'] = FALSE;
+  $form['commerce_customer_profile']['field_is_new']['#access'] = FALSE;
+  $lang = $form['commerce_customer_profile']['commerce_customer_address']['#language'];
+  $form['commerce_customer_profile']['#weight'] = 5;
+  $form['commerce_customer_profile']['commerce_customer_address']['#weight'] = 5;
+  $form['commerce_customer_profile']['commerce_customer_address'][$lang][0]['organisation_block']['#access'] = FALSE;
+  $form['commerce_customer_profile']['commerce_customer_address'][$lang][0]['name_block']['#access'] = FALSE;
+  $form['commerce_customer_profile']['commerce_customer_address'][$lang][0]['country']['#access'] = FALSE;
   // This is now here as is not working on commerce stripe.
-  $form['address']['country']['#attributes']['class'][] = 'dropdown';
-  $form['address']['street_block']['thoroughfare']['#title'] = t('Address');
-  $form['address']['street_block']['premise']['#attributes']['style'] = 'display: none;';
-  $form['address']['street_block']['premise']['#title_display'] = 'invisible';
+  $form['commerce_customer_profile']['commerce_customer_address'][$lang][0]['street_block']['thoroughfare']['#title'] = t('Address');
+  $form['commerce_customer_profile']['commerce_customer_address'][$lang][0]['street_block']['premise']['#attributes']['style'] = 'display: none;';
+  $form['commerce_customer_profile']['commerce_customer_address'][$lang][0]['street_block']['premise']['#title_display'] = 'invisible';
   
   $form['card-info']['credit_card'] = $form['credit_card'];
-  $form['card-info']['address'] = $form['address'];
+  //$form['commerce_customer_profile'] = $form['commerce_customer_profile']['commerce_customer_address'];
   
-  unset($form['credit_card'], $form['address']);
+  unset($form['credit_card']);
   // Pass the default card to the next step in case there is one.
   $form['#submit'][] = 'devis_form_commerce_stripe_cardonfile_create_form_submit';
-  $stored_cards = commerce_cardonfile_load_multiple_by_uid($user->uid, NULL, TRUE);
-  if ($stored_cards) {
-    $default_card = current($stored_cards);
+  if ($stored_cards_valid) {
+    $default_card = current($stored_cards_valid);
     $form_state['default_card'] = $default_card;
   }
 }
