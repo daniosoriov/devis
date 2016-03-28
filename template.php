@@ -340,33 +340,10 @@ function devis_form_alter_submit($form, &$form_state) {
 }
 
 /**
- * Find the prices for a given legal status based on the products.
- */
-function devis_get_prices_from_legal_status($legal_status) {
-  $product_key = trois_devis_get_product_from_status($legal_status);
-  $products = commerce_product_load_multiple(array(), array('type' => 'devis'));
-  $keep = $temp = $order = array();
-  foreach ($products as $key => $product) {
-    if (substr($product->sku, 0, -5) == $product_key) {
-      $price = commerce_product_calculate_sell_price($product);
-      $price_display = commerce_currency_format($price['amount'], $price['currency_code'], $product);
-      $temp[$key] = $price_display;
-      $order[$key] = $price['amount'];
-    }
-  }
-  asort($order, SORT_NUMERIC);
-  foreach ($order as $key => $price) {
-    $keep[$key] = $temp[$key];
-  }
-  return $keep;
-}
-
-/**
  * Implements hook_form_BASE_FORM_ID_alter().
  */
 function devis_form_comptable_entityform_edit_form_alter(&$form, &$form_state, $form_id) {
   global $user;
-  $manager_view = (in_array('manager', $user->roles) && !isset($form_state['build_info']['args'][0]->is_new)) ? TRUE : FALSE;
   
   $lang = $form['field_info_extra']['#language'];
   $desc = $form['field_info_extra'][$lang][0]['value']['#description'];
@@ -382,29 +359,6 @@ function devis_form_comptable_entityform_edit_form_alter(&$form, &$form_state, $
   
   $lang = $form['field_change_accountant_reason']['#language'];
   $form['field_change_accountant_reason'][$lang]['#options']['_none'] = t('- Select -');
-  
-  // Admin fields.
-  $lang = $form['field_activity_admin']['#language'];
-  $form['field_activity_admin'][$lang][0]['value']['#prefix'] = '<div class="admin-field">';
-  $form['field_activity_admin'][$lang][0]['value']['#suffix'] = '</div>';
-  
-  $lang = $form['field_info_extra_admin']['#language'];
-  $form['field_info_extra_admin'][$lang][0]['value']['#prefix'] = '<div class="admin-field">';
-  $form['field_info_extra_admin'][$lang][0]['value']['#suffix'] = '</div>';
-  
-  if ($manager_view) {
-    $form['field_legal_status']['#disabled'] = TRUE;
-    
-    $lang = $form['field_activity']['#language'];
-    $form['field_activity'][$lang][0]['value']['#prefix'] = '<div class="warning-field">';
-    $form['field_activity'][$lang][0]['value']['#suffix'] = '</div>';
-    $form['field_activity'][$lang][0]['value']['#title'] .= ' (Sensitive)';
-
-    $lang = $form['field_info_extra']['#language'];
-    $form['field_info_extra'][$lang][0]['value']['#prefix'] = '<div class="warning-field">';
-    $form['field_info_extra'][$lang][0]['value']['#suffix'] = '</div>';
-    $form['field_info_extra'][$lang][0]['value']['#title'] .= ' (Sensitive)';
-  }
   
   // Amounts.
   $lang = $form['field_estimated_annual_revenue']['#language'];
@@ -540,14 +494,6 @@ function devis_form_comptable_entityform_edit_form_after_build($form, &$form_sta
   );
   drupal_add_js(array('comptable' => $comptable), 'setting');
   
-  // Drupal cannot handle this amount of data in javascript, the page breaks.
-  /*$prices = array();
-  foreach ($form['field_legal_status'][$form['field_legal_status']['#language']]['#options'] as $key => $val) {
-    $options = devis_get_prices_from_legal_status($key);
-    $prices[$key] = $options;
-  }
-  drupal_add_js(array('prices' => $prices), 'setting');*/
-  
   if ($form['field_legal_status'][$form['field_legal_status']['#language']]['#value'] == 'association') {
     $form['field_company_name']['#title'] = 
       $form['field_company_name'][$lang]['#title'] = t('Nom de votre association');
@@ -610,28 +556,28 @@ function devis_budget_photographer_entityform_edit_form_validate($form, &$form_s
   $lang = $form['field_event_type_other']['#language'];
   $value = $values['field_event_type_other'][$lang][0]['value'];
   if (isset($value)) $value = trim($value);
-  if ($values['field_event_type'][$form['field_event_type']['#language']][0]['value'] == 'nonexistent' && !$value) {
+  if ($values['field_event_type'][$form['field_event_type']['#language']][0]['value'] == 'other' && !$value) {
     $label = $form['field_event_type_other'][$lang]['#title'];
     form_set_error('field_event_type_other]['. $lang .'][0][value', t('Le champ !label est requis.', array('!label' => $label)));
   }
   $lang = $form['field_event_attendees_other']['#language'];
   $value = $values['field_event_attendees_other'][$lang][0]['value'];
   if (isset($value)) $value = trim($value);
-  if ($values['field_event_attendees'][$form['field_event_attendees']['#language']][0]['value'] == 'nonexistent' && !$value) {
+  if ($values['field_event_attendees'][$form['field_event_attendees']['#language']][0]['value'] == 'other' && !$value) {
     $label = $form['field_event_attendees_other'][$lang]['#title'];
     form_set_error('field_event_attendees_other]['. $lang .'][0][value', t('Le champ !label est requis.', array('!label' => $label)));
   }
   $lang = $form['field_photo_style_other']['#language'];
   $value = $values['field_photo_style_other'][$lang][0]['value'];
   if (isset($value)) $value = trim($value);
-  if ($values['field_photo_style'][$form['field_photo_style']['#language']][0]['value'] == 'nonexistent' && !$value) {
+  if ($values['field_photo_style'][$form['field_photo_style']['#language']][0]['value'] == 'other' && !$value) {
     $label = $form['field_photo_style_other'][$lang]['#title'];
     form_set_error('field_photo_style_other]['. $lang .'][0][value', t('Le champ !label est requis.', array('!label' => $label)));
   }
   $lang = $form['field_photo_budget_other']['#language'];
   $value = $values['field_photo_budget_other'][$lang][0]['value'];
   if (isset($value)) $value = trim($value);
-  if ($values['field_photo_budget'][$form['field_photo_budget']['#language']][0]['value'] == 'nonexistent' && !$value) {
+  if ($values['field_photo_budget'][$form['field_photo_budget']['#language']][0]['value'] == 'other' && !$value) {
     $label = $form['field_photo_budget_other'][$lang]['#title'];
     form_set_error('field_photo_budget_other]['. $lang .'][0][value', t('Le champ !label est requis.', array('!label' => $label)));
   }
@@ -639,6 +585,9 @@ function devis_budget_photographer_entityform_edit_form_validate($form, &$form_s
 
 function devis_form_entityform_basic_functionalities(&$form, &$form_state, $form_id) {
   global $user;
+  
+  $manager_view = (in_array('manager', $user->roles) && !isset($form_state['build_info']['args'][0]->is_new)) ? TRUE : FALSE;
+  $form_state['manager_view'] = $manager_view;
   
   switch ($form['#entity']->type) {
     case 'comptable':
@@ -649,8 +598,6 @@ function devis_form_entityform_basic_functionalities(&$form, &$form_state, $form
       }
 
       // If a manager/admin is viewing the form.
-      $manager_view = (in_array('manager', $user->roles) && !isset($form_state['build_info']['args'][0]->is_new)) ? TRUE : FALSE;
-      $form_state['manager_view'] = $manager_view;
       if ($manager_view) {
         $entity = $form_state['build_info']['args'][0];
         $lang = key($entity->field_approval);
@@ -664,11 +611,12 @@ function devis_form_entityform_basic_functionalities(&$form, &$form_state, $form
           switch ($form_id) {
             case 'comptable_entityform_edit_form':
               drupal_set_message(t('Notice: Please check the sensitive information fields: Additional Information and Activity'), 'warning');
+              
+              $lang = $form['field_legal_status']['#language'];
               $legal_status = (isset($form_state['values'])) ? 
-                $form_state['values']['field_legal_status'][$form['field_legal_status']['#language']][0]['value'] : 
-                $form['field_legal_status'][$form['field_legal_status']['#language']]['#default_value'][0];
-
-              $keep = devis_get_prices_from_legal_status($legal_status);
+                $form_state['values']['field_legal_status'][$lang][0]['value'] : 
+                $form['field_legal_status'][$lang]['#default_value'][0];
+              $keep = trois_devis_get_budget_prices($form['#entity']->type, $legal_status);
               unset($form['field_devis_product'][$form['field_devis_product']['#language']]['#options']);
               foreach ($keep as $key => $val) {
                 $form['field_devis_product'][$form['field_devis_product']['#language']]['#options'][$key] = $val;
@@ -676,6 +624,17 @@ function devis_form_entityform_basic_functionalities(&$form, &$form_state, $form
               break;
               
             case 'budget_photographer_entityform_edit_form':
+              drupal_set_message(t('Notice: Please check the sensitive information field: Additional Information'), 'warning');
+              
+              $lang = $form['field_event_type']['#language'];
+              $event_type = (isset($form_state['values'])) ? 
+                $form_state['values']['field_event_type'][$lang][0]['value'] : 
+                $form['field_event_type'][$lang]['#default_value'][0];
+              $keep = trois_devis_get_budget_prices($form['#entity']->type, $event_type);
+              unset($form['field_devis_product'][$form['field_devis_product']['#language']]['#options']);
+              foreach ($keep as $key => $val) {
+                $form['field_devis_product'][$form['field_devis_product']['#language']]['#options'][$key] = $val;
+              }
               break;
           }
         }
@@ -691,7 +650,7 @@ function devis_form_entityform_basic_functionalities(&$form, &$form_state, $form
       }
       
       // If the request is being checked by a manager, so it is not new.
-      if (in_array('manager', array_values($user->roles)) && !isset($form_state['build_info']['args'][0]->is_new)) {
+      if ($manager_view) {
         $entity = $form_state['build_info']['args'][0];
         $mail = $entity->field_email[$form['field_email']['#language']][0]['email'];
         $lang = key($entity->field_approval);
@@ -785,6 +744,37 @@ function devis_form_entityform_basic_functionalities(&$form, &$form_state, $form
     $form['field_adresse'][$lang][0]['street_block']['thoroughfare']['#title'] = t('Address');
     $form['field_adresse'][$lang][0]['street_block']['premise']['#attributes']['style'] = 'display: none;';
     $form['field_adresse'][$lang][0]['street_block']['premise']['#title_display'] = 'invisible';
+  }
+  
+  if ($manager_view) {  
+    if (isset($form['field_legal_status'])) {
+      $form['field_legal_status']['#disabled'] = TRUE;
+    }
+    if (isset($form['field_event_type'])) {
+      $form['field_event_type']['#disabled'] = TRUE;
+    }
+    if (isset($form['field_activity'])) {
+      $lang = $form['field_activity']['#language'];
+      $form['field_activity'][$lang][0]['value']['#prefix'] = '<div class="warning-field">';
+      $form['field_activity'][$lang][0]['value']['#suffix'] = '</div>';
+      $form['field_activity'][$lang][0]['value']['#title'] .= ' (Sensitive)';
+    }
+    if (isset($form['field_activity_admin'])) {
+      $lang = $form['field_activity_admin']['#language'];
+      $form['field_activity_admin'][$lang][0]['value']['#prefix'] = '<div class="admin-field">';
+      $form['field_activity_admin'][$lang][0]['value']['#suffix'] = '</div>';
+    }
+    if (isset($form['field_info_extra'])) {
+      $lang = $form['field_info_extra']['#language'];
+      $form['field_info_extra'][$lang][0]['value']['#prefix'] = '<div class="warning-field">';
+      $form['field_info_extra'][$lang][0]['value']['#suffix'] = '</div>';
+      $form['field_info_extra'][$lang][0]['value']['#title'] .= ' (Sensitive)';
+    }
+    if (isset($form['field_info_extra_admin'])) {
+      $lang = $form['field_info_extra_admin']['#language'];
+      $form['field_info_extra_admin'][$lang][0]['value']['#prefix'] = '<div class="admin-field">';
+      $form['field_info_extra_admin'][$lang][0]['value']['#suffix'] = '</div>';
+    }
   }
   
   // Extra validation rules.

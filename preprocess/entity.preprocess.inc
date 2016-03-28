@@ -8,7 +8,8 @@ function devis_preprocess_entity(&$variables, $hook) {
   $view_mode = $variables['view_mode'];
   
   // Entityform demander devis.
-  if ($entity_type == 'entityform' && $variables['elements']['#entity_type'] == 'entityform' && $variables['elements']['#bundle'] == 'comptable') {
+  $budgets = array('comptable', 'budget_photographer');
+  if ($entity_type == 'entityform' && $variables['elements']['#entity_type'] == 'entityform' && in_array($variables['elements']['#bundle'], $budgets)) {
     $entityform = $variables['entityform'];
     $info_list = trois_devis_entity_get_hash_list($entityform->entityform_id);
     
@@ -65,10 +66,12 @@ function devis_preprocess_entity(&$variables, $hook) {
     if (isset($variables['content']['group_contact']['field_company_name'])) {
       $variables['content']['group_contact']['field_company_name']['#title'] = t('Société');
     }
-    $variables['content']['group_contact']['field_tva']['#access'] = 
-      $variables['elements']['field_tva']['#access'] = 
-      $variables['content']['group_client']['group_client_first']['field_tva']['#access'] = 
-      $variables['elements']['group_client']['group_client_first']['field_tva']['#access'] = TRUE;
+    if (isset($variables['content']['group_contact']['field_tva'])) {
+      $variables['content']['group_contact']['field_tva']['#access'] = 
+        $variables['elements']['field_tva']['#access'] = 
+        $variables['content']['group_client']['group_client_first']['field_tva']['#access'] = 
+        $variables['elements']['group_client']['group_client_first']['field_tva']['#access'] = TRUE;
+    }
     if (isset($variables['content']['group_information']['field_legal_status']) && 
         $variables['content']['group_information']['field_legal_status']['#items'][0]['value'] == 'association') {
       $variables['content']['group_contact']['field_company_name']['#title'] = t('Association');
