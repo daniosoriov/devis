@@ -169,6 +169,11 @@ function devis_preprocess_panels_pane(&$variables) {
         $left  = '<span class="green" title="'. t('Remaining') .'">'. $promo_left .' EUR</span>';
         $promo_val = ($promo) ? ' ('. $left .' | '. $used .' | '. $total .')' : 'Not valid/Not applicable';
         $variables['content']['system_main']['field_promotional_code'][0]['#markup'] .= $promo_val;
+        
+        // If admin is checking an user profile and there's no promo, show it.
+        if (!$promo && in_array('provider', $user->roles)) {
+          $variables['content']['system_main']['field_promotional_code']['#access'] = FALSE;
+        }
       }
       
       $variables['content']['system_main']['user_mail']['#title'] = 'E-mail';
