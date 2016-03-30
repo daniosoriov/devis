@@ -87,7 +87,7 @@ function devis_preprocess_views_view_table(&$variables) {
     
     case 'provider':
       switch ($variables['view']->current_display) {
-        case 'accountant_list':
+        case 'provider_report_list':
           $change = array(
             'field_contacted_this_month' => 'Contacted this month',
             'field_contacted_total' => 'Contacted total',
@@ -101,6 +101,10 @@ function devis_preprocess_views_view_table(&$variables) {
           foreach ($variables['rows'] as $key => $res) {
             $date = format_date($variables['result'][$key]->users_created, 'month_short_year', '', NULL, 'en');
             $variables['rows'][$key]['created'] = $date;
+            
+            $status = $variables['rows'][$key]['field_account_activity_status'];
+            $new_status = '<span class="'. (($status == 'Actif') ? 'Approved' : 'Denied') .'">'. $status .'</span>';
+            $variables['rows'][$key]['field_account_activity_status'] = $new_status;
           }
         break;
       }
@@ -118,13 +122,6 @@ function devis_preprocess_views_view_table(&$variables) {
       
     case 'provider_request_list':
     case 'budget_list':
-      // Try to change the filter values.
-      // IT DOESN'T WORK!
-      foreach ($variables['view']->filter['type']->value_options as $key => $res) {
-        $pieces = explode(' ', $res);
-        $type = ucwords(array_pop($pieces));
-        $variables['view']->filter['type']->value_options[$key] = $type;
-      }
       // Change the column values to a smaller value.
       foreach ($variables['rows'] as $key => $res) {
         $pieces = explode(' ', $res['label']);

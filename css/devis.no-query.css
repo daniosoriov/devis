@@ -1081,10 +1081,10 @@ tbody td {
   tbody td div {
     margin: 0; }
 @media -sass-debug-info{filename{font-family:file\:\/\/\/Applications\/MAMP\/htdocs\/3devis\/sites\/all\/themes\/devis\/sass\/base\/_tables\.scss}line{font-family:\0000362}}
-  tbody td.Approved {
+  tbody td.Approved, tbody td span.Approved {
     color: rgba(0, 103, 0, 0.6); }
 @media -sass-debug-info{filename{font-family:file\:\/\/\/Applications\/MAMP\/htdocs\/3devis\/sites\/all\/themes\/devis\/sass\/base\/_tables\.scss}line{font-family:\0000367}}
-  tbody td.Denied {
+  tbody td.Denied, tbody td span.Denied {
     color: rgba(190, 0, 0, 0.6); }
 @media -sass-debug-info{filename{font-family:file\:\/\/\/Applications\/MAMP\/htdocs\/3devis\/sites\/all\/themes\/devis\/sass\/base\/_tables\.scss}line{font-family:\0000372}}
   tbody td.Pending {

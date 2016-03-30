@@ -59,12 +59,12 @@ tbody {
       margin: 0;
     }
     
-    &.Approved {
+    &.Approved, span.Approved {
       color: $color-status-approved;
       //background: $color-status-approved-background;
     }
     
-    &.Denied {
+    &.Denied, span.Denied {
       color: $color-status-denied;
       //background: $color-status-denied-background;
     }

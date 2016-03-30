@@ -298,6 +298,23 @@ function devis_form_alter(&$form, &$form_state, $form_id) {
       $form['#submit'][] = 'devis_form_alter_submit';
       $form['actions']['cancel']['#href'] = $redirect;
       break;
+      
+    case 'views_exposed_form':
+      switch ($form['#id']) {
+        case 'views-exposed-form-provider-request-list-page':
+          if (isset($form['type'])) {
+            $form['type']['#options']['devenir'] = 'Accountant/Comptable';
+            $form['type']['#options']['devenir_fournisseur_photographe'] = 'Photographer/Photographe';
+          }
+          break;
+          
+        case 'views-exposed-form-provider-provider-report-list':
+          if (isset($form['field_provider_type_tid'])) {
+            $form['field_provider_type_tid']['#description'] = '';
+          }
+          break;
+      }
+      break;
   }
 }
 
