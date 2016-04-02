@@ -161,6 +161,12 @@ $color-input-error-hover-border: fade-out($red, .1);
 
 $color-label: lighten(black, 15);
 
+$color-datepicker-arrow-background: darken(white, 3);
+$color-datepicker-highlight: fade-out($base-color, .85);
+$color-datepicker-active: fade-out($color-input-active-border, .6);
+$color-datepicker-hover: fade-out($green-base, .85);
+$color-datepicker-weekend: darken(white, 3);
+
 /* Autocomplete. */
 $color-div-autocomplete: $default-color-blue;
 $color-div-autocomplete-background: white;

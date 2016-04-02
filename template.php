@@ -529,6 +529,20 @@ function devis_date_combo($variables) {
 }
 
 /**
+ * Returns HTML for a date_select 'date' label.
+ *
+ * Based on: https://www.drupal.org/node/1250626
+ * This is used to change the date of the field date.
+ */
+function devis_date_part_label_date($vars) {
+  if ('' == $vars['element']['#field']['field_name']) {
+    return t($vars['element']['#date_title']);
+  } else {
+    return t('Event date');
+  }
+}
+
+/**
  * Implements hook_form_BASE_FORM_ID_alter().
  */
 function devis_form_budget_photographer_entityform_edit_form_alter(&$form, &$form_state, $form_id) {
@@ -551,9 +565,25 @@ function devis_form_budget_photographer_entityform_edit_form_alter(&$form, &$for
   $lang = $form['field_event_date']['#language'];
   unset($form['field_event_date'][$lang][0]['#title']);
   
+  $lang = $form['field_adresse']['#language'];
+  unset($form['field_adresse'][$lang][0]['element_description']);
+  $desc = $form['field_adresse'][$lang]['#description'];
+  $form['field_adresse'][$lang][0]['locality_block']['postal_code']['#description'] = $desc;
+  
   // Extra validation rules.
   $form['#validate'][] = 'devis_budget_photographer_entityform_edit_form_validate';
   $form['actions']['submit']['#validate'][] = 'devis_budget_photographer_entityform_edit_form_validate';
+}
+
+/**
+ * Implements hook_field_widget_WIDGET_TYPE_form_alter().
+ *
+ * Based on: http://www.failover.co/snippets/address-field-addressfield-fieldset-removal
+ * Remove the fieldset from the address field. In case we need to 
+ * keep it for a specific form we can play with $element and $context.
+ */
+function devis_field_widget_addressfield_standard_form_alter(&$element, &$form_state, $context) {
+  $element['#type'] = 'container';
 }
 
 function devis_budget_photographer_entityform_edit_form_validate($form, &$form_state) {
@@ -580,6 +610,54 @@ function devis_budget_photographer_entityform_edit_form_validate($form, &$form_s
     $label = $form['field_event_type_other'][$lang]['#title'];
     form_set_error('field_event_type_other]['. $lang .'][0][value', t('Le champ !label est requis.', array('!label' => $label)));
   }
+  
+  $lang = $form['field_event_type']['#language'];
+  $value = $values['field_event_type'][$lang][0]['value'];
+  switch ($value) {
+    // If in conference or in corporate, check the copyrights.
+    case 'corporate':
+    case 'conference':
+      $lang = $form['field_photo_copyright']['#language'];
+      $value = $values['field_photo_copyright'][$lang][0]['value'];
+      if (isset($value)) $value = trim($value);
+      if (!$value) {
+        $label = $form['field_photo_copyright'][$lang]['#title'];
+        form_set_error('field_photo_copyright]['. $lang .'][0][value', t('Le champ !label est requis.', array('!label' => $label)));
+      }
+      $lang = $form['field_photo_copyright_other']['#language'];
+      $value = $values['field_photo_copyright_other'][$lang][0]['value'];
+      if (isset($value)) $value = trim($value);
+      if ($values['field_photo_copyright'][$form['field_photo_copyright']['#language']][0]['value'] == 'other' && !$value) {
+        $label = $form['field_photo_copyright_other'][$lang]['#title'];
+        form_set_error('field_photo_copyright_other]['. $lang .'][0][value', t('Le champ !label est requis.', array('!label' => $label)));
+      }
+      break;
+      
+    // If in wedding check the coverage.
+    case 'wedding':
+      $lang = $form['field_wedding_coverage']['#language'];
+      $value = $values['field_wedding_coverage'][$lang][0]['value'];
+      if (isset($value)) $value = trim($value);
+      if (!$value) {
+        $label = $form['field_wedding_coverage'][$lang]['#title'];
+        form_set_error('field_wedding_coverage]['. $lang .'][0][value', t('Le champ !label est requis.', array('!label' => $label)));
+      }
+      $lang = $form['field_wedding_coverage_other']['#language'];
+      $value = $values['field_wedding_coverage_other'][$lang][0]['value'];
+      if (isset($value)) $value = trim($value);
+      if ($values['field_wedding_coverage'][$form['field_wedding_coverage']['#language']][0]['value'] == 'other' && !$value) {
+        $label = $form['field_wedding_coverage_other'][$lang]['#title'];
+        form_set_error('field_wedding_coverage_other]['. $lang .'][0][value', t('Le champ !label est requis.', array('!label' => $label)));
+      }
+      break;
+  }
+  $lang = $form['field_event_type_other']['#language'];
+  $value = $values['field_event_type_other'][$lang][0]['value'];
+  if (isset($value)) $value = trim($value);
+  if ($values['field_event_type'][$form['field_event_type']['#language']][0]['value'] == 'other' && !$value) {
+    $label = $form['field_event_type_other'][$lang]['#title'];
+    form_set_error('field_event_type_other]['. $lang .'][0][value', t('Le champ !label est requis.', array('!label' => $label)));
+  }
   $lang = $form['field_event_attendees_other']['#language'];
   $value = $values['field_event_attendees_other'][$lang][0]['value'];
   if (isset($value)) $value = trim($value);
@@ -587,19 +665,24 @@ function devis_budget_photographer_entityform_edit_form_validate($form, &$form_s
     $label = $form['field_event_attendees_other'][$lang]['#title'];
     form_set_error('field_event_attendees_other]['. $lang .'][0][value', t('Le champ !label est requis.', array('!label' => $label)));
   }
-  $lang = $form['field_photo_style_other']['#language'];
-  $value = $values['field_photo_style_other'][$lang][0]['value'];
-  if (isset($value)) $value = trim($value);
-  if ($values['field_photo_style'][$form['field_photo_style']['#language']][0]['value'] == 'other' && !$value) {
-    $label = $form['field_photo_style_other'][$lang]['#title'];
-    form_set_error('field_photo_style_other]['. $lang .'][0][value', t('Le champ !label est requis.', array('!label' => $label)));
-  }
   $lang = $form['field_photo_budget_other']['#language'];
   $value = $values['field_photo_budget_other'][$lang][0]['value'];
   if (isset($value)) $value = trim($value);
   if ($values['field_photo_budget'][$form['field_photo_budget']['#language']][0]['value'] == 'other' && !$value) {
     $label = $form['field_photo_budget_other'][$lang]['#title'];
     form_set_error('field_photo_budget_other]['. $lang .'][0][value', t('Le champ !label est requis.', array('!label' => $label)));
+  }
+  $lang = $form['field_photo_format_other']['#language'];
+  $value = $values['field_photo_format_other'][$lang][0]['value'];
+  if (isset($value)) $value = trim($value);
+  if ($values['field_photo_format'][$form['field_photo_format']['#language']][0]['value'] == 'other' && !$value) {
+    $label = $form['field_photo_format_other'][$lang]['#title'];
+    form_set_error('field_photo_format_other]['. $lang .'][0][value', t('Le champ !label est requis.', array('!label' => $label)));
+  }
+  $lang = $form['field_event_date']['#language'];
+  $value = $values['field_event_date'][$lang][0]['value'];
+  if (strtotime($value) < time()) {
+    form_set_error('field_event_date]['. $lang .'][0][value', t("La date de l'événement ne peut pas être avant aujourd'hui."));
   }
 }
 
@@ -1252,8 +1335,6 @@ function devis_user_profile_form_validate($form, &$form_state) {
     // Photographer
     case 12:
     case 13:
-      
-      dpm('Check that at least one option is selected in years of experience. VALIDATE');
       break;
   }
   
@@ -1421,7 +1502,8 @@ function devis_form_commerce_stripe_cardonfile_create_form_alter(&$form, &$form_
   $form['commerce_customer_profile']['commerce_customer_address'][$lang][0]['street_block']['premise']['#title_display'] = 'invisible';
   
   $form['card-info']['credit_card'] = $form['credit_card'];
-  //$form['commerce_customer_profile'] = $form['commerce_customer_profile']['commerce_customer_address'];
+  $form['card-info']['commerce_customer_profile'] = $form['commerce_customer_profile'];
+  $form['commerce_customer_profile']['#access'] = FALSE;
   
   unset($form['credit_card']);
   // Pass the default card to the next step in case there is one.

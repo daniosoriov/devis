@@ -938,36 +938,94 @@ div#edit-field-has-accountant-und div.form-item-field-has-accountant-und {
     margin-left: 16px;
     margin-left: 1rem; }
 
+/* Datepicker */
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Applications\/MAMP\/htdocs\/3devis\/sites\/all\/themes\/devis\/sass\/base\/_forms\.scss}line{font-family:\00003407}}
+#ui-datepicker-div {
+  background: white;
+  border: 1px solid #d9d9d9;
+  padding: 4px;
+  padding: 0.25rem;
+  -webkit-box-shadow: 0px 1px 15px -3px rgba(0, 0, 0, 0.2);
+  -moz-box-shadow: 0px 1px 15px -3px rgba(0, 0, 0, 0.2);
+  box-shadow: 0px 1px 15px -3px rgba(0, 0, 0, 0.2); }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Applications\/MAMP\/htdocs\/3devis\/sites\/all\/themes\/devis\/sass\/base\/_forms\.scss}line{font-family:\00003413}}
+  #ui-datepicker-div .ui-datepicker-header {
+    background: transparent;
+    border: none;
+    padding: 4px 0px;
+    padding: 0.25rem 0rem; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Applications\/MAMP\/htdocs\/3devis\/sites\/all\/themes\/devis\/sass\/base\/_forms\.scss}line{font-family:\00003418}}
+    #ui-datepicker-div .ui-datepicker-header .ui-datepicker-prev, #ui-datepicker-div .ui-datepicker-header .ui-datepicker-next {
+      top: 8px; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Applications\/MAMP\/htdocs\/3devis\/sites\/all\/themes\/devis\/sass\/base\/_forms\.scss}line{font-family:\00003421}}
+    #ui-datepicker-div .ui-datepicker-header .ui-datepicker-prev-hover, #ui-datepicker-div .ui-datepicker-header .ui-datepicker-next-hover {
+      background: #f7f7f7;
+      border: none; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Applications\/MAMP\/htdocs\/3devis\/sites\/all\/themes\/devis\/sass\/base\/_forms\.scss}line{font-family:\00003425}}
+    #ui-datepicker-div .ui-datepicker-header .ui-datepicker-prev-hover {
+      left: 2px; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Applications\/MAMP\/htdocs\/3devis\/sites\/all\/themes\/devis\/sass\/base\/_forms\.scss}line{font-family:\00003428}}
+    #ui-datepicker-div .ui-datepicker-header .ui-datepicker-next-hover {
+      right: 2px; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Applications\/MAMP\/htdocs\/3devis\/sites\/all\/themes\/devis\/sass\/base\/_forms\.scss}line{font-family:\00003434}}
+  #ui-datepicker-div .ui-datepicker-calendar thead {
+    background: transparent; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Applications\/MAMP\/htdocs\/3devis\/sites\/all\/themes\/devis\/sass\/base\/_forms\.scss}line{font-family:\00003438}}
+  #ui-datepicker-div .ui-datepicker-calendar tbody tr:hover {
+    background: none; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Applications\/MAMP\/htdocs\/3devis\/sites\/all\/themes\/devis\/sass\/base\/_forms\.scss}line{font-family:\00003441}}
+  #ui-datepicker-div .ui-datepicker-calendar tbody .ui-state-default, #ui-datepicker-div .ui-datepicker-calendar tbody .ui-state-highlight, #ui-datepicker-div .ui-datepicker-calendar tbody .ui-state-active {
+    border: none; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Applications\/MAMP\/htdocs\/3devis\/sites\/all\/themes\/devis\/sass\/base\/_forms\.scss}line{font-family:\00003443}}
+    #ui-datepicker-div .ui-datepicker-calendar tbody .ui-state-default:hover, #ui-datepicker-div .ui-datepicker-calendar tbody .ui-state-highlight:hover, #ui-datepicker-div .ui-datepicker-calendar tbody .ui-state-active:hover {
+      background: rgba(111, 134, 142, 0.15); }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Applications\/MAMP\/htdocs\/3devis\/sites\/all\/themes\/devis\/sass\/base\/_forms\.scss}line{font-family:\00003447}}
+  #ui-datepicker-div .ui-datepicker-calendar tbody .ui-state-default {
+    background: transparent; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Applications\/MAMP\/htdocs\/3devis\/sites\/all\/themes\/devis\/sass\/base\/_forms\.scss}line{font-family:\00003450}}
+  #ui-datepicker-div .ui-datepicker-calendar tbody .ui-state-highlight {
+    background: rgba(255, 181, 0, 0.15); }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Applications\/MAMP\/htdocs\/3devis\/sites\/all\/themes\/devis\/sass\/base\/_forms\.scss}line{font-family:\00003453}}
+  #ui-datepicker-div .ui-datepicker-calendar tbody .ui-state-active {
+    background: rgba(0, 106, 199, 0.4); }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Applications\/MAMP\/htdocs\/3devis\/sites\/all\/themes\/devis\/sass\/base\/_forms\.scss}line{font-family:\00003456}}
+  #ui-datepicker-div .ui-datepicker-calendar tbody .ui-datepicker-week-end {
+    background: #f7f7f7; }
+
 /* Fix weird behaviors. Especial cases. */
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Applications\/MAMP\/htdocs\/3devis\/sites\/all\/themes\/devis\/sass\/base\/_forms\.scss}line{font-family:\00003408}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Applications\/MAMP\/htdocs\/3devis\/sites\/all\/themes\/devis\/sass\/base\/_forms\.scss}line{font-family:\00003465}}
 #edit-field-event-date-und-0-value {
   padding-bottom: 8px;
   padding-bottom: 0.5rem; }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Applications\/MAMP\/htdocs\/3devis\/sites\/all\/themes\/devis\/sass\/base\/_forms\.scss}line{font-family:\00003412}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Applications\/MAMP\/htdocs\/3devis\/sites\/all\/themes\/devis\/sass\/base\/_forms\.scss}line{font-family:\00003468}}
+#edit-field-adresse-und-0-locality {
+  width: 100%; }
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Applications\/MAMP\/htdocs\/3devis\/sites\/all\/themes\/devis\/sass\/base\/_forms\.scss}line{font-family:\00003472}}
 fieldset.group-address-top {
   margin-bottom: 0; }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Applications\/MAMP\/htdocs\/3devis\/sites\/all\/themes\/devis\/sass\/base\/_forms\.scss}line{font-family:\00003416}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Applications\/MAMP\/htdocs\/3devis\/sites\/all\/themes\/devis\/sass\/base\/_forms\.scss}line{font-family:\00003476}}
 fieldset.group-address-extra {
   background: none;
   margin-top: 0;
   padding: 0; }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Applications\/MAMP\/htdocs\/3devis\/sites\/all\/themes\/devis\/sass\/base\/_forms\.scss}line{font-family:\00003424}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Applications\/MAMP\/htdocs\/3devis\/sites\/all\/themes\/devis\/sass\/base\/_forms\.scss}line{font-family:\00003484}}
 div#edit-actions input {
   margin: 0; }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Applications\/MAMP\/htdocs\/3devis\/sites\/all\/themes\/devis\/sass\/base\/_forms\.scss}line{font-family:\00003428}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Applications\/MAMP\/htdocs\/3devis\/sites\/all\/themes\/devis\/sass\/base\/_forms\.scss}line{font-family:\00003488}}
 div#edit-actions a {
   padding: 0px 16px;
   padding: 0rem 1rem; }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Applications\/MAMP\/htdocs\/3devis\/sites\/all\/themes\/devis\/sass\/base\/_forms\.scss}line{font-family:\00003433}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Applications\/MAMP\/htdocs\/3devis\/sites\/all\/themes\/devis\/sass\/base\/_forms\.scss}line{font-family:\00003493}}
 form.confirmation {
   line-height: 24px;
   line-height: 1.5rem; }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Applications\/MAMP\/htdocs\/3devis\/sites\/all\/themes\/devis\/sass\/base\/_forms\.scss}line{font-family:\00003442}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Applications\/MAMP\/htdocs\/3devis\/sites\/all\/themes\/devis\/sass\/base\/_forms\.scss}line{font-family:\00003502}}
 .button,
 button,
 input[type="submit"]#edit-cancel,
@@ -980,23 +1038,23 @@ input[type="button"] {
   margin-right: 16px;
   margin-right: 1rem; }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Applications\/MAMP\/htdocs\/3devis\/sites\/all\/themes\/devis\/sass\/base\/_forms\.scss}line{font-family:\00003450}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Applications\/MAMP\/htdocs\/3devis\/sites\/all\/themes\/devis\/sass\/base\/_forms\.scss}line{font-family:\00003510}}
 div.form-type-link-field {
   margin-bottom: 0; }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Applications\/MAMP\/htdocs\/3devis\/sites\/all\/themes\/devis\/sass\/base\/_forms\.scss}line{font-family:\00003454}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Applications\/MAMP\/htdocs\/3devis\/sites\/all\/themes\/devis\/sass\/base\/_forms\.scss}line{font-family:\00003514}}
 select[name*='field_approval'], select[name^='field_approval'],
 select[name*='field_devis_product'], select[name^='field_devis_product'] {
   width: 100px; }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Applications\/MAMP\/htdocs\/3devis\/sites\/all\/themes\/devis\/sass\/base\/_forms\.scss}line{font-family:\00003459}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Applications\/MAMP\/htdocs\/3devis\/sites\/all\/themes\/devis\/sass\/base\/_forms\.scss}line{font-family:\00003519}}
 .counter {
   margin: 4px 0px 0px;
   margin: 0.25rem 0rem 0rem;
   font-size: 11.2px;
   font-size: 0.7rem;
   font-weight: 200; }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Applications\/MAMP\/htdocs\/3devis\/sites\/all\/themes\/devis\/sass\/base\/_forms\.scss}line{font-family:\00003464}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Applications\/MAMP\/htdocs\/3devis\/sites\/all\/themes\/devis\/sass\/base\/_forms\.scss}line{font-family:\00003524}}
   .counter.messages.warning, .counter.error {
     font-weight: 400;
     background: 0;
@@ -1006,44 +1064,44 @@ select[name*='field_devis_product'], select[name^='field_devis_product'] {
     color: red;
     margin: 0; }
   @media (min-width: 384px) {
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Applications\/MAMP\/htdocs\/3devis\/sites\/all\/themes\/devis\/sass\/base\/_forms\.scss}line{font-family:\00003459}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Applications\/MAMP\/htdocs\/3devis\/sites\/all\/themes\/devis\/sass\/base\/_forms\.scss}line{font-family:\00003519}}
     .counter {
       font-size: 12.8px;
       font-size: 0.8rem; } }
   @media (min-width: 704px) {
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Applications\/MAMP\/htdocs\/3devis\/sites\/all\/themes\/devis\/sass\/base\/_forms\.scss}line{font-family:\00003459}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Applications\/MAMP\/htdocs\/3devis\/sites\/all\/themes\/devis\/sass\/base\/_forms\.scss}line{font-family:\00003519}}
     .counter {
       font-size: 13.6px;
       font-size: 0.85rem; } }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Applications\/MAMP\/htdocs\/3devis\/sites\/all\/themes\/devis\/sass\/base\/_forms\.scss}line{font-family:\00003482}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Applications\/MAMP\/htdocs\/3devis\/sites\/all\/themes\/devis\/sass\/base\/_forms\.scss}line{font-family:\00003542}}
 input#edit-register.form-submit {
   margin-top: 19.2px;
   margin-top: 1.2rem; }
   @media (min-width: 384px) {
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Applications\/MAMP\/htdocs\/3devis\/sites\/all\/themes\/devis\/sass\/base\/_forms\.scss}line{font-family:\00003482}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Applications\/MAMP\/htdocs\/3devis\/sites\/all\/themes\/devis\/sass\/base\/_forms\.scss}line{font-family:\00003542}}
     input#edit-register.form-submit {
       margin-top: 0; } }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Applications\/MAMP\/htdocs\/3devis\/sites\/all\/themes\/devis\/sass\/base\/_forms\.scss}line{font-family:\00003489}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Applications\/MAMP\/htdocs\/3devis\/sites\/all\/themes\/devis\/sass\/base\/_forms\.scss}line{font-family:\00003549}}
 .confirm-parent {
   margin-bottom: 0; }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Applications\/MAMP\/htdocs\/3devis\/sites\/all\/themes\/devis\/sass\/base\/_forms\.scss}line{font-family:\00003493}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Applications\/MAMP\/htdocs\/3devis\/sites\/all\/themes\/devis\/sass\/base\/_forms\.scss}line{font-family:\00003553}}
 .views-exposed-form .views-exposed-widget {
   float: none;
   display: inline-block;
   vertical-align: bottom; }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Applications\/MAMP\/htdocs\/3devis\/sites\/all\/themes\/devis\/sass\/base\/_forms\.scss}line{font-family:\00003497}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Applications\/MAMP\/htdocs\/3devis\/sites\/all\/themes\/devis\/sass\/base\/_forms\.scss}line{font-family:\00003557}}
   .views-exposed-form .views-exposed-widget label {
     float: none; }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Applications\/MAMP\/htdocs\/3devis\/sites\/all\/themes\/devis\/sass\/base\/_forms\.scss}line{font-family:\00003502}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Applications\/MAMP\/htdocs\/3devis\/sites\/all\/themes\/devis\/sass\/base\/_forms\.scss}line{font-family:\00003562}}
 .commerce-backoffice-view .views-exposed-form label {
   float: none; }
 
 /* Autocomplete. */
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Applications\/MAMP\/htdocs\/3devis\/sites\/all\/themes\/devis\/sass\/base\/_forms\.scss}line{font-family:\00003507}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Applications\/MAMP\/htdocs\/3devis\/sites\/all\/themes\/devis\/sass\/base\/_forms\.scss}line{font-family:\00003567}}
 div#autocomplete {
   color: #002c52;
   background: white;
@@ -1056,7 +1114,7 @@ div#autocomplete {
   -webkit-box-shadow: 0px 1px 5px rgba(0, 0, 0, 0.05);
   -moz-box-shadow: 0px 1px 5px rgba(0, 0, 0, 0.05);
   box-shadow: 0px 1px 5px rgba(0, 0, 0, 0.05); }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Applications\/MAMP\/htdocs\/3devis\/sites\/all\/themes\/devis\/sass\/base\/_forms\.scss}line{font-family:\00003514}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Applications\/MAMP\/htdocs\/3devis\/sites\/all\/themes\/devis\/sass\/base\/_forms\.scss}line{font-family:\00003574}}
   div#autocomplete li {
     font-family: "Source Sans Pro", Helvetica, Arial, sans-serif;
     font-weight: 400;
@@ -1070,7 +1128,7 @@ div#autocomplete {
     background-image: -moz-linear-gradient(#ffffff, #fbfbfb);
     background-image: -o-linear-gradient(#ffffff, #fbfbfb);
     background-image: linear-gradient(#ffffff, #fbfbfb); }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Applications\/MAMP\/htdocs\/3devis\/sites\/all\/themes\/devis\/sass\/base\/_forms\.scss}line{font-family:\00003521}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Applications\/MAMP\/htdocs\/3devis\/sites\/all\/themes\/devis\/sass\/base\/_forms\.scss}line{font-family:\00003581}}
     div#autocomplete li.selected {
       color: white;
       background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, rgba(46, 158, 255, 0.8)), color-stop(100%, rgba(0, 120, 224, 0.8)));
@@ -1079,29 +1137,29 @@ div#autocomplete {
       background-image: -o-linear-gradient(rgba(46, 158, 255, 0.8), rgba(0, 120, 224, 0.8));
       background-image: linear-gradient(rgba(46, 158, 255, 0.8), rgba(0, 120, 224, 0.8)); }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Applications\/MAMP\/htdocs\/3devis\/sites\/all\/themes\/devis\/sass\/base\/_forms\.scss}line{font-family:\00003529}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Applications\/MAMP\/htdocs\/3devis\/sites\/all\/themes\/devis\/sass\/base\/_forms\.scss}line{font-family:\00003589}}
 html.js input.form-autocomplete {
   /*background-image: url(path-to-your/loader.gif); /* tweak this according to your gif */
   background-position: 100% 10px;
   background-repeat: no-repeat; }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Applications\/MAMP\/htdocs\/3devis\/sites\/all\/themes\/devis\/sass\/base\/_forms\.scss}line{font-family:\00003535}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Applications\/MAMP\/htdocs\/3devis\/sites\/all\/themes\/devis\/sass\/base\/_forms\.scss}line{font-family:\00003595}}
 html.js input.throbbing {
   background-position: 100% -13px; }
 
 /* Draggable objects */
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Applications\/MAMP\/htdocs\/3devis\/sites\/all\/themes\/devis\/sass\/base\/_forms\.scss}line{font-family:\00003542}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Applications\/MAMP\/htdocs\/3devis\/sites\/all\/themes\/devis\/sass\/base\/_forms\.scss}line{font-family:\00003602}}
 .tabledrag-handle .handle {
   margin: 0;
   padding: 0;
   background-position: 0px 0px;
   background-repeat: no-repeat; }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Applications\/MAMP\/htdocs\/3devis\/sites\/all\/themes\/devis\/sass\/base\/_forms\.scss}line{font-family:\00003551}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Applications\/MAMP\/htdocs\/3devis\/sites\/all\/themes\/devis\/sass\/base\/_forms\.scss}line{font-family:\00003611}}
 .tabledrag-handle-hover .handle {
   background-position: 0px -20px; }
 
 /* these apply to all ajax progresses */
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Applications\/MAMP\/htdocs\/3devis\/sites\/all\/themes\/devis\/sass\/base\/_forms\.scss}line{font-family:\00003557}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Applications\/MAMP\/htdocs\/3devis\/sites\/all\/themes\/devis\/sass\/base\/_forms\.scss}line{font-family:\00003617}}
 .ajax-progress {
     /*display: inline-block;
     *display: inline;

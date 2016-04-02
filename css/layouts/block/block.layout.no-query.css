@@ -153,7 +153,7 @@
 @media -sass-debug-info{filename{font-family:file\:\/\/\/Applications\/MAMP\/htdocs\/3devis\/sites\/all\/themes\/devis\/sass\/layouts\/block\/block\.layout\.scss}line{font-family:\00003315}}
 .l-content-block fieldset.devenir-comptable, .l-content-block fieldset.demander-devis,
 .l-content-block fieldset.group-admin, .l-content-block fieldset.group-contact-form,
-.l-content-block div#edit-field-adresse, .l-content-block div#edit-actions, .l-content-block div#messages-box, .l-content-block div.pane-page-messages,
+.l-content-block div#edit-actions, .l-content-block div#messages-box, .l-content-block div.pane-page-messages,
 .l-content-block .field--extra-text {
   width: 94.44444%;
   float: right;
