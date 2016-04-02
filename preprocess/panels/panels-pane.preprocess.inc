@@ -45,6 +45,14 @@ function devis_preprocess_panels_pane(&$variables) {
     $type = trois_devis_get_entityform_label($element['#bundle']);
     $variables['title'] = t('@type @entityform_type request @id', array('@id' => $entityform_id, '@entityform_type' => $entityform_type, '@type' => $type));
     $variables['content']['system_main']['entityform'][$entityform_id]['info']['user']['#markup'] = 'Submitted on '. format_date($element['#entity']->created, 'medium', '', NULL, 'en');
+    
+    // This shouldn't happen as these fields are public.
+    if (isset($variables['content']['system_main']['entityform'][$entityform_id]['field_photo_copyright_other'])) {
+      $variables['content']['system_main']['entityform'][$entityform_id]['field_photo_copyright_other']['#access'] = TRUE;
+    }
+    if (isset($variables['content']['system_main']['entityform'][$entityform_id]['field_photo_format_other'])) {
+      $variables['content']['system_main']['entityform'][$entityform_id]['field_photo_format_other']['#access'] = TRUE;
+    }
   }
   
   // Modify user name on title.

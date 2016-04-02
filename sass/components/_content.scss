@@ -160,6 +160,13 @@ div#commerce-addressbook-billing-default {
   }
 }
 
+.entityform-budget-photographer {
+  .field--adresse {
+    margin-bottom: 0;
+    padding-bottom: 0 !important;
+  }
+}
+
 .pager {
   @include rem-fallback(margin-top, 1rem);
 }

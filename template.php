@@ -568,7 +568,8 @@ function devis_form_budget_photographer_entityform_edit_form_alter(&$form, &$for
   $lang = $form['field_adresse']['#language'];
   unset($form['field_adresse'][$lang][0]['element_description']);
   $desc = $form['field_adresse'][$lang]['#description'];
-  $form['field_adresse'][$lang][0]['locality_block']['postal_code']['#description'] = $desc;
+  $form['field_adresse'][$lang][0]['street_block']['thoroughfare']['#title'] = t('Event address');
+  //$form['field_adresse'][$lang][0]['street_block']['thoroughfare']['#description'] = $desc;
   
   // Extra validation rules.
   $form['#validate'][] = 'devis_budget_photographer_entityform_edit_form_validate';
@@ -596,8 +597,7 @@ function devis_budget_photographer_entityform_edit_form_validate($form, &$form_s
     $lang = key($values['field_adresse']);
     $postal_code = $values['field_adresse'][$lang][0]['postal_code'];
     $regions = trois_devis_get_region_by_postal_code($postal_code) .'+BEL';
-    $result = views_get_view_result('provider', 'photographers_to_contact', $event_type, $regions);
-    
+    $result = views_get_view_result('provider', 'photographers_to_contact', $event_type, $regions);    
     if (empty($result)) {
       form_set_error('field_approval]['. $lang .'][0][value', t('This budget request cannot be approved yet. There are no providers to contact which match the specified parameters.'));
     }
