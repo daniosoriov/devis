@@ -47,6 +47,29 @@ function devis_preprocess_views_view_table(&$variables) {
             $link = l($id, 'devis_info/'. $res->devis_provider_assoc_url_info, array('attributes' => array('target'=>'_blank')));
             $variables['rows'][$key]['entityform_id'] = $link;
             
+            $pieces = explode(' ', $variables['rows'][$key]['type']);
+            $type = array_pop($pieces);
+            $type_specific = '';
+            switch ($type) {
+              case 'comptable':
+                $type_specific = $res->field_field_legal_status[0]['rendered']['#markup'];
+                break;
+
+              case 'photographe':
+                $type_specific = $res->field_field_event_type[0]['rendered']['#markup'];
+                break;
+            }
+            switch ($variables['view']->current_display) {
+              case 'budgets_accepted_by_user':
+                $type = $type_specific;
+                break;
+                
+              case 'budgets_accepted_admin':
+                $type = ucwords($type) .' - '. $type_specific;
+                break;
+            }
+            $variables['rows'][$key]['type'] = $type;
+            
             // Put the price in the row.
             if ($entityform->field_devis_product) {
               $field = field_get_items('entityform', $entityform, 'field_devis_product');
