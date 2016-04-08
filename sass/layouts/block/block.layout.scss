@@ -141,6 +141,10 @@
       background-image: url(https://3devis.be/sites/default/files/pictures/devis.jpg);
     }
     
+    &.devenir-fournisseur {
+      background-image: url(https://3devis.be/sites/default/files/pictures/devenir.jpg);
+    }
+    
     &.devis {
       background-image: url(https://3devis.be/sites/default/files/pictures/devis.jpg);
     }
@@ -361,7 +365,7 @@
     }
   }
   
-  fieldset.devenir-comptable, fieldset.demander-devis, 
+  fieldset.devenir-comptable, fieldset.demander-devis,
   fieldset.group-admin, fieldset.group-contact-form,
   div#edit-actions, div#messages-box, div.pane-page-messages,
   .field--extra-text {

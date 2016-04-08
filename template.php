@@ -312,6 +312,10 @@ function devis_form_alter(&$form, &$form_state, $form_id) {
           if (isset($form['field_provider_type_tid'])) {
             $form['field_provider_type_tid']['#description'] = '';
           }
+          if (isset($form['type'])) {
+            $form['type']['#options']['budget_profile'] = 'Not in limbo';
+            $form['type']['#options']['in_limbo'] = 'In limbo';
+          }
           break;
           
         case 'views-exposed-form-budget-provider-association-budgets-accepted-admin':
