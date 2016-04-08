@@ -63,7 +63,7 @@
     }
   }
   
-  h3.field-label {
+  h3.field-label, div.field-label {
     @include rem-fallback(font-size, 1rem);
     @include rem-fallback(line-height, 1.5rem);
     @include rem-fallback(padding-bottom, .5rem);
@@ -73,6 +73,11 @@
       @include rem-fallback(line-height, 1.9rem);
       padding-bottom: 0;
     }
+  }
+  
+  div.field-label {
+    font-weight: 600;
+    @include rem-fallback(margin-bottom, .5rem);
   }
   
   div.submitted {

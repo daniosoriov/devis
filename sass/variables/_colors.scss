@@ -263,6 +263,9 @@ $color-font-h: lighten(black, 15);
 $color-font-h2: darken($base-color, 3.5);//lighten(black, 15);
 $color-font-content-h3-field: lighten(black, 35);
 
+// Demandez un devis general
+$color-service-go-background: fade-out($green-base, .25);
+
 /* Misc */
 $color-inactive-account: $red;
 $color-addressbook-border: darken(white, 5);

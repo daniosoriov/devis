@@ -58,7 +58,7 @@
       display: inherit;
       height: 48px;
       width: 48px;
-      background-image: url(http://3devis.be/sites/default/files/pictures/arrows-down.png);
+      background-image: url(https://3devis.be/sites/default/files/pictures/arrows-down.png);
       background-size: 48px;
       background-position: 0 100%;
       position: absolute;
@@ -134,15 +134,19 @@
     background-repeat: no-repeat;
     
     &.about {
-      background-image: url(http://3devis.be/sites/default/files/pictures/about.jpg);
+      background-image: url(https://3devis.be/sites/default/files/pictures/about.jpg);
+    }
+    
+    &.demandez-devis {
+      background-image: url(https://3devis.be/sites/default/files/pictures/devis.jpg);
     }
     
     &.devis {
-      background-image: url(http://3devis.be/sites/default/files/pictures/devis.jpg);
+      background-image: url(https://3devis.be/sites/default/files/pictures/devis.jpg);
     }
     
     &.devenir {
-      background-image: url(http://3devis.be/sites/default/files/pictures/devenir.jpg);
+      background-image: url(https://3devis.be/sites/default/files/pictures/devenir.jpg);
     }
     
     article.text-box {
@@ -251,6 +255,51 @@
       h3.title {
         color: $color-font-title;
         font-weight: 400;
+      }
+    }
+    article.boxes_services {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      max-width: $max-width;
+      margin: 32px auto 48px;
+      a.service {
+        flex: 1 0 220px;
+        text-align: center;
+        @include border-radius();
+        @include single-box-shadow();
+        @include rem-fallback(margin, 1rem);
+        display: flex;
+        flex-direction: column;
+        min-height: 180px;
+        
+        .service-title {
+          @include rem-fallback(padding, .75rem);
+          color: $color-navigation-a;
+          background: $color-navigation-background;
+          @include border-top-radius();
+        }
+        .service-image {
+          background: $color-block-background-gray url("https://3devis.be/sites/default/files/pictures/devenir.jpg") no-repeat scroll 0% 0%;
+          background-size: cover;
+          flex: 0 1 auto;
+          align-self: center;
+          width: 100%;
+          height: 100%;
+          @include border-bottom-radius();
+          .service-go {
+            background-color: $color-service-go-background;
+            color: $color-navigation-a;
+            height: 100%;
+            padding: 21% 0;
+            font-weight: 400;
+            @include breakpoint($desktop) {
+              display: none;
+              @include rem-fallback(font-size, 1.5rem);
+              @include rem-fallback(line-height, 1.8rem);
+            }
+          }
+        }
       }
     }
     

@@ -147,6 +147,10 @@
         }
       });
       
+      if (document.getElementsByClassName("add_one_social_service")) {
+        $(".add_one_social_service").addClass("dropdown");
+      }
+      
       if (typeof easyDropDown != 'undefined' && $.isFunction(easyDropDown)) {
         // deactivate easydropdown on mobile devices.
         if ($(window).width() <= 384) {
@@ -236,6 +240,24 @@
         })
       });
       
+    }
+  };
+  
+  Drupal.behaviors.devisDemandezDevisServices = {
+    attach: function (context, settings) {
+      if (document.getElementsByClassName("boxes_services")) {
+        var imagePath = 'https://3devis.be/sites/default/files/pictures/';
+        $("a.service").each(function() {
+          var image = $( this ).data( "image" );
+          if (image != 'coming') {
+            $( this ).find('.service-image').css('background-image', 'url(' + imagePath + image + '.jpg)');
+          }
+        }).hover(function() {
+          if ($(window).width() >= 1088) $(this).find(".service-go").show("fast");
+        }, function() {
+          if ($(window).width() >= 1088) $(this).find(".service-go").hide("fast");
+        });
+      }
     }
   };
     

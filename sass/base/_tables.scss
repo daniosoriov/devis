@@ -79,3 +79,53 @@ tbody {
     }
   }
 }
+
+#social-field-wrapper {
+  .tabledrag-toggle-weight-wrapper {
+    display: none;
+  }
+  table#socialfield-table {
+    @include rem-fallback(margin, .5rem);
+    thead {
+      background: transparent;
+    }
+    tr {
+      border-bottom: 1px solid $color-tbody-tr-background-even;
+      &.even, &.odd, &:hover {
+        background: none;
+      }
+    }
+    td {
+      &:first-of-type {
+        width: 10%;
+        text-align: center;
+      }
+      input[type="text"] {
+        width: 100%;
+      }
+      input[type="submit"] {
+        @include rem-fallback(margin, .5rem, 0);
+        @include rem-fallback(padding, .3rem, 1rem);
+      }
+      &:last-of-type {
+        width: 48%;
+      }
+      a.tabledrag-handle {
+        display: none;
+      }
+      i {
+        @include rem-fallback(padding, .3rem, .2rem);
+        @include border-radius(.2rem);
+      }
+    }
+  }
+}
+.l-content-block {
+  table#socialfield-table {
+    td {
+      &:last-of-type {
+        width: 50% !important;
+      }
+    }
+  }
+}

@@ -1400,6 +1400,11 @@ function devis_user_profile_form_submit($form, &$form_state) {
 
 function devis_form_user_profile_form_after_build($form, &$form_state) {
   $form['field_website'][$form['field_website']['#language']][0]['url']['#attributes']['placeholder'] = 'www.siteweb.com';
+  
+  if (isset($form['field_social_link'])) {
+    $lang = $form['field_social_link']['#language'];
+    $form['field_social_link'][$lang]['social_buttons']['add_one_social']['#attributes']['class'][] = 'dropdown';
+  }
   return $form;
 }
 

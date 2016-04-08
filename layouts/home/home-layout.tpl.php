@@ -7,7 +7,7 @@
       <div class="l-region-custom l-region--header-custom">
         <div class="panel-pane-custom pane-page-logo-custom">
           <a id="logo" title="<?php print t('3devis') ?>" rel="home" href="/">
-            <img src="http://3devis.be/sites/default/files/comptable-fiscaliste-bruxelles.png" alt="<?php print t('3devis'); ?>" />
+            <img src="https://3devis.be/sites/default/files/comptable-fiscaliste-bruxelles.png" alt="<?php print t('3devis'); ?>" />
           </a>
         </div>
       </div>
